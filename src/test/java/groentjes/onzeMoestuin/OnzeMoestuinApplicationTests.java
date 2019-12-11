@@ -21,12 +21,12 @@ class OnzeMoestuinApplicationTests {
 		assertTrue(user.getName().equals("Batman"));
 	}
 
-	@Test
-	public void testSetPassword() {
-		User user = new User();
-		user.setPassword("OJ@#$!0*");
-		assertTrue(user.getPassword().equals("ABC#1"));
-	}
+//	@Test
+//	public void testSetPassword() {
+//		User user = new User();
+//		user.setPassword("OJ@#$!0*");
+//		assertTrue(user.getPassword().equals("ABC#1"));
+//	}
 
 
 }
