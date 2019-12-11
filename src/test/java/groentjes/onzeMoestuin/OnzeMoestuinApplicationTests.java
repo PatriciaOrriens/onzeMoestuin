@@ -3,30 +3,55 @@ package groentjes.onzeMoestuin;
 import groentjes.onzeMoestuin.model.User;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OnzeMoestuinApplicationTests {
 
 	@Test
-	public void testSetUserId() {
-		User user = new User();
-		user.setUserId(4);
-		assertTrue(user.getUserId() == 1);
+	public void testUserName0() {
+		// Arrange
+		User user0 = new User();
+
+		// Activate
+		user0.setUserName("Batman");
+
+		// Assert
+		assertEquals("Batman", user0.getUserName());
 	}
 
 	@Test
-	public void testSetName() {
-		User user = new User();
-		user.setName("Robin");
-		assertTrue(user.getName().equals("Batman"));
+	public void testUserName1() {
+		// Arrange
+		User user1 = new User();
+
+		// Activate
+		user1.setUserName("");
+
+		// Assert
+		assertEquals("", user1.getUserName());
 	}
 
-//	@Test
-//	public void testSetPassword() {
-//		User user = new User();
-//		user.setPassword("OJ@#$!0*");
-//		assertTrue(user.getPassword().equals("ABC#1"));
-//	}
+	@Test
+	public void testPassword0() {
+		// Arrange
+		User user0 = new User();
 
+		// Activate
+		user0.setPassword("%^&9BuRq");
 
+		// Assert
+		assertEquals("%^&9BuRq", user0.getPassword());
+	}
+
+	@Test
+	public void Password1() {
+		// Arrange
+		User user1 = new User();
+
+		// Activate
+		user1.setPassword("");
+
+		// Assert
+		assertEquals("", user1.getPassword());
+	}
 }
