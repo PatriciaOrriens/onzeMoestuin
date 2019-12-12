@@ -14,8 +14,8 @@ public class Garden {
     private Integer width;
 
     // change later into @OneToMany, for several users can make use of one garden
-    @OneToOne
-    private User user;
+    //@OneToOne
+    //private User user;
 
     public Garden() {
     }
@@ -53,11 +53,11 @@ public class Garden {
         this.gardenName = gardenName;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }
