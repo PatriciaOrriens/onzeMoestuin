@@ -1,53 +1,18 @@
 package groentjes.onzeMoestuin.model;
 
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-@Entity (name = "User")
-public class User implements UserDetails {
+@Entity
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userId;
 
     @Column(unique = true)
-    private String username;
+    private String userName;
 
     private String password;
-
-    @Override
-    public Collection<GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return authorities;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
     public Integer getUserId() {
         return userId;
@@ -57,13 +22,12 @@ public class User implements UserDetails {
         this.userId = userId;
     }
 
-    @Override
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
     public void setUserName(String userName) {
-        this.username = userName;
+        this.userName = userName;
     }
 
     public String getPassword() {

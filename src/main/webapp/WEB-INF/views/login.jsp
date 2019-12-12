@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Register</title>
-        <link href="resources/css/register.css" rel="stylesheet">
+        <title>Login</title>
+         <link href="resources/css/login.css" rel="stylesheet">
     </head>
     <body>
         <div class="container">
@@ -16,7 +16,7 @@
                     <form:input path="password" type="password" placeholder="password"/>
                     <br/>
                     <br/>
-                    <input type="submit" value="Register"/>
+                    <input type="submit" value="Login"/>
                 </form:form>
             </div>
         </div>
