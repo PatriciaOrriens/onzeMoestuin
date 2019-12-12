@@ -18,12 +18,12 @@ public class Plant {
     private Point coordinate;
     private boolean sown;
     private Date startDate;
-
+//
 //    @ManyToOne
-    private Garden garden;
+//    private Garden garden;
 
-    //foreign key
-    private PlantInformation plantInfo;
+    // foreign key
+//    private PlantInformation plantInfo;
 
     // getters and setters
     public Integer getPlantId() {
@@ -58,19 +58,19 @@ public class Plant {
         this.startDate = startDate;
     }
 
-    public Garden getGarden() {
-        return garden;
-    }
+//    public Garden getGarden() {
+//        return garden;
+//    }
+//
+//    public void setGarden(Garden garden) {
+//        this.garden = garden;
+//    }
 
-    public void setGarden(Garden garden) {
-        this.garden = garden;
-    }
-
-    public PlantInformation getPlantInfo() {
-        return plantInfo;
-    }
-
-    public void setPlantInfo(PlantInformation plantInfo) {
-        this.plantInfo = plantInfo;
-    }
+//    public PlantInformation getPlantInfo() {
+//        return plantInfo;
+//    }
+//
+//    public void setPlantInfo(PlantInformation plantInfo) {
+//        this.plantInfo = plantInfo;
+//    }
 }
