@@ -1,9 +1,6 @@
 package groentjes.onzeMoestuin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Garden {
@@ -12,8 +9,16 @@ public class Garden {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer gardenId;
 
+    private String gardenName;
     private Integer length;
     private Integer width;
+
+    // change later into @OneToMany, for several users can make use of one garden
+    @OneToOne
+    private User user;
+
+    public Garden() {
+    }
 
     // getters and setters
     public Integer getGardenId() {
@@ -38,5 +43,21 @@ public class Garden {
 
     public void setWidth(Integer width) {
         this.width = width;
+    }
+
+    public String getGardenName() {
+        return gardenName;
+    }
+
+    public void setGardenName(String gardenName) {
+        this.gardenName = gardenName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
