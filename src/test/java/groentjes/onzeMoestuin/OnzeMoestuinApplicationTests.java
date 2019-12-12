@@ -16,7 +16,7 @@ class OnzeMoestuinApplicationTests {
 		user0.setUserName("Batman");
 
 		// Assert
-		assertEquals("Batman", user0.getUserName());
+		assertEquals("Batman", user0.getUsername());
 	}
 
 	@Test
@@ -28,7 +28,7 @@ class OnzeMoestuinApplicationTests {
 		user1.setUserName("");
 
 		// Assert
-		assertEquals("", user1.getUserName());
+		assertEquals("", user1.getUsername());
 	}
 
 	@Test
