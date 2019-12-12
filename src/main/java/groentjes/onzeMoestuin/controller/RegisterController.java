@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * De Controller klasse voor het scherm om als aspirant gebruiker een gebruikersaccount aan te maken
  */
 @Controller
-public class SignInController {
+public class RegisterController {
 
     @Autowired
     private UserRepository userRepository;

@@ -13,10 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class SignInControllerTest {
+class RegisterControllerTest {
 
     @Autowired
-    private SignInController signInController;
+    private RegisterController registerController;
 
     @Test
     void testRegisterUser() {
@@ -24,7 +24,7 @@ class SignInControllerTest {
         String verwachteString = "redirect:/login";
 
         // Activate
-        String gevondenString = signInController.registerUser("testUser", "testPassword");
+        String gevondenString = registerController.registerUser("testUser", "testPassword");
 
         // Assert
         Assertions.assertEquals(verwachteString, gevondenString);
