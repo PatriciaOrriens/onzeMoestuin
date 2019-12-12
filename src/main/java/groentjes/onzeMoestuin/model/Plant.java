@@ -23,7 +23,7 @@ public class Plant {
     @ManyToOne
     private Garden garden;
 
-    // foreign key
+    //foreign key
     private PlantInformation plantInfo;
 
     // getters and setters

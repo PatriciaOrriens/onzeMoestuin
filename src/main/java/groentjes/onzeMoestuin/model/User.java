@@ -1,9 +1,8 @@
 package groentjes.onzeMoestuin.model;
 
-
 import javax.persistence.*;
 
-@Entity (name = "User")
+@Entity
 public class User {
 
     @Id
