@@ -9,7 +9,6 @@ import java.util.Date;
  * The Plant class concerns a plant placed in the garden of a user(users).
  */
 @Entity
-@Table(name = "plant", catalog = "OnzeMoestuin")
 public class Plant {
 
     @Id
@@ -20,7 +19,7 @@ public class Plant {
     private boolean sown;
     private Date startDate;
 
-    @ManyToOne
+//    @ManyToOne
     private Garden garden;
 
     //foreign key
