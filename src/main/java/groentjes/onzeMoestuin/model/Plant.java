@@ -1,13 +1,15 @@
 package groentjes.onzeMoestuin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.awt.*;
 import java.util.Date;
 
+/**
+ * @author Patricia Orriens-Spuij and Eric van Dalen
+ * The Plant class concerns a plant placed in the garden of a user(users).
+ */
 @Entity
+@Table(name = "plant", catalog = "OnzeMoestuin")
 public class Plant {
 
     @Id
@@ -18,12 +20,11 @@ public class Plant {
     private boolean sown;
     private Date startDate;
 
-    //TODO Temporarily commented oud for testing
+    @ManyToOne
+    private Garden garden;
+
     // foreign key
-//    private Garden garden;
-//
-//    // foreign key
-//    private PlantInformation plantInfo;
+    private PlantInformation plantInfo;
 
     // getters and setters
     public Integer getPlantId() {
@@ -58,21 +59,19 @@ public class Plant {
         this.startDate = startDate;
     }
 
-    //TODO Temporarily commented oud for testing
+    public Garden getGarden() {
+        return garden;
+    }
 
-//        public Garden getGarden() {
-//        return garden;
-//    }
-//
-//    public void setGarden(Garden garden) {
-//        this.garden = garden;
-//    }
-//
-//    public PlantInformation getPlantInfo() {
-//        return plantInfo;
-//    }
-//
-//    public void setPlantInfo(PlantInformation plantInfo) {
-//        this.plantInfo = plantInfo;
-//    }
+    public void setGarden(Garden garden) {
+        this.garden = garden;
+    }
+
+    public PlantInformation getPlantInfo() {
+        return plantInfo;
+    }
+
+    public void setPlantInfo(PlantInformation plantInfo) {
+        this.plantInfo = plantInfo;
+    }
 }
