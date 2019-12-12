@@ -18,11 +18,12 @@ public class Plant {
     private boolean sown;
     private Date startDate;
 
+    //TODO Temporarily commented oud for testing
     // foreign key
-    private Garden garden;
-
-    // foreign key
-    private PlantInformation plantInfo;
+//    private Garden garden;
+//
+//    // foreign key
+//    private PlantInformation plantInfo;
 
     // getters and setters
     public Integer getPlantId() {
@@ -57,19 +58,21 @@ public class Plant {
         this.startDate = startDate;
     }
 
-    public Garden getGarden() {
-        return garden;
-    }
+    //TODO Temporarily commented oud for testing
 
-    public void setGarden(Garden garden) {
-        this.garden = garden;
-    }
-
-    public PlantInformation getPlantInfo() {
-        return plantInfo;
-    }
-
-    public void setPlantInfo(PlantInformation plantInfo) {
-        this.plantInfo = plantInfo;
-    }
+//        public Garden getGarden() {
+//        return garden;
+//    }
+//
+//    public void setGarden(Garden garden) {
+//        this.garden = garden;
+//    }
+//
+//    public PlantInformation getPlantInfo() {
+//        return plantInfo;
+//    }
+//
+//    public void setPlantInfo(PlantInformation plantInfo) {
+//        this.plantInfo = plantInfo;
+//    }
 }

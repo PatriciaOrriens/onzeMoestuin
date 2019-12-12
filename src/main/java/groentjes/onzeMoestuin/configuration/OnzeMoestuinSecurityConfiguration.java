@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled = false)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
