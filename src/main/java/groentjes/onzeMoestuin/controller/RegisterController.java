@@ -34,6 +34,7 @@ public class RegisterController {
 //        return "redirect:/login";
 //    }
 
+    // if registry fails, new view+controller or in current view message about failure
     @PostMapping("/registerUser")
     public String saveNewUser(@ModelAttribute() User user, BindingResult result) {
         userRepository.save(user);
