@@ -8,3 +8,5 @@
     <c:import url="partials/style.jsp" />
 </head>
 <body>
+    <c:import url="partials/devnav.jsp" />
+    <div class="container">
