@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.Month;
 
 @Entity
 public class PlantInformation {
@@ -24,7 +23,7 @@ public class PlantInformation {
     private String plantingEnd;
     private String harvestingStart;
     private String harvestingEnd;
-    private Integer growTimeDays;
+    private Integer growTime;
     // private Image image;
 
     // getters and setters
@@ -124,11 +123,11 @@ public class PlantInformation {
         this.harvestingEnd = harvestingEnd;
     }
 
-    public Integer getGrowTimeDays() {
-        return growTimeDays;
+    public Integer getGrowTime() {
+        return growTime;
     }
 
-    public void setGrowTimeDays(Integer growTimeDays) {
-        this.growTimeDays = growTimeDays;
+    public void setGrowTime(Integer growTime) {
+        this.growTime = growTime;
     }
 }
