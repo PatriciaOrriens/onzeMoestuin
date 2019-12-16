@@ -25,14 +25,13 @@ public class AdminChangePlantInformation {
     @GetMapping("/adminchangeplantinfo")
     public String getPlantInfoForm(Model model) {
         model.addAttribute("plantInformation", new PlantInformation());
-/*
-        String[] monthList = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
-        "October", "November", "December"};
-        model.addAttribute("monthList", monthList);
+
+
+//        model.addAttribute("monthList", monthList);
 
       //  String[] lightingList = {"full sun", "sun", "partial sun/shade", "shade", "full shade"};
       //  model.addAttribute("lightingList", lightingList);
-*/
+
         return "adminChangePlantInformation";
     }
 
