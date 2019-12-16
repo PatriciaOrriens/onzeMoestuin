@@ -12,10 +12,12 @@ public class Garden {
     private String gardenName;
     private Integer length;
     private Integer width;
+    private Integer ownerId;
 
     // change later into @OneToMany, for several users can make use of one garden
-    //@OneToOne
-    //private User user;
+//    @OneToOne
+//    @JoinColumn(name = "ownerId", referencedColumnName = "userId")
+//    private User user;
 
     public Garden() {
     }
