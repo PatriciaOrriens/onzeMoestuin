@@ -1,15 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Moestuin toevoegen</title>
-    <c:import url="partials/style.jsp" />
+<c:import url="partials/header.jsp" />	
 
-</head>
-<body>
+
 	<h1>Nieuwe tuin aanmaken</h1>
 	<!-- JSTL form -->
     <form:form action="/garden/add" modelAttribute="garden">
@@ -27,6 +21,4 @@
         <form:button type="submit" class="btn btn-primary">Opslaan</form:button>
 	</form:form>
     
-    <c:import url="partials/script.jsp" />
-</body>
-</html>
+<c:import url="partials/footer.jsp" />
