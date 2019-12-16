@@ -11,31 +11,26 @@ import java.util.List;
 
 /**
  * @author Eric van Dalen
- * Controller klasse voor het Adminstrator dashboard om taken te selecteren.
+ * Controller class for the adminstrator dashboard to select administrator tasks.
  */
 @Controller
 public class AdminDashboard {
     private List<String> menuOptions = new ArrayList<>();
 
-    @PostMapping("/onzemoestuin/admindashboard")
+    @PostMapping("/doTask")
     public String doWelcomeMenu(String menuOption) {
         if(menuOption != null) {
             return "redirect:/" + menuOption;
         }
-        return "redirect:/onzemoestuin/admindashboard";
+        return "redirect:/adminDashboard";
     }
 
-    @GetMapping("/onzemoestuin/admindashboard")
+    @GetMapping("/adminDashboard")
     public String getMenu(Model model) {
         menuOptions.clear();
         menuOptions.add("manageUser");
         model.addAttribute("menuOptions", menuOptions);
-        return "onzemoestuin/admindashboard";
-    }
-
-    @PostMapping("/onzemoestuin/admindashboard")
-    public String backToMenu() {
-        return "redirect:/onzemoestuin/admindashboard";
+        return "adminDashboard";
     }
 }
 
