@@ -18,6 +18,8 @@ import java.util.List;
 public class AdminDashboard {
     private List<String> menuOptions = new ArrayList<>();
 
+
+
     @PostMapping("/doTask")
     public String doWelcomeMenu(String menuOption) {
         if(menuOption != null) {
@@ -30,9 +32,11 @@ public class AdminDashboard {
     @Secured("ROLE_ADMIN")
     public String getMenu(Model model) {
         menuOptions.clear();
-        menuOptions.add("manageUser");
+        menuOptions.add("adminManageUsersAndGardens");
         model.addAttribute("menuOptions", menuOptions);
         return "adminDashboard";
     }
+
+
 }
 

@@ -3,6 +3,7 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Eric van Dalen and Gjalt G. Wybenga
- * De Controller klasse voor het scherm om als aspirant gebruiker een gebruikersaccount aan te maken
+ * Controller class for a screen to register as a user and create your own user account
  */
 
 @Controller
 public class RegisterController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -25,20 +29,15 @@ public class RegisterController {
         return "register";
     }
 
-//    @PostMapping("/registerUser")
-//    public String registerUser(String userName, String password) {
-//        User newUser = new User();
-//        newUser.setUserName(userName);
-//        newUser.setPassword(password);
-//        userRepository.save(newUser);
-//        return "redirect:/login";
-//    }
-
-    // if registry fails, new view+controller or in current view message about failure
     @PostMapping("/registerUser")
     public String saveNewUser(@ModelAttribute() User user, BindingResult result) {
-        userRepository.save(user);
-        return "redirect:/login";
+        if(result.hasErrors()){
+            return "registerUser";
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+            return "redirect:/login";
+        }
     }
 }
 
