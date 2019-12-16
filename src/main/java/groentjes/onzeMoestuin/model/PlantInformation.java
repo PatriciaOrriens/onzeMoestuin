@@ -18,12 +18,12 @@ public class PlantInformation {
     private Integer plantingDistance;
     private String lighting;
     private String soilType;
-    private Month sowingStart;
-    private Month sowingEnd;
-    private Month plantingStart;
-    private Month plantingEnd;
-    private Month harvestingStart;
-    private Month harvestingEnd;
+    private String sowingStart;
+    private String sowingEnd;
+    private String plantingStart;
+    private String plantingEnd;
+    private String harvestingStart;
+    private String harvestingEnd;
     private Integer growTimeDays;
     // private Image image;
 
@@ -76,51 +76,51 @@ public class PlantInformation {
         this.soilType = soilType;
     }
 
-    public Month getSowingStart() {
+    public String getSowingStart() {
         return sowingStart;
     }
 
-    public void setSowingStart(Month sowingStart) {
+    public void setSowingStart(String sowingStart) {
         this.sowingStart = sowingStart;
     }
 
-    public Month getSowingEnd() {
+    public String getSowingEnd() {
         return sowingEnd;
     }
 
-    public void setSowingEnd(Month sowingEnd) {
+    public void setSowingEnd(String sowingEnd) {
         this.sowingEnd = sowingEnd;
     }
 
-    public Month getPlantingStart() {
+    public String getPlantingStart() {
         return plantingStart;
     }
 
-    public void setPlantingStart(Month plantingStart) {
+    public void setPlantingStart(String plantingStart) {
         this.plantingStart = plantingStart;
     }
 
-    public Month getPlantingEnd() {
+    public String getPlantingEnd() {
         return plantingEnd;
     }
 
-    public void setPlantingEnd(Month plantingEnd) {
+    public void setPlantingEnd(String plantingEnd) {
         this.plantingEnd = plantingEnd;
     }
 
-    public Month getHarvestingStart() {
+    public String getHarvestingStart() {
         return harvestingStart;
     }
 
-    public void setHarvestingStart(Month harvestingStart) {
+    public void setHarvestingStart(String harvestingStart) {
         this.harvestingStart = harvestingStart;
     }
 
-    public Month getHarvestingEnd() {
+    public String getHarvestingEnd() {
         return harvestingEnd;
     }
 
-    public void setHarvestingEnd(Month harvestingEnd) {
+    public void setHarvestingEnd(String harvestingEnd) {
         this.harvestingEnd = harvestingEnd;
     }
 
