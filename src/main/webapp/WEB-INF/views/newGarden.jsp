@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<c:import url="partials/header.jsp" />	
-
+<c:import url="partials/header.jsp" />
 
 	<h1>Nieuwe tuin aanmaken</h1>
 	<!-- JSTL form -->
