@@ -1,10 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
-<html xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Login</title>
-    <link href="resources/css/login.css" rel="stylesheet">
+    <title>ChangePlantInformation</title>
 </head>
 <body>
 <div class="container">
@@ -16,23 +14,64 @@
             <form:input path="latinName" type="text" placeholder="Latin name" class="latinName"/>
             <br/>
             <br/>
-            <form:input path="plantingDistance" type="number" placeholder="planting distance (cm)" class="plantingDistance"/>
+            <form:input path="plantingDistance" type="number" placeholder="plantingdistance(cm)" class="plantingDistance"/>
             <br/>
             <br/>
-            <form:select path="lighting" type="text" placeholder="lighting" class="lighting">
-                <select id="myList">
-                    <option value="sun">sun</option>
-                    <option value="shade">shade</option>
-                </select>
+            <form:select path="lighting" type="text" class="lighting">
+                <option>full sun</option>
+                <option>sun</option>
+                <option>partial shade</option>
+                <option>shade</option>
+                <option>full shade</option>
             </form:select>
             <br/>
             <br/>
-            <form:select path="sowingStart" type="text" placeholder="sowing start" class="sowingStart">
-                <form:options items="${monthList}" itemValue="month" itemLabel="month" />
+             <form:select path="soilType" type="text" class="soiltype">
+                <option>optionA</option>
+                <option>optionB</option>
+             </form:select>
+            <br/>
+            <br/>
+             <form:select path="sowingStart" type="text" class="sowingstart">
+            <option>optionA</option>
+            <option>optionB</option>
             </form:select>
             <br/>
             <br/>
-            <input type="submit" value="Login"/>
+            <form:select path="sowingEnd" type="text" class="sowingend">
+                <option>optionA</option>
+                <option>optionB</option>
+            </form:select>
+            <br/>
+            <br/>
+            <form:select path="plantingStart" type="text" class="plantingstart">
+                <option>optionA</option>
+                <option>optionB</option>
+            </form:select>
+            <br/>
+            <br/>
+            <form:select path="plantingEnd" type="text" class="plantingend">
+                <option>optionA</option>
+                <option>optionB</option>
+            </form:select>
+            <br/>
+            <br/>
+             <form:select path="harvestingStart" type="text" class="harvestingstart">
+                <option>optionA</option>
+                <option>optionB</option>
+            </form:select>
+            <br/>
+            <br/>
+            <form:select path="harvestingEnd" type="text" class="harvestingend">
+                <option>optionA</option>
+                <option>optionB</option>
+            </form:select>
+            <br/>
+            <br/>
+            <form:input path="growTime" type="number" placeholder="growtime(days)" class="growtime"/>
+            <br/>
+            <br/>
+            <input type="submit" value="Submit"/>
         </form:form>
     </div>
 </div>
