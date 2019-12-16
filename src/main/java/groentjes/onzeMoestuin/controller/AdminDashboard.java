@@ -1,5 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class AdminDashboard {
     }
 
     @GetMapping("/adminDashboard")
+    @Secured("ROLE_ADMIN")
     public String getMenu(Model model) {
         menuOptions.clear();
         menuOptions.add("manageUser");
