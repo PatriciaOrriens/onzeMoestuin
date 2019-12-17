@@ -4,11 +4,13 @@ import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
@@ -18,6 +20,9 @@ import java.util.Optional;
  */
 @Controller
 public class AdminManageUsersAndGardens {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -40,9 +45,21 @@ public class AdminManageUsersAndGardens {
         return "redirect:/adminManageUsersAndGardens";
     }
 
-    @GetMapping("/user/add")
-    public String createUser(){
-        return "redirect:/registerUser";
+    @GetMapping("/user/new")
+    @Secured("ROLE_ADMIN")
+    protected String showNewUserForm(Model model){
+        model.addAttribute("user", new User());
+        return "createUser";
     }
 
+    @PostMapping("/user/new")
+    protected String saveOrUpdateUser(@ModelAttribute("user") User user, BindingResult result){
+        if(result.hasErrors()){
+            return "createUser";
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+            return "redirect:/adminManageUsersAndGardens";
+        }
+    }
 }

@@ -14,7 +14,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <a href="/user/add">Add new user</a>
+        <a href="/user/new">Add new user</a>
         <h1></h1>
         <h1></h1>
         <a href="/adminDashboard">Back to task menu</a>
