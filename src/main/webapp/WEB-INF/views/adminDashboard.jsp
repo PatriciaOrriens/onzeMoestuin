@@ -13,7 +13,7 @@
             <tr><td></td><td><a href="/adminManageUsersAndGardens">Manage Users</a></td><td></td></tr>
             <tr><td></td><td><a href="/adminManagePlantInformation">Manage Plant Information</a></td><td></td></tr>
             <tr><td></td><td>.</td><td></td></tr>
-            <tr><td><form action="/logout"><input type="submit" name="logoutButton" value="Logout"></form></td><td></td><td></td></tr>
+            <tr><td><form action="/logout"><input type="submit" class="logout" value="Logout"></form></td><td></td><td></td></tr>
         </table>
     </body>
 </html>

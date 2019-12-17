@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Controller class for the adminstrator dashboard to select administrator tasks.
  */
 @Controller
-public class AdminDashboard {
+public class AdminDashboardController {
 
     @GetMapping("/adminDashboard")
     @Secured("ROLE_ADMIN")
     public String getMenu() {
         return "adminDashboard";
     }
-
 }
 

@@ -19,7 +19,7 @@ import java.util.Optional;
  * Controller class for the administrator to manage users (and later also the gardens)
  */
 @Controller
-public class AdminManageUsersAndGardens {
+public class AdminManageUsersAndGardensController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
