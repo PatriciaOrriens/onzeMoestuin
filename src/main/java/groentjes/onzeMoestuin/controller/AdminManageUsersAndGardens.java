@@ -1,11 +1,16 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.Optional;
 
 /**
  * @author Eric van Dalen
@@ -22,6 +27,17 @@ public class AdminManageUsersAndGardens {
     public String findAll(Model model) {
         model.addAttribute("allUsers", userRepository.findAll());
         return "adminManageUsersAndGardens";
+    }
+
+    @GetMapping("/user/delete/{userName}")
+    @Secured("ROLE_ADMIN")
+    public String doDeleteUser(@ModelAttribute("userName") String username, BindingResult result) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isPresent()) {
+            System.out.println(user);
+            userRepository.delete(user.get());
+        }
+        return "redirect:/adminManageUsersAndGardens";
     }
 
     @GetMapping("/user/add")

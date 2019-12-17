@@ -8,7 +8,10 @@
         <table>
             <tr><th>Name </th><th></th></tr>
             <c:forEach items="${allUsers}" var="user">
-                <tr><td><c:out value="${user.username}" /></td><td></td></tr>
+                <tr>
+                    <td><c:out value="${user.username}" /></td>
+                    <td><td><a href="/user/delete/<c:out value="${user.username}" />">Delete</a></td></td>
+                </tr>
             </c:forEach>
         </table>
         <a href="/user/add">Add new user</a>
