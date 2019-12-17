@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html>
 <head>
     <title>ChangePlantInformation</title>
@@ -36,6 +37,8 @@
     </script>
 </head>
 <body>
+    <c:import url="partials/header.jsp" />
+    <h1>Add new plant information</h1>
     <div class="container">
         <div class="form">
             <form:form method="post" modelAttribute="plantInformation">
@@ -99,5 +102,5 @@
             </form:form>
         </div>
     </div>
+    <c:import url="partials/footer.jsp" />
 </body>
-</html>
