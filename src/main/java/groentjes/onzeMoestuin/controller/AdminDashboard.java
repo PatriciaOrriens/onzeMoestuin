@@ -21,7 +21,7 @@ public class AdminDashboard {
 
 
     @PostMapping("/doTask")
-    public String doWelcomeMenu(String menuOption) {
+    public String doTask(String menuOption) {
         if(menuOption != null) {
             return "redirect:/" + menuOption;
         }
