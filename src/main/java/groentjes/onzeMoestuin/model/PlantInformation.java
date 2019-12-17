@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class PlantInformation {
@@ -12,7 +13,9 @@ public class PlantInformation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer plantInfoId;
 
+    @NotEmpty
     private String plantName;
+
     private String latinName;
     private Integer plantingDistance;
     private String lighting;

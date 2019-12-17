@@ -30,8 +30,12 @@ public class AdminChangePlantInformation {
 
     @PostMapping("/adminchangeplantinfo")
     public String saveNewPlantInfo(@ModelAttribute() PlantInformation plantInformation, BindingResult result) {
-        plantInfoRepository.save(plantInformation);
-        return "adminChangePlantInformation";
+        if (result.hasErrors()){
+            return "adminChangePlantInformation";
+        } else {
+            plantInfoRepository.save(plantInformation);
+            return "adminChangePlantInformation";
+        }
     }
 
 }
