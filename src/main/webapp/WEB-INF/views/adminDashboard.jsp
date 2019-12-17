@@ -9,32 +9,11 @@
     <body>
         <h1> Welcome, administrator </h1>
         <table>
-            <tr>
-                <form action="/doTask" method="post">
-                    <td>Task options:</td>
-                    <td>
-                        <select id="welcome" type='text' name="menuOption">
-                            <c:forEach items="${menuOptions}" var="menuOption">
-                                <option value=${menuOption}>${menuOption.toString()}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="submit" class="button" value="OK">
-                    </td>
-                </form>
-            </tr>
-            <tr>
-                <td>
-                    <form action="/logout">
-                        <input type="submit" name="logoutButton" value="Logout">
-                    </form>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
+            <tr><td>Tasks:</td><td></td><td></td></tr>
+            <tr><td></td><td><a href="/adminManageUsersAndGardens">Manage Users</a></td><td></td></tr>
+            <tr><td></td><td><a href="/adminManagePlantInformation">Manage Plant Information</a></td><td></td></tr>
+            <tr><td></td><td>.</td><td></td></tr>
+            <tr><td><form action="/logout"><input type="submit" name="logoutButton" value="Logout"></form></td><td></td><td></td></tr>
         </table>
     </body>
 </html>
