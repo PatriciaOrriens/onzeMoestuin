@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 /**
- * @author Patricia Orriens-Spuij and Gjalt
+ * @author Patricia Orriens-Spuij and Gjalt G. Wybenga
  *
  */
 @Controller
@@ -25,13 +25,6 @@ public class AdminChangePlantInformation {
     @GetMapping("/adminchangeplantinfo")
     public String getPlantInfoForm(Model model) {
         model.addAttribute("plantInformation", new PlantInformation());
-
-
-//        model.addAttribute("monthList", monthList);
-
-      //  String[] lightingList = {"full sun", "sun", "partial sun/shade", "shade", "full shade"};
-      //  model.addAttribute("lightingList", lightingList);
-
         return "adminChangePlantInformation";
     }
 
