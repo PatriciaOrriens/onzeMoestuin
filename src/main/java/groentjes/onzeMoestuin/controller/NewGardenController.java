@@ -39,8 +39,9 @@ public class NewGardenController {
         if (result.hasErrors()) {
             return "newGarden";
         } else {
-            gardenRepository.save(garden);
-            return "redirect:/garden";
+            garden = gardenRepository.save(garden);
+            int id = garden.getGardenId();
+            return "redirect:/garden/{id}";
         }
     }
 
