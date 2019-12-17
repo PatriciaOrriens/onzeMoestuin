@@ -26,7 +26,7 @@
                 }
             });
 
-            var soilList = new Array ("acidic", "neutral", "basic");
+            var soilList = new Array ("acidic", "standard", "clay");
 
             $(document).ready(function() {
                 for (m = 0; m < lightingList.length; m++) {
