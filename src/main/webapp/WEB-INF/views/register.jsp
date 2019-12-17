@@ -10,7 +10,7 @@
         <div class="container">
             <div class="form">
                 <form:form method="post" modelAttribute="user">
-                    <form:input path="userName" type="text" placeholder="username"/>
+                    <form:input path="username" type="text" placeholder="username"/>
                     <br/>
                     <br/>
                     <form:input path="password" type="password" placeholder="password"/>

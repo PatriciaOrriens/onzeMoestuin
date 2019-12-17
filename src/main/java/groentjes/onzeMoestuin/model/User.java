@@ -60,10 +60,11 @@ public class User implements UserDetails {
         return username;
     }
 
-    public void setUserName(String userName) {
-        this.username = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
