@@ -6,6 +6,7 @@
 	<h1>Nieuwe tuin aanmaken</h1>
 	<!-- JSTL form -->
     <form:form action="/garden/add" modelAttribute="garden">
+    <form:hidden path="user" />
         <div class="form-group">
             <label for="name">Naam:</label>
             <form:input path="gardenName" class="form-control" />

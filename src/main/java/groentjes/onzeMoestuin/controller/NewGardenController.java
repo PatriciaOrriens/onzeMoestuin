@@ -43,7 +43,7 @@ public class NewGardenController {
         } else {
             garden = gardenRepository.save(garden);
             int id = garden.getGardenId();
-            return "redirect:/garden/{id}";
+            return "redirect:/garden/" + id;
         }
     }
 
