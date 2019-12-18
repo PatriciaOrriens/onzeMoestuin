@@ -12,12 +12,11 @@ public class Garden {
     private String gardenName;
     private Integer length;
     private Integer width;
-    private Integer ownerId;
 
-    // change later into @OneToMany, for several users can make use of one garden
-//    @OneToOne
-//    @JoinColumn(name = "ownerId", referencedColumnName = "userId")
-//    private User user;
+//     change later into @ManyToOne, for several users can make use of one garden
+    @OneToOne
+    @JoinColumn(name = "ownerId", referencedColumnName = "userId")
+    private User user;
 
     public Garden() {
     }
@@ -55,11 +54,11 @@ public class Garden {
         this.gardenName = gardenName;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

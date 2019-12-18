@@ -6,6 +6,7 @@ import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,17 +26,18 @@ public class NewGardenController {
     private GardenRepository gardenRepository;
 
     @GetMapping("/garden/add")
-    protected String showGardenForm(Model model) {
-        model.addAttribute("garden", new Garden());
+    protected String showGardenForm(Model model, @AuthenticationPrincipal User user) {
+        Garden garden = new Garden();
+        garden.setUser(user);
 
-        //pass logged in user
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", authentication);
+        model.addAttribute("garden", garden);
+
         return "newGarden";
     }
 
     @PostMapping({"/garden/add"})
     protected String saveOrUpdateGarden(@ModelAttribute("garden") Garden garden, BindingResult result) {
+
         if (result.hasErrors()) {
             return "newGarden";
         } else {
