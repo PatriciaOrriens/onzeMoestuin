@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  */
 @Controller
-public class AdminChangePlantInformation {
+public class AdminChangePlantInformationController {
 
     @Autowired
     PlantInformationRepository plantInfoRepository;
