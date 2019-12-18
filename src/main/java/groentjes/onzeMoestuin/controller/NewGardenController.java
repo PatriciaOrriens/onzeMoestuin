@@ -28,13 +28,13 @@ public class NewGardenController {
     @Autowired
     private GardenRepository gardenRepository;
 
-    @GetMapping("/garden/{id}")
+    @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
 
         if (garden.isPresent()) {
             model.addAttribute("garden", garden.get());
-            return "showGarden.jsp";
+            return "showGarden";
         }
         return "redirect:/";
     }
