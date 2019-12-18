@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
     <head>
-        <title>Title</title>
+        <title>Plant Information Overview</title>
     </head>
     <body>
-        <h1>User Overview </h1>
+        <h1>Plant Information Overview </h1>
         <table>
                     <tr><th>Id </th><th>Name of plant</th><th>Latin name</th></tr>
         <c:forEach items="${plantInformation}" var="plant">

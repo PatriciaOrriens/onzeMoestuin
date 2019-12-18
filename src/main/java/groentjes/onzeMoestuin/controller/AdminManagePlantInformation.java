@@ -24,4 +24,6 @@ public class AdminManagePlantInformation {
         model.addAttribute("plantInformation", plantInformationRepository.findAll());
         return "adminManagePlantInformation";
     }
+
+
 }

@@ -102,5 +102,8 @@
             </form:form>
         </div>
     </div>
+    <h1></h1>
+    <h1></h1>
+    <a href="/adminDashboard">Back to task menu</a>
     <c:import url="partials/footer.jsp" />
 </body>

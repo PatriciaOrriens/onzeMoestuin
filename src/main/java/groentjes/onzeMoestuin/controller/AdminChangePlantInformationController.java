@@ -4,6 +4,7 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.PlantInformation;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ public class AdminChangePlantInformationController {
     PlantInformationRepository plantInfoRepository;
 
     @GetMapping("/adminchangeplantinfo")
+    @Secured("ROLE_ADMIN")
     public String getPlantInfoForm(Model model) {
         model.addAttribute("plantInformation", new PlantInformation());
         return "adminChangePlantInformation";
@@ -34,7 +36,7 @@ public class AdminChangePlantInformationController {
             return "adminChangePlantInformation";
         } else {
             plantInfoRepository.save(plantInformation);
-            return "adminChangePlantInformation";
+            return "redirect:/adminManagePlantInformation";
         }
     }
 
