@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -25,7 +27,8 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .authorizeRequests()
                 .antMatchers("/registerUser").permitAll()
                 .anyRequest().authenticated()
-                .and();
+                .and()
+                .formLogin(withDefaults());
     }
 
         // in-memory saving of user information
