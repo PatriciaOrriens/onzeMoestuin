@@ -60,5 +60,4 @@ public class NewGardenController {
             return "redirect:/garden/" + id;
         }
     }
-
 }

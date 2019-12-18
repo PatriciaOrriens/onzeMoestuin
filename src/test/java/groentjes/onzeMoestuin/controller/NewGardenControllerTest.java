@@ -59,10 +59,10 @@ public class NewGardenControllerTest {
         testGarden.setLength(10);
         testGarden.setWidth(10);
 
-        mockMvc.perform(post("/registerUser")
+        mockMvc.perform(post("/garden/add")
                 .sessionAttr("garden", testGarden)
                 .with(csrf()))
-                .andExpect(forwardedUrl("/WEB"));
+                .andExpect(forwardedUrl("/WEB-INF/views/showGarden.jsp"));
 
 
     }
