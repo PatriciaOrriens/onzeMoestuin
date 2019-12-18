@@ -6,11 +6,13 @@
     <body>
         <h1>User Overview </h1>
         <table>
-                    <tr><th>Name </th><th></th></tr>
+                    <tr><th>Id </th><th>Name of plant</th><th>Latin name</th></tr>
         <c:forEach items="${plantInformation}" var="plant">
             <tr>
+                <td><c:out value="${plant.plantInfoId}" /></td>
                 <td><c:out value="${plant.plantName}" /></td>
-                <td><td><a href="/user/delete/<c:out value="${plant.plantName}" />">Delete</a></td></td>
+                <td><c:out value="${plant.latinName}" /></td>
+                <td><td><a href="/deleteplantinfo/<c:out value="${plant.plantName}" />">Delete</a></td></td>
             </tr>
         </c:forEach>
         </table>
