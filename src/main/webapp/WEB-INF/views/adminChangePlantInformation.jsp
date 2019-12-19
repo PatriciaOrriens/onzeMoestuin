@@ -7,10 +7,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
             var lightingList = new Array ("sun", "half-shade", "shade");
-
             $(document).ready(function() {
+
                 for (i = 0; i < lightingList.length; i++) {
-                    $('.lighting').append('<option>'+lightingList[i]+'</option>')
+                        $('.lighting').append('<option>'+lightingList[i]+'</option>')
                 }
             });
 
@@ -43,63 +43,71 @@
         <div class="form">
             <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
                 <form:input path="plantInfoId" type="hidden"/>
-                <label>Enter a plantname: </label>
-                <form:input path="plantName" type="text" placeholder="plant name" class="plantName"/>
+                <label>Plantname: </label>
+                <form:input path="plantName" type="text" value="${plantName}" class="plantName"/>
                 <br/>
                 <br/>
-                <label>Enter the plant's Latin name: </label>
-                <form:input path="latinName" type="text" placeholder="Latin name" class="latinName"/>
+                <label>The plant's Latin name: </label>
+                <form:input path="latinName" type="text" value="${latinName}" class="latinName"/>
                 <br/>
                 <br/>
-                <label>Enter the plantingdistance (in cm's): </label>
-                <form:input path="plantingDistance" type="number" placeholder="plantingdistance" min="0" class="plantingDistance"/>
+                <label>The plantingdistance (in cm's): </label>
+                <form:input path="plantingDistance" type="number" value="${plantingDistance}" min="0" class="plantingDistance"/>
                 <br/>
                 <br/>
-                <label>Enter the lighting conditions: </label>
+                <label>The lighting conditions: </label>
                 <form:select path="lighting" type="text" class="lighting">
+                <option value="${lighting}">${lighting}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the soiltype: </label>
+                <label>The soiltype: </label>
                 <form:select path="soilType" type="text" class="soilType">
+                <option value="${soilType}">${soilType}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the month in which the plant should be sown: </label>
+                <label>The plant should be sown: </label>
                 <form:select path="sowingStart" type="text" class="sowingStart">
+                <option value="${sowingStart}">${sowingStart}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the month by which the plant must have been sown: </label>
+                <label>The month by which the plant must have been sown: </label>
                 <form:select path="sowingEnd" type="text" class="sowingEnd">
+                <option value="${sowingEnd}">${sowingEnd}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the month in which the plant should be planted: </label>
+                <label>The month in which the plant should be planted: </label>
                 <form:select path="plantingStart" type="text" class="plantingStart">
+                <option value="${plantingStart}">${plantingStart}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the month by which the plant must have been planted: </label>
+                <label>The month by which the plant must have been planted: </label>
                 <form:select path="plantingEnd" type="text" class="plantingEnd">
+                <option value="${plantingEnd}">${plantingEnd}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the month in which the plant should be harvested: </label>
+                <label>The month in which the plant should be harvested: </label>
                  <form:select path="harvestingStart" type="text" class="harvestingStart">
+                 <option value="${harvestingStart}">${harvestingStart}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the month in which the plant must have been harvested: </label>
+                <label>The month in which the plant must have been harvested: </label>
                 <form:select path="harvestingEnd" type="text" class="harvestingEnd">
+                <option value="${harvestingEnd}">${harvestingEnd}</option>
                 </form:select>
                 <br/>
                 <br/>
-                <label>Enter the number of days the plant requires to grow: </label>
-                <form:input path="growTime" type="number" placeholder="growtime" min="0" class="growTime"/>
+                <label>The number of days the plant requires to grow: </label>
+                <form:input path="growTime" type="number" value="${growTime}" min="0" class="growTime"/>
                 <br/>
                 <br/>
-                <input type="submit" value="Submit"/>
+                <input type="submit" value="Confirm change"/>
             </form:form>
         </div>
     </div>

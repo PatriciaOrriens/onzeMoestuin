@@ -33,7 +33,6 @@ public class AdminManagePlantInformation {
         return "adminManagePlantInformation";
     }
 
-
     @GetMapping("/plantinfo/update/{plantInfoId}")
     protected String showUpdatePlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId, Model model){
         Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
@@ -41,6 +40,18 @@ public class AdminManagePlantInformation {
             PlantInformation plantInformation = new PlantInformation();
             plantInformation.setPlantInfoId(foundPlantInformation.get().getPlantInfoId());
             model.addAttribute("plantInformation", new PlantInformation());
+            model.addAttribute("plantName", foundPlantInformation.get().getPlantName());
+            model.addAttribute("latinName", foundPlantInformation.get().getLatinName());
+            model.addAttribute("plantingDistance", foundPlantInformation.get().getPlantingDistance());
+            model.addAttribute( "lighting", foundPlantInformation.get().getLighting());
+            model.addAttribute("soilType", foundPlantInformation.get().getSoilType());
+            model.addAttribute("sowingStart", foundPlantInformation.get().getSowingStart());
+            model.addAttribute("sowingEnd", foundPlantInformation.get().getSowingEnd());
+            model.addAttribute("plantingStart", foundPlantInformation.get().getPlantingStart());
+            model.addAttribute("plantingEnd", foundPlantInformation.get().getPlantingEnd());
+            model.addAttribute("harvestingStart", foundPlantInformation.get().getHarvestingStart());
+            model.addAttribute("harvestingEnd", foundPlantInformation.get().getHarvestingEnd());
+            model.addAttribute("growTime", foundPlantInformation.get().getGrowTime());
             return "adminChangePlantInformation";
         }
         return "redirect:/redirect:/adminManagePlantInformation";
