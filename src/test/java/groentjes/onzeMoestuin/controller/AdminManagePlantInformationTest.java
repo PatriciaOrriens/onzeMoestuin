@@ -29,15 +29,15 @@ class AdminManagePlantInformationTest {
     private UserRepository userRepository;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
+    private GardenUserDetailsService gardenUserDetailsService;
 
     @MockBean
-    PlantInformationRepository plantInformationRepository;
+    private PlantInformationRepository plantInformationRepository;
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testManagePlantInfo() throws Exception{
-        final ResultActions result = mockMvc.perform(get("/adminManagePlantInformation")).andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/views/adminManagePlantInformation.jsp"));
+    void testManagePlantInfo() throws Exception {
+        final ResultActions result = mockMvc.perform(get("/adminManagePlantInformation")).andExpect(status()
+                .isOk()).andExpect(forwardedUrl("/WEB-INF/views/adminManagePlantInformation.jsp"));
     }
 }

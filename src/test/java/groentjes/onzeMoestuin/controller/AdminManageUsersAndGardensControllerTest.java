@@ -37,8 +37,8 @@ class AdminManageUsersAndGardensControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testAdminManageUsersAndGardensPage() throws Exception {
-        final ResultActions result = mockMvc.perform(get("/adminManageUsersAndGardens")).andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/views/adminManageUsersAndGardens.jsp"));
+        final ResultActions result = mockMvc.perform(get("/adminManageUsersAndGardens")).andExpect(status()
+                .isOk()).andExpect(forwardedUrl("/WEB-INF/views/adminManageUsersAndGardens.jsp"));
     }
 
 }

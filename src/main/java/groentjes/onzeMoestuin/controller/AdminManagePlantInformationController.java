@@ -42,14 +42,14 @@ public class AdminManagePlantInformationController {
             setupPlantInfoUpdate(model, foundPlantInformation);
             return "adminChangePlantInformation";
         }
-        return "redirect:/redirect:/adminManagePlantInformation";
+        return "redirect:/adminManagePlantInformation";
     }
 
     private void setupPlantInfoUpdate(Model model, Optional<PlantInformation> foundPlantInformation) {
         model.addAttribute("plantName", foundPlantInformation.get().getPlantName());
         model.addAttribute("latinName", foundPlantInformation.get().getLatinName());
         model.addAttribute("plantingDistance", foundPlantInformation.get().getPlantingDistance());
-        model.addAttribute( "lighting", foundPlantInformation.get().getLighting());
+        model.addAttribute("lighting", foundPlantInformation.get().getLighting());
         model.addAttribute("soilType", foundPlantInformation.get().getSoilType());
         model.addAttribute("sowingStart", foundPlantInformation.get().getSowingStart());
         model.addAttribute("sowingEnd", foundPlantInformation.get().getSowingEnd());
@@ -77,10 +77,7 @@ public class AdminManagePlantInformationController {
     @Secured("ROLE_ADMIN")
     public String deletePlantInformation(@ModelAttribute("plantInfoId") Integer plantInfoId, BindingResult result) {
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
-        if(plantInformation.isPresent()) {
-            System.out.println(plantInformation);
-            plantInformationRepository.delete(plantInformation.get());
-        }
+        plantInformation.ifPresent(information -> plantInformationRepository.delete(information));
         return "redirect:/adminManagePlantInformation";
     }
 }
