@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <head>
-    <title>ChangePlantInformation</title>
+    <title>NewPlantInformation</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
             var lightingList = new Array ("sun", "half-shade", "shade");
@@ -38,11 +38,10 @@
 </head>
 <body>
     <c:import url="partials/header.jsp" />
-    <h1>Update plant information</h1>
+    <h1>Add new plant information</h1>
     <div class="container">
         <div class="form">
-            <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
-                <form:input path="plantInfoId" type="hidden"/>
+            <form:form method="post" modelAttribute="plantInformation">
                 <label>Enter a plantname: </label>
                 <form:input path="plantName" type="text" placeholder="plant name" class="plantName"/>
                 <br/>
