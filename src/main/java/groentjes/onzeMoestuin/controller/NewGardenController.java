@@ -13,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 /**
  * @author Patricia Orriens-Spuij
@@ -24,6 +27,17 @@ public class NewGardenController {
 
     @Autowired
     private GardenRepository gardenRepository;
+
+    @GetMapping("/garden/{gardenId}")
+    protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
+        Optional<Garden> garden = gardenRepository.findById(gardenId);
+
+        if (garden.isPresent()) {
+            model.addAttribute("garden", garden.get());
+            return "showGarden";
+        }
+        return "redirect:/";
+    }
 
     @GetMapping("/garden/add")
     protected String showGardenForm(Model model, @AuthenticationPrincipal User user) {
@@ -46,5 +60,4 @@ public class NewGardenController {
             return "redirect:/garden/" + id;
         }
     }
-
 }
