@@ -19,7 +19,7 @@ import java.util.Optional;
  * Controller class for managing the plant information.
  */
 @Controller
-public class AdminManagePlantInformation {
+public class AdminManagePlantInformationController {
 
     @Autowired
     private PlantInformationRepository plantInformationRepository;
