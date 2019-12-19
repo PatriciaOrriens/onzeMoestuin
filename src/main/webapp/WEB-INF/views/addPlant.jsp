@@ -3,7 +3,7 @@
 
 <c:import url="partials/header.jsp" />
 
-	<h1>Plant toevoegen aan }</h1>
+	<h1>Plant toevoegen aan ${garden.gardenName}</h1>
 
 	<!-- JSTL form -->
     <form:form action="/addplant" modelAttribute="plant">
