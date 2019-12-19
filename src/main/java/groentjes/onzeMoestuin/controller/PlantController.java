@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
@@ -30,7 +31,6 @@ public class PlantController {
     public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
         Optional<Garden> garden  = gardenRepository.findById(gardenId);
 
-
         if (garden.isPresent()) {
             Plant plant = new Plant();
             plant.setGarden(garden.get());
@@ -42,5 +42,20 @@ public class PlantController {
             return "redirect:/";
         }
     }
+
+    @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
+    public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
+                                   @PathVariable("plantInfoId") final Integer plantInfoId) {
+        Optional<Garden> garden  = gardenRepository.findById(gardenId);
+        if (garden.isPresent()) {
+            Plant plant = new Plant();
+            plant.setGarden(garden.get());
+            plantRepository.save(plant);
+            return "addPlant";
+        } else {
+            return "redirect:/";
+        }
+    }
+
 
 }
