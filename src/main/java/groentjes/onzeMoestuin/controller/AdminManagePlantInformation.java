@@ -1,7 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.PlantInformation;
-import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
-
 
 /**
  * @author Eric van Dalen
@@ -34,6 +32,7 @@ public class AdminManagePlantInformation {
     }
 
     @GetMapping("/plantinfo/update/{plantInfoId}")
+    @Secured("ROLE_ADMIN")
     protected String showUpdatePlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId, Model model){
         Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
         if (foundPlantInformation.isPresent()) {
@@ -84,6 +83,4 @@ public class AdminManagePlantInformation {
         }
         return "redirect:/adminManagePlantInformation";
     }
-
-
 }
