@@ -18,8 +18,10 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String username;
-
     private String password;
+
+    public User() {
+    }
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
