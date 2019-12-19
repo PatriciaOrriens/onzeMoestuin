@@ -1,5 +1,8 @@
 package groentjes.onzeMoestuin.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.awt.*;
 import java.util.Date;
@@ -15,31 +18,27 @@ public class Plant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer plantId;
 
-    private Point coordinate;
     private boolean sown;
     private Date startDate;
-//
-//    @ManyToOne
-//    private Garden garden;
+    private Date harvestDate;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "garden_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Garden garden;
 
     // foreign key
 //    private PlantInformation plantInfo;
 
     // getters and setters
+
+
     public Integer getPlantId() {
         return plantId;
     }
 
     public void setPlantId(Integer plantId) {
         this.plantId = plantId;
-    }
-
-    public Point getCoordinate() {
-        return coordinate;
-    }
-
-    public void setCoordinate(Point coordinate) {
-        this.coordinate = coordinate;
     }
 
     public boolean isSown() {
@@ -58,19 +57,19 @@ public class Plant {
         this.startDate = startDate;
     }
 
-//    public Garden getGarden() {
-//        return garden;
-//    }
-//
-//    public void setGarden(Garden garden) {
-//        this.garden = garden;
-//    }
+    public Date getHarvestDate() {
+        return harvestDate;
+    }
 
-//    public PlantInformation getPlantInfo() {
-//        return plantInfo;
-//    }
-//
-//    public void setPlantInfo(PlantInformation plantInfo) {
-//        this.plantInfo = plantInfo;
-//    }
+    public void setHarvestDate(Date harvestDate) {
+        this.harvestDate = harvestDate;
+    }
+
+    public Garden getGarden() {
+        return garden;
+    }
+
+    public void setGarden(Garden garden) {
+        this.garden = garden;
+    }
 }
