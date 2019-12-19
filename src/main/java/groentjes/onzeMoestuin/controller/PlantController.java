@@ -9,9 +9,8 @@ import groentjes.onzeMoestuin.repository.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -43,19 +42,21 @@ public class PlantController {
         }
     }
 
-    @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
-    public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
-                                   @PathVariable("plantInfoId") final Integer plantInfoId) {
-        Optional<Garden> garden  = gardenRepository.findById(gardenId);
-        if (garden.isPresent()) {
-            Plant plant = new Plant();
+
+    @PostMapping("/garden/{gardenId}/addPlant")
+    public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
+                                   BindingResult result, @PathVariable("gardenId") final Integer gardenId) {
+
+        Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
+        Optional<Garden> garden = gardenRepository.findById(gardenId);
+
+        if (plantInfo.isPresent() && garden.isPresent()) {
+            plant.setPlantInformation(plantInfo.get());
             plant.setGarden(garden.get());
             plantRepository.save(plant);
-            return "addPlant";
+            return "redirect:/garden/" + gardenId;
         } else {
             return "redirect:/";
         }
     }
-
-
 }

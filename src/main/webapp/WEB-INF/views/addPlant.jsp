@@ -6,13 +6,12 @@
 	<h1 class="display-3">Plant toevoegen aan ${garden.gardenName}</h1>
 
 		<!-- JSTL form -->
-        <form:form action="/addplant" modelAttribute="plant">
+        <form:form action="/garden/${garden.gardenId}/addPlant" modelAttribute="plant">
 
             <div class="form-group">
-
-                <select name="plantInformation" class="form-control">
+                <select name="plantInfoId" class="form-control">
                 <c:forEach items="${allPlantInformation}" var="plantInfo">
-                <option value="${plantInfo}">${plantInfo.plantName}</option>
+                <option value="${plantInfo.plantInfoId}">${plantInfo.plantName}</option>
                 </c:forEach>
                 </select>
             </div>

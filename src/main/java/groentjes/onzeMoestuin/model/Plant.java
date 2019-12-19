@@ -27,11 +27,10 @@ public class Plant {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Garden garden;
 
-    // foreign key
-//    private PlantInformation plantInfo;
-
-    // getters and setters
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "plantInfo_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private PlantInformation plantInformation;
 
     public Integer getPlantId() {
         return plantId;
@@ -71,5 +70,13 @@ public class Plant {
 
     public void setGarden(Garden garden) {
         this.garden = garden;
+    }
+
+    public PlantInformation getPlantInformation() {
+        return plantInformation;
+    }
+
+    public void setPlantInformation(PlantInformation plantInformation) {
+        this.plantInformation = plantInformation;
     }
 }
