@@ -1,5 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.Plant;
 import groentjes.onzeMoestuin.model.PlantInformation;
 import groentjes.onzeMoestuin.repository.GardenRepository;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Optional;
 
 @Controller
 public class PlantController {
@@ -21,9 +24,17 @@ public class PlantController {
 
     @GetMapping("/garden/{gardenId}/addPlant")
     public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
-        model.addAttribute("plant", new Plant());
-        model.addAttribute("garden", gardenRepository.findById(gardenId));
-        return "addPlant";
+        Optional<Garden> garden  = gardenRepository.findById(gardenId);
+
+        if (garden.isPresent()) {
+            Plant plant = new Plant();
+            plant.setGarden(garden.get());
+            model.addAttribute("plant", plant);
+            model.addAttribute("garden", garden.get());
+            return "addPlant";
+        } else {
+            return "redirect:/";
+        }
     }
 
 }

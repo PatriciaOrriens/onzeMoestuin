@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-</body>
-</html>
+<c:import url="partials/header.jsp" />
+
+	<h1>Plant toevoegen aan }</h1>
+
+	<!-- JSTL form -->
+    <form:form action="/addplant" modelAttribute="plant">
+        <div class="form-group">
+
+
+
+        </div>
+        <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
+	</form:form>
+
+<c:import url="partials/footer.jsp" />

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Moestuin toevoegen</title>
+    <title>Onze Moestuin</title>
     <c:import url="partials/style.jsp" />
 </head>
 <body>
