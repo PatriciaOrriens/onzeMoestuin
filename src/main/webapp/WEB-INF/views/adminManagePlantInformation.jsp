@@ -12,7 +12,7 @@
                 <td><c:out value="${plant.plantInfoId}" /></td>
                 <td><c:out value="${plant.plantName}" /></td>
                 <td><c:out value="${plant.latinName}" /></td>
-                <td><td><a href="/deleteplantinfo/<c:out value="${plant.plantName}" />">Delete</a></td></td>
+                <td><td><a href="/plantinfo/delete/<c:out value="${plant.plantInfoId}" />">Delete</a></td></td>
             </tr>
         </c:forEach>
         </table>

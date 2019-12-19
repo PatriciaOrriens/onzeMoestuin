@@ -39,5 +39,4 @@ public class AdminChangePlantInformationController {
             return "redirect:/adminManagePlantInformation";
         }
     }
-
 }
