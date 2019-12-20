@@ -1,22 +1,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:import url="partials/header.jsp" />
+
 <html>
     <head>
-        <title>Title</title>
+        <title>gebruikers</title>
     </head>
     <body>
-        <h1>User Overview </h1>
-        <table>
-            <tr><th>Name </th><th></th></tr>
+        <h2>Overzicht van gebruikers </h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Naam</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
             <c:forEach items="${allUsers}" var="user">
                 <tr>
                     <td><c:out value="${user.username}" /></td>
-                    <td><td><a href="/user/delete/<c:out value="${user.username}" />">Delete</a></td></td>
+                    <td><a class="btn btn-outline-warning" href="/user/delete/<c:out value="${user.username}" />"
+                        >Verwijder</a></td>
                 </tr>
             </c:forEach>
         </table>
-        <a href="/user/new">Add new user</a>
-        <h1></h1>
-        <h1></h1>
-        <a href="/adminDashboard">Back to task menu</a>
+        <br/>
+        <a href="/user/new" class="btn btn-primary">Voeg nieuwe gebruiker toe</a>
+        <br/>
+        <br/>
+        <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
     </body>
 </html>

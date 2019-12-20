@@ -2,12 +2,12 @@
 
 <c:import url="partials/header.jsp" />
 
-<h2>Welkom bij Onze Moestuin!</h2>
+<h1>Welkom bij Onze Moestuin!</h1>
 </br>
 <p>Dit is de plek om je moestuin digitaal te beheren.
     <br>Met deze app krijg je tips voor nieuwe planten en krijg je hulp om planten te beheren.
 </p>
-<a href="/login">Login</a>
+<a href="/login" class="btn btn-primary">Login</a>
 
 <br/>
 <br/>

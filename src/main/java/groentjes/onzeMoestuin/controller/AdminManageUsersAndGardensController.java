@@ -49,13 +49,13 @@ public class AdminManageUsersAndGardensController {
     @Secured("ROLE_ADMIN")
     protected String showNewUserForm(Model model){
         model.addAttribute("user", new User());
-        return "createUser";
+        return "adminCreateUser";
     }
 
     @PostMapping("/user/new")
     protected String saveOrUpdateUser(@ModelAttribute("user") User user, BindingResult result){
         if(result.hasErrors()){
-            return "createUser";
+            return "adminCreateUser";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
