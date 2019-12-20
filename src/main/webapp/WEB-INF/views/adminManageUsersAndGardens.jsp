@@ -1,12 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<c:import url="partials/header.jsp" />
+
 <html>
     <head>
-        <title>Title</title>
+        <title>gebruikers</title>
     </head>
     <body>
-        <h1>User Overview </h1>
+        <h1>Overzicht van gebruikers </h1>
         <table>
-            <tr><th>Name </th><th></th></tr>
+            <tr><th>Naam </th><th></th></tr>
             <c:forEach items="${allUsers}" var="user">
                 <tr>
                     <td><c:out value="${user.username}" /></td>

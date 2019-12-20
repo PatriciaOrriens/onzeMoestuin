@@ -1,9 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<c:import url="partials/header.jsp" />
+
 <!DOCTYPE html>
 <head>
-    <title>ChangePlantInformation</title>
+    <title>Verander plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
             var lightingList = new Array ("zon", "halfschaduw", "schaduw");
@@ -37,12 +40,12 @@
     </script>
 </head>
 <body>
-    <c:import url="partials/header.jsp" />
-    <h1>Pas een plant aan in plantinformatie</h1>
+    <h2>Pas een plant aan in plantinformatie</h2>
     <div class="container">
         <div class="form">
             <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
                 <form:input path="plantInfoId" type="hidden"/>
+                <br/>
                 <label>Nederlandse plantnaam: </label>
                 <form:input path="plantName" type="text" value="${plantInformation.plantName}" class="plantName"/>
                 <br/>
@@ -111,8 +114,8 @@
             </form:form>
         </div>
     </div>
-    <h1></h1>
-    <h1></h1>
+    <br/>
     <a href="/adminDashboard">Terug naar taakmenu</a>
-    <c:import url="partials/footer.jsp" />
 </body>
+
+<c:import url="partials/footer.jsp" />
