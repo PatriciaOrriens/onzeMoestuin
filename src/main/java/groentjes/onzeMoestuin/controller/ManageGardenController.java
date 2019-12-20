@@ -1,16 +1,15 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.PlantInformation;
+import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import java.util.Optional;
 
 /**
@@ -21,12 +20,11 @@ import java.util.Optional;
 public class ManageGardenController {
 
     @Autowired
-    GardenRepository gardenRepository;
+    private GardenRepository gardenRepository;
 
     @GetMapping("/userManageGardens")
-    public String findAllYourGardens(Model model) {
-// TODO: laat alleen tuinen zien van deze logged-in user
-        model.addAttribute("allYourGardens", gardenRepository.findAll());
+    public String findAllYourGardens(Model model, @AuthenticationPrincipal User gardenuser) {
+            model.addAttribute("allYourGardens", gardenRepository.findAllByUser(gardenuser));
         return "/manageGarden";
     }
 
@@ -36,5 +34,4 @@ public class ManageGardenController {
         garden.ifPresent(information -> gardenRepository.delete(information));
         return "redirect:/userManageGardens";
     }
-
 }
