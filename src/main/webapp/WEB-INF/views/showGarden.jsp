@@ -13,7 +13,9 @@
 
     <c:forEach items="${plants}" var="plant">
         <div class="container p-3 my-3 border">
-            <c:out value="${plant.plantInformation.plantName}" />
+            <a href="../plant/${plant.plantId}">
+                <c:out value="${plant.plantInformation.plantName}" />
+            </a>
         </div>
     </c:forEach>
 
