@@ -18,9 +18,7 @@
             <li><a href="/adminManagePlantInformation">Beheer plantinformatie</a></li>
         </ul>
         <br/>
-
-        <form action="/logout"><input type="submit" class="logout" value="Logout"></form>
-
+        <a href="/logout" class="btn btn-primary">Logout</a>
     </body>
     <c:import url="partials/footer.jsp" />
 </html>

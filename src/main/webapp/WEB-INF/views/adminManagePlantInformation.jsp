@@ -1,10 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:import url="partials/header.jsp" />
+
 <html>
     <head>
-        <title>Plant Information Overview</title>
+        <title>Overzicht van plantinformatie</title>
     </head>
     <body>
-        <h1>Plant Information Overview </h1>
+        <h2>Overzicht van plantinformatie </h2>
         <table>
                     <tr><th>Id </th><th>Name of plant</th><th>Latin name</th><th></th><th></th></tr>
         <c:forEach items="${plantInformation}" var="plant">
@@ -22,3 +25,5 @@
                 <h1></h1>
         <a href="/adminDashboard">Back to task menu</a>
 </html>
+
+<c:import url="partials/footer.jsp" />

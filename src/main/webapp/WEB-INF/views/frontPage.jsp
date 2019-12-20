@@ -7,7 +7,7 @@
 <p>Dit is de plek om je moestuin digitaal te beheren.
     <br>Met deze app krijg je tips voor nieuwe planten en krijg je hulp om planten te beheren.
 </p>
-<a href="/login">Login</a>
+<a href="/login" class="btn btn-primary">Login</a>
 
 <br/>
 <br/>

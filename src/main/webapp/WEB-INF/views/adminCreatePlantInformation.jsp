@@ -56,7 +56,7 @@
                 <form:input path="plantingDistance" type="number" placeholder="plantingdistance" min="0" class="plantingDistance"/>
                 <br/>
                 <br/>
-                <label>Lichtcriteria: </label>
+                <label>Belichting: </label>
                 <form:select path="lighting" type="text" class="lighting">
                 </form:select>
                 <br/>
