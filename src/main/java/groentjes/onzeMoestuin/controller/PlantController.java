@@ -28,7 +28,7 @@ public class PlantController {
 
     @GetMapping("/garden/{gardenId}/addPlant")
     public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
-        Optional<Garden> garden  = gardenRepository.findById(gardenId);
+        Optional<Garden> garden = gardenRepository.findById(gardenId);
 
         if (garden.isPresent()) {
             Plant plant = new Plant();
