@@ -6,5 +6,8 @@
     <li class="nav-item">
       <a class="nav-link" href="/registerUser">Register user</a>
     </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/adminDashboard">Admin dashboard</a>
+        </li>
    </ul>
 </nav>
