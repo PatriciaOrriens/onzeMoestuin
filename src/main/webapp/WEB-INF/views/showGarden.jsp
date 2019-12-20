@@ -3,14 +3,13 @@
 <c:import url="partials/header.jsp" />
 
 	<div class="row">
-	    <div class="col">
+	    <div class="col-sm-11">
 	        <h1 class="display-3">${garden.gardenName}</h1>
         </div>
-        <div class="col my-auto">
-            <a href="${garden.gardenId}/addPlant" class="btn btn-primary">Plant toevoegen</a>
+        <div class="col-sm-1 my-auto">
+            <a href="${garden.gardenId}/addPlant" class="btn btn-outline-success">&#43; Plant</a>
         </div>
     </div>
-
 
     <c:forEach items="${plants}" var="plant">
         <div class="container p-3 my-3 border">
