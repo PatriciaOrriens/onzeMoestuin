@@ -41,7 +41,7 @@
 <body>
     <h2>Voeg een nieuwe plant toe aan plantinformatie </h2>
     <div class="container">
-        <div class="form">
+        <div class="form-group">
             <br/>
             <form:form method="post" modelAttribute="plantInformation">
                 <label>Nederlandse plantnaam: </label>
@@ -100,12 +100,12 @@
                 <form:input path="growTime" type="number" placeholder="groeitijd" min="0" class="growTime"/>
                 <br/>
                 <br/>
-                <input type="submit" value="Submit"/>
+                <input class="btn btn-primary" type="submit" value="Submit"/>
             </form:form>
         </div>
     </div>
     <br/>
-    <a href="/adminDashboard">Terug naar taakmenu</a>
+    <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
 
     <c:import url="partials/footer.jsp" />
 </body>

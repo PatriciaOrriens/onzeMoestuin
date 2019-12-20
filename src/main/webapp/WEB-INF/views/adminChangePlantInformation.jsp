@@ -111,12 +111,12 @@
                 <form:input path="growTime" type="number" value="${plantInformation.growTime}" min="0" class="growTime"/>
                 <br/>
                 <br/>
-                <input type="submit" value="Confirm change"/>
+                <input class="btn btn-primary" type="submit" value="Confirm change"/>
             </form:form>
         </div>
     </div>
     <br/>
-    <a href="/adminDashboard">Terug naar taakmenu</a>
+    <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
 </body>
 
 <c:import url="partials/footer.jsp" />
