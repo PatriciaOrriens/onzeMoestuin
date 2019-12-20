@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-    <head>
-        <title>Plant Informatie</title>
-    </head>
-    <body>
-        <table>
+
+<c:import url="partials/header.jsp" />
+
+    <h1 class="display-3">${plantinformation.plantName}</h1>
+
+        <table class="table table-striped">
             <tr><td>Plantnaam</td><td>${plantinformation.plantName}</td></tr>
             <tr><td>Latijnse plantnaam</td><td>${plantinformation.latinName}</td></tr>
             <tr><td>Plantafstand</td><td>${plantinformation.plantingDistance}</td></tr>
@@ -18,5 +18,5 @@
             <tr><td>Oogsttijd (laatste maand)</td><td>${plantinformation.harvestingEnd}</td></tr>
             <tr><td>Groeitijd in dagen</td><td>${plantinformation.growTime}</td></tr>
         </table>
-    </body>
-</html>
+
+<c:import url="partials/footer.jsp" />
