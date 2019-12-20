@@ -13,7 +13,7 @@ public class Garden {
     private Integer length;
     private Integer width;
 
-//     change later into @ManyToOne, for several users can make use of one garden
+    //TODO Change later into @ManyToOne, for several users can make use of one garden
     @OneToOne
     @JoinColumn(name = "ownerId", referencedColumnName = "userId")
     private User user;

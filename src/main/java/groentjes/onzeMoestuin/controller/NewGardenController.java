@@ -2,8 +2,10 @@ package groentjes.onzeMoestuin.controller;
 
 
 import groentjes.onzeMoestuin.model.Garden;
+import groentjes.onzeMoestuin.model.Plant;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -28,11 +31,16 @@ public class NewGardenController {
     @Autowired
     private GardenRepository gardenRepository;
 
+    @Autowired
+    private PlantRepository plantRepository;
+
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
 
         if (garden.isPresent()) {
+            ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
+            model.addAttribute("plants", plants);
             model.addAttribute("garden", garden.get());
             return "showGarden";
         }
