@@ -1,5 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.junit.jupiter.api.Test;
@@ -11,19 +12,15 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-/**
- * @author Eric van Dalen
- * Test class for management of Users (and later also for the gardens)
- */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AdminManageUsersAndGardensController.class)
-class AdminManageUsersAndGardensControllerTest {
-
+@WebMvcTest(controllers = AdminManagePlantInformationController.class)
+class AdminManagePlantInformationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,13 +29,15 @@ class AdminManageUsersAndGardensControllerTest {
     private UserRepository userRepository;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
+    private GardenUserDetailsService gardenUserDetailsService;
+
+    @MockBean
+    private PlantInformationRepository plantInformationRepository;
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testAdminManageUsersAndGardensPage() throws Exception {
-        final ResultActions result = mockMvc.perform(get("/adminManageUsersAndGardens")).andExpect(status()
-                .isOk()).andExpect(forwardedUrl("/WEB-INF/views/adminManageUsersAndGardens.jsp"));
+    void testManagePlantInfo() throws Exception {
+        final ResultActions result = mockMvc.perform(get("/adminManagePlantInformation")).andExpect(status()
+                .isOk()).andExpect(forwardedUrl("/WEB-INF/views/adminManagePlantInformation.jsp"));
     }
-
 }

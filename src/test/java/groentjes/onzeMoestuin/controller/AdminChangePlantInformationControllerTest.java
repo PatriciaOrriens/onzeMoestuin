@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Test class for adding new plantinformation
  */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AdminChangePlantInformationController.class)
+@WebMvcTest(controllers = AdminCreatePlantInformationController.class)
 public class AdminChangePlantInformationControllerTest {
 
     @Autowired
@@ -40,7 +40,7 @@ public class AdminChangePlantInformationControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testAdminChangePlantInformationPage() throws Exception {
-        final ResultActions result = mockMvc.perform(get("/adminchangeplantinfo")).andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/views/adminChangePlantInformation.jsp"));
+        final ResultActions result = mockMvc.perform(get("/admincreateplantinfo")).andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreatePlantInformation.jsp"));
     }
 }
