@@ -38,6 +38,7 @@
                 }
             });
     </script>
+
 </head>
 <body>
     <h2>Pas een plant aan in plantinformatie</h2>

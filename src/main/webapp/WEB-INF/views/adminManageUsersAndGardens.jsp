@@ -28,6 +28,6 @@
         <a href="/user/new" class="btn btn-primary">Voeg nieuwe gebruiker toe</a>
         <br/>
         <br/>
-        <a href="/adminDashboard" class="btn btn-primary">Terug naar takenlijst</a>
+        <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
     </body>
 </html>

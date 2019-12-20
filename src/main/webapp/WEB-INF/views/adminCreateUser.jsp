@@ -1,36 +1,40 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<c:import url="partials/header.jsp" />
+
 <html>
     <head>
-        <title>Create a new user</title>
+        <title>Nieuwe gebruiker</title>
     </head>
     <body>
-        <h1>Create a new user</h1>
-        <form:form action="/user/new" modelAttribute="user">
+        <h2>Voeg nieuwe gebruiker toe</h2>
+        <br/>
+        <form action="/user/new" modelAttribute="user">
             <table>
                 <tr>
-                    <td>Name:</td>
+                    <td>Inlognaam:</td>
                     <td>
-                        <form:input path="username" />
+                        <input path="username" />
                     </td>
                 </tr>
                 <tr>
-                    <td>Password:</td>
+                    <td>Wachtwoord:</td>
                     <td>
-                        <form:input path="password" />
+                        <input path="password" />
                     </td>
                 </tr>
-
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="Store user" />
+                        <input type="submit" value="Voeg toe" />
                     </td>
                 </tr>
             </table>
-        </form:form>
-        <h1></h1>
-                <h1></h1>
-                <a href="/adminDashboard">Back to task menu</a>
+        </form>
+        <br/>
+        <br/>
+        <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
     </body>
 </html>
+
+<c:import url="partials/footer.jsp" />

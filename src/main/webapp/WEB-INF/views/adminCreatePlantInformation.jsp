@@ -45,15 +45,15 @@
             <br/>
             <form:form method="post" modelAttribute="plantInformation">
                 <label>Nederlandse plantnaam: </label>
-                <form:input path="plantName" type="text" placeholder="plant name" class="plantName"/>
+                <form:input path="plantName" type="text" placeholder="plantnaam" class="plantName"/>
                 <br/>
                 <br/>
                 <label>Latijnse plantnaam: </label>
-                <form:input path="latinName" type="text" placeholder="Latin name" class="latinName"/>
+                <form:input path="latinName" type="text" placeholder="Latijnse plantnaam" class="latinName"/>
                 <br/>
                 <br/>
                 <label>Plantafstand (in cm's): </label>
-                <form:input path="plantingDistance" type="number" placeholder="plantingdistance" min="0" class="plantingDistance"/>
+                <form:input path="plantingDistance" type="number" placeholder="plantafstand" min="0" class="plantingDistance"/>
                 <br/>
                 <br/>
                 <label>Belichting: </label>
@@ -97,7 +97,7 @@
                 <br/>
                 <br/>
                 <label>Groeitijd in dagen: </label>
-                <form:input path="growTime" type="number" placeholder="growtime" min="0" class="growTime"/>
+                <form:input path="growTime" type="number" placeholder="groeitijd" min="0" class="growTime"/>
                 <br/>
                 <br/>
                 <input type="submit" value="Submit"/>
