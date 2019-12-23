@@ -16,7 +16,7 @@
                     <form:input path="password" type="password" placeholder="password"/>
                     <br/>
                     <br/>
-                    <input type="submit" value="Register"/>
+                    <input type="submit" class="registerbutton" value="Register"/>
                 </form:form>
             </div>
         </div>
