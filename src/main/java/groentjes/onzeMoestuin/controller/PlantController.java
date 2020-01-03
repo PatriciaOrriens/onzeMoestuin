@@ -48,7 +48,7 @@ public class PlantController {
         Optional<Plant> plant = plantRepository.findById(plantId);
 
         if (plant.isPresent()) {
-            model.addAttribute(plant);
+            model.addAttribute(plant.get());
             return "showPlant";
         } else {
             return "redirect:/";
