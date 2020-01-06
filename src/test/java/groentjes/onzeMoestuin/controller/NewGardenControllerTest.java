@@ -3,6 +3,7 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.PlantRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,9 @@ public class NewGardenControllerTest {
 
 //    @Autowired
 //    private ObjectMapper objectMapper;
+
+    @MockBean
+    private PlantRepository plantRepository;
 
     @MockBean
     private GardenRepository gardenRepository;
