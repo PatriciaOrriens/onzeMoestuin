@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="partials/header.jsp" />
-
-        <h2 class="display-3">Overzicht van plantinformatie </h2>
+  <div class="container">
+        <h1 class="display-3">Overzicht van plantinformatie </h1>
         <table class="table table-striped">
                     <tr>
                         <th>Id</th>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-
+  <div class="container">
 	<h1 class="display-3">Nieuwe tuin aanmaken</h1>
 	<!-- JSTL form -->
     <form:form action="/garden/add" modelAttribute="garden">

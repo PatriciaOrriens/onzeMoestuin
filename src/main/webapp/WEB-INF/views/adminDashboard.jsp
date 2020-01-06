@@ -3,8 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-
-        <h1 class="display-3"> Welkom beheerder </h1>
+  <div class="container">
+        <h1 class="display-3">Welkom beheerder </h1>
         <br/>
         <h2>Kies een taak:</h2>
         <ul>
