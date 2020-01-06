@@ -9,4 +9,4 @@
 </head>
 <body>
     <c:import url="partials/devnav.jsp" />
-    <div class="container">
+   <!-- <div class="container"> -->

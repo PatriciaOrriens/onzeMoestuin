@@ -2,17 +2,18 @@
 
 <c:import url="partials/header.jsp" />
 
-<h1>Welkom bij Onze Moestuin!</h1>
-</br>
-<p>Dit is de plek om je moestuin digitaal te beheren.
-    <br>Met deze app krijg je tips voor nieuwe planten en krijg je hulp om planten te beheren.
-</p>
-<a href="/login" class="btn btn-primary">Login</a>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3">Welkom bij Onze Moestuin!</h1>
+    <p>Dit is de plek om je moestuin digitaal te beheren.<br>
+    Met deze app krijg je tips voor nieuwe planten en krijg je hulp om je tuin in te delen.</p>
+      <p class="lead">
+    <a class="btn btn-primary btn-lg" href="/registerUser" role="button">Registreer nu</a>
 
-<br/>
-<br/>
-<p>Ben je hier voor het eerst? <br>
-    <a href="/registerUser">Registreer als nieuwe gebruiker.</a>
-</p>
+    <a class="btn btn-primary btn-lg" href="/login" role="button">Inloggen</a>
+
+  </p>
+  </div>
+</div>
 
 <c:import url="partials/footer.jsp" />
