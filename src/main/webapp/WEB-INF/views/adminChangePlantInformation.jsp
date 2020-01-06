@@ -41,8 +41,8 @@
 
 </head>
 <body>
-    <h1 class="display-3">Plant wijzigen</h1>
-    <div class="container">
+        <div class="container">
+            <h1 class="display-3">Plant wijzigen</h1>
         <div class="form">
             <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
                 <form:input path="plantInfoId" type="hidden"/>

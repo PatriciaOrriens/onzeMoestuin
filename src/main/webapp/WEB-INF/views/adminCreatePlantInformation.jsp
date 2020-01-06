@@ -39,8 +39,8 @@
     </script>
 </head>
 <body>
-    <h1 class="display-4">Plant toevoegen</h1>
     <div class="container">
+        <h1 class="display-4">Plant toevoegen</h1>
         <div class="form-group row">
             <br/>
             <form:form method="post" modelAttribute="plantInformation">

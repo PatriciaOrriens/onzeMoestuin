@@ -3,7 +3,7 @@
 <c:import url="partials/header.jsp" />
 
   <div class="container">
-        <h2>Overzicht van gebruikers </h2>
+        <h1 class="display-3">Overzicht van gebruikers </h1>
         <table class="table table-striped">
             <thead>
             <tr>
