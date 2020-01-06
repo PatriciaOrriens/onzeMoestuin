@@ -39,9 +39,9 @@
     </script>
 </head>
 <body>
-    <h2>Voeg een nieuwe plant toe aan plantinformatie </h2>
+    <h1 class="display-4">Plant toevoegen</h1>
     <div class="container">
-        <div class="form-group">
+        <div class="form-group row">
             <br/>
             <form:form method="post" modelAttribute="plantInformation">
                 <label>Nederlandse plantnaam: </label>
@@ -100,12 +100,11 @@
                 <form:input path="growTime" type="number" placeholder="groeitijd" min="0" class="growTime"/>
                 <br/>
                 <br/>
-                <input class="btn btn-primary" type="submit" value="Submit"/>
+                <input class="btn btn-primary" type="submit" value="Toevoegen"/>
             </form:form>
         </div>
+            <a href="/adminDashboard" class="btn btn-primary">Terug</a>
+
     </div>
-    <br/>
-    <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
 
     <c:import url="partials/footer.jsp" />
-</body>

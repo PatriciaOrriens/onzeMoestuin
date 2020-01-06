@@ -2,11 +2,7 @@
 
 <c:import url="partials/header.jsp" />
 
-<html>
-    <head>
-        <title>gebruikers</title>
-    </head>
-    <body>
+  <div class="container">
         <h2>Overzicht van gebruikers </h2>
         <table class="table table-striped">
             <thead>

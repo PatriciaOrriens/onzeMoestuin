@@ -41,7 +41,7 @@
 
 </head>
 <body>
-    <h2>Pas een plant aan in plantinformatie</h2>
+    <h1 class="display-3">Plant wijzigen</h1>
     <div class="container">
         <div class="form">
             <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
@@ -111,12 +111,13 @@
                 <form:input path="growTime" type="number" value="${plantInformation.growTime}" min="0" class="growTime"/>
                 <br/>
                 <br/>
-                <input class="btn btn-primary" type="submit" value="Confirm change"/>
+                <input class="btn btn-primary" type="submit" value="Toepassen"/>
             </form:form>
         </div>
+            <br />
+            <a href="/adminDashboard" class="btn btn-primary">Terug</a>
+
     </div>
-    <br/>
-    <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
-</body>
+
 
 <c:import url="partials/footer.jsp" />

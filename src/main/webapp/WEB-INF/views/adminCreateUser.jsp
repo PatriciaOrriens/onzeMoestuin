@@ -3,38 +3,23 @@
 
 <c:import url="partials/header.jsp" />
 
-<html>
-    <head>
-        <title>Nieuwe gebruiker</title>
-    </head>
-    <body>
-        <h2>Voeg nieuwe gebruiker toe</h2>
-        <br/>
-        <form action="/user/new" modelAttribute="user">
-            <table>
-                <tr>
-                    <td>Inlognaam:</td>
-                    <td>
-                        <input path="username" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Wachtwoord:</td>
-                    <td>
-                        <input path="password" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Voeg toe" />
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <br/>
-        <br/>
-        <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
-    </body>
-</html>
+    <div class="container">
+       <h1 class="display-3">Gebruiker toevoegen</h1>
+
+       <form:form method="post" modelAttribute="user">
+            <div class="form-group">
+                <label for="name">Gebruikersnaam:</label>
+                <form:input path="username" class="form-control" />
+
+                <label for="password">Wachtwoord:</label>
+                <form:input path="password" type="password" class="form-control" />
+            </div>
+            <form:button type="submit" class="btn btn-primary">Toevoegen</form:button>
+        </form:form>
+
+        <br />
+        <p><a href="/adminDashboard" class="btn btn-primary">Terug</a></p>
+
+    </div>
 
 <c:import url="partials/footer.jsp" />

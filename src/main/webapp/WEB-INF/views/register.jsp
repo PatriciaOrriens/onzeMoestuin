@@ -1,24 +1,21 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Register</title>
-        <link href="resources/css/register.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
-            <div class="form">
-                <form:form method="post" modelAttribute="user">
-                    <form:input path="username" type="text" placeholder="username"/>
-                    <br/>
-                    <br/>
-                    <form:input path="password" type="password" placeholder="password"/>
-                    <br/>
-                    <br/>
-                    <input type="submit" value="Register"/>
-                </form:form>
+
+<c:import url="partials/header.jsp" />
+
+     <div class="container">
+        <h1 class="display-3">Registreren</h1>
+
+
+       <form:form method="post" modelAttribute="user">
+            <div class="form-group">
+                <label for="name">Gebruikersnaam:</label>
+                <form:input path="username" class="form-control" />
+
+                <label for="password">Wachtwoord:</label>
+                <form:input path="password" type="password" class="form-control" />
             </div>
-        </div>
-    </body>
-</html>
+            <form:button type="submit" class="btn btn-primary">Registreer</form:button>
+        </form:form>
+
+  <c:import url="partials/footer.jsp" />
