@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="partials/header.jsp" />
-
+    <div class="container">
 	<div class="row">
 	        <h1 class="display-3">${plant.plantInformation.plantName}</h1>
     </div>
@@ -19,20 +19,7 @@
             <td>${plant.plantInformation.plantingDistance}</td>
         </tr>
       </table>
-    </div>
-
-    <div class="row">
-        <h2>Zaaiperiode</h2>
-
-        <a href="/" class="btn btn-primary">Nu inzaaien</a>
-    </div>
-
-    <div class="row">
-        <h2>To Do</h2>
-    </div>
-
-    <div class="row">
-        <h2>Berichten</h2>
+      <p><a href="/plantinformationoverview/${plant.plantInformation.plantInfoId}">Meer informatie</a></p>
     </div>
 
 <c:import url="partials/footer.jsp" />
