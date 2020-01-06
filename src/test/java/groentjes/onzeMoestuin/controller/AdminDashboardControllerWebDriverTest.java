@@ -15,7 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @author Eric van Dalen
- * Test class for webdriver test to register a new user
+ * Test class for webdriver test of the administrator dashboard
  */
 @SpringBootTest
 @WebAppConfiguration

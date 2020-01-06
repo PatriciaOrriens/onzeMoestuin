@@ -10,27 +10,27 @@
     <body>
         <h2>Voeg nieuwe gebruiker toe</h2>
         <br/>
-        <form action="/user/new" modelAttribute="user">
+        <form:form method="post" modelAttribute="user">
             <table>
                 <tr>
                     <td>Inlognaam:</td>
                     <td>
-                        <input path="username" />
+                        <form:input path="username" />
                     </td>
                 </tr>
                 <tr>
                     <td>Wachtwoord:</td>
                     <td>
-                        <input path="password" />
+                        <form:input path="password" />
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="Voeg toe" />
+                        <input type="submit" name="createUserButton" class="btn btn-primary" value="Voeg toe" />
                     </td>
                 </tr>
             </table>
-        </form>
+        </form:form>
         <br/>
         <br/>
         <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>

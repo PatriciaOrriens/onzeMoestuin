@@ -25,9 +25,9 @@
             </c:forEach>
         </table>
         <br/>
-        <a href="/user/new" class="btn btn-primary">Voeg nieuwe gebruiker toe</a>
+        <a href="/user/new" name="buttonGoToAdminCreateUser" class="btn btn-primary">Voeg nieuwe gebruiker toe</a>
         <br/>
         <br/>
-        <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
+        <a href="/adminDashboard" name="buttonGoToAdminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
     </body>
 </html>
