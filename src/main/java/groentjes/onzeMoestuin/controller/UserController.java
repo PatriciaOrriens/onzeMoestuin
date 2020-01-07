@@ -53,6 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/user/new")
+    @Secured("ROLE_ADMIN")
     protected String saveOrUpdateUser(@ModelAttribute("user") User user, BindingResult result){
         if(result.hasErrors()){
             return "adminCreateUser";
