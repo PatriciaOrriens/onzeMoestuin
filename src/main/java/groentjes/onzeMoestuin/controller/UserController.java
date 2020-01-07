@@ -27,11 +27,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/adminManageUsersAndGardens")
+    @GetMapping("/manageUsers")
     @Secured("ROLE_ADMIN")
     public String findAll(Model model) {
         model.addAttribute("allUsers", userRepository.findAll());
-        return "adminManageUsersAndGardens";
+        return "manageUsers";
     }
 
     @GetMapping("/user/delete/{userName}")
@@ -42,7 +42,7 @@ public class UserController {
             System.out.println(user);
             userRepository.delete(user.get());
         }
-        return "redirect:/adminManageUsersAndGardens";
+        return "redirect:/manageUsers";
     }
 
     @GetMapping("/user/new")
@@ -60,7 +60,7 @@ public class UserController {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
-            return "redirect:/adminManageUsersAndGardens";
+            return "redirect:/manageUsers";
         }
     }
 }
