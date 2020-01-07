@@ -13,13 +13,15 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
     @Column(unique = true)
     private String username;
-
     private String password;
+
+    public User() {
+    }
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {

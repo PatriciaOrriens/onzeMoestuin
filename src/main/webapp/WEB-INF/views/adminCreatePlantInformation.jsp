@@ -4,16 +4,15 @@
 
 <c:import url="partials/header.jsp" />
 
-<!DOCTYPE html>
 <head>
-    <title>Verander plantinformatie</title>
+    <title>Nieuwe plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
             var lightingList = new Array ("zon", "halfschaduw", "schaduw");
-            $(document).ready(function() {
 
+            $(document).ready(function() {
                 for (i = 0; i < lightingList.length; i++) {
-                        $('.lighting').append('<option>'+lightingList[i]+'</option>')
+                    $('.lighting').append('<option>'+lightingList[i]+'</option>')
                 }
             });
 
@@ -38,86 +37,74 @@
                 }
             });
     </script>
-
 </head>
 <body>
-        <div class="container">
-            <h1 class="display-3">Plant wijzigen</h1>
-        <div class="form">
-            <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
-                <form:input path="plantInfoId" type="hidden"/>
-                <br/>
+    <div class="container">
+        <h1 class="display-4">Plant toevoegen</h1>
+        <div class="form-group row">
+            <br/>
+            <form:form method="post" modelAttribute="plantInformation">
                 <label>Nederlandse plantnaam: </label>
-                <form:input path="plantName" type="text" value="${plantInformation.plantName}" class="plantName"/>
+                <form:input path="plantName" type="text" placeholder="plantnaam" class="plantName"/>
                 <br/>
                 <br/>
                 <label>Latijnse plantnaam: </label>
-                <form:input path="latinName" type="text" value="${plantInformation.latinName}" class="latinName"/>
+                <form:input path="latinName" type="text" placeholder="Latijnse plantnaam" class="latinName"/>
                 <br/>
                 <br/>
                 <label>Plantafstand (in cm's): </label>
-                <form:input path="plantingDistance" type="number" value="${plantInformation.plantingDistance}" min="0" class="plantingDistance"/>
+                <form:input path="plantingDistance" type="number" placeholder="plantafstand" min="0" class="plantingDistance"/>
                 <br/>
                 <br/>
                 <label>Belichting: </label>
                 <form:select path="lighting" type="text" class="lighting">
-                <option value="${plantInformation.lighting}">${plantInformation.lighting}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Grondsoort: </label>
                 <form:select path="soilType" type="text" class="soilType">
-                <option value="${plantInformation.soilType}">${plantInformation.soilType}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Zaaitijd (eerste maand): </label>
                 <form:select path="sowingStart" type="text" class="sowingStart">
-                <option value="${plantInformation.sowingStart}">${plantInformation.sowingStart}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Zaaitijd (laatste maand): </label>
                 <form:select path="sowingEnd" type="text" class="sowingEnd">
-                <option value="${plantInformation.sowingEnd}">${plantInformation.sowingEnd}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Planttijd (eerste maand): </label>
                 <form:select path="plantingStart" type="text" class="plantingStart">
-                <option value="${plantInformation.plantingStart}">${plantInformation.plantingStart}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Planttijd (laatste maand): </label>
                 <form:select path="plantingEnd" type="text" class="plantingEnd">
-                <option value="${plantInformation.plantingEnd}">${plantInformation.plantingEnd}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Oogsttijd (eerste maand): </label>
                  <form:select path="harvestingStart" type="text" class="harvestingStart">
-                 <option value="${plantInformation.harvestingStart}">${plantInformation.harvestingStart}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Oogsttijd (laatste maand): </label>
                 <form:select path="harvestingEnd" type="text" class="harvestingEnd">
-                <option value="${plantInformation.harvestingEnd}">${plantInformation.harvestingEnd}</option>
                 </form:select>
                 <br/>
                 <br/>
                 <label>Groeitijd in dagen: </label>
-                <form:input path="growTime" type="number" value="${plantInformation.growTime}" min="0" class="growTime"/>
+                <form:input path="growTime" type="number" placeholder="groeitijd" min="0" class="growTime"/>
                 <br/>
                 <br/>
-                <input class="btn btn-primary" type="submit" value="Toepassen"/>
+                <input class="btn btn-primary" type="submit" value="Toevoegen"/>
             </form:form>
         </div>
-            <br />
             <a href="/adminDashboard" class="btn btn-primary">Terug</a>
 
     </div>
 
-
-<c:import url="partials/footer.jsp" />
+    <c:import url="partials/footer.jsp" />

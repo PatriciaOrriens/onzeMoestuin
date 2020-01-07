@@ -2,18 +2,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-
-	<h1>Nieuwe tuin aanmaken</h1>
+  <div class="container">
+	<h1 class="display-3">Nieuwe tuin aanmaken</h1>
 	<!-- JSTL form -->
     <form:form action="/garden/add" modelAttribute="garden">
+    <form:hidden path="user" />
         <div class="form-group">
             <label for="name">Naam:</label>
             <form:input path="gardenName" class="form-control" />
 
-            <label for="name">Lengte:</label>
+            <label for="name">Lengte (m):</label>
             <form:input path="length" class="form-control" />
 
-            <label for="name">Breedte:</label>
+            <label for="name">Breedte (m):</label>
             <form:input path="width" class="form-control" />            
 
         </div>

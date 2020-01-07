@@ -3,9 +3,8 @@
 
 <c:import url="partials/header.jsp" />
 
-     <div class="container">
-        <h1 class="display-3">Registreren</h1>
-
+    <div class="container">
+       <h1 class="display-3">Gebruiker toevoegen</h1>
 
        <form:form method="post" modelAttribute="user">
             <div class="form-group">
@@ -15,7 +14,12 @@
                 <label for="password">Wachtwoord:</label>
                 <form:input path="password" type="password" class="form-control" />
             </div>
-            <form:button type="submit" class="btn btn-primary">Registreer</form:button>
+            <form:button type="submit" class="btn btn-primary">Toevoegen</form:button>
         </form:form>
 
-  <c:import url="partials/footer.jsp" />
+        <br />
+        <p><a href="/adminDashboard" class="btn btn-primary">Terug</a></p>
+
+    </div>
+
+<c:import url="partials/footer.jsp" />

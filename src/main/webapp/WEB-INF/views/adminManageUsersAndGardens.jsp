@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-</body>
+<c:import url="partials/header.jsp" />
+
+  <div class="container">
+        <h1 class="display-3">Overzicht van gebruikers </h1>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Naam</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${allUsers}" var="user">
+                <tr>
+                    <td><c:out value="${user.username}" /></td>
+                    <td><a class="btn btn-outline-warning" href="/user/delete/<c:out value="${user.username}" />"
+                        >Verwijder</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+        <br/>
+        <a href="/user/new" class="btn btn-primary">Voeg nieuwe gebruiker toe</a>
+        <br/>
+        <br/>
+        <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
+    </body>
 </html>
