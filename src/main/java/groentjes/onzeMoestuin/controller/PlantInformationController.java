@@ -19,7 +19,7 @@ import java.util.Optional;
  * Controller class for managing the plant information.
  */
 @Controller
-public class AdminManagePlantInformationController {
+public class PlantInformationController {
 
     @Autowired
     private PlantInformationRepository plantInformationRepository;
@@ -29,6 +29,23 @@ public class AdminManagePlantInformationController {
     public String managePlantInfo(Model model) {
         model.addAttribute("plantInformation", plantInformationRepository.findAll());
         return "adminManagePlantInformation";
+    }
+
+    @GetMapping("/admincreateplantinfo")
+    @Secured("ROLE_ADMIN")
+    public String getPlantInfoForm(Model model) {
+        model.addAttribute("plantInformation", new PlantInformation());
+        return "adminCreatePlantInformation";
+    }
+
+    @PostMapping("/admincreateplantinfo")
+    public String saveNewPlantInfo(@ModelAttribute() PlantInformation plantInformation, BindingResult result) {
+        if (result.hasErrors()){
+            return "adminCreatePlantInformation";
+        } else {
+            plantInformationRepository.save(plantInformation);
+            return "redirect:/adminManagePlantInformation";
+        }
     }
 
     @GetMapping("/plantinfo/update/{plantInfoId}")

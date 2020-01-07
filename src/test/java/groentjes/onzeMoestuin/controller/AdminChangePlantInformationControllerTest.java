@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Test class for adding new plantinformation
  */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AdminCreatePlantInformationController.class)
+@WebMvcTest(controllers = PlantInformationController.class)
 public class AdminChangePlantInformationControllerTest {
 
     @Autowired

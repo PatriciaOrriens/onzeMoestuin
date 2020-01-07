@@ -13,14 +13,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AdminManagePlantInformationController.class)
-class AdminManagePlantInformationTest {
+@WebMvcTest(controllers = PlantInformationController.class)
+class PlantInformationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
