@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="partials/header.jsp" />
-
+  <div class="container">
     <h1 class="display-3">${plantinformation.plantName}</h1>
 
         <table class="table table-striped">
@@ -18,5 +18,7 @@
             <tr><td>Oogsttijd (laatste maand)</td><td>${plantinformation.harvestingEnd}</td></tr>
             <tr><td>Groeitijd in dagen</td><td>${plantinformation.growTime}</td></tr>
         </table>
+
+      <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />

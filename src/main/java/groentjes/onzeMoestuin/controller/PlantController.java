@@ -42,6 +42,19 @@ public class PlantController {
         }
     }
 
+    @GetMapping("/plant/{plantId}")
+    public String showPlantDetails(Model model, @PathVariable("plantId") final Integer plantId) {
+
+        Optional<Plant> plant = plantRepository.findById(plantId);
+
+        if (plant.isPresent()) {
+            model.addAttribute(plant.get());
+            return "showPlant";
+        } else {
+            return "redirect:/";
+        }
+    }
+
     @PostMapping("/garden/{gardenId}/addPlant")
     public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
                                    BindingResult result, @PathVariable("gardenId") final Integer gardenId) {

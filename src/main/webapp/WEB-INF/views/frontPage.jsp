@@ -1,18 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="partials/header.jsp" />
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  <div class="inner">
+    <h1 class="display-3">Welkom bij Onze Moestuin!</h1>
+    <p>Dit is de plek om je moestuin digitaal te beheren.<br>
+    Met deze app krijg je tips voor nieuwe planten en krijg je hulp om je tuin in te delen.</p>
+      <p class="lead">
+    <a class="btn btn-primary btn-lg" href="/registerUser" role="button">Registreer nu</a>
 
-<h1>Welkom bij Onze Moestuin!</h1>
-</br>
-<p>Dit is de plek om je moestuin digitaal te beheren.
-    <br>Met deze app krijg je tips voor nieuwe planten en krijg je hulp om planten te beheren.
-</p>
-<a href="/login" class="btn btn-primary">Login</a>
+    <a class="btn btn-primary btn-lg" href="/login" role="button">Inloggen</a>
 
-<br/>
-<br/>
-<p>Ben je hier voor het eerst? <br>
-    <a href="/registerUser">Registreer als nieuwe gebruiker.</a>
-</p>
+  </p>
+  </div>
+</div>
+
+</div>
 
 <c:import url="partials/footer.jsp" />

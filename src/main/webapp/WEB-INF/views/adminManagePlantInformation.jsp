@@ -1,13 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="partials/header.jsp" />
-
-<html>
-    <head>
-        <title>Overzicht van plantinformatie</title>
-    </head>
-    <body>
-        <h2>Overzicht van plantinformatie </h2>
+  <div class="container">
+        <h1 class="display-3">Overzicht van plantinformatie </h1>
         <table class="table table-striped">
                     <tr>
                         <th>Id</th>
@@ -29,10 +24,9 @@
         </c:forEach>
         </table>
 
-        <a class="btn btn-primary" href="admincreateplantinfo">Voeg nieuwe plantinformatie toe</a>
+        <a class="btn btn-primary" href="admincreateplantinfo">Plant toevoegen</a>
         <br/>
         <br/>
-        <a class="btn btn-primary" href="/adminDashboard">Terug naar taakmenu</a>
-</html>
+        <a class="btn btn-primary" href="/adminDashboard">Terug</a>
 
 <c:import url="partials/footer.jsp" />

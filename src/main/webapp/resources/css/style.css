@@ -1,0 +1,11 @@
+.jumbotron {
+  background: url("../img/vegetables.jpg");
+  background-size: cover;
+  color: rgba(255, 255, 255);
+  height:1000px;
+}
+
+.inner {
+  background: rgba(110, 110, 110, 0.75);
+  padding: 75px;
+}

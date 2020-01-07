@@ -2,12 +2,8 @@
 
 <c:import url="partials/header.jsp" />
 
-<html>
-    <head>
-        <title>gebruikers</title>
-    </head>
-    <body>
-        <h2>Overzicht van gebruikers </h2>
+  <div class="container">
+        <h1 class="display-3">Overzicht van gebruikers </h1>
         <table class="table table-striped">
             <thead>
             <tr>

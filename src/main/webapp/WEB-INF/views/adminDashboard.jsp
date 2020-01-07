@@ -3,25 +3,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Takenlijst voor beheerder</title>
-    </head>
-    <body>
-        <h1> Welkom beheerder </h1>
+  <div class="container">
+        <h1 class="display-3">Welkom beheerder </h1>
         <br/>
-        <h2>Taken: </h2>
+        <h2>Kies een taak:</h2>
         <ul>
             <li><a href="/adminManageUsersAndGardens" name="selectManageUser">Beheer gebruikers</a></li>
             <li><a href="/adminManagePlantInformation" name="selectManagePlantInformation">Beheer plantinformatie</a></li>
         </ul>
         <br/>
-        <a href="/logout" class="btn btn-primary" name="adminLogoutButton">Logout</a>
-    </body>
-    <c:import url="partials/footer.jsp" />
-</html>
+        <a href="/logout" class="btn btn-primary">Logout</a>
+
+<c:import url="partials/footer.jsp" />
+
 
 
 
