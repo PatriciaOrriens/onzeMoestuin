@@ -55,7 +55,7 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
     @Test
     void testManageUsersAndGardens() throws Exception {
         // Arrange
-        String expectedUrl = "http://localhost:8080/adminManageUsersAndGardens";
+        String expectedUrl = "http://localhost:8080/manageUsers";
 
         // Activate
         this.driver.get(expectedUrl);
@@ -72,7 +72,7 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/adminDashboard";
 
         // Activate
-        this.driver.get("http://localhost:8080/adminManageUsersAndGardens");
+        this.driver.get("http://localhost:8080/manageUsers");
         loginAsAdministrator();
         Thread.sleep(500);
         driver.findElement(By.name("buttonGoToAdminDashboard")).click();
@@ -88,7 +88,7 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/user/new";
 
         // Activate
-        this.driver.get("http://localhost:8080/adminManageUsersAndGardens");
+        this.driver.get("http://localhost:8080/manageUsers");
         loginAsAdministrator();
         Thread.sleep(500);
         driver.findElement(By.name("buttonGoToAdminCreateUser")).click();
@@ -102,10 +102,10 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
     void testAdminManageUsersAndGardensControllerAfterCreateUser() throws Exception {
         // Arrange
         boolean expectedFound = true;
-        String expectedUrl = "http://localhost:8080/adminManageUsersAndGardens";
+        String expectedUrl = "http://localhost:8080/manageUsers";
 
         // Activate
-        this.driver.get("http://localhost:8080/adminManageUsersAndGardens");
+        this.driver.get("http://localhost:8080/manageUsers");
         loginAsAdministrator();
         Thread.sleep(500);
         driver.findElement(By.name("buttonGoToAdminCreateUser")).click();

@@ -64,7 +64,7 @@ public class AdminDashboardControllerWebDriverTest {
     @Test
     void testAdminDashboardSelectManageUser() throws Exception {
         // Arrange
-        String expectedUrl = "http://localhost:8080/adminManageUsersAndGardens";
+        String expectedUrl = "http://localhost:8080/manageUsers";
 
         // Activate
         this.driver.get("http://localhost:8080/adminDashboard");
@@ -73,7 +73,7 @@ public class AdminDashboardControllerWebDriverTest {
         driver.findElement(By.className("form-signin")).submit();
         Thread.sleep(500);
         driver.findElement(By.name("selectManageUser")).click();
-        Thread.sleep(500);
+        Thread.sleep(2500);
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
