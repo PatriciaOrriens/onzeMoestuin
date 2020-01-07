@@ -8,7 +8,7 @@
         <br/>
         <h2>Kies een taak:</h2>
         <ul>
-            <li><a href="/adminManageUsersAndGardens">Beheer gebruikers</a></li>
+            <li><a href="/manageUsers">Beheer gebruikers</a></li>
             <li><a href="/adminManagePlantInformation">Beheer plantinformatie</a></li>
         </ul>
         <br/>
