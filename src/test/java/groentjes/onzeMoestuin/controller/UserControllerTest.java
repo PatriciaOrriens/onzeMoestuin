@@ -21,8 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Test class for management of Users (and later also for the gardens)
  */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AdminManageUsersAndGardensController.class)
-class AdminManageUsersAndGardensControllerTest {
+@WebMvcTest(controllers = UserController.class)
+class UserControllerTest {
 
 
     @Autowired
