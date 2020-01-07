@@ -77,7 +77,7 @@ public class RegisterControllerWebDriverTest {
         this.driver.get("http://localhost:8080/registerUser");
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.className("registerbutton")).submit();
+        driver.findElement(By.name("registerbutton")).submit();
         boolean actualFound = userRepository.findByUsername(NAME).isPresent();
 
         // Assert

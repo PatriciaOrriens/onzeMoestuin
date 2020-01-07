@@ -34,7 +34,7 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
     private static final String ADMINNAME = "admin";
     private static final String ADMINPASSWORD = "admin";
     private static final String NAME = "testgebruiker1";
-    private static final String PASSWORD = "testwaxhtwoord1";
+    private static final String PASSWORD = "testwachtwoord1";
 
     @BeforeEach
     public void setUp() throws Exception {

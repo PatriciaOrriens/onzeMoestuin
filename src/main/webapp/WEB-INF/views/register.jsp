@@ -15,7 +15,7 @@
                 <label for="password">Wachtwoord:</label>
                 <form:input path="password" type="password" class="form-control" />
             </div>
-            <form:button type="submit" class="btn btn-primary">Registreer</form:button>
+            <form:button type="submit" class="btn btn-primary" name="registerbutton">Registreer</form:button>
         </form:form>
 
   <c:import url="partials/footer.jsp" />
