@@ -17,6 +17,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * @author Eric van Dalen
+ * Test class for managing PlantInformation
+ */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = PlantInformationController.class)
 class PlantInformationControllerTest {
@@ -38,5 +42,12 @@ class PlantInformationControllerTest {
     void testManagePlantInfo() throws Exception {
         final ResultActions result = mockMvc.perform(get("/adminManagePlantInformation")).andExpect(status()
                 .isOk()).andExpect(forwardedUrl("/WEB-INF/views/adminManagePlantInformation.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testAdminChangePlantInformationPage() throws Exception {
+        final ResultActions result = mockMvc.perform(get("/admincreateplantinfo")).andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreatePlantInformation.jsp"));
     }
 }
