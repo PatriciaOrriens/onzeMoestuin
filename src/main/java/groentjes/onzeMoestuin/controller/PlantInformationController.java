@@ -24,6 +24,19 @@ public class PlantInformationController {
     @Autowired
     private PlantInformationRepository plantInformationRepository;
 
+    // View Plant information for user
+    @GetMapping("/plantinformationoverview/{plantInfoId}")
+    protected String showPlants(@PathVariable("plantInfoId") Integer plantInfoId, Model model){
+        Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
+        if (foundPlantInformation.isPresent()) {
+            model.addAttribute("plantinformation", foundPlantInformation.get());
+        }
+        return "plantInformationOverview";
+    }
+
+    /**
+     * Mappings for administrator
+     */
     @GetMapping("/adminManagePlantInformation")
     @Secured("ROLE_ADMIN")
     public String managePlantInfo(Model model) {
@@ -39,6 +52,7 @@ public class PlantInformationController {
     }
 
     @PostMapping("/admincreateplantinfo")
+    @Secured("ROLE_ADMIN")
     public String saveNewPlantInfo(@ModelAttribute() PlantInformation plantInformation, BindingResult result) {
         if (result.hasErrors()){
             return "adminCreatePlantInformation";
@@ -59,8 +73,8 @@ public class PlantInformationController {
         return "redirect:/adminManagePlantInformation";
     }
 
-
     @PostMapping("/plantinfo/update/{plantInfoId}")
+    @Secured("ROLE_ADMIN")
     protected String updatePlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId,
                                      @ModelAttribute("plantInformation") PlantInformation plantInformation,
                                      BindingResult result) {
@@ -82,12 +96,5 @@ public class PlantInformationController {
         return "redirect:/adminManagePlantInformation";
     }
 
-    @GetMapping("/plantinformationoverview/{plantInfoId}")
-    protected String showPlants(@PathVariable("plantInfoId") Integer plantInfoId, Model model){
-        Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
-        if (foundPlantInformation.isPresent()) {
-            model.addAttribute("plantinformation", foundPlantInformation.get());
-        }
-        return "plantInformationOverview";
-    }
+
 }
