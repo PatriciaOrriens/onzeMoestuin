@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen
+ * @author Eric van Dalen, Wim Kruizinga, and Gjalt Wybenga
  * Controller class for managing the plant information.
  */
 @Controller
@@ -80,5 +80,14 @@ public class PlantInformationController {
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         plantInformation.ifPresent(information -> plantInformationRepository.delete(information));
         return "redirect:/adminManagePlantInformation";
+    }
+
+    @GetMapping("/plantinformationoverview/{plantInfoId}")
+    protected String showPlants(@PathVariable("plantInfoId") Integer plantInfoId, Model model){
+        Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
+        if (foundPlantInformation.isPresent()) {
+            model.addAttribute("plantinformation", foundPlantInformation.get());
+        }
+        return "plantInformationOverview";
     }
 }
