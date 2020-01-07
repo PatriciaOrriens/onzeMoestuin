@@ -21,8 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Test class for management of Users (and later also for the gardens)
  */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AdminManageUsersAndGardensController.class)
-class AdminManageUsersAndGardensControllerTest {
+@WebMvcTest(controllers = UserController.class)
+class UserControllerTest {
 
 
     @Autowired
@@ -37,8 +37,8 @@ class AdminManageUsersAndGardensControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testAdminManageUsersAndGardensPage() throws Exception {
-        final ResultActions result = mockMvc.perform(get("/adminManageUsersAndGardens")).andExpect(status()
-                .isOk()).andExpect(forwardedUrl("/WEB-INF/views/adminManageUsersAndGardens.jsp"));
+        final ResultActions result = mockMvc.perform(get("/manageUsers")).andExpect(status()
+                .isOk()).andExpect(forwardedUrl("/WEB-INF/views/manageUsers.jsp"));
     }
 
 }

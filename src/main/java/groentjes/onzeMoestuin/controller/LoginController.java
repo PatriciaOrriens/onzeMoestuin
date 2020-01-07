@@ -1,4 +1,4 @@
 package groentjes.onzeMoestuin.controller;
 
-public class ManagePlantsInGardenController {
+public class LoginController {
 }

@@ -15,20 +15,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen
+ * @author Eric van Dalen, Wim Kruizinga, and Gjalt Wybenga
  * Controller class for managing the plant information.
  */
 @Controller
-public class AdminManagePlantInformationController {
+public class PlantInformationController {
 
     @Autowired
     private PlantInformationRepository plantInformationRepository;
 
+    // View Plant information for user
+    @GetMapping("/plantinformationoverview/{plantInfoId}")
+    protected String showPlants(@PathVariable("plantInfoId") Integer plantInfoId, Model model){
+        Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
+        if (foundPlantInformation.isPresent()) {
+            model.addAttribute("plantinformation", foundPlantInformation.get());
+        }
+        return "plantInformationOverview";
+    }
+
+    /**
+     * Mappings for administrator
+     */
     @GetMapping("/adminManagePlantInformation")
     @Secured("ROLE_ADMIN")
     public String managePlantInfo(Model model) {
         model.addAttribute("plantInformation", plantInformationRepository.findAll());
         return "adminManagePlantInformation";
+    }
+
+    @GetMapping("/admincreateplantinfo")
+    @Secured("ROLE_ADMIN")
+    public String getPlantInfoForm(Model model) {
+        model.addAttribute("plantInformation", new PlantInformation());
+        return "adminCreatePlantInformation";
+    }
+
+    @PostMapping("/admincreateplantinfo")
+    @Secured("ROLE_ADMIN")
+    public String saveNewPlantInfo(@ModelAttribute() PlantInformation plantInformation, BindingResult result) {
+        if (result.hasErrors()){
+            return "adminCreatePlantInformation";
+        } else {
+            plantInformationRepository.save(plantInformation);
+            return "redirect:/adminManagePlantInformation";
+        }
     }
 
     @GetMapping("/plantinfo/update/{plantInfoId}")
@@ -42,8 +73,8 @@ public class AdminManagePlantInformationController {
         return "redirect:/adminManagePlantInformation";
     }
 
-
     @PostMapping("/plantinfo/update/{plantInfoId}")
+    @Secured("ROLE_ADMIN")
     protected String updatePlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId,
                                      @ModelAttribute("plantInformation") PlantInformation plantInformation,
                                      BindingResult result) {
@@ -64,4 +95,6 @@ public class AdminManagePlantInformationController {
         plantInformation.ifPresent(information -> plantInformationRepository.delete(information));
         return "redirect:/adminManagePlantInformation";
     }
+
+
 }

@@ -8,14 +8,13 @@
         <br/>
         <h2>Kies een taak:</h2>
         <ul>
-            <li><a href="/adminManageUsersAndGardens" name="selectManageUser">Beheer gebruikers</a></li>
-            <li><a href="/adminManagePlantInformation" name="selectManagePlantInformation">Beheer plantinformatie</a></li>
+            <li><a href="/manageUsers">Beheer gebruikers</a></li>
+            <li><a href="/adminManagePlantInformation">Beheer plantinformatie</a></li>
         </ul>
         <br/>
         <a href="/logout" class="btn btn-primary" name="adminLogoutButton">Logout</a>
 
 <c:import url="partials/footer.jsp" />
-
 
 
 

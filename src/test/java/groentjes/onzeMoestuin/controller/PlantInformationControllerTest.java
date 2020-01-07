@@ -12,17 +12,18 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author Eric van Dalen
- * Test class for adding new plantinformation
+ * Test class for managing PlantInformation
  */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AdminCreatePlantInformationController.class)
-public class AdminChangePlantInformationControllerTest {
+@WebMvcTest(controllers = PlantInformationController.class)
+class PlantInformationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -31,11 +32,17 @@ public class AdminChangePlantInformationControllerTest {
     private UserRepository userRepository;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
+    private GardenUserDetailsService gardenUserDetailsService;
 
     @MockBean
-    PlantInformationRepository plantInformationRepository;
+    private PlantInformationRepository plantInformationRepository;
 
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testManagePlantInfo() throws Exception {
+        final ResultActions result = mockMvc.perform(get("/adminManagePlantInformation")).andExpect(status()
+                .isOk()).andExpect(forwardedUrl("/WEB-INF/views/adminManagePlantInformation.jsp"));
+    }
 
     @Test
     @WithMockUser(roles = "ADMIN")

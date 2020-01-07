@@ -19,7 +19,7 @@ import java.util.Optional;
  * Controller class for the administrator to manage users (and later also the gardens)
  */
 @Controller
-public class AdminManageUsersAndGardensController {
+public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -27,11 +27,11 @@ public class AdminManageUsersAndGardensController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/adminManageUsersAndGardens")
+    @GetMapping("/manageUsers")
     @Secured("ROLE_ADMIN")
     public String findAll(Model model) {
         model.addAttribute("allUsers", userRepository.findAll());
-        return "adminManageUsersAndGardens";
+        return "manageUsers";
     }
 
     @GetMapping("/user/delete/{userName}")
@@ -42,7 +42,7 @@ public class AdminManageUsersAndGardensController {
             System.out.println(user);
             userRepository.delete(user.get());
         }
-        return "redirect:/adminManageUsersAndGardens";
+        return "redirect:/manageUsers";
     }
 
     @GetMapping("/user/new")
@@ -53,13 +53,14 @@ public class AdminManageUsersAndGardensController {
     }
 
     @PostMapping("/user/new")
+    @Secured("ROLE_ADMIN")
     protected String saveOrUpdateUser(@ModelAttribute("user") User user, BindingResult result){
         if(result.hasErrors()){
             return "adminCreateUser";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
-            return "redirect:/adminManageUsersAndGardens";
+            return "redirect:/manageUsers";
         }
     }
 }
