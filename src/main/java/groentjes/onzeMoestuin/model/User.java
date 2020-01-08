@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity (name = "User")
 public class User implements UserDetails {
@@ -19,6 +20,13 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
+
+    @ManyToMany
+    @JoinTable(
+            name = "joined_garden",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "garden_id"))
+    Set<Garden> joinedGardens;
 
     public User() {
     }
