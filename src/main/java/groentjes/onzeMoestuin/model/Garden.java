@@ -1,6 +1,7 @@
 package groentjes.onzeMoestuin.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,8 +20,15 @@ public class Garden {
     @JoinColumn(name = "ownerId", referencedColumnName = "userId")
     private User user;
 
-    @ManyToMany(mappedBy = "joinedGardens")
-    Set<User> gardenMembers;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = { CascadeType.PERSIST,
+                    CascadeType.MERGE })
+    @JoinTable(
+            name = "garden_members",
+            joinColumns = @JoinColumn(name = "gardenId"),
+            inverseJoinColumns = @JoinColumn(name = "userId"))
+    Set<User> gardenMembers = new HashSet<>();
+
 
     public Garden() {
     }
@@ -71,5 +79,9 @@ public class Garden {
 
     public void setGardenMembers(Set<User> gardenMembers) {
         this.gardenMembers = gardenMembers;
+    }
+
+    public void addGardenMember(User member) {
+        this.gardenMembers.add(member);
     }
 }

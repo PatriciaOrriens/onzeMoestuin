@@ -6,6 +6,7 @@ import groentjes.onzeMoestuin.model.Plant;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.PlantRepository;
+import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,6 +35,9 @@ public class NewGardenController {
     @Autowired
     private PlantRepository plantRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
@@ -58,12 +62,15 @@ public class NewGardenController {
     }
 
     @PostMapping({"/garden/add"})
-    protected String saveOrUpdateGarden(@ModelAttribute("garden") Garden garden, BindingResult result) {
+    protected String saveOrUpdateGarden(@ModelAttribute("garden") Garden garden, BindingResult result, @AuthenticationPrincipal User user) {
 
         if (result.hasErrors()) {
             return "newGarden";
         } else {
+            User owner = userRepository.getOne(user.getUserId());
+            garden.addGardenMember(owner);
             garden = gardenRepository.save(garden);
+
             int id = garden.getGardenId();
             return "redirect:/garden/" + id;
         }
