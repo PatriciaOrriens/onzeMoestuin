@@ -55,24 +55,24 @@ public class NewGardenController {
     protected String showGardenForm(Model model, @AuthenticationPrincipal User user) {
         Garden garden = new Garden();
         garden.setUser(user);
-
         model.addAttribute("garden", garden);
 
         return "newGarden";
     }
 
     @PostMapping({"/garden/add"})
-    protected String saveOrUpdateGarden(@ModelAttribute("garden") Garden garden, BindingResult result, @AuthenticationPrincipal User user) {
+    protected String saveOrUpdateGarden(@ModelAttribute("garden") Garden garden, BindingResult result,
+                                        @AuthenticationPrincipal User user) {
 
         if (result.hasErrors()) {
             return "newGarden";
         } else {
+            // Retrieve complete User object from database to be able to add member to garden
             User owner = userRepository.getOne(user.getUserId());
             garden.addGardenMember(owner);
             garden = gardenRepository.save(garden);
 
-            int id = garden.getGardenId();
-            return "redirect:/garden/" + id;
+            return "redirect:/garden/" + garden.getGardenId();
         }
     }
 }
