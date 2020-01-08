@@ -19,6 +19,20 @@
         </div>
     </c:forEach>
 
+      <!-- Tijdelijke code om te testen -->
+
+      <h2>Leden van deze tuin:</h2>
+      <ul>
+      <li>${garden.user.username} (eigenaar)</li>
+
+       <c:forEach items="${garden.gardenMembers}" var="member">
+              <li><c:out value="${member.username}" /></li>
+       </c:forEach>
+
+
+      </ul>
+
+
       <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />

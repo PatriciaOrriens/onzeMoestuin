@@ -65,4 +65,11 @@ public class Garden {
     public void setUser(User user) {
         this.user = user;
     }
+    public Set<User> getGardenMembers() {
+        return gardenMembers;
+    }
+
+    public void setGardenMembers(Set<User> gardenMembers) {
+        this.gardenMembers = gardenMembers;
+    }
 }
