@@ -23,13 +23,9 @@
 
       <h2>Leden van deze tuin:</h2>
       <ul>
-      <li>${garden.user.username} (eigenaar)</li>
-
-       <c:forEach items="${garden.gardenMembers}" var="member">
-              <li><c:out value="${member.username}" /></li>
-       </c:forEach>
-
-
+           <c:forEach items="${garden.gardenMembers}" var="member">
+                  <li><c:out value="${member.username}" /></li>
+           </c:forEach>
       </ul>
 
 
