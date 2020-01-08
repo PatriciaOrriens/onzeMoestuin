@@ -1,20 +1,22 @@
 package groentjes.onzeMoestuin.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author Patricia Orriens-Spuij
- * Task is an abstract super class, which forms the basis of different types of tasks.
+ * Task can be an abstract (super)class in the future, for the creation of tasks with a description or image.
  */
-public abstract class Task {
+@Entity
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taskId;
 
-    private String taskDescription;
+    @NotEmpty
+    @Column(unique = true)
+    private String taskName;
 
     // getters and setters
     public Integer getTaskId() {
@@ -25,11 +27,11 @@ public abstract class Task {
         this.taskId = taskId;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 }
