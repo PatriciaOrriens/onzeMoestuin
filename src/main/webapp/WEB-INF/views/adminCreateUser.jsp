@@ -14,7 +14,7 @@
                 <label for="password">Wachtwoord:</label>
                 <form:input path="password" type="password" class="form-control" />
             </div>
-            <form:button type="submit" class="btn btn-primary">Toevoegen</form:button>
+            <form:button type="submit" class="btn btn-primary" name="createUserButton" >Toevoegen</form:button>
         </form:form>
 
         <br />
