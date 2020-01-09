@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.awt.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Patricia Orriens-Spuij and Eric van Dalen
@@ -31,6 +32,16 @@ public class Plant {
     @JoinColumn(name = "plantInfo_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PlantInformation plantInformation;
+
+    public boolean isOwnerOfPlant(User user) {
+        Set<User> users = this.getGarden().getGardenMembers();
+        for (User gardenUser : users) {
+            if (user.getUserId().equals(gardenUser.getUserId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Integer getPlantId() {
         return plantId;

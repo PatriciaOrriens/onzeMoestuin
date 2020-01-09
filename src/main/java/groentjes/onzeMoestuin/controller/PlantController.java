@@ -51,16 +51,17 @@ public class PlantController {
     }
 
     @GetMapping("/plant/{plantId}")
-    public String showPlantDetails(Model model, @PathVariable("plantId") final Integer plantId) {
+    public String showPlantDetails(Model model, @PathVariable("plantId") final Integer plantId,
+                                   @AuthenticationPrincipal User user) {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
-
         if (plant.isPresent()) {
-            model.addAttribute(plant.get());
-            return "showPlant";
-        } else {
-            return "redirect:/";
+            if (plant.get().isOwnerOfPlant(user)) {
+                model.addAttribute(plant.get());
+                return "showPlant";
+            }
         }
+        return "redirect:/";
     }
 
     @PostMapping("/garden/{gardenId}/addPlant")
