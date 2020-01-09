@@ -10,6 +10,7 @@
                         <th>Latijnse plantnaam</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
         <c:forEach items="${plantInformation}" var="plant">
             <tr>
@@ -18,6 +19,8 @@
                 <td><c:out value="${plant.latinName}" /></td>
                 <td><a class="btn btn-outline-primary" href="/plantinfo/update/<c:out value="${plant.plantInfoId}" />"
                     >Wijzig</a></td>
+                <td><a class="btn btn-outline-primary" href="/plantinfo/tasks/<c:out value="${plant.plantInfoId}" />"
+                    >Beheer taken</a></td>
                 <td><a class="btn btn-outline-warning" href="/plantinfo/delete/<c:out value="${plant.plantInfoId}" />"
                     >Verwijder</a></td></td>
             </tr>

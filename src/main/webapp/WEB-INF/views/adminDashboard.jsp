@@ -10,6 +10,7 @@
         <ul>
             <li><a href="/manageUsers">Beheer gebruikers</a></li>
             <li><a href="/adminManagePlantInformation">Beheer plantinformatie</a></li>
+            <li><a href="/adminManageTasks">Beheer taken</a></li>
         </ul>
         <br/>
         <a href="/logout" class="btn btn-primary">Uitloggen</a>
