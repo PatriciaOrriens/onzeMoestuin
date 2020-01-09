@@ -26,6 +26,8 @@
                   <li><c:out value="${member.username}" /></li>
            </c:forEach>
       </ul>
+      <a href="/garden/${garden.gardenId}/invite" class="btn btn-primary">Lid toevoegen</a>
+
 
       <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
 
