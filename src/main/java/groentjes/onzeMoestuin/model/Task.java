@@ -14,7 +14,6 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taskId;
 
-    @NotEmpty
     @Column(unique = true)
     private String taskName;
 

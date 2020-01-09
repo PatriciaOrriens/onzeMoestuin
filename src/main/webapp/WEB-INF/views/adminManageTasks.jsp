@@ -18,7 +18,7 @@
             <th></th>
             <th></th>
         </tr>
-        <c:forEach items="${task}" var="task">
+        <c:forEach items="${allTasks}" var="task">
             <tr>
                 <td><c:out value="${task.taskId}" /></td>
                 <td><c:out value="${task.taskName}" /></td>
@@ -34,20 +34,21 @@
     </div>
 
 <div class="container">
-    <h1 class="display-4">Voeg nieuwe taak toe</h1>
+    <h1 class="display-5">Voeg nieuwe taak toe</h1>
 
-    <form:form method="post" modelAttribute="task">
+    <form:form modelAttribute="newTask">
         <div class="form-group">
             <label>Naam van taak: </label>
-
-        </div>
-        <br/>
+            <form:input path="taskName" type="text" />
+            <br/>
             <input class="btn btn-primary" type="submit" value="Toevoegen"/>
+            </div>
         <br/>
     </form:form>
+
     <br/>
     <br/>
-    <a class="btn btn-primary" href="/adminManagePlantInformation">Terug</a>
+    <a class="btn btn-primary" href="/adminDashboard">Terug</a>
 </div>
 
 </body>

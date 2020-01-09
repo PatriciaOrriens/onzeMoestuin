@@ -31,12 +31,26 @@ public class TaskController {
     @Autowired
     private TaskPlantInfoRepository taskPlantInfoRepository;
 
-    // admin gets list of all task names
+    // admin gets list of all task names and loads form for adding new task
     @GetMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
     public String manageTasks(Model model) {
-        model.addAttribute("task", taskRepository.findAll());
+        model.addAttribute("allTasks", taskRepository.findAll());
+        Task newTask = new Task();
+        model.addAttribute("newTask", newTask);
         return "adminManageTasks";
+    }
+
+    // admin creates new (generic) tasks
+    @PostMapping("/adminManageTasks")
+    @Secured("ROLE_ADMIN")
+    public String saveNewTask(@ModelAttribute()Task task, BindingResult result) {
+        if (result.hasErrors()){
+            return "adminManageTasks";
+        } else {
+            taskRepository.save(task);
+            return "redirect:/adminManageTasks";
+        }
     }
 
     // admin wishes to change a (generic) task
@@ -65,16 +79,6 @@ public class TaskController {
         }
     }
 
-    // admin creates new (generic) tasks
-    @PostMapping("/adminManageTasks")
-    @Secured("ROLE_ADMIN")
-    public String saveNewTask(@ModelAttribute()Task task, BindingResult result) {
-        if (result.hasErrors()){
-            return "adminManageTasks";
-        } else {
-            taskRepository.save(task);
-            return "redirect:/adminManageTasks";
-        }
-    }
+
 
 }
