@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 
 /**
- * @author Patricia Orriens-Spuij
+ * @author Patricia Orriens-Spuij and Eric van Dalen
  * Controller for view in which user can create a new garden, or update his/her garden
  */
 @Controller
@@ -39,14 +40,18 @@ public class NewGardenController {
     private UserRepository userRepository;
 
     @GetMapping("/garden/{gardenId}")
-    protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
+    protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
+                                @AuthenticationPrincipal User loggedInUser) {
+
         Optional<Garden> garden = gardenRepository.findById(gardenId);
 
         if (garden.isPresent()) {
-            ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
-            model.addAttribute("plants", plants);
-            model.addAttribute("garden", garden.get());
-            return "showGarden";
+            if(garden.get().isGardenMember(loggedInUser)) {
+                ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
+                model.addAttribute("plants", plants);
+                model.addAttribute("garden", garden.get());
+                return "showGarden";
+            }
         }
         return "redirect:/";
     }

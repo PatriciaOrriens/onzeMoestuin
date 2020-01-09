@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Eric van Dalen
+ * The Garden class concerns a garden of a user(users).
+ */
 @Entity
 public class Garden {
 
@@ -30,6 +34,16 @@ public class Garden {
 
 
     public Garden() {
+    }
+
+    public boolean isGardenMember(User user) {
+        Set<User> users = this.getGardenMembers();
+        for (User gardenUser : users) {
+            if (user.getUserId().equals(gardenUser.getUserId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // getters and setters
