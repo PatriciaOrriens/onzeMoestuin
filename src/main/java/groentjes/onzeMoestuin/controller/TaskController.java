@@ -60,7 +60,7 @@ public class TaskController {
         Optional<Task> foundTask = taskRepository.findById(taskId);
         if (foundTask.isPresent()) {
             model.addAttribute("task", foundTask.get());
-            return "adminManageTasks";
+            return "adminChangeTask";
         }
         return "redirect:/adminManageTasks";
     }
@@ -79,6 +79,14 @@ public class TaskController {
         }
     }
 
-
+    // admin deletes a task from task list
+    //TODO Ask user for confirmation
+    @GetMapping("/task/delete/{taskId}")
+    @Secured("ROLE_ADMIN")
+    public String deleteTask(@ModelAttribute("taskId") Integer taskId, BindingResult result) {
+        Optional<Task> task = taskRepository.findById(taskId);
+        task.ifPresent(information -> taskRepository.delete(information));
+        return "redirect:/adminManageTasks";
+    }
 
 }

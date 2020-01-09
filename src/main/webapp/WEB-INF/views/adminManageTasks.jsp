@@ -47,7 +47,6 @@
     </form:form>
 
     <br/>
-    <br/>
     <a class="btn btn-primary" href="/adminDashboard">Terug</a>
 </div>
 
