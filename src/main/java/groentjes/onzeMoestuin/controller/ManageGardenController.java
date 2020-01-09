@@ -14,7 +14,7 @@ import java.util.Optional;
 
 /**
  * @author Eric van Dalen
- * Controller class to welcome user and to manage the gardens
+ * Controller class to manage gardens
  */
 @Controller
 public class ManageGardenController {
@@ -29,9 +29,15 @@ public class ManageGardenController {
     }
 
     @GetMapping("/user/garden/delete/{gardenId}")
-    public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId, BindingResult result) {
+    public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId, BindingResult result,
+                               @AuthenticationPrincipal User user) {
+
         Optional<Garden> garden = gardenRepository.findById(gardenId);
-        garden.ifPresent(information -> gardenRepository.delete(information));
+        if (garden.isPresent()) {
+            if(garden.get().isGardenMember(user)) {
+                gardenRepository.delete(garden.get());
+            }
+        }
         return "redirect:/userManageGardens";
     }
 }
