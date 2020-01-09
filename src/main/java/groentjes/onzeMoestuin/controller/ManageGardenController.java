@@ -1,6 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
+import groentjes.onzeMoestuin.model.Plant;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -33,5 +37,16 @@ public class ManageGardenController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         garden.ifPresent(information -> gardenRepository.delete(information));
         return "redirect:/userManageGardens";
+    }
+
+    @GetMapping("/garden/{gardenId}/invite")
+    protected String inviteToGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
+        Optional<Garden> garden = gardenRepository.findById(gardenId);
+
+        if (garden.isPresent()) {
+            model.addAttribute("garden", garden.get());
+            return "inviteGardenMember";
+        }
+        return "redirect:/";
     }
 }
