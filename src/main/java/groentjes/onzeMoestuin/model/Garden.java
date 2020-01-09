@@ -27,7 +27,7 @@ public class Garden {
             name = "garden_members",
             joinColumns = @JoinColumn(name = "gardenId"),
             inverseJoinColumns = @JoinColumn(name = "userId"))
-    Set<User> gardenMembers = new HashSet<>();
+    private Set<User> gardenMembers = new HashSet<>();
 
 
     public Garden() {

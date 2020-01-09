@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE },
             mappedBy = "gardenMembers")
-    Set<Garden> joinedGardens = new HashSet<>();
+    private Set<Garden> joinedGardens = new HashSet<>();
 
     public User() {
     }
