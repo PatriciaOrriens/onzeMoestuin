@@ -35,7 +35,7 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("USER", "ADMIN");
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
         auth.authenticationProvider(authProvider());
     }
 
