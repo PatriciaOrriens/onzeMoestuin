@@ -17,7 +17,6 @@ class PlantTest {
     private static final String SECONDNAME = "testgebruiker2";
     private static final String SECONDPASSWORD = "testwachtwoord2";
     private static final String NAMEGARDEN = "testtuin1";
-    private static final String NAMEPlant = "testplant1";
 
     private User plantOwner = new User();
     private Garden garden = new Garden();
