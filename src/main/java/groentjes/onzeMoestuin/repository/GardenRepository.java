@@ -4,6 +4,7 @@ import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * @author Eric van Dalen
@@ -11,4 +12,5 @@ import java.util.ArrayList;
  */
 public interface GardenRepository extends JpaRepository<Garden, Integer> {
     ArrayList<Garden> findAllByUser(User user);
+    Optional<Garden> findByGardenName(String gardenName);
 }

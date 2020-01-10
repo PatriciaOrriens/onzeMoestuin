@@ -29,8 +29,8 @@ public class ManageGardenController {
     }
 
     @GetMapping("/user/garden/delete/{gardenId}")
-    public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId, BindingResult result,
-                               @AuthenticationPrincipal User user) {
+    public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId,
+                               @AuthenticationPrincipal User user, BindingResult result) {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
