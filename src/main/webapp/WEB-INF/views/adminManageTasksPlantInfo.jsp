@@ -1,9 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
 
-<!DOCTYPE html>
     <head>
         <title>Taken bij plantinformatie</title>
     </head>
@@ -24,24 +24,32 @@
                     <tr>
                         <td><c:out value="${taskPlantInfo.taskPlantInfoId}" /></td>
                         <td><c:out value="${taskPlantInfo.daysAfterStart}" /></td>
-                        <td><c:out value="${taskPlantInfo.repetitiveTask}" /></td>
+                     <%--   <td><c:out value="${taskPlantInfo.repetitiveTask}" /></td>
                        <td><a class="btn btn-outline-primary" href="/plantinfo/task/update/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
                             >Wijzig</a></td>
                         <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
-                            >Verwijder</a></td></td>
+                            >Verwijder</a></td>     --%>
                     </tr>
                 </c:forEach>
             </table>
             <br/>
+        </div>
+<%--
+        <div class="container">
+                <h1 class="display-5">Voeg nieuwe taak toe voor deze plant</h1>
 
-            </table>
+                <form:form modelAttribute="newTask">
+                    <div class="form-group">
+                        <label>: </label>
+                        <form:input path="..." type="text" />
+                        <br/>
+                        <input class="btn btn-primary" type="submit" value="Toevoegen"/>
+                        </div>
                     <br/>
-
-                    <br/>
+                </form:form>
                     <br/>
                     <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
-            </div>
-
+        </div>
+--%>
 
     </body>
-</html>
