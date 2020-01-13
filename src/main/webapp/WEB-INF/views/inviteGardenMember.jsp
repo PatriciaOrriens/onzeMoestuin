@@ -20,10 +20,16 @@
 
 
     <!-- Display user if found -->
-    <c:if test="${!empty foundUser}">
-        <h2>Gevonden gebruiker:</h2>
-        <p>${foundUser.username}</p>
-    </c:if>
-
+    <c:choose>
+        <c:when test="${!empty foundUser}">
+            <h2>Gevonden gebruiker:</h2>
+            <p>${foundUser.username}</p>
+        </c:when>
+        <c:otherwise>
+            <div class="alert alert-warning" role="alert">
+               Gebruiker niet gevonden
+           </div>
+        </c:otherwise>
+    </c:choose>
 
 <c:import url="partials/footer.jsp" />
