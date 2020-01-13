@@ -34,13 +34,7 @@ public class Plant {
     private PlantInformation plantInformation;
 
     public boolean isOwnerOfPlant(User user) {
-        Set<User> users = this.getGarden().getGardenMembers();
-        for (User gardenUser : users) {
-            if (user.getUserId().equals(gardenUser.getUserId())) {
-                return true;
-            }
-        }
-        return false;
+        return this.getGarden().isGardenMember(user);
     }
 
     public Integer getPlantId() {

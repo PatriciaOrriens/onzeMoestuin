@@ -47,7 +47,7 @@ public class PlantController {
                 return "addPlant";
             }
         }
-            return "redirect:/";
+        return "redirect:/";
     }
 
     @GetMapping("/plant/{plantId}")
