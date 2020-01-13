@@ -1,9 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.PlantInformation;
 import groentjes.onzeMoestuin.model.Task;
-import groentjes.onzeMoestuin.model.TaskPlantInfo;
-import groentjes.onzeMoestuin.repository.TaskPlantInfoRepository;
 import groentjes.onzeMoestuin.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -15,21 +12,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.persistence.GeneratedValue;
 import java.util.Optional;
 
 /**
  * @author Patricia Orriens-Spuij
- * Controller for generic tasks and TaskPlantInfo (for administrator)
+ * Controller for generic tasks (for administrator)
  */
 @Controller
 public class TaskController {
 
     @Autowired
     private TaskRepository taskRepository;
-
-    @Autowired
-    private TaskPlantInfoRepository taskPlantInfoRepository;
 
     // admin gets list of all task names and loads form for adding new task
     @GetMapping("/adminManageTasks")
