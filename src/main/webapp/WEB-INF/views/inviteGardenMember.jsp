@@ -17,19 +17,30 @@
 
     </form>
 
-
-
-    <!-- Display user if found -->
+    <!-- Display notification if present -->
     <c:choose>
-        <c:when test="${!empty foundUser}">
-            <h2>Gevonden gebruiker:</h2>
-            <p>${foundUser.username}</p>
+        <c:when test="${!empty message.message}">
+            <p>
+            <div class="alert alert-warning" role="alert">
+               ${message.message}
+            </div>
+            </p>
         </c:when>
         <c:otherwise>
-            <div class="alert alert-warning" role="alert">
-               Gebruiker niet gevonden
-           </div>
-        </c:otherwise>
-    </c:choose>
+             <c:if test="${!empty foundUser}">
+               <h2>Gevonden gebruiker:</h2>
+               <p>${foundUser.username}</p>
+
+               <form:form method="post" action="../${garden.gardenId}/invite" modelAttribute="foundUser">
+                   <form:hidden path="userId" />
+                 <form:button type="submit" name="submit_param">
+                   Uitnodigen
+                 </form:button>
+               </form:form>
+             </c:if>
+         </c:otherwise>
+   </c:choose>
+
+
 
 <c:import url="partials/footer.jsp" />
