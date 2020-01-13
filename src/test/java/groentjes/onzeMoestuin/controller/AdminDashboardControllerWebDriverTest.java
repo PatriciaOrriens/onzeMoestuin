@@ -55,7 +55,6 @@ public class AdminDashboardControllerWebDriverTest {
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
         driver.findElement(By.className("form-signin")).submit();
-        Thread.sleep(500);
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
@@ -73,7 +72,7 @@ public class AdminDashboardControllerWebDriverTest {
         driver.findElement(By.className("form-signin")).submit();
         Thread.sleep(500);
         driver.findElement(By.name("selectManageUser")).click();
-        Thread.sleep(2500);
+        Thread.sleep(500);
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
