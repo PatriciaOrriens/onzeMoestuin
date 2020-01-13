@@ -93,7 +93,7 @@ public class AdminDashboardControllerWebDriverTest {
     @Test
     void testAdminDashboardSubmitLogoutButton() throws Exception {
         // Arrange
-        String expectedUrl = "http://localhost:8080/logout";
+        String expectedUrl = "http://localhost:8080/login";
 
         // Activate
         this.driver.get("http://localhost:8080/adminDashboard");
