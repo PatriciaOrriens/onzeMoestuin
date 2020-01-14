@@ -6,18 +6,34 @@
 
 <div class="container">
 
-    <h1 class="display-3">Hallootjes</h1>
-
+    <h1 class="display-3">Taak toevoegen voor ${plantInfo.plantName}</h1>
 
     <!-- JSTL form -->
     <form:form action="/plantinfo/${plantInfo.plantInfoId}/task/add" modelAttribute="newTask">
 
-        <div class="form-group">
-            <select name="task" class="form-control">
-            <c:forEach items="${allTasks}" var="task">
-            <option value="${task.taskId}">${task.taskName}</option>
-            </c:forEach>
-            </select>
+        <div class="row">
+           <div class="col-md-8">
+                <select name="task" class="form-control">
+                <c:forEach items="${allTasks}" var="task">
+                <option value="${task.taskId}">${task.taskName}</option>
+                </c:forEach>
+                </select>
+            </div>
+        </div>
+       <div class="row">
+
+            <div class="col-md-2">
+                <label for="daysAfterStart">Dagen na start:</label>
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" id="daysAfterStart">
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="">Herhalend
+                </label>
+            </div>
+
         </div>
 
        <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
