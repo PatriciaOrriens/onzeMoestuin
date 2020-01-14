@@ -89,6 +89,13 @@
 			<artifactId>selenium-java</artifactId>
 			<version>3.141.59</version>
 		</dependency>
+
+		<!-- allows role-dependent JSP's -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.0.5.RELEASE</version>
+		</dependency>
     </dependencies>
 
 	<build>

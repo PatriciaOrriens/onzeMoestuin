@@ -101,7 +101,7 @@ public class NewGardenControllerWebDriverTest {
     private void loginAsAUser() {
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.className("form-signin")).submit();
+        driver.findElement(By.name("inlogbutton")).submit();
 
     }
 

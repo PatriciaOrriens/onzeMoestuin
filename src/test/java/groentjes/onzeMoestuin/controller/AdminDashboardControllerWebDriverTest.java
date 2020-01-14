@@ -52,10 +52,7 @@ public class AdminDashboardControllerWebDriverTest {
 
         // Activate
         this.driver.get(expectedUrl);
-        driver.findElement(By.name("username")).sendKeys(NAME);
-        driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.className("form-signin")).submit();
-        Thread.sleep(500);
+        loginAsAdministrator();
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
@@ -68,12 +65,10 @@ public class AdminDashboardControllerWebDriverTest {
 
         // Activate
         this.driver.get("http://localhost:8080/adminDashboard");
-        driver.findElement(By.name("username")).sendKeys(NAME);
-        driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.className("form-signin")).submit();
+        loginAsAdministrator();
         Thread.sleep(500);
         driver.findElement(By.name("selectManageUser")).click();
-        Thread.sleep(2500);
+        Thread.sleep(500);
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
@@ -86,9 +81,7 @@ public class AdminDashboardControllerWebDriverTest {
 
         // Activate
         this.driver.get("http://localhost:8080/adminDashboard");
-        driver.findElement(By.name("username")).sendKeys(NAME);
-        driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.className("form-signin")).submit();
+        loginAsAdministrator();
         Thread.sleep(500);
         driver.findElement(By.name("selectManagePlantInformation")).click();
         Thread.sleep(500);
@@ -100,18 +93,22 @@ public class AdminDashboardControllerWebDriverTest {
     @Test
     void testAdminDashboardSubmitLogoutButton() throws Exception {
         // Arrange
-        String expectedUrl = "http://localhost:8080/logout";
+        String expectedUrl = "http://localhost:8080/login";
 
         // Activate
         this.driver.get("http://localhost:8080/adminDashboard");
-        driver.findElement(By.name("username")).sendKeys(NAME);
-        driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.className("form-signin")).submit();
+        loginAsAdministrator();
         Thread.sleep(500);
         driver.findElement(By.name("adminLogoutButton")).click();
         Thread.sleep(500);
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
+    }
+
+    private void loginAsAdministrator() {
+        driver.findElement(By.name("username")).sendKeys(NAME);
+        driver.findElement(By.name("password")).sendKeys(PASSWORD);
+        driver.findElement(By.name("inlogbutton")).submit();
     }
 }

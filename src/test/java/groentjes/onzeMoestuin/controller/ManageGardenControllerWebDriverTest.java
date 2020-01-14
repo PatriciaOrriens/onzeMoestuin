@@ -119,6 +119,6 @@ public class ManageGardenControllerWebDriverTest {
     private void loginAsAUser(String name, String password) {
         driver.findElement(By.name("username")).sendKeys(name);
         driver.findElement(By.name("password")).sendKeys(password);
-        driver.findElement(By.className("form-signin")).submit();
+        driver.findElement(By.name("inlogbutton")).submit();
     }
 }

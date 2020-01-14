@@ -123,6 +123,6 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
     private void loginAsAdministrator() {
         driver.findElement(By.name("username")).sendKeys(ADMINNAME);
         driver.findElement(By.name("password")).sendKeys(ADMINPASSWORD);
-        driver.findElement(By.className("form-signin")).submit();
+        driver.findElement(By.name("inlogbutton")).submit();
     }
 }
