@@ -28,7 +28,7 @@ public class PlantInformation {
     private Integer growTime;
 
     @OneToMany(
-            mappedBy = "",
+            mappedBy = "plantInformation",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private Set<TaskPlantInfo> tasks = new HashSet<>();
@@ -36,6 +36,14 @@ public class PlantInformation {
     // getters and setters
     public Integer getPlantInfoId() {
         return plantInfoId;
+    }
+
+    public Set<TaskPlantInfo> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<TaskPlantInfo> tasks) {
+        this.tasks = tasks;
     }
 
     public void setPlantInfoId(Integer plantInfoId) {

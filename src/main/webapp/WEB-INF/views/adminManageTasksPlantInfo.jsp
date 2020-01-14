@@ -26,7 +26,6 @@
                         <td>${taskPlantInfo.task.taskName}</td>
                         <td><c:out value="${taskPlantInfo.daysAfterStart}" /></td>
                         <td><c:out value="${taskPlantInfo.repetitiveTask}" /></td>
-
                         <td><a class="btn btn-outline-primary" href="/plantinfo/task/update/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
                             >Wijzig</a></td>
                         <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
@@ -37,7 +36,7 @@
             <br/>
         </div>
 
-        <!-- JSTL form -->
+     <%--   <!-- JSTL form -->
         <form:form action="/plantinfo/tasks/3" modelAttribute="newTask">
 
             <div class="form-group">
@@ -65,6 +64,8 @@
                 </form:form>
                     <br/>
                     <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
+        --%>
+        </div>
         </div>
 
     </body>

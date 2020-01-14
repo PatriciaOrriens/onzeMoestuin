@@ -1,6 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.PlantInformation;
+import groentjes.onzeMoestuin.model.TaskPlantInfo;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -96,5 +98,19 @@ public class PlantInformationController {
         return "redirect:/adminManagePlantInformation";
     }
 
+    // Show all Tasks belonging to PlantInformation entity
+    @GetMapping("/plantinfo/tasks/{plantInfoId}")
+    @Secured("ROLE_ADMIN")
+    public String getTasksForPlantInfo (@PathVariable("plantInfoId") final Integer plantInfoId,
+                                        Model model) {
+        Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
 
+        if(foundPlantInformation.isPresent()) {
+            model.addAttribute("plantInfo", foundPlantInformation.get());
+            model.addAttribute("newTask", new TaskPlantInfo());
+            return "adminManageTasksPlantInfo";
+        } else {
+            return "redirect:/";
+        }
+    }
 }
