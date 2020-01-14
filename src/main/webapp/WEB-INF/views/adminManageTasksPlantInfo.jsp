@@ -20,15 +20,15 @@
                     <th></th>
                     <th></th>
                 </tr>
-                <c:forEach items="${allTasksPlantInfo}" var="taskPlantInfo">
+                <c:forEach items="${plantInfo.tasks}" var="task">
                     <tr>
-                        <td><c:out value="${taskPlantInfo.taskPlantInfoId}" /></td>
-                        <td>${taskPlantInfo.task.taskName}</td>
-                        <td><c:out value="${taskPlantInfo.daysAfterStart}" /></td>
-                        <td><c:out value="${taskPlantInfo.repetitiveTask}" /></td>
-                        <td><a class="btn btn-outline-primary" href="/plantinfo/task/update/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
+                        <td>${task.taskPlantInfoId}</td>
+                        <td>${task.task.taskName}</td>
+                        <td>${task.daysAfterStart}</td>
+                        <td>${task.repetitiveTask}</td>
+                        <td><a class="btn btn-outline-primary" href="/plantinfo/task/update/<c:out value="" />"
                             >Wijzig</a></td>
-                        <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
+                        <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out value="" />"
                             >Verwijder</a></td>
                     </tr>
                 </c:forEach>
