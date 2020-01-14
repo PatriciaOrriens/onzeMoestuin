@@ -39,11 +39,10 @@ public class TaskPlantInfoController {
         if (plantInformation.isPresent()) {
             model.addAttribute("plantInfo", plantInformation.get());
             model.addAttribute("newTask", new TaskPlantInfo());
-            return "addTaskToPlantInformation";
+            return "addTaskToPlantInformation.jsp";
         } else {
-            return "redirect:/"
+            return "redirect:/";
         }
-
     }
 
 //    @PostMapping("/plantinfo/tasks/{plantInfoId}")

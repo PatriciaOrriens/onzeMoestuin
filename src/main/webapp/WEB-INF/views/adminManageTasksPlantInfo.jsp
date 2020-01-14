@@ -33,39 +33,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <br/>
-        </div>
 
-     <%--   <!-- JSTL form -->
-        <form:form action="/plantinfo/tasks/3" modelAttribute="newTask">
-
-            <div class="form-group">
-                <select name="task" class="form-control">
-                <c:forEach items="${allPlantInformation}" var="plantInfo">
-                <option value="${plantInfo.plantInfoId}">${plantInfo.plantName}</option>
-                </c:forEach>
-                </select>
-            </div>
-
-           <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
-        </form:form>
-
-        <div class="container">
-                <h1 class="display-5">Voeg nieuwe taak toe voor deze plant</h1>
-
-                <form:form modelAttribute="newTask">
-                    <div class="form-group">
-                        <label>: </label>
-                        <!-- <form:input path="..." type="text" /> -->
-                        <br/>
-                        <input class="btn btn-primary" type="submit" value="Toevoegen"/>
-                        </div>
-                    <br/>
-                </form:form>
-                    <br/>
-                    <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
-        --%>
-        </div>
-        </div>
+            <p><a class="btn btn-primary" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
 
 <c:import url="partials/footer.jsp" />
