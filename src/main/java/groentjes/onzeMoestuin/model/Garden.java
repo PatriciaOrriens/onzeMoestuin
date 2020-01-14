@@ -1,7 +1,13 @@
 package groentjes.onzeMoestuin.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * @author Eric van Dalen
+ * The Garden class concerns a garden of a user(users).
+ */
 @Entity
 public class Garden {
 
@@ -13,12 +19,31 @@ public class Garden {
     private Integer length;
     private Integer width;
 
-    //TODO Change later into @ManyToOne, for several users can make use of one garden
     @OneToOne
     @JoinColumn(name = "ownerId", referencedColumnName = "userId")
     private User user;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = { CascadeType.PERSIST,
+                    CascadeType.MERGE })
+    @JoinTable(
+            name = "garden_members",
+            joinColumns = @JoinColumn(name = "gardenId"),
+            inverseJoinColumns = @JoinColumn(name = "userId"))
+    private Set<User> gardenMembers = new HashSet<>();
+
+
     public Garden() {
+    }
+
+    public boolean isGardenMember(User user) {
+        Set<User> users = this.getGardenMembers();
+        for (User gardenUser : users) {
+            if (user.getUserId().equals(gardenUser.getUserId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // getters and setters
@@ -60,5 +85,16 @@ public class Garden {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public Set<User> getGardenMembers() {
+        return gardenMembers;
+    }
+
+    public void setGardenMembers(Set<User> gardenMembers) {
+        this.gardenMembers = gardenMembers;
+    }
+
+    public void addGardenMember(User member) {
+        this.gardenMembers.add(member);
     }
 }

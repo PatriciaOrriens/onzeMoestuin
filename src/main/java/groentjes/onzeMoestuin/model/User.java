@@ -5,9 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity (name = "User")
 public class User implements UserDetails {
@@ -19,6 +17,11 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "gardenMembers")
+    private Set<Garden> joinedGardens = new HashSet<>();
 
     public User() {
     }
@@ -70,7 +73,9 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

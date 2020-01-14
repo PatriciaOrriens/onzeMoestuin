@@ -11,8 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -28,10 +27,18 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .antMatchers("/registerUser", "/", "/resources/css/**", "/resources/img/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin(withDefaults());
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/")
+                    .failureUrl("/loginfailed")
+                    .permitAll()
+                .and()
+                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/logout.done")
+                    .invalidateHttpSession(true);
     }
 
-        // in-memory saving of user information
+    // in-memory saving of user information
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -51,6 +58,5 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }
