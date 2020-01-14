@@ -4,11 +4,9 @@
 
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <ul class="navbar-nav">
-     <security:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
          <li class="nav-item">
-            <a class="nav-link" href="../">Home</a>
+            <a class="navbar-brand" href="../">Onze Moestuin</a>
          </li>
-     </security:authorize>
      <security:authorize access="hasRole('ROLE_ADMIN')">
          <li class="nav-item">
             <a class="nav-link" href="/adminDashboard">Admin dashboard</a>
