@@ -13,7 +13,8 @@
             <label for "name">Naam</label>
             <input name="search" class="form-control" type="text" />
         </div>
-        <button type="submit" class="btn btn-primary">Zoek</button>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-search"></i> Zoek</button>
 
     </form>
 
