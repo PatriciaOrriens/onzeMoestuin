@@ -28,14 +28,19 @@
 
     <security:authorize access="isAnonymous()">
         <li class="nav-item">
-            <a class="nav-link" href="../registerUser"><span class="glyphicon glyphicon-user"></span> Registreren</a>
+            <a class="nav-link" href="../registerUser">Registreren</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="../login"><span class="glyphicon glyphicon-log-in"></span> Inloggen</a>
+            <a class="nav-link" href="../login">Inloggen</a>
         </li>
     </security:authorize>
 
     <security:authorize access="isAuthenticated()">
+        <li class="nav-item">
+            <a class="nav-link disabled">
+                <i class="fa fa-user"></i> ${pageContext.request.userPrincipal.name}
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="../logout">Uitloggen</a>
         </li>
