@@ -107,7 +107,6 @@ public class PlantInformationController {
 
         if(foundPlantInformation.isPresent()) {
             model.addAttribute("plantInfo", foundPlantInformation.get());
-            model.addAttribute("newTask", new TaskPlantInfo());
             return "adminManageTasksPlantInfo";
         } else {
             return "redirect:/";

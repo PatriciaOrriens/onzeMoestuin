@@ -68,4 +68,4 @@
         </div>
         </div>
 
-    </body>
+<c:import url="partials/footer.jsp" />
