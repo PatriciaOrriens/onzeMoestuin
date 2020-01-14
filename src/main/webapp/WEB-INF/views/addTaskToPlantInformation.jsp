@@ -6,21 +6,21 @@
 
 <div class="container">
 
-    <h1>Hallootjes</h1>
+    <h1 class="display-3">Hallootjes</h1>
 
 
-    <%--   <!-- JSTL form -->
-    <form:form action="/plantinfo/tasks/3" modelAttribute="newTask">
+    <!-- JSTL form -->
+    <form:form action="/plantinfo/${plantInfo.plantInfoId}/task/add" modelAttribute="newTask">
 
         <div class="form-group">
             <select name="task" class="form-control">
-            <c:forEach items="${allPlantInformation}" var="plantInfo">
-            <option value="${plantInfo.plantInfoId}">${plantInfo.plantName}</option>
+            <c:forEach items="${allTasks}" var="task">
+            <option value="${task.taskId}">${task.taskName}</option>
             </c:forEach>
             </select>
         </div>
 
        <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
-    </form:form> --%>
+    </form:form>
 
 <c:import url="partials/footer.jsp" />

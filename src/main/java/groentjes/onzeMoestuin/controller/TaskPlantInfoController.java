@@ -5,6 +5,7 @@ import groentjes.onzeMoestuin.model.Task;
 import groentjes.onzeMoestuin.model.TaskPlantInfo;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import groentjes.onzeMoestuin.repository.TaskPlantInfoRepository;
+import groentjes.onzeMoestuin.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -31,15 +32,20 @@ public class TaskPlantInfoController {
     @Autowired
     private TaskPlantInfoRepository taskPlantInfoRepository;
 
+    @Autowired
+    private TaskRepository taskRepository;
+
     @GetMapping("plantinfo/{plantInfoId}/task/add")
     @Secured("ROLE_ADMIN")
     public String addNewTaskPlantInfo(@PathVariable("plantInfoId") Integer plantInfoId, Model model) {
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
+        List<Task> allTasks = taskRepository.findAll();
 
-        if (plantInformation.isPresent()) {
+        if (plantInformation.isPresent() && !allTasks.isEmpty()) {
             model.addAttribute("plantInfo", plantInformation.get());
             model.addAttribute("newTask", new TaskPlantInfo());
-            return "addTaskToPlantInformation.jsp";
+            model.addAttribute("allTasks", allTasks);
+            return "addTaskToPlantInformation";
         } else {
             return "redirect:/";
         }
