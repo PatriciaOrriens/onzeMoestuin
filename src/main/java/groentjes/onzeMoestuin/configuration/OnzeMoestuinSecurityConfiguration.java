@@ -34,7 +34,7 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                     .permitAll()
                 .and()
                     .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/logout.done")
+                    .logoutSuccessUrl("/")
                     .invalidateHttpSession(true);
     }
 
