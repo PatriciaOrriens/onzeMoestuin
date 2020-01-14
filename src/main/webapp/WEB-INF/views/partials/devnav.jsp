@@ -22,10 +22,24 @@
             <a class="nav-link" href="/garden/add">Tuin toevoegen</a>
          </li>
      </security:authorize>
-     <security:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-         <li class="nav-item">
-            <a class="nav-link" href="/logout">Uitloggen</a>
-         </li>
-     </security:authorize>
+  </ul>
+
+  <ul class="nav navbar-nav ml-auto">
+
+    <security:authorize access="isAnonymous()">
+        <li class="nav-item">
+            <a class="nav-link" href="../registerUser"><span class="glyphicon glyphicon-user"></span> Registreren</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="../login"><span class="glyphicon glyphicon-log-in"></span> Inloggen</a>
+        </li>
+    </security:authorize>
+
+    <security:authorize access="isAuthenticated()">
+        <li class="nav-item">
+            <a class="nav-link" href="../logout">Uitloggen</a>
+        </li>
+    </security:authorize>
+
   </ul>
 </nav>
