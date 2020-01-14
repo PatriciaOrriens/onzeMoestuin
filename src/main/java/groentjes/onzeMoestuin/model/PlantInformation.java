@@ -1,10 +1,9 @@
 package groentjes.onzeMoestuin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class PlantInformation {
@@ -27,7 +26,12 @@ public class PlantInformation {
     private String harvestingStart;
     private String harvestingEnd;
     private Integer growTime;
-    // private Image image;
+
+    @OneToMany(
+            mappedBy = "",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<TaskPlantInfo> tasks = new HashSet<>();
 
     // getters and setters
     public Integer getPlantInfoId() {

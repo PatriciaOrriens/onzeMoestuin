@@ -23,25 +23,41 @@
                 <c:forEach items="${allTasksPlantInfo}" var="taskPlantInfo">
                     <tr>
                         <td><c:out value="${taskPlantInfo.taskPlantInfoId}" /></td>
+                        <td>${taskPlantInfo.task.taskName}</td>
                         <td><c:out value="${taskPlantInfo.daysAfterStart}" /></td>
-                     <%--   <td><c:out value="${taskPlantInfo.repetitiveTask}" /></td>
-                       <td><a class="btn btn-outline-primary" href="/plantinfo/task/update/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
+                        <td><c:out value="${taskPlantInfo.repetitiveTask}" /></td>
+
+                        <td><a class="btn btn-outline-primary" href="/plantinfo/task/update/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
                             >Wijzig</a></td>
                         <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out value="${taskPlantInfo.taskPlantInfoId}" />"
-                            >Verwijder</a></td>     --%>
+                            >Verwijder</a></td>
                     </tr>
                 </c:forEach>
             </table>
             <br/>
         </div>
-<%--
+
+        <!-- JSTL form -->
+        <form:form action="/plantinfo/tasks/3" modelAttribute="newTask">
+
+            <div class="form-group">
+                <select name="task" class="form-control">
+                <c:forEach items="${allPlantInformation}" var="plantInfo">
+                <option value="${plantInfo.plantInfoId}">${plantInfo.plantName}</option>
+                </c:forEach>
+                </select>
+            </div>
+
+           <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
+        </form:form>
+
         <div class="container">
                 <h1 class="display-5">Voeg nieuwe taak toe voor deze plant</h1>
 
                 <form:form modelAttribute="newTask">
                     <div class="form-group">
                         <label>: </label>
-                        <form:input path="..." type="text" />
+                        <!-- <form:input path="..." type="text" /> -->
                         <br/>
                         <input class="btn btn-primary" type="submit" value="Toevoegen"/>
                         </div>
@@ -50,6 +66,5 @@
                     <br/>
                     <a href="/adminDashboard" class="btn btn-primary">Terug naar taakmenu</a>
         </div>
---%>
 
     </body>

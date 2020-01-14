@@ -12,7 +12,7 @@ public class TaskPlantInfo {
     private Integer taskPlantInfoId;
 
     private Integer daysAfterStart;
-    // private boolean repetitiveTask;
+    private boolean repetitiveTask;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "plantInfo_id", nullable = false)
@@ -39,7 +39,7 @@ public class TaskPlantInfo {
     public void setDaysAfterStart(Integer daysAfterStart) {
         this.daysAfterStart = daysAfterStart;
     }
-/*
+
     public boolean isRepetitiveTask() {
         return repetitiveTask;
     }
@@ -47,7 +47,7 @@ public class TaskPlantInfo {
     public void setRepetitiveTask(boolean repetitiveTask) {
         this.repetitiveTask = repetitiveTask;
     }
-*/
+
     public PlantInformation getPlantInformation() {
         return plantInformation;
     }

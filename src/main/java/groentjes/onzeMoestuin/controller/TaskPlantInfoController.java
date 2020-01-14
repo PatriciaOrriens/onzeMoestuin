@@ -43,10 +43,10 @@ public class TaskPlantInfoController {
            for (TaskPlantInfo task : allTasks) {
                System.out.println(task.getTask().getTaskName());
            }
-//            model.addAttribute("allTasksPlantInfo", taskPlantInfoRepository.findAllByPlantInformation(foundPlantInformation.get()));
+            model.addAttribute("allTasksPlantInfo", taskPlantInfoRepository.findAllByPlantInformation(foundPlantInformation.get()));
         }
-    //    TaskPlantInfo newTask = new TaskPlantInfo();
-    //    model.addAttribute("newTask", newTask);
+        TaskPlantInfo newTask = new TaskPlantInfo();
+        model.addAttribute("newTask", newTask);
         return "adminManageTasksPlantInfo";
     }
 
