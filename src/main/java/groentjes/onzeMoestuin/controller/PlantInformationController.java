@@ -109,7 +109,7 @@ public class PlantInformationController {
             model.addAttribute("plantInfo", foundPlantInformation.get());
             return "adminManageTasksPlantInfo";
         } else {
-            return "redirect:/";
+            return "redirect:/adminManagePlantInformation";
         }
     }
 }

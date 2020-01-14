@@ -31,16 +31,31 @@ public class TaskPlantInfoController {
     @Autowired
     private TaskPlantInfoRepository taskPlantInfoRepository;
 
-    @PostMapping("/plantinfo/tasks/{plantInfoId}")
+    @GetMapping("plantinfo/{plantInfoId}/task/add")
     @Secured("ROLE_ADMIN")
-    public String saveNewTaskPlantInfo (@ModelAttribute()TaskPlantInfo taskPlantInfo, BindingResult result) {
-        if(result.hasErrors()) {
-            return "/plantinfo/tasks/{plantInfoId}";
+    public String addNewTaskPlantInfo(@PathVariable("plantInfoId") Integer plantInfoId, Model model) {
+        Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
+
+        if (plantInformation.isPresent()) {
+            model.addAttribute("plantInfo", plantInformation.get());
+            model.addAttribute("newTask", new TaskPlantInfo());
+            return "addTaskToPlantInformation";
         } else {
-            taskPlantInfoRepository.save(taskPlantInfo);
-            return "redirect:/plantinfo/tasks/{plantInfoId}";
+            return "redirect:/"
         }
+
     }
+
+//    @PostMapping("/plantinfo/tasks/{plantInfoId}")
+//    @Secured("ROLE_ADMIN")
+//    public String saveNewTaskPlantInfo (@ModelAttribute()TaskPlantInfo taskPlantInfo, BindingResult result) {
+//        if(result.hasErrors()) {
+//            return "/plantinfo/tasks/{plantInfoId}";
+//        } else {
+//            taskPlantInfoRepository.save(taskPlantInfo);
+//            return "redirect:/plantinfo/tasks/{plantInfoId}";
+//        }
+//    }
 
 
 }
