@@ -11,16 +11,13 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Patricia Orriens-Spuij
+ * @author Patricia Orriens-Spuij and Wim Kruizinga
  * Controller for tasks for certain plantinformation (views for administrator)
  */
 @Controller
@@ -51,16 +48,25 @@ public class TaskPlantInfoController {
         }
     }
 
-//    @PostMapping("/plantinfo/tasks/{plantInfoId}")
-//    @Secured("ROLE_ADMIN")
-//    public String saveNewTaskPlantInfo (@ModelAttribute()TaskPlantInfo taskPlantInfo, BindingResult result) {
-//        if(result.hasErrors()) {
-//            return "/plantinfo/tasks/{plantInfoId}";
-//        } else {
-//            taskPlantInfoRepository.save(taskPlantInfo);
-//            return "redirect:/plantinfo/tasks/{plantInfoId}";
-//        }
-//    }
+    @PostMapping("/plantinfo/{plantInfoId}/task/add")
+    @Secured("ROLE_ADMIN")
+    public String saveNewTaskPlantInfo (@RequestParam("taskId") Integer taskId,
+                                        @ModelAttribute("newTask") TaskPlantInfo newTask, BindingResult result,
+                                        @PathVariable("plantInfoId") final Integer plantInfoId) {
+
+        Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
+        Optional<Task> task = taskRepository.findById(taskId);
+
+        if (plantInformation.isPresent() && task.isPresent()) {
+            newTask.setPlantInformation(plantInformation.get());
+            newTask.setTask(task.get());
+            taskPlantInfoRepository.save(newTask);
+            System.out.println("geslaagd!");
+            return "redirect:/plantinfo/tasks/" + plantInfoId;
+        } else {
+            return "redirect:/";
+        }
+    }
 
 
 }

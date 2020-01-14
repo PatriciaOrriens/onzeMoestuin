@@ -13,7 +13,7 @@
 
         <div class="row">
             <div class="col-md-9">
-                <select name="task" class="form-control">
+                <select name="taskId" class="form-control">
                     <option selected>Selecteer de taak</option>
                     <c:forEach items="${allTasks}" var="task">
                     <option value="${task.taskId}">${task.taskName}</option>
@@ -28,7 +28,7 @@
                 <label for="daysAfterStart">Dagen na start:</label>
             </div>
             <div class="col-md-2">
-                <input type="number" class="form-control" id="daysAfterStart">
+                <input type="number" class="form-control" value="daysAfterStart">
             </div>
         </div>
         <div class="row">
