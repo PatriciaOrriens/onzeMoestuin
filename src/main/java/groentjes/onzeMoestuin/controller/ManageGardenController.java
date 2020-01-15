@@ -63,7 +63,7 @@ public class ManageGardenController {
         if (garden.isPresent()) {
             model.addAttribute("garden", garden.get());
             if (search.isPresent()) {
-                Optional<User> foundUser = userRepository.findByUsername(search.get());
+                Optional<User> foundUser = userRepository.findByEmail(search.get());
 
                 if (foundUser.isPresent()) {
                     model.addAttribute("foundUser", foundUser.get());
