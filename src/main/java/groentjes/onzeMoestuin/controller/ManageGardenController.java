@@ -70,10 +70,10 @@ public class ManageGardenController {
 
                     // check whether user is already member of garden
                     if (garden.get().isGardenMember(foundUser.get())) {
-                        notification.setMessage("Gebruiker <b>" + foundUser.get().getUsername() + "</b> is al lid van deze tuin");
+                        notification.setMessage("Gebruiker <b>" + foundUser.get().getFirstName() + "</b> is al lid van deze tuin");
                     }
                 } else {
-                    notification.setMessage("Gebruiker <b>" + search.get() + "</b> niet gevonden");
+                    notification.setMessage("Geen gebruiker gevonden voor <b>" + search.get() + "</b>");
                 }
             model.addAttribute("message", notification);
             }
