@@ -12,6 +12,12 @@
                 <label for="name">Gebruikersnaam:</label>
                 <form:input path="username" class="form-control" required="required" />
 
+                <label for="password">E-mailadres:</label>
+                <form:input path="email" type="email" class="form-control" required="required" />
+
+                <label for="firstName">Voornaam:</label>
+                <form:input path="firstName" type="text" class="form-control" required="required" />
+
                 <label for="password">Wachtwoord:</label>
                 <form:input path="password" type="password" class="form-control" required="required" />
             </div>
