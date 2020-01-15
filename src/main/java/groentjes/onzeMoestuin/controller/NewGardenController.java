@@ -2,9 +2,11 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.Plant;
+import groentjes.onzeMoestuin.model.TaskPlant;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.PlantRepository;
+import groentjes.onzeMoestuin.repository.TaskPlantRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,15 +36,23 @@ public class NewGardenController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TaskPlantRepository taskPlantRepository;
+
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
                                 @AuthenticationPrincipal User user) {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
-
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
                 ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
+                ArrayList<TaskPlant> taskPlants = new ArrayList<>();
+                for (Plant plant : plants) {
+                    ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
+                    taskPlants.addAll(tasksForPlant);
+                }
+                model.addAttribute("taskPlants", taskPlants);
                 model.addAttribute("plants", plants);
                 model.addAttribute("garden", garden.get());
                 return "showGarden";
