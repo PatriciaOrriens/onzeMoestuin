@@ -5,6 +5,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity (name = "User")
@@ -15,8 +17,18 @@ public class User implements UserDetails {
     private Integer userId;
 
     @Column(unique = true)
+    @Size(min = 3, message = "Gebruikersnaam moet minimaal 3 tekens lang zijn")
     private String username;
+
+    @Size(min = 3, message = "Wachtwoord moet minimaal 3 tekens lang zijn")
     private String password;
+
+    @Email(message = "Geen geldig e-mailadres")
+    private String email;
+
+    private String firstName;
+
+    private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE },
@@ -76,6 +88,38 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Set<Garden> getJoinedGardens() {
+        return joinedGardens;
+    }
+
+    public void setJoinedGardens(Set<Garden> joinedGardens) {
+        this.joinedGardens = joinedGardens;
     }
 
 }

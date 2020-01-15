@@ -9,11 +9,31 @@
 
        <form:form method="post" modelAttribute="user">
             <div class="form-group">
-                <label for="name">Gebruikersnaam:</label>
-                <form:input path="username" class="form-control" />
+                <label for="username">Gebruikersnaam:</label>
+
+                <form:input path="username" class="form-control" required="required" />
+                <span class="text-danger">
+                    ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('username') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('username').defaultMessage : ''}
+                </span>
+
+                <label for="email">E-mailadres:</label>
+                <form:input path="email" type="text" class="form-control" />
+                <span class="text-danger">
+                    ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('email') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('email').defaultMessage : ''}
+                </span>
+
+                <label for="firstName">Voornaam:</label>
+                <form:input path="firstName" type="text" class="form-control" />
+                <span class="text-danger">
+                    ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('firstName') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('firstName').defaultMessage : ''}
+                </span>
 
                 <label for="password">Wachtwoord:</label>
-                <form:input path="password" type="password" class="form-control" />
+                <form:input path="password" type="password" class="form-control" required="required" />
+                <span class="text-danger">
+                    ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('password') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('password').defaultMessage : ''}
+                </span>
+
             </div>
             <form:button type="submit" class="btn btn-primary" name="registerbutton">Registreer</form:button>
         </form:form>
