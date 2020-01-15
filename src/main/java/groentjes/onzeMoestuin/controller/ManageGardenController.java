@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen
+ * @author Eric van Dalen, Wim Kruizinga
  * Controller class to manage gardens
  */
 @Controller
@@ -27,9 +27,9 @@ public class ManageGardenController {
     private UserRepository userRepository;
 
     @GetMapping("/userManageGardens")
-    public String allGardensByMember(Model model, @AuthenticationPrincipal User curentUser) {
-        model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(curentUser));
-        User user = (User) userRepository.findByUsername(curentUser.getUsername()).get();
+    public String allGardensByMember(Model model, @AuthenticationPrincipal User currentUser) {
+        model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(currentUser));
+        User user = (User) userRepository.findByUsername(currentUser.getUsername()).get();
         model.addAttribute("currentUser", user);
         return "manageGarden";
     }
