@@ -10,7 +10,7 @@
 
     <body>
         <div class="container">
-            <h1 class="display-3">Taken bij plantinformatie</h1>
+            <h1 class="display-3">Taken bij ${plantInfo.plantName}</h1>
             <table class="table table-striped">
                 <tr>
                     <th>Id</th>
@@ -37,5 +37,7 @@
             </table>
 
             <p><a class="btn btn-primary" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
+            <br/>
+            <p><a class="btn btn-primary" href="/adminManagePlantInformation">Terug</a></p>
 
 <c:import url="partials/footer.jsp" />
