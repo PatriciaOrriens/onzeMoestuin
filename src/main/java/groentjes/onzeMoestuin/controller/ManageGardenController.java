@@ -26,12 +26,6 @@ public class ManageGardenController {
     @Autowired
     private UserRepository userRepository;
 
-//    @GetMapping("/userManageGardens")
-//    public String findAllYourGardens(Model model, @AuthenticationPrincipal User gardenuser) {
-//            model.addAttribute("allYourGardens", gardenRepository.findAllByUser(gardenuser));
-//        return "/manageGarden";
-//    }
-
     @GetMapping("/userManageGardens")
     public String allGardensByMember(Model model, @AuthenticationPrincipal User curentUser) {
         model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(curentUser));
