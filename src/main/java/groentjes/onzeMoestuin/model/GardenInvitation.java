@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * @author Wim Kruizinga
  */
+@Entity
 public class GardenInvitation {
 
     @Id
