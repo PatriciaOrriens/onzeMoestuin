@@ -23,7 +23,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Weet je zeker dat je ${garden.gardenName} wilt verwijderen ?</p>
+                            <p>Weet je zeker dat je ${garden.gardenName} wilt verwijderen?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
