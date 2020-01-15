@@ -33,8 +33,10 @@ public class ManageGardenController {
 //    }
 
     @GetMapping("/userManageGardens")
-    public String allGardensByMember(Model model, @AuthenticationPrincipal User user) {
-        model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(user));
+    public String allGardensByMember(Model model, @AuthenticationPrincipal User curentUser) {
+        model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(curentUser));
+        User user = (User) userRepository.findByUsername(curentUser.getUsername()).get();
+        model.addAttribute("currentUser", user);
         return "manageGarden";
     }
 

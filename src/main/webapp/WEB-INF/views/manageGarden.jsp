@@ -9,7 +9,10 @@
                 <td><a href="garden/${garden.gardenId}">
                         <c:out value="${garden.gardenName}"/></a>
                 </td>
-                <td align="right"><a href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+                <td align="right">
+                    <c:if test="${currentUser==garden.user}">
+                        <a href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+                    </c:if>
                 </td>
             </tr>
             <!-- Modal -->
@@ -36,4 +39,7 @@
     </table>
     <a href="/garden/add" class="btn btn-primary">Tuin toevoegen</a>
     <a href="../logout" class="btn btn-primary">Uitloggen</a>
+
+
+
 <c:import url="partials/footer.jsp" />
