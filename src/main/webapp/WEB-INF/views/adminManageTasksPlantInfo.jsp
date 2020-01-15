@@ -26,7 +26,7 @@
                         <td>${task.task.taskName}</td>
                         <td>${task.daysAfterStart}</td>
                         <td>${task.repetitiveTask}</td>
-                        <td><a class="btn btn-outline-primary" href="/plantinfo/task/update/<c:out
+                        <td><a class="btn btn-outline-primary" href="/plantinfo/${plantInfoId}/task/update/<c:out
                         value="${task.taskPlantInfoId}" />"
                             >Wijzig</a></td>
                         <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out

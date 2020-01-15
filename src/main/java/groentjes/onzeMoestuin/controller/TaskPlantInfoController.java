@@ -61,39 +61,56 @@ public class TaskPlantInfoController {
             taskPlantInfo.setPlantInformation(plantInformation.get());
             taskPlantInfo.setTask(task.get());
             taskPlantInfoRepository.save(taskPlantInfo);
-            System.out.println("geslaagd!");
             return "redirect:/plantinfo/tasks/" + plantInfoId;
         } else {
             return "redirect:/";
         }
     }
 
-    @GetMapping("/plantinfo/task/update/{taskPlantInfoId}")
+    @GetMapping("/plantinfo/{plantInfoId}/task/update/{taskPlantInfoId}")
     @Secured("ROLE_ADMIN")
-    public String showUpdateTaskPlantInfo(@PathVariable("taskPlantInfoId") Integer taskPlantInfoId, Model model) {
+    public String showUpdateTaskPlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId,
+                                          @PathVariable("taskPlantInfoId") final Integer taskPlantInfoId, Model model) {
+        Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         Optional<TaskPlantInfo> foundTaskPlantInfo = taskPlantInfoRepository.findById(taskPlantInfoId);
+        List<Task> allTasks = taskRepository.findAll();
+
         if (foundTaskPlantInfo.isPresent()) {
             model.addAttribute("taskPlantInfo", foundTaskPlantInfo.get());
-            return "adminManagePlantInformation";
+            model.addAttribute("plantInformation", plantInformation.get());
+            model.addAttribute("allTasks", allTasks);
+            return "changeTaskToPlantInformation";
         } else {
             return "redirect:/adminManagePlantInformation";
         }
     }
-/*
-    @PostMapping("/plantinfo/task/update/{taskPlantInfoId}")
+
+    @PostMapping("/plantinfo/{plantInfoId}/task/update/{taskPlantInfoId}")
     @Secured("ROLE_ADMIN")
-    public String updateTaskPlantInfo(@PathVariable("taskPlantInfoId") final Integer taskPlantInfoId,
+    public String updateTaskPlantInfo(@RequestParam("taskId") Integer taskId,
+                                      @PathVariable("plantInfoId") final Integer plantInfoId,
+                                      @PathVariable("taskPlantInfoId") final Integer taskPlantInfoId,
                                       @ModelAttribute("taskPlantInfo") TaskPlantInfo taskPlantInfo,
                                       BindingResult result) {
+
+        Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
+        Optional<Task> task = taskRepository.findById(taskId);
+
+
         if (result.hasErrors()) {
             return "redirect:/plantinfo/task/update";
         } else {
+            System.out.println("geslaagd!");
+            taskPlantInfo.setTask(task.get());
+            taskPlantInfo.setPlantInformation(plantInformation.get());
             taskPlantInfo.setTaskPlantInfoId(taskPlantInfoId);
+            System.out.println("geslaagd2");
             taskPlantInfoRepository.save(taskPlantInfo);
+            System.out.println("geslaagd3");
             return "redirect:/adminManagePlantInformation";
         }
     }
-*/
+
     @GetMapping("/plantinfo/task/delete/{taskPlantInfoId}")
     @Secured("ROLE_ADMIN")
     public String deleteTaskPlantInfo(@ModelAttribute("taskPlantInfoId") Integer taskPlantInfoId,
