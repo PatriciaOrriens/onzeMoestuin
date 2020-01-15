@@ -3,6 +3,7 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen
+ * @author Eric van Dalen, Wim Kruizinga
  * Controller class to manage gardens
  */
 @Controller
@@ -22,11 +23,17 @@ public class ManageGardenController {
     @Autowired
     private GardenRepository gardenRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/userManageGardens")
-    public String findAllYourGardens(Model model, @AuthenticationPrincipal User gardenuser) {
-            model.addAttribute("allYourGardens", gardenRepository.findAllByUser(gardenuser));
-        return "/manageGarden";
+    public String allGardensByMember(Model model, @AuthenticationPrincipal User currentUser) {
+        model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(currentUser));
+        User user = (User) userRepository.findByUsername(currentUser.getUsername()).get();
+        model.addAttribute("currentUser", user);
+        return "manageGarden";
     }
+
 
     @GetMapping("/user/garden/delete/{gardenId}")
     public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId,
