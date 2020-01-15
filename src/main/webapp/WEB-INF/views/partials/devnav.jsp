@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <ul class="navbar-nav">
          <li class="nav-item">
-            <a class="navbar-brand" href="../">Onze Moestuin</a>
+            <a class="navbar-brand" href="/">Onze Moestuin</a>
          </li>
      <security:authorize access="hasRole('ROLE_ADMIN')">
          <li class="nav-item">
