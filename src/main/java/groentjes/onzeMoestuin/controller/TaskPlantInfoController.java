@@ -34,13 +34,13 @@ public class TaskPlantInfoController {
 
     @GetMapping("plantinfo/{plantInfoId}/task/add")
     @Secured("ROLE_ADMIN")
-    public String addNewTaskPlantInfo(@PathVariable("plantInfoId") Integer plantInfoId, Model model) {
+    public String addTaskPlantInfo(@PathVariable("plantInfoId") Integer plantInfoId, Model model) {
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         List<Task> allTasks = taskRepository.findAll();
 
-        if (plantInformation.isPresent() && !allTasks.isEmpty()) {
+        if (plantInformation.isPresent() && ! allTasks.isEmpty()) {
             model.addAttribute("plantInfo", plantInformation.get());
-            model.addAttribute("newTask", new TaskPlantInfo());
+            model.addAttribute("taskPlantInfo", new TaskPlantInfo());
             model.addAttribute("allTasks", allTasks);
             return "addTaskToPlantInformation";
         } else {
@@ -50,17 +50,17 @@ public class TaskPlantInfoController {
 
     @PostMapping("/plantinfo/{plantInfoId}/task/add")
     @Secured("ROLE_ADMIN")
-    public String saveNewTaskPlantInfo (@RequestParam("taskId") Integer taskId,
-                                        @ModelAttribute("newTask") TaskPlantInfo newTask, BindingResult result,
+    public String saveTaskPlantInfo (@RequestParam("taskId") Integer taskId,
+                                        @ModelAttribute("taskPlantInfo") TaskPlantInfo taskPlantInfo, BindingResult result,
                                         @PathVariable("plantInfoId") final Integer plantInfoId) {
 
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         Optional<Task> task = taskRepository.findById(taskId);
 
         if (plantInformation.isPresent() && task.isPresent()) {
-            newTask.setPlantInformation(plantInformation.get());
-            newTask.setTask(task.get());
-            taskPlantInfoRepository.save(newTask);
+            taskPlantInfo.setPlantInformation(plantInformation.get());
+            taskPlantInfo.setTask(task.get());
+            taskPlantInfoRepository.save(taskPlantInfo);
             System.out.println("geslaagd!");
             return "redirect:/plantinfo/tasks/" + plantInfoId;
         } else {

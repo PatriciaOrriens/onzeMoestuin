@@ -9,7 +9,7 @@
     <h1 class="display-3">Taak toevoegen voor ${plantInfo.plantName}</h1>
 
     <!-- JSTL form -->
-    <form:form action="/plantinfo/${plantInfo.plantInfoId}/task/add" modelAttribute="newTask">
+    <form:form action="/plantinfo/${plantInfo.plantInfoId}/task/add" modelAttribute="taskPlantInfo">
 
         <div class="row">
             <div class="col-md-9">
@@ -28,13 +28,13 @@
                 <label for="daysAfterStart">Dagen na start:</label>
             </div>
             <div class="col-md-2">
-                <input type="number" class="form-control" value="daysAfterStart">
+                <form:input class="form-control" type="number" min="0" path="daysAfterStart" />
             </div>
         </div>
         <div class="row">
             <div class="col-md-2">
                 <div class="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" class="custom-control-input" id="repetitiveTask">
+                    <form:input type="checkbox" class="custom-control-input" path="repetitiveTask" />
                     <label class="custom-control-label" for="repetitiveTask">Herhalend</label>
                 </div>
             </div>
