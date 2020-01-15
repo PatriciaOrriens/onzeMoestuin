@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Patricia Orriens-Spuij and Wim Kruizinga
+ * @author Patricia Orriens-Spuij, Wim Kruizinga, Eric van Dalen
  * Controller for tasks for certain plantinformation (views for administrator)
  */
 @Controller
@@ -71,6 +71,7 @@ public class TaskPlantInfoController {
     @Secured("ROLE_ADMIN")
     public String showUpdateTaskPlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId,
                                           @PathVariable("taskPlantInfoId") final Integer taskPlantInfoId, Model model) {
+
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         Optional<TaskPlantInfo> foundTaskPlantInfo = taskPlantInfoRepository.findById(taskPlantInfoId);
         List<Task> allTasks = taskRepository.findAll();
@@ -96,17 +97,13 @@ public class TaskPlantInfoController {
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         Optional<Task> task = taskRepository.findById(taskId);
 
-
         if (result.hasErrors()) {
             return "redirect:/plantinfo/task/update";
         } else {
-            System.out.println("geslaagd!");
             taskPlantInfo.setTask(task.get());
             taskPlantInfo.setPlantInformation(plantInformation.get());
             taskPlantInfo.setTaskPlantInfoId(taskPlantInfoId);
-            System.out.println("geslaagd2");
             taskPlantInfoRepository.save(taskPlantInfo);
-            System.out.println("geslaagd3");
             return "redirect:/adminManagePlantInformation";
         }
     }
