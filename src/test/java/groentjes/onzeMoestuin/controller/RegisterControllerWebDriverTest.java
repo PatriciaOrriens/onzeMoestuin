@@ -32,7 +32,9 @@ public class RegisterControllerWebDriverTest {
     private PasswordEncoder passwordEncoder;
 
     private static final String NAME = "testgebruiker1";
-    private static final String PASSWORD = "testwaxhtwoord1";
+    private static final String PASSWORD = "testwachtwoord1";
+    private static final String EMAIL = "test@test.com";
+    private static final String FIRSTNAME = "Testnaam";
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -55,17 +57,26 @@ public class RegisterControllerWebDriverTest {
         // Arrange
         String expectedUsername = NAME;
         String expectedPassword = PASSWORD;
+        String expectedEmail = EMAIL;
+        String expectedFirstName = FIRSTNAME;
 
         // Activate
         this.driver.get("http://localhost:8080/registerUser");
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
+        driver.findElement(By.name("firstName")).sendKeys(FIRSTNAME);
+        driver.findElement(By.name("email")).sendKeys(EMAIL);
+
         String actualName = driver.findElement(By.name("username")).getAttribute("value");
         String actualPassword = driver.findElement(By.name("password")).getAttribute("value");
+        String actualEmail = driver.findElement(By.name("email")).getAttribute("value");
+        String actualFirstName = driver.findElement(By.name("firstName")).getAttribute("value");
 
         // Assert
         Assertions.assertEquals(expectedUsername, actualName);
         Assertions.assertEquals(expectedPassword, actualPassword);
+        Assertions.assertEquals(expectedFirstName, actualFirstName);
+        Assertions.assertEquals(expectedEmail, actualEmail);
     }
 
     @Test
@@ -77,6 +88,8 @@ public class RegisterControllerWebDriverTest {
         this.driver.get("http://localhost:8080/registerUser");
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
+        driver.findElement(By.name("firstName")).sendKeys(FIRSTNAME);
+        driver.findElement(By.name("email")).sendKeys(EMAIL);
         driver.findElement(By.name("registerbutton")).submit();
         boolean actualFound = userRepository.findByUsername(NAME).isPresent();
 

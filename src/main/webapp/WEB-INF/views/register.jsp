@@ -9,10 +9,10 @@
 
        <form:form method="post" modelAttribute="user">
             <div class="form-group">
-                <label for="name">Gebruikersnaam:</label>
+                <label for="username">Gebruikersnaam:</label>
                 <form:input path="username" class="form-control" required="required" />
 
-                <label for="password">E-mailadres:</label>
+                <label for="email">E-mailadres:</label>
                 <form:input path="email" type="email" class="form-control" required="required" />
 
                 <label for="firstName">Voornaam:</label>
