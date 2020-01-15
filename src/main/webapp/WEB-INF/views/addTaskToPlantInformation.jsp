@@ -33,12 +33,14 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <div class="custom-control custom-checkbox mb-3">
-                    <form:input type="checkbox" class="custom-control-input" path="repetitiveTask" />
-                    <label class="custom-control-label" for="repetitiveTask">Herhalend</label>
+                <div class="form-check">
+                    <form:checkbox class="form-check-input" path="repetitiveTask" />
+                    <label class="form-check-label" for="repetitiveTask">Herhalend</label>
                 </div>
+                </br>
             </div>
         </div>
+
         <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
             </form:form>
 
