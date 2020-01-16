@@ -68,4 +68,19 @@ public class GardenInvitationController {
         return "redirect:/garden/" + gardenId;
     }
 
+    @GetMapping("/garden/{gardenId}/refuseInvitation")
+    protected String refuseInvitation(@PathVariable("gardenId") Integer gardenId,
+                                      @AuthenticationPrincipal User user) {
+        Garden garden = gardenRepository.findById(gardenId).get();
+        Optional<GardenInvitation> invitation = gardenInvitationRepository.findByGardenAndInvitedUser(garden, user);
+
+        if (invitation.isPresent()) {
+            // Check if current user is invited user
+            if (user.getUserId().equals(invitation.get().getInvitedUser().getUserId())) {
+                invitation.get().setAccepted(false);
+                gardenInvitationRepository.save(invitation.get());
+            }
+        }
+        return "redirect:/userManageGardens";
+    }
 }

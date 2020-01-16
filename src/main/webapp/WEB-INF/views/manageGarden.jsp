@@ -9,7 +9,8 @@
             <div class="alert alert-warning" role="alert">
                <strong>Uitnodiging:</strong>
                 ${invitation.user.username} heeft je uitgenodigd om lid te worden van ${invitation.garden.gardenName}!
-                <a href="/garden/${invitation.garden.gardenId}/acceptInvitation">Accepteer</a> / <a href="#">Weiger</a>
+                <a href="/garden/${invitation.garden.gardenId}/acceptInvitation">Accepteer</a> /
+                <a href="/garden/${invitation.garden.gardenId}/refuseInvitation">Weiger</a>
             </div>
         </c:forEach>
     </c:if>
