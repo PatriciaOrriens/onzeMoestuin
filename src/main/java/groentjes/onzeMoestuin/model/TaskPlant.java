@@ -4,6 +4,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -12,6 +16,10 @@ import java.util.Date;
  */
 @Entity
 public class TaskPlant {
+
+    private final static long HOURSINDAY = 24;
+    private final static long MILLISECONDSINHOUR = 3600000;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +36,12 @@ public class TaskPlant {
     @JoinColumn(name = "taskPlantInfoId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private TaskPlantInfo taskPlantInfo;
+
+    public void calculateDueDate() {
+        long addedMillisconds = this.getTaskPlantInfo().getDaysAfterStart() * HOURSINDAY * MILLISECONDSINHOUR;
+        long beginning = this.getPlant().getStartDate().getTime();
+        this.dueDate = new Date(beginning + addedMillisconds);
+    }
 
     public Integer getTaskPlantId() {
         return taskPlantId;
@@ -60,4 +74,5 @@ public class TaskPlant {
     public void setTaskPlantInfo(TaskPlantInfo taskPlantInfo) {
         this.taskPlantInfo = taskPlantInfo;
     }
+
 }
