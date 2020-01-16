@@ -1,9 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Notification;
-import groentjes.onzeMoestuin.model.Plant;
-import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.model.*;
+import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,11 +29,24 @@ public class ManageGardenController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private GardenInvitationRepository gardenInvitationRepository;
+
     @GetMapping("/userManageGardens")
     public String allGardensByMember(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(currentUser));
         User user = (User) userRepository.findByUsername(currentUser.getUsername()).get();
+
         model.addAttribute("currentUser", user);
+
+        List<GardenInvitation> invitations = gardenInvitationRepository.findAllByInvitedUserAndAcceptedNull(user);
+
+        if (!invitations.isEmpty()) {
+            model.addAttribute("invitations", invitations);
+        }
+
+
+
         return "manageGarden";
     }
 

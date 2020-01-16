@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 /**
  * @author Wim Kruizinga
@@ -26,9 +27,10 @@ public class GardenInvitation {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User invitedUser;
 
+    @Email
     private String emailAddress;
 
-    private boolean accepted;
+    private Boolean accepted;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "gardenId", referencedColumnName = "gardenId")
@@ -70,11 +72,11 @@ public class GardenInvitation {
         this.emailAddress = emailAddress;
     }
 
-    public boolean isAccepted() {
+    public Boolean isAccepted() {
         return accepted;
     }
 
-    public void setAccepted(boolean accepted) {
+    public void setAccepted(Boolean accepted) {
         this.accepted = accepted;
     }
 
@@ -84,5 +86,10 @@ public class GardenInvitation {
 
     public void setGarden(Garden garden) {
         this.garden = garden;
+    }
+
+    @Override
+    public String toString() {
+        return user.getFirstName() + " invited " + invitedUser.getFirstName() + " to " + garden.getGardenName();
     }
 }

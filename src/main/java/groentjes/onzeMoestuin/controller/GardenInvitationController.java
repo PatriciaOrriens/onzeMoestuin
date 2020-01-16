@@ -9,9 +9,12 @@ import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 /**
  * @author Wim Kruizinga
@@ -46,5 +49,23 @@ public class GardenInvitationController {
         return "redirect:/garden/" + gardenId;
     }
 
+    @GetMapping("/garden/{gardenId}/acceptInvitation")
+    protected String acceptInvitation(@PathVariable("gardenId") Integer gardenId,
+                                      @AuthenticationPrincipal User user) {
+
+        Garden garden = gardenRepository.findById(gardenId).get();
+        Optional<GardenInvitation> invitation = gardenInvitationRepository.findByGardenAndInvitedUser(garden, user);
+
+        if (invitation.isPresent()) {
+            // Check if current user is invited user
+            if (user.getUserId().equals(invitation.get().getInvitedUser().getUserId())) {
+                invitation.get().setAccepted(true);
+                gardenInvitationRepository.save(invitation.get());
+                garden.addGardenMember(user);
+                gardenRepository.save(garden);
+            }
+        }
+        return "redirect:/garden/" + gardenId;
+    }
 
 }
