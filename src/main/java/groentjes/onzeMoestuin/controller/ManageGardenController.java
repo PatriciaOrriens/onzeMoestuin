@@ -82,16 +82,16 @@ public class ManageGardenController {
         return "redirect:/";
     }
 
-    // Add member to garden
-    @PostMapping("/garden/{gardenId}/invite")
-    protected String addGardenMember(@ModelAttribute("foundUser") User newMember,
-                                     @PathVariable("gardenId") Integer gardenId) {
-        User member = userRepository.getOne(newMember.getUserId());
-
-        Garden garden = gardenRepository.getOne(gardenId);
-        garden.addGardenMember(member);
-        gardenRepository.save(garden);
-
-        return "redirect:/garden/" + gardenId;
-    }
+//    // Add member to garden
+//    @PostMapping("/garden/{gardenId}/invite")
+//    protected String addGardenMember(@ModelAttribute("foundUser") User newMember,
+//                                     @PathVariable("gardenId") Integer gardenId) {
+//        User member = userRepository.getOne(newMember.getUserId());
+//
+//        Garden garden = gardenRepository.getOne(gardenId);
+//        garden.addGardenMember(member);
+//        gardenRepository.save(garden);
+//
+//        return "redirect:/garden/" + gardenId;
+//    }
 }
