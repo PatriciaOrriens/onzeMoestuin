@@ -1,5 +1,9 @@
 package groentjes.onzeMoestuin.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 /**
@@ -12,20 +16,23 @@ public class GardenInvitation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer invitationId;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "invitedById", referencedColumnName = "userId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "invitedUserId", referencedColumnName = "userId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User invitedUser;
 
     private String emailAddress;
 
     private boolean accepted;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "gardenId", referencedColumnName = "gardenId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Garden garden;
 
     public GardenInvitation() {
