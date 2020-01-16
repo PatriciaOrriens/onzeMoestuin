@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <label for "name">E-mailadres </label>
-            <input name="search" class="form-control" type="text" />
+            <input name="search" class="form-control" type="email" />
         </div>
         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Zoek</button>
     </form>
