@@ -9,10 +9,12 @@
                 <td><a href="garden/${garden.gardenId}">
                         <c:out value="${garden.gardenName}"/></a>
                 </td>
-                <td align="right">
-                    <c:if test="${currentUser==garden.user}">
-                        <a href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
-                    </c:if>
+                <td><a class="btn btn-outline-primary" href="garden/update/<c:out value="${garden.gardenId}" />"
+                                    >Wijzig</a></td>
+                <td>
+
+                        <a class="btn btn-outline-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+
                 </td>
             </tr>
             <!-- Modal -->
