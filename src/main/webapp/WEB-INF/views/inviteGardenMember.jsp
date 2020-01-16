@@ -28,7 +28,8 @@
         <c:otherwise>
              <c:if test="${!empty foundUser}">
                <h2>Gevonden gebruiker:</h2>
-               <p>${foundUser.username}</p>
+               <p><c:out value="${foundUser.firstName}"></c:out>
+               <c:out value="${foundUser.lastName}"></c:out></p>
 
                <form:form method="post" action="../${garden.gardenId}/invite" modelAttribute="foundUser">
                    <form:hidden path="userId" />
