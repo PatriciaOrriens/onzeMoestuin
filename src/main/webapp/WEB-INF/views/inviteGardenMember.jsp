@@ -5,12 +5,12 @@
   <div class="container">
     <h1 class="display-3">Iemand uitnodigen voor '${garden.gardenName}'</h1>
 
-    <p>Voer de naam van de gebruiker in om deze uit te nodigen.</p>
+    <p>Voer het e-mailadres van de gebruiker in om deze uit te nodigen.</p>
 
     <form method="get">
 
         <div class="form-group">
-            <label for "name">Naam</label>
+            <label for "name">E-mailadres </label>
             <input name="search" class="form-control" type="text" />
         </div>
         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Zoek</button>

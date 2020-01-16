@@ -37,8 +37,7 @@ public class GardenInvitation {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Garden garden;
 
-    public GardenInvitation() {
-    }
+    public GardenInvitation() {}
 
     public Integer getInvitationId() {
         return invitationId;
@@ -88,8 +87,4 @@ public class GardenInvitation {
         this.garden = garden;
     }
 
-    @Override
-    public String toString() {
-        return user.getFirstName() + " invited " + invitedUser.getFirstName() + " to " + garden.getGardenName();
-    }
 }

@@ -36,7 +36,6 @@ public class GardenInvitationController {
     protected String inviteExistingMember(@ModelAttribute("foundUser") User newMember,
                                           @PathVariable("gardenId") Integer gardenId,
                                           @AuthenticationPrincipal User user) {
-
         GardenInvitation newInvitation = new GardenInvitation();
         User invitingUser = userRepository.findById(user.getUserId()).get();
 
@@ -52,7 +51,6 @@ public class GardenInvitationController {
     @GetMapping("/garden/{gardenId}/acceptInvitation")
     protected String acceptInvitation(@PathVariable("gardenId") Integer gardenId,
                                       @AuthenticationPrincipal User user) {
-
         Garden garden = gardenRepository.findById(gardenId).get();
         Optional<GardenInvitation> invitation = gardenInvitationRepository.findByGardenAndInvitedUser(garden, user);
 

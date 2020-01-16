@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen, Wim Kruizinga
+ * @author Eric van Dalen, Wim Kruizinga, Patricia Orriens, Gjalt Wybenga
  * Controller class to manage gardens
  */
 @Controller
@@ -36,7 +36,6 @@ public class ManageGardenController {
     public String allGardensByMember(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(currentUser));
         User user = (User) userRepository.findByUsername(currentUser.getUsername()).get();
-
         model.addAttribute("currentUser", user);
 
         List<GardenInvitation> invitations = gardenInvitationRepository.findAllByInvitedUserAndAcceptedNull(user);
@@ -44,12 +43,8 @@ public class ManageGardenController {
         if (!invitations.isEmpty()) {
             model.addAttribute("invitations", invitations);
         }
-
-
-
         return "manageGarden";
     }
-
 
     @GetMapping("/user/garden/delete/{gardenId}")
     public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId,
@@ -76,13 +71,12 @@ public class ManageGardenController {
             model.addAttribute("garden", garden.get());
             if (search.isPresent()) {
                 Optional<User> foundUser = userRepository.findByEmail(search.get());
-
                 if (foundUser.isPresent()) {
                     model.addAttribute("foundUser", foundUser.get());
-
                     // check whether user is already member of garden
                     if (garden.get().isGardenMember(foundUser.get())) {
-                        notification.setMessage("Gebruiker <b>" + foundUser.get().getFirstName() + "</b> is al lid van deze tuin");
+                        notification.setMessage("Gebruiker <b>" + foundUser.get().getFirstName()
+                                + "</b> is al lid van deze tuin");
                     }
                 } else {
                     notification.setMessage("Geen gebruiker gevonden voor <b>" + search.get() + "</b>");
@@ -94,16 +88,4 @@ public class ManageGardenController {
         return "redirect:/";
     }
 
-//    // Add member to garden
-//    @PostMapping("/garden/{gardenId}/invite")
-//    protected String addGardenMember(@ModelAttribute("foundUser") User newMember,
-//                                     @PathVariable("gardenId") Integer gardenId) {
-//        User member = userRepository.getOne(newMember.getUserId());
-//
-//        Garden garden = gardenRepository.getOne(gardenId);
-//        garden.addGardenMember(member);
-//        gardenRepository.save(garden);
-//
-//        return "redirect:/garden/" + gardenId;
-//    }
 }

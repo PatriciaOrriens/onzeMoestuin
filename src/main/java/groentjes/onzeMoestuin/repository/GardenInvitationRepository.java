@@ -16,9 +16,6 @@ public interface GardenInvitationRepository extends JpaRepository<GardenInvitati
 
     List<GardenInvitation> findAllByInvitedUserAndAcceptedNull(User user);
 
-
-    List<GardenInvitation> findAllByInvitedUser(User user);
-
     Optional<GardenInvitation> findByGardenAndInvitedUser(Garden garden, User user);
 
 }
