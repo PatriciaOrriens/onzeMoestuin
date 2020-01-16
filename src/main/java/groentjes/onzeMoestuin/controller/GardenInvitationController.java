@@ -43,8 +43,7 @@ public class GardenInvitationController {
         newInvitation.setUser(invitingUser);
 
         gardenInvitationRepository.save(newInvitation);
-        return "redirect:/";
-
+        return "redirect:/garden/" + gardenId;
     }
 
 
