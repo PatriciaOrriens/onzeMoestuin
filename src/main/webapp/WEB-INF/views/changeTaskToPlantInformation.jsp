@@ -6,7 +6,7 @@
 
 <div class="container">
 
-    <h1 class="display-3">Taak toevoegen voor ${plantInfo.plantName}</h1>
+    <h1 class="display-3">Taak wijzigen voor ${taskPlantInfo.plantInformation.plantName}</h1>
 
     <!-- JSTL form -->
     <form:form action="/plantinfo/${plantInfoId}/task/update/${taskPlantInfoId}" modelAttribute="taskPlantInfo">
@@ -14,10 +14,11 @@
         <div class="row">
             <div class="col-md-9">
                 <select name="taskId" class="form-control">
-                    <option selected>${taskPlantInfo.task.taskName}</option>
+
                     <c:forEach items="${allTasks}" var="task">
                     <option value="${task.taskId}">${task.taskName}</option>
                     </c:forEach>
+                    <option value="${taskPlantInfo.task.taskId}" selected>${taskPlantInfo.task.taskName}</option>
                 </select>
             </div>
         </div>
@@ -34,7 +35,7 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="form-check">
-                    <form:checkbox class="form-check-input" path="repetitiveTask" />
+                    <form:checkbox class="form-check-input" path="repetitiveTask" value="${taskPlantInfo.repetitiveTask}"/>
                     <label class="form-check-label" for="repetitiveTask">Herhalend</label>
                 </div>
                 </br>

@@ -26,6 +26,9 @@
                   <li><c:out value="${member.username}" /></li>
            </c:forEach>
       </ul>
+      <a href="/garden/${garden.gardenId}/invite" class="btn btn-primary">
+        <i class="fa fa-user-plus"></i> Lid toevoegen</a>
+
 
       <!-- Tijdelijke code om taken weer te geven -->
             <h2>Taken voor deze tuin:</h2>

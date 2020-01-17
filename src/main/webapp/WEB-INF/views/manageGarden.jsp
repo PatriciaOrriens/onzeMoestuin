@@ -3,13 +3,30 @@
 <c:import url="partials/header.jsp" />
 <div class="container">
     <h1 class="display-3">Tuin Overzicht</h1>
+
+    <c:if test="${!empty invitations}">
+        <c:forEach var="invitation" items="${invitations}">
+            <div class="alert alert-warning" role="alert">
+               <strong>Uitnodiging:</strong>
+                ${invitation.user.username} heeft je uitgenodigd om lid te worden van ${invitation.garden.gardenName}!
+                <a href="/garden/${invitation.garden.gardenId}/acceptInvitation">Accepteer</a> /
+                <a href="/garden/${invitation.garden.gardenId}/refuseInvitation">Weiger</a>
+            </div>
+        </c:forEach>
+    </c:if>
+
     <table class="table table-striped">
         <c:forEach var="garden" items="${allYourGardens}">
             <tr>
                 <td><a href="garden/${garden.gardenId}">
                         <c:out value="${garden.gardenName}"/></a>
                 </td>
-                <td align="right"><a href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+                <td><a class="btn btn-outline-primary" href="garden/update/<c:out value="${garden.gardenId}" />"
+                                    >Wijzig</a></td>
+                <td>
+
+                        <a class="btn btn-outline-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+
                 </td>
             </tr>
             <!-- Modal -->
@@ -23,7 +40,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Weet je zeker dat je ${garden.gardenName} wilt verwijderen ?</p>
+                            <p>Weet je zeker dat je ${garden.gardenName} wilt verwijderen?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
@@ -36,4 +53,9 @@
     </table>
     <a href="/garden/add" class="btn btn-primary">Tuin toevoegen</a>
     <a href="../logout" class="btn btn-primary">Uitloggen</a>
+
+
+
+
+
 <c:import url="partials/footer.jsp" />
