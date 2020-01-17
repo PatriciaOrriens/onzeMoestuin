@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen
+ * @author Eric van Dalen and Gjalt Wybenga
  * Controller for managing the plants in a garden
  */
 @Controller
