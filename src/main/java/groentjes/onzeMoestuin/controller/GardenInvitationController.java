@@ -84,12 +84,5 @@ public class GardenInvitationController {
         return "redirect:/userManageGardens";
     }
 
-    @PostMapping("/garden/{gardenId}/sendEmailInvite")
-    protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
-                                     @AuthenticationPrincipal User user,
-                                     @ModelAttribute("invitationMail") Mail invitationMail) {
-        System.out.println(invitationMail.getBody());
-        System.out.println(invitationMail.getRecipient());
-        return "redirect:/garden/" + gardenId;
-    }
+
 }

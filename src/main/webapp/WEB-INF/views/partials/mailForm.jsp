@@ -8,11 +8,11 @@
     <div class="form-group">
         <form:hidden path="recipient" />
         <label for="name">Onderwerp:</label>
-        <form:input path="subject" class="form-control" />
+        <form:input path="subject" class="form-control" value="Onze Moestuin: Je bent uitgenodigd voor ${garden.gardenName}!"/>
 
         <label for="name">Uitnodiging:</label>
-        <form:input path="body" class="form-control" />
+        <form:textarea path="body" rows="10" class="form-control"/>
 
     </div>
-    <form:button type="submit" name="sendMail" class="btn btn-primary">Opslaan</form:button>
+    <form:button type="submit" name="sendMail" class="btn btn-primary">Versturen</form:button>
 </form:form>
