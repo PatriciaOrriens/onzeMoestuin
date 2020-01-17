@@ -47,16 +47,7 @@ public class NewGardenController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
-                ArrayList<TaskPlant> taskPlants = new ArrayList<>();
-                for (Plant plant : plants) {
-                    ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
-                    taskPlants.addAll(tasksForPlant);
-                }
-                Collections.sort(taskPlants);
-                model.addAttribute("taskPlants", taskPlants);
-                model.addAttribute("plants", plants);
-                model.addAttribute("garden", garden.get());
+                addAttributesToShowGardenView(garden, model);
                 return "showGarden";
             }
         }
@@ -86,5 +77,18 @@ public class NewGardenController {
 
             return "redirect:/garden/" + garden.getGardenId();
         }
+    }
+
+    private void addAttributesToShowGardenView(Optional<Garden> garden, Model model) {
+        ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
+        ArrayList<TaskPlant> taskPlants = new ArrayList<>();
+        for (Plant plant : plants) {
+            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
+            taskPlants.addAll(tasksForPlant);
+        }
+        Collections.sort(taskPlants);
+        model.addAttribute("taskPlants", taskPlants);
+        model.addAttribute("plants", plants);
+        model.addAttribute("garden", garden.get());
     }
 }
