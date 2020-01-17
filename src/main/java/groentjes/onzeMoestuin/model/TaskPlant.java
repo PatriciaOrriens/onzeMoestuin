@@ -2,12 +2,8 @@ package groentjes.onzeMoestuin.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -15,7 +11,7 @@ import java.util.Date;
  * The Taskplant class concerns tasks to be performed for specific plants
  */
 @Entity
-public class TaskPlant {
+public class TaskPlant implements Comparable<TaskPlant> {
 
     private final static long HOURSINDAY = 24;
     private final static long MILLISECONDSINHOUR = 3600000;
@@ -25,7 +21,7 @@ public class TaskPlant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taskPlantId;
 
-    private Date dueDate;
+    private String dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "plantId", nullable = false)
@@ -40,7 +36,8 @@ public class TaskPlant {
     public void calculateDueDate() {
         long addedMillisconds = this.getTaskPlantInfo().getDaysAfterStart() * HOURSINDAY * MILLISECONDSINHOUR;
         long beginning = this.getPlant().getStartDate().getTime();
-        this.dueDate = new Date(beginning + addedMillisconds);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        this.dueDate = sdf.format(new Date(beginning + addedMillisconds));
     }
 
     public Integer getTaskPlantId() {
@@ -49,14 +46,6 @@ public class TaskPlant {
 
     public void setTaskPlantId(Integer taskPlantId) {
         this.taskPlantId = taskPlantId;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
     }
 
     public Plant getPlant() {
@@ -75,4 +64,16 @@ public class TaskPlant {
         this.taskPlantInfo = taskPlantInfo;
     }
 
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    @Override
+    public int compareTo(TaskPlant otherTaskPlant) {
+        return this.dueDate.compareTo(otherTaskPlant.dueDate);
+    }
 }

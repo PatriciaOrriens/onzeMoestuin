@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -52,6 +53,7 @@ public class NewGardenController {
                     ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
                     taskPlants.addAll(tasksForPlant);
                 }
+                Collections.sort(taskPlants);
                 model.addAttribute("taskPlants", taskPlants);
                 model.addAttribute("plants", plants);
                 model.addAttribute("garden", garden.get());
