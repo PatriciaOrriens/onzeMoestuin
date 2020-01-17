@@ -34,10 +34,10 @@ public class TaskPlant implements Comparable<TaskPlant> {
     private TaskPlantInfo taskPlantInfo;
 
     public void calculateDueDate() {
-        long addedMillisconds = this.getTaskPlantInfo().getDaysAfterStart() * HOURSINDAY * MILLISECONDSINHOUR;
+        long addedMilliseconds = this.getTaskPlantInfo().getDaysAfterStart() * HOURSINDAY * MILLISECONDSINHOUR;
         long beginning = this.getPlant().getStartDate().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        this.dueDate = sdf.format(new Date(beginning + addedMillisconds));
+        this.dueDate = sdf.format(new Date(beginning + addedMilliseconds));
     }
 
     public Integer getTaskPlantId() {
