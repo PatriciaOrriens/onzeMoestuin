@@ -11,23 +11,31 @@
         </div>
     </div>
 
-    <c:forEach items="${plants}" var="plant">
-        <div class="container p-3 my-3 border">
-            <a href="../plant/${plant.plantId}">
-                <c:out value="${plant.plantInformation.plantName}" />
-            </a>
-        </div>
-    </c:forEach>
+    <table class="table table-striped">
+        <c:forEach items="${plants}" var="plant">
+            <tr>
+                <td>
+                    <a href="../plant/${plant.plantId}">
+                        <c:out value="${plant.plantInformation.plantName}" />
+                    </a>
+                <td>
+                <td align="right">
+                    <a href="/plant/delete/${plant.plantId}">Verwijderen</a>
+                </td>
+            </tr>
+        </c:forEach>
+     </table>
 
       <!-- Tijdelijke code om tuinleden weer te geven -->
       <h2>Leden van deze tuin:</h2>
       <ul>
            <c:forEach items="${garden.gardenMembers}" var="member">
                   <li><c:out value="${member.username}" /></li>
+
            </c:forEach>
       </ul>
       <a href="/garden/${garden.gardenId}/invite" class="btn btn-primary">
-        <i class="fa fa-user-plus"></i> Lid toevoegen</a>
+        <i class="fa fa-user-plus"></i>Lid toevoegen</a>
 
 
       <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
