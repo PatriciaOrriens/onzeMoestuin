@@ -38,6 +38,18 @@
         <i class="fa fa-user-plus"></i>Lid toevoegen</a>
 
 
+      <!-- Tijdelijke code om taken weer te geven -->
+            <h2>Taken voor deze tuin:</h2>
+            <ul>
+                 <c:forEach items="${taskPlants}" var="taskPlant">
+                        <li><c:out value="${taskPlant.taskPlantInfo.task.taskName}" />
+                        (plantnummer: <c:out value="${taskPlant.plant.plantId}"/>;
+                        plantnaam: <c:out value="${taskPlant.plant.plantInformation.plantName}"/>;
+                        vervaldatum: <c:out value="${taskPlant.dueDate}"/>)</li>
+                 </c:forEach>
+            </ul>
+
+
       <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />

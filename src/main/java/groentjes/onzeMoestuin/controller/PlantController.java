@@ -1,12 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Plant;
-import groentjes.onzeMoestuin.model.PlantInformation;
-import groentjes.onzeMoestuin.model.User;
-import groentjes.onzeMoestuin.repository.GardenRepository;
-import groentjes.onzeMoestuin.repository.PlantInformationRepository;
-import groentjes.onzeMoestuin.repository.PlantRepository;
+import groentjes.onzeMoestuin.model.*;
+import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -31,6 +28,12 @@ public class PlantController {
 
     @Autowired
     private PlantInformationRepository plantInformationRepository;
+
+    @Autowired
+    private TaskPlantRepository taskPlantRepository;
+
+    @Autowired
+    private TaskPlantInfoRepository taskPlantInfoRepository;
 
     @GetMapping("/garden/{gardenId}/addPlant")
     public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId,
@@ -72,11 +75,22 @@ public class PlantController {
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
 
+
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
                 plant.setPlantInformation(plantInfo.get());
                 plant.setGarden(garden.get());
+                plant.setStartDate(new Date());
                 plantRepository.save(plant);
+                ArrayList<TaskPlantInfo> taskPlantInfos = new ArrayList<>();
+                taskPlantInfos = taskPlantInfoRepository.findAllByPlantInformation(plant.getPlantInformation());
+                for (TaskPlantInfo taskInfoPlant : taskPlantInfos) {
+                    TaskPlant taskPlant = new TaskPlant();
+                    taskPlant.setPlant(plant);
+                    taskPlant.setTaskPlantInfo(taskInfoPlant);
+                    taskPlant.calculateDueDate();
+                    taskPlantRepository.save(taskPlant);
+                }
                 return "redirect:/garden/" + gardenId;
             }
         }
