@@ -16,8 +16,12 @@ public class MailController {
 
     @GetMapping("/testmail")
     String testmail() {
+        String recipient = "wimkruizinga@gmail.com";
+        String subject = "Uitnodiging Onze Moestuin";
+        String message = "lolol";
+
         try {
-            sendTestMail();
+            sendMail(recipient, subject, message);
             System.out.println("Email verstuurd!");
             return "redirect:/";
         } catch (Exception ex) {
@@ -26,15 +30,13 @@ public class MailController {
         }
     }
 
-    private void sendTestMail() throws Exception {
+    private void sendMail(String recipient, String subject, String body) throws Exception {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setTo("wimkruizinga@gmail.com");
-        helper.setText("DOLOR DOLOR DOLOR");
-        helper.setSubject("Testmail");
-
+        helper.setTo(recipient);
+        helper.setSubject(subject);
+        helper.setText(body);
         sender.send(message);
-
     }
 }

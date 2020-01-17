@@ -80,6 +80,10 @@ public class ManageGardenController {
                     }
                 } else {
                     notification.setMessage("Geen gebruiker gevonden voor <b>" + search.get() + "</b>");
+                    Mail invitationMail = new Mail();
+                    invitationMail.setRecipient(search.get());
+                    model.addAttribute("invitationMail", invitationMail);
+
                 }
             model.addAttribute("message", notification);
             }
@@ -87,5 +91,4 @@ public class ManageGardenController {
         }
         return "redirect:/";
     }
-
 }

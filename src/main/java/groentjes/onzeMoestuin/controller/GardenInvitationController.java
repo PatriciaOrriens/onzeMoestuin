@@ -2,6 +2,7 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.GardenInvitation;
+import groentjes.onzeMoestuin.model.Mail;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 import groentjes.onzeMoestuin.repository.GardenRepository;
@@ -9,6 +10,7 @@ import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,5 +82,14 @@ public class GardenInvitationController {
             }
         }
         return "redirect:/userManageGardens";
+    }
+
+    @PostMapping("/garden/{gardenId}/sendEmailInvite")
+    protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
+                                     @AuthenticationPrincipal User user,
+                                     @ModelAttribute("invitationMail") Mail invitationMail) {
+        System.out.println(invitationMail.getBody());
+        System.out.println(invitationMail.getRecipient());
+        return "redirect:/garden/" + gardenId;
     }
 }

@@ -24,6 +24,11 @@
                ${message.message}
             </div>
             </p>
+            <!-- If mail address is not found, show form to invite member by mail -->
+            <c:if test="${!empty invitationMail}">
+                <c:import url="partials/mailForm.jsp" />
+            </c:if>
+
         </c:when>
         <c:otherwise>
              <c:if test="${!empty foundUser}">
