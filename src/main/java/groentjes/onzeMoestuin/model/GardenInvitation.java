@@ -22,7 +22,7 @@ public class GardenInvitation {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "invitedUserId", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User invitedUser;

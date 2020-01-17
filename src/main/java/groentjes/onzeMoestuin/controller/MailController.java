@@ -1,7 +1,11 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.GardenInvitation;
 import groentjes.onzeMoestuin.model.Mail;
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
+import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,21 +24,14 @@ public class MailController {
     @Autowired
     private JavaMailSender sender;
 
-    @GetMapping("/testmail")
-    String testmail() {
-        String recipient = "wimkruizinga@gmail.com";
-        String subject = "Uitnodiging Onze Moestuin";
-        String body = "lolol";
+    @Autowired
+    private GardenInvitationRepository gardenInvitationRepository;
 
-        try {
-            sendMail(recipient, subject, body);
-            System.out.println("Email verstuurd!");
-            return "redirect:/";
-        } catch (Exception ex) {
-            System.out.println("Fout bij sturen mail");
-            return "redirect:/";
-        }
-    }
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private GardenRepository gardenRepository;
 
     @PostMapping("/garden/{gardenId}/sendEmailInvite")
     protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
@@ -45,6 +42,17 @@ public class MailController {
         try {
             sendMail(invitationMail.getRecipient(), invitationMail.getSubject(), invitationMail.getBody());
             System.out.println("Email verstuurd!");
+
+            GardenInvitation newInvitation = new GardenInvitation();
+            User invitingUser = userRepository.findById(user.getUserId()).get();
+
+            // Set fields
+            newInvitation.setGarden(gardenRepository.findById(gardenId).get());
+            newInvitation.setEmailAddress(invitationMail.getRecipient());
+            newInvitation.setUser(invitingUser);
+
+            gardenInvitationRepository.save(newInvitation);
+
         } catch (Exception ex) {
             System.out.println("Fout bij sturen mail");
             return "redirect:/";
