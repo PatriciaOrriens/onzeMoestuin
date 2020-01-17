@@ -15,8 +15,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author Eric van Dalen
@@ -36,9 +35,18 @@ class ManageGardenControllerTest {
     GardenUserDetailsService gardenUserDetailsService;
 
     @Test
-    @WithMockUser(roles = "User")
+    @WithMockUser(roles = "USER")
     void testFindAllYourGardens() throws Exception {
         final ResultActions result = mockMvc.perform(get("/userManageGardens")).andExpect(status()
                 .isOk()).andExpect(forwardedUrl("/WEB-INF/views//manageGarden.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "USER")
+    void testDeleteGarden() throws Exception {
+        String gardenId  = "1";
+        final ResultActions result = mockMvc.perform(get("/user/garden/delete/" + gardenId)
+                .sessionAttr("gardenId", gardenId)).andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/userManageGardens"));
     }
 }
