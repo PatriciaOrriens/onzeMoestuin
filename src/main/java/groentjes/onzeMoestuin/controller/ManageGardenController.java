@@ -3,14 +3,11 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Task;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
