@@ -17,4 +17,9 @@ public class LoginController {
     public String loginfailed() {
         return "loginFailed";
     }
+
+    @GetMapping("/loginsuccess")
+    public String loginsuccessful() {
+        return "loginsuccess";
+    }
 }
