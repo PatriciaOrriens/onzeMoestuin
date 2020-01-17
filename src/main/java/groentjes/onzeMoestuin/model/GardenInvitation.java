@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.UUID;
 
 /**
  * @author Wim Kruizinga
@@ -17,6 +18,9 @@ public class GardenInvitation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer invitationId;
 
+    // Generate invitation token
+
+    private UUID invitationToken = UUID.randomUUID();
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "invitedById", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -85,6 +89,10 @@ public class GardenInvitation {
 
     public void setGarden(Garden garden) {
         this.garden = garden;
+    }
+
+    public UUID getInvitationToken() {
+        return invitationToken;
     }
 
 }
