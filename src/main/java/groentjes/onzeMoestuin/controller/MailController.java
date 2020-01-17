@@ -37,8 +37,6 @@ public class MailController {
     protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
                                      @AuthenticationPrincipal User user,
                                      @ModelAttribute("invitationMail") Mail invitationMail) {
-        System.out.println(invitationMail.getBody());
-        System.out.println(invitationMail.getRecipient());
         try {
             sendMail(invitationMail.getRecipient(), invitationMail.getSubject(), invitationMail.getBody());
             System.out.println("Email verstuurd!");
