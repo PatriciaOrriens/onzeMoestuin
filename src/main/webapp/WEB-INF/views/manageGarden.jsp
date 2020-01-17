@@ -3,6 +3,18 @@
 <c:import url="partials/header.jsp" />
 <div class="container">
     <h1 class="display-3">Tuin Overzicht</h1>
+
+    <c:if test="${!empty invitations}">
+        <c:forEach var="invitation" items="${invitations}">
+            <div class="alert alert-warning" role="alert">
+               <strong>Uitnodiging:</strong>
+                ${invitation.user.username} heeft je uitgenodigd om lid te worden van ${invitation.garden.gardenName}!
+                <a href="/garden/${invitation.garden.gardenId}/acceptInvitation">Accepteer</a> /
+                <a href="/garden/${invitation.garden.gardenId}/refuseInvitation">Weiger</a>
+            </div>
+        </c:forEach>
+    </c:if>
+
     <table class="table table-striped">
         <c:forEach var="garden" items="${allYourGardens}">
             <tr>
@@ -41,6 +53,8 @@
     </table>
     <a href="/garden/add" class="btn btn-primary">Tuin toevoegen</a>
     <a href="../logout" class="btn btn-primary">Uitloggen</a>
+
+
 
 
 
