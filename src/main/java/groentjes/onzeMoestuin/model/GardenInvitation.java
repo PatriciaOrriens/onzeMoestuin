@@ -3,6 +3,7 @@ package groentjes.onzeMoestuin.model;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,8 +20,10 @@ public class GardenInvitation {
     private Integer invitationId;
 
     // Generate invitation token
-
+    @Column(unique = true)
+    @Type(type="org.hibernate.type.UUIDCharType")
     private UUID invitationToken = UUID.randomUUID();
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "invitedById", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)

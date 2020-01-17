@@ -11,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Wim Kruizinga
@@ -84,5 +82,16 @@ public class GardenInvitationController {
         return "redirect:/userManageGardens";
     }
 
+    @GetMapping("/invitation")
+    protected String emailInvitation(@RequestParam(name ="token") String token) {
 
+        Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.findOneByInvitationToken(UUID.fromString(token));
+        if (gardenInvitation.isPresent()) {
+            System.out.println("Present!");
+            return "redirect:/";
+        } else {
+            System.out.println("Niet present");
+            return "redirect:/";
+        }
+    }
 }
