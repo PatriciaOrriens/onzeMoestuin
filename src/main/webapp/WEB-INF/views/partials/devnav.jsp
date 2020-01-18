@@ -19,7 +19,7 @@
      </security:authorize>
      <security:authorize access="hasRole('ROLE_USER')">
          <li class="nav-item">
-            <a class="nav-link" href="/garden/add">Tuin toevoegen</a>
+            <a class="nav-link" name="tuintoevoegen" href="/garden/add">Tuin toevoegen</a>
          </li>
      </security:authorize>
   </ul>
