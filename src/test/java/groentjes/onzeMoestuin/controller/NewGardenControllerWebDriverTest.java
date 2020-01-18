@@ -1,6 +1,5 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
@@ -13,12 +12,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.web.WebAppConfiguration;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *  @author Eric van Dalen and Gjalt Wybenga
@@ -52,34 +49,22 @@ public class NewGardenControllerWebDriverTest {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
-        Optional<User> optionalUser = userRepository.findByUsername(NAME);
-        optionalUser.ifPresent(user -> userRepository.delete(user));
         User registeredUser = new User();
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
         userRepository.save(registeredUser);
-        Optional<Garden> garden1 = gardenRepository.findByGardenName(GARDEN1);
-        garden1.ifPresent(value -> gardenRepository.delete(value));
-        Optional<Garden> garden2 = gardenRepository.findByGardenName(GARDEN2);
-        garden2.ifPresent(value -> gardenRepository.delete(value));
     }
 
     @AfterEach
     public void tearDown() {
         this.driver.quit();
         this.driver = null;
-        Optional<Garden> optionalGarden1 = gardenRepository.findByGardenName(GARDEN1);
-        optionalGarden1.ifPresent(garden -> gardenRepository.delete(garden));
-        Optional<Garden> optionalGarden2 = gardenRepository.findByGardenName(GARDEN1);
-        optionalGarden2.ifPresent(garden -> gardenRepository.delete(garden));
-
     }
 
     @Test
-    void testShowGarden() throws Exception {
+    void testAddingGardens() throws Exception {
         // Arrange
         boolean expectedFound = true;
-
 
         // Activate
         this.driver.get("http://localhost:8080");
@@ -103,16 +88,53 @@ public class NewGardenControllerWebDriverTest {
         submitGardenData();
         Thread.sleep(1000);
 
-        boolean garden1 = gardenRepository.findByGardenName(GARDEN1).isPresent();
-        boolean garden2 = gardenRepository.findByGardenName(GARDEN2).isPresent();
-
         // Assert
-
-        Assertions.assertAll("should return true twice",
-                () -> assertEquals(true, gardenRepository.findByGardenName(GARDEN1).isPresent()),
-                () -> assertEquals(true, gardenRepository.findByGardenName(GARDEN1).isPresent())
+        Assertions.assertAll("test whether both gardens were successfully created",
+                () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN1).isPresent()),
+                () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN2).isPresent())
         );
     }
+
+    @Test
+    void testRemoveGarden() throws Exception {
+        // Arrange
+        //not implemented
+
+        // Activate
+        this.driver.get("http://localhost:8080");
+        Thread.sleep(1000);
+        clickLoginButton();
+        Thread.sleep(1000);
+        loginAsAUser();
+        Thread.sleep(1000);
+        clickAddGardenButton();
+        Thread.sleep(1000);
+        createGarden1();
+        Thread.sleep(1000);
+        submitGardenData();
+        Thread.sleep(1000);
+        clickReturnToOverViewButton();
+        Thread.sleep(1000);
+        clickAddGardenButton();
+        Thread.sleep(1000);
+        createGarden2();
+        Thread.sleep(1000);
+        submitGardenData();
+        Thread.sleep(1000);
+        clickReturnToOverViewButton();
+        Thread.sleep(1000);
+        clickOverViewButtonRemoveButton();
+        Thread.sleep(1000);
+        clickModalRemoveButton();
+        Thread.sleep(1000);
+
+        // Assert
+        Assertions.assertAll("test whether the second garden was successfully removed",
+                () -> assertTrue(gardenRepository.findByGardenName(GARDEN1).isPresent()),
+                () -> assertFalse(gardenRepository.findByGardenName(GARDEN2).isPresent())
+        );
+    }
+
 
     private void loginAsAUser() {
         driver.findElement(By.name("username")).sendKeys(NAME);
@@ -134,6 +156,14 @@ public class NewGardenControllerWebDriverTest {
 
     private void clickReturnToOverViewButton() {
         driver.findElement(By.name("returntooverview")).click();
+    }
+
+    private void clickOverViewButtonRemoveButton() {
+        driver.findElement(By.name("verwijderen")).click();
+    }
+
+    private void clickModalRemoveButton() {
+        driver.findElement(By.name("verwijderen")).click();
     }
 
     private void createGarden1() {
