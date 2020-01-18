@@ -75,6 +75,8 @@ public class NewGardenControllerWebDriverTest {
         this.driver.get("http://localhost:8080/garden/add");
         loginAsAUser();
         Thread.sleep(500);
+        addGarden();
+        Thread.sleep(500);
         createGarden();
         Thread.sleep(500);
         driver.findElement(By.name("opslaanTuin")).submit();
@@ -91,9 +93,16 @@ public class NewGardenControllerWebDriverTest {
 
     }
 
+    private void addGarden() {
+        driver.findElement(By.name("tuintoevoegen")).click();
+    }
+
+
     private void createGarden() {
         driver.findElement(By.name("gardenName")).sendKeys(NAMEGARDEN);
         driver.findElement(By.name("length")).sendKeys(LENGTH);
         driver.findElement(By.name("width")).sendKeys(WIDTH);
     }
+
+
 }
