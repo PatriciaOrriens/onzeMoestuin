@@ -36,11 +36,14 @@ public class NewGardenControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final String NAME = "testgebruiker1";
-    private static final String PASSWORD = "testwaxhtwoord1";
-    private static final String NAMEGARDEN = "testtuin1";
-    private static final String LENGTH = "1";
-    private static final String WIDTH = "1";
+    private static final String NAME = "gebruiker1";
+    private static final String PASSWORD = "wachtwoord1";
+    private static final String GARDEN1 = "tuin1";
+    private static final String GARDEN1LENGTH = "1";
+    private static final String GARDEN1WIDTH = "1";
+    private static final String GARDEN2 = "tuin2";
+    private static final String GARDEN2LENGTH = "2";
+    private static final String GARDEN2WIDTH = "2";
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -52,7 +55,7 @@ public class NewGardenControllerWebDriverTest {
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
         userRepository.save(registeredUser);
-        Optional<Garden> garden = gardenRepository.findByGardenName(NAMEGARDEN);
+        Optional<Garden> garden = gardenRepository.findByGardenName(GARDEN1);
         garden.ifPresent(value -> gardenRepository.delete(value));
     }
 
@@ -60,7 +63,7 @@ public class NewGardenControllerWebDriverTest {
     public void tearDown() {
         this.driver.quit();
         this.driver = null;
-        Optional<Garden> optionalGarden = gardenRepository.findByGardenName(NAMEGARDEN);
+        Optional<Garden> optionalGarden = gardenRepository.findByGardenName(GARDEN1);
         optionalGarden.ifPresent(garden -> gardenRepository.delete(garden));
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
@@ -74,13 +77,24 @@ public class NewGardenControllerWebDriverTest {
         // Activate
         this.driver.get("http://localhost:8080/garden/add");
         loginAsAUser();
-        Thread.sleep(500);
-        addGarden();
-        Thread.sleep(500);
-        createGarden();
-        Thread.sleep(500);
-        driver.findElement(By.name("opslaanTuin")).submit();
-        boolean actualFound = gardenRepository.findByGardenName(NAMEGARDEN).isPresent();
+        Thread.sleep(1000);
+        clickAddGardenButton();
+        Thread.sleep(1000);
+        createGarden1();
+        Thread.sleep(1000);
+        submitGardenData();
+        Thread.sleep(1000);
+        clickReturnToOverViewButton();
+        Thread.sleep(1000);
+        clickAddGardenButton();
+        Thread.sleep(1000);
+        createGarden2();
+        Thread.sleep(1000);
+        submitGardenData();
+        Thread.sleep(1000);
+        clickReturnToOverViewButton();
+        Thread.sleep(1000);
+        boolean actualFound = gardenRepository.findByGardenName(GARDEN1).isPresent();
 
         // Assert
         Assertions.assertEquals(expectedFound, actualFound);
@@ -93,15 +107,28 @@ public class NewGardenControllerWebDriverTest {
 
     }
 
-    private void addGarden() {
+    private void clickAddGardenButton() {
         driver.findElement(By.name("tuintoevoegen")).click();
     }
 
+    private void submitGardenData() {
+        driver.findElement(By.name("opslaanTuin")).submit();
+    }
 
-    private void createGarden() {
-        driver.findElement(By.name("gardenName")).sendKeys(NAMEGARDEN);
-        driver.findElement(By.name("length")).sendKeys(LENGTH);
-        driver.findElement(By.name("width")).sendKeys(WIDTH);
+    private void clickReturnToOverViewButton() {
+        driver.findElement(By.name("returntooverview")).click();
+    }
+
+    private void createGarden1() {
+        driver.findElement(By.name("gardenName")).sendKeys(GARDEN1);
+        driver.findElement(By.name("length")).sendKeys(GARDEN1LENGTH);
+        driver.findElement(By.name("width")).sendKeys(GARDEN1WIDTH);
+    }
+
+    private void createGarden2() {
+        driver.findElement(By.name("gardenName")).sendKeys(GARDEN2);
+        driver.findElement(By.name("length")).sendKeys(GARDEN2LENGTH);
+        driver.findElement(By.name("width")).sendKeys(GARDEN2WIDTH);
     }
 
 
