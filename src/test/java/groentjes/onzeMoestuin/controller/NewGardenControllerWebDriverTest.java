@@ -81,7 +81,7 @@ public class NewGardenControllerWebDriverTest {
     }
 
     @Test
-    void testAddingGarden() throws Exception {
+    void testAddGarden() throws Exception {
         // Arrange
         boolean expectedFound = true;
 

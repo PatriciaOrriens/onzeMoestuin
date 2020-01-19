@@ -32,7 +32,7 @@
             var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
 
             $(document).ready(function() {
-                for (m = 0; m < lightingList.length; m++) {
+                for (m = 0; m < soilList.length; m++) {
                     $('.soilType').append('<option>'+soilList[m]+'</option>')
                 }
             });
