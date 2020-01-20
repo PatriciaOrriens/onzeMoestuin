@@ -1,5 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
+import com.google.common.collect.ImmutableMap;
 import freemarker.template.Template;
 import groentjes.onzeMoestuin.model.GardenInvitation;
 import groentjes.onzeMoestuin.model.Mail;
@@ -44,7 +45,7 @@ public class MailController {
                                      @AuthenticationPrincipal User user,
                                      @ModelAttribute("invitationMail") Mail invitationMail) {
         try {
-            sendMail(invitationMail.getRecipient(), invitationMail.getSubject(), invitationMail.getBody());
+            sendMail(invitationMail);
             System.out.println("Email verstuurd!");
 
             GardenInvitation newInvitation = new GardenInvitation();
@@ -64,16 +65,18 @@ public class MailController {
         return "redirect:/garden/" + gardenId;
     }
 
-    private void sendMail(String recipient, String subject, String body) throws Exception {
+    private void sendMail(Mail mail) throws Exception {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         Template t = freemarkerConfig.getTemplate("gardenInvitation.ftl");
-//        String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, body);
+        String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, ImmutableMap.of(
+                "body", mail.getBody()
+        ));
 
-        helper.setTo(recipient);
-        helper.setSubject(subject);
-        helper.setText(t.toString(), true);
+        helper.setTo(mail.getRecipient());
+        helper.setSubject(mail.getSubject());
+        helper.setText(html, true);
         sender.send(message);
     }
 }

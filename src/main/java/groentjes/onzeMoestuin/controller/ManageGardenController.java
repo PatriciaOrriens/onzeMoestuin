@@ -61,7 +61,8 @@ public class ManageGardenController {
 
     @GetMapping("/garden/{gardenId}/invite")
     protected String inviteToGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
-                                    @RequestParam(value = "search") Optional<String> search) {
+                                    @RequestParam(value = "search") Optional<String> search,
+                                    @AuthenticationPrincipal User user) {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
 
         // Object for passing message to user
@@ -82,6 +83,7 @@ public class ManageGardenController {
                     notification.setMessage("Geen gebruiker gevonden voor <b>" + search.get() + "</b>");
                     Mail invitationMail = new Mail();
                     invitationMail.setRecipient(search.get());
+                    invitationMail.setSender(userRepository.getOne(user.getUserId()));
                     model.addAttribute("invitationMail", invitationMail);
 
                 }

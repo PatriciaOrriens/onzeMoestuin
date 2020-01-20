@@ -1,5 +1,8 @@
 package groentjes.onzeMoestuin.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Mail {
 
     private String recipient;
