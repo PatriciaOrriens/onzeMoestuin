@@ -67,7 +67,7 @@
                 <br/>
                 <br/>
                 <label>Zaaitijd (eerste maand): </label>
-                <form:select path="sowingStart" type="text" name="sowingStart">
+                <form:select path="sowingStart" type="text" class="sowingStart">
                 </form:select>
                 <br/>
                 <br/>
