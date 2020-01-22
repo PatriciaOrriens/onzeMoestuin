@@ -40,6 +40,7 @@ public class MailController {
     @Autowired
     private GardenRepository gardenRepository;
 
+    // Send Invitation mail
     @PostMapping("/garden/{gardenId}/sendEmailInvite")
     protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
                                      @AuthenticationPrincipal User user,
