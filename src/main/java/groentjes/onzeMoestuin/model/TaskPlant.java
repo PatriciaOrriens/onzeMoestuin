@@ -16,7 +16,6 @@ public class TaskPlant implements Comparable<TaskPlant> {
     private final static long HOURSINDAY = 24;
     private final static long MILLISECONDSINHOUR = 3600000;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taskPlantId;
@@ -32,6 +31,13 @@ public class TaskPlant implements Comparable<TaskPlant> {
     @JoinColumn(name = "taskPlantInfoId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private TaskPlantInfo taskPlantInfo;
+
+    private String completedDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "completedByUserId", referencedColumnName = "userId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
     public void calculateDueDate() {
         long addedMilliseconds = this.getTaskPlantInfo().getDaysAfterStart() * HOURSINDAY * MILLISECONDSINHOUR;
@@ -75,5 +81,21 @@ public class TaskPlant implements Comparable<TaskPlant> {
     @Override
     public int compareTo(TaskPlant otherTaskPlant) {
         return this.dueDate.compareTo(otherTaskPlant.dueDate);
+    }
+
+    public String getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(String completedDate) {
+        this.completedDate = completedDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
