@@ -8,6 +8,7 @@ public class Mail {
     private String recipient;
     private String subject;
     private String body;
+    private String message;
 
     private User sender;
 
@@ -44,5 +45,13 @@ public class Mail {
 
     public void setSender(User sender) {
         this.sender = sender;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

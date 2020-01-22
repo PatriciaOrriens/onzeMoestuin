@@ -52,7 +52,15 @@ public class MailController {
             newInvitation.setEmailAddress(invitationMail.getRecipient());
             newInvitation.setUser(invitingUser);
 
-            sendMail(invitationMail, newInvitation);
+            Template t = freemarkerConfig.getTemplate("gardenInvitation.ftl");
+            invitationMail.setMessage(FreeMarkerTemplateUtils.processTemplateIntoString(t, ImmutableMap.of(
+                    "body", invitationMail.getBody(),
+                    "invitation", newInvitation,
+                    "garden", newInvitation.getGarden(),
+                    "sender", invitingUser
+            )));
+
+            sendMail(invitationMail);
             System.out.println("Email verstuurd!");
 
             gardenInvitationRepository.save(newInvitation);
@@ -64,21 +72,13 @@ public class MailController {
         return "redirect:/garden/" + gardenId;
     }
 
-    private void sendMail(Mail mail, GardenInvitation invitation) throws Exception {
+    private void sendMail(Mail mail) throws Exception {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        Template t = freemarkerConfig.getTemplate("gardenInvitation.ftl");
-        String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, ImmutableMap.of(
-                "body", mail.getBody(),
-                "invitation", invitation,
-                "garden", invitation.getGarden(),
-                "sender", invitation.getUser()
-        ));
-
         helper.setTo(mail.getRecipient());
         helper.setSubject(mail.getSubject());
-        helper.setText(html, true);
+        helper.setText(mail.getMessage(), true);
         sender.send(message);
     }
 }
