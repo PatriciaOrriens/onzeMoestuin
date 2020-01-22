@@ -2,9 +2,10 @@
 <html>
 
     <body>
-        <h1>Testmail</h1>
-        <p>${sender} nodigt je uit om lid te worden van zijn tuin!</p>
-        <p>${body}</p>
+        <h1>Je bent uitgenodigd voor ${garden.gardenName}</h1>
+        <p>${(sender.firstName)!"Iemand"} heeft je uitgenodigd om lid te worden voor zijn of haar tuin!</p>
+        <p><q>${body}</q></p>
+        <p>Klik <a href="#">hier</a> om te accepteren</p>
     </body>
 
 </html>
