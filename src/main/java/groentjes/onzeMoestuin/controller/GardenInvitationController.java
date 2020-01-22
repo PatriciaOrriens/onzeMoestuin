@@ -83,14 +83,14 @@ public class GardenInvitationController {
     }
 
     @GetMapping("/invitation")
-    protected String emailInvitation(@RequestParam(name ="token") String token) {
+    protected String emailInvitation(@RequestParam(name ="token") String token,
+                                     Model model, @ModelAttribute User user) {
 
         Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.findOneByInvitationToken(UUID.fromString(token));
         if (gardenInvitation.isPresent()) {
-            System.out.println("Present!");
-            return "redirect:/";
+            model.addAttribute("invitation", gardenInvitation.get());
+            return "register";
         } else {
-            System.out.println("Niet present");
             return "redirect:/";
         }
     }
