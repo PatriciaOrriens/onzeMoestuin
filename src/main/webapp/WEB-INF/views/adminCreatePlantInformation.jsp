@@ -12,7 +12,15 @@
 
             $(document).ready(function() {
                 for (i = 0; i < lightingList.length; i++) {
-                    $('.lighting').append('<option>'+lightingList[i]+'</option>')
+                    $(lighting).append('<option>'+lightingList[i]+'</option>')
+                }
+            });
+
+            var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
+
+            $(document).ready(function() {
+                for (j = 0; j < soilList.length; j++) {
+                    $(soilType).append('<option>'+soilList[j]+'</option>')
                 }
             });
 
@@ -22,18 +30,10 @@
                 "oktober", "november", "december");
 
             $(document).ready(function() {
-                for (j = 0; j < monthList.length; j++) {
-                    for (k = 0; k < classList.length; k++) {
-                        $(classList[k]).append('<option>'+monthList[j]+'</option>')
+                for (k = 0; k < classList.length; k++) {
+                    for (m = 0; m < monthList.length; m++) {
+                        $(classList[k]).append('<option>'+monthList[m]+'</option>')
                     }
-                }
-            });
-
-            var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
-
-            $(document).ready(function() {
-                for (m = 0; m < lightingList.length; m++) {
-                    $('.soilType').append('<option>'+soilList[m]+'</option>')
                 }
             });
     </script>
@@ -45,29 +45,29 @@
             <br/>
             <form:form method="post" modelAttribute="plantInformation">
                 <label>Nederlandse plantnaam: </label>
-                <form:input path="plantName" type="text" placeholder="plantnaam" class="plantName"/>
+                <form:input path="plantName" type="text" placeholder="plantnaam" id="plantName"/>
                 <br/>
                 <br/>
                 <label>Latijnse plantnaam: </label>
-                <form:input path="latinName" type="text" placeholder="Latijnse plantnaam" class="latinName"/>
+                <form:input path="latinName" type="text" placeholder="Latijnse plantnaam" id="latinName"/>
                 <br/>
                 <br/>
                 <label>Plantafstand (in cm's): </label>
-                <form:input path="plantingDistance" type="number" placeholder="plantafstand" min="0" class="plantingDistance"/>
+                <form:input path="plantingDistance" type="number" placeholder="plantafstand" min="0" id="plantingDistance"/>
                 <br/>
                 <br/>
                 <label>Belichting: </label>
-                <form:select path="lighting" type="text" class="lighting">
+                <form:select path="lighting" type="text" id="lighting">
                 </form:select>
                 <br/>
                 <br/>
                 <label>Grondsoort: </label>
-                <form:select path="soilType" type="text" class="soilType">
+                <form:select path="soilType" type="text" id="soilType">
                 </form:select>
                 <br/>
                 <br/>
                 <label>Zaaitijd (eerste maand): </label>
-                <form:select path="sowingStart" type="text" class="sowingStart">
+                <form:select path="sowingStart" type="text" id="sowingStart">
                 </form:select>
                 <br/>
                 <br/>
