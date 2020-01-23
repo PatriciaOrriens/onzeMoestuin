@@ -40,71 +40,74 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="display-4">Plant toevoegen</h1>
         <div class="form-group row">
-            <br/>
             <form:form method="post" modelAttribute="plantInformation">
-                <label>Nederlandse plantnaam: </label>
-                <form:input path="plantName" type="text" placeholder="plantnaam" id="plantName"/>
-                <br/>
-                <br/>
-                <label>Latijnse plantnaam: </label>
-                <form:input path="latinName" type="text" placeholder="Latijnse plantnaam" id="latinName"/>
-                <br/>
-                <br/>
-                <label>Plantafstand (in cm's): </label>
-                <form:input path="plantingDistance" type="number" placeholder="plantafstand" min="0" id="plantingDistance"/>
-                <br/>
-                <br/>
-                <label>Belichting: </label>
-                <form:select path="lighting" type="text" id="lighting">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Grondsoort: </label>
-                <form:select path="soilType" type="text" id="soilType">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Zaaitijd (eerste maand): </label>
-                <form:select path="sowingStart" type="text" class="sowingStart">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Zaaitijd (laatste maand): </label>
-                <form:select path="sowingEnd" type="text" class="sowingEnd">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Planttijd (eerste maand): </label>
-                <form:select path="plantingStart" type="text" class="plantingStart">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Planttijd (laatste maand): </label>
-                <form:select path="plantingEnd" type="text" class="plantingEnd">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Oogsttijd (eerste maand): </label>
-                 <form:select path="harvestingStart" type="text" class="harvestingStart">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Oogsttijd (laatste maand): </label>
-                <form:select path="harvestingEnd" type="text" class="harvestingEnd">
-                </form:select>
-                <br/>
-                <br/>
-                <label>Groeitijd in dagen: </label>
-                <form:input path="growTime" type="number" placeholder="groeitijd" min="0" class="growTime"/>
-                <br/>
-                <br/>
+                <h1 class="display-4">Plant toevoegen</h1>
+                <table>
+                    <tr>
+                        <td><label>Nederlandse plantnaam: </label></td>
+                        <td><form:input path="plantName" type="text" placeholder="plantnaam" id="plantName"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Latijnse plantnaam: </label></td>
+                        <td><form:input path="latinName" type="text" placeholder="Latijnse plantnaam" id="latinName"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Plantafstand (in cm's):</label></td>
+                        <td><form:input path="plantingDistance" type="number" placeholder="plantafstand" min="0" id="plantingDistance"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Belichting:</label></td>
+                        <td><form:select path="lighting" type="text" id="lighting">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Grondsoort:</label></td>
+                        <td><form:select path="soilType" type="text" id="soilType">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Zaaitijd (eerste maand):</label></td>
+                        <td><form:select path="sowingStart" type="text" class="sowingStart">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Zaaitijd (laatste maand):</label></td>
+                        <td><form:select path="sowingEnd" type="text" class="sowingEnd">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Planttijd (eerste maand):</label></td>
+                        <td><form:select path="plantingStart" type="text" class="plantingStart">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Planttijd (laatste maand):</label></td>
+                        <td><form:select path="plantingEnd" type="text" class="plantingEnd">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Oogsttijd (eerste maand):</label></td>
+                        <td><form:select path="harvestingStart" type="text" class="harvestingStart">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Oogsttijd (laatste maand):</label></td>
+                        <td><form:select path="harvestingEnd" type="text" class="harvestingEnd">
+                        </form:select></td>
+                    </tr>
+                    <tr>
+                        <td><label>Groeitijd in dagen:</label></td>
+                        <td><form:input path="growTime" type="number" placeholder="groeitijd" min="0" class="growTime"/></td>
+                    </tr>
+                </table>
+                 <br/>
                 <input class="btn btn-primary" type="submit" value="Toevoegen"/>
+                <br/>
+                <br/>
+                <a href="/adminDashboard" class="btn btn-primary">Terug</a>
             </form:form>
         </div>
-            <a href="/adminDashboard" class="btn btn-primary">Terug</a>
-
     </div>
 
     <c:import url="partials/footer.jsp" />
