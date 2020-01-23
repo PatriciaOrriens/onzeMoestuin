@@ -16,18 +16,12 @@
                 for (i = 0; i < lightingList.length; i++) {
                     $(lighting).append('<option>'+lightingList[i]+'</option>')
                 }
-            });
-
-            $(document).ready(function() {
 
                 var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
 
                 for (j = 0; j < soilList.length; j++) {
                     $(soilType).append('<option>'+soilList[j]+'</option>')
                 }
-            });
-
-            $(document).ready(function() {
 
                 var idList = new Array (sowingStart, sowingEnd, plantingStart, plantingEnd, harvestingStart, harvestingEnd);
 
