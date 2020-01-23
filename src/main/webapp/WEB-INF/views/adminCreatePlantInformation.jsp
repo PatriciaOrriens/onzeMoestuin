@@ -4,7 +4,7 @@
 
 <c:import url="partials/header.jsp" />
 
-<head>
+
     <title>Nieuwe plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
@@ -24,7 +24,7 @@
                 }
             });
 
-            var idList = new Array (sowingStart, sowingEnd, plantingStart, plantingEnd, harvestingStart, harvestingEnd);
+            var idList = new Array (".sowingStart", ".sowingEnd", ".plantingStart", ".plantingEnd", ".harvestingStart", ".harvestingEnd");
 
             var monthList = new Array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september",
                 "oktober", "november", "december");
@@ -37,8 +37,7 @@
                 }
             });
     </script>
-</head>
-<body>
+
     <div class="container">
         <div class="form-group row">
             <form:form method="post" modelAttribute="plantInformation">
@@ -68,32 +67,32 @@
                     </tr>
                     <tr>
                         <td><label>Zaaitijd (eerste maand):</label></td>
-                        <td><form:select path="sowingStart" type="text" id="sowingStart">
+                        <td><form:select path="sowingStart" type="text" class="sowingStart">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Zaaitijd (laatste maand):</label></td>
-                        <td><form:select path="sowingEnd" type="text" id="sowingEnd">
+                        <td><form:select path="sowingEnd" type="text" class="sowingEnd">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Planttijd (eerste maand):</label></td>
-                        <td><form:select path="plantingStart" type="text" id="plantingStart">
+                        <td><form:select path="plantingStart" type="text" class="plantingStart">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Planttijd (laatste maand):</label></td>
-                        <td><form:select path="plantingEnd" type="text" id="plantingEnd">
+                        <td><form:select path="plantingEnd" type="text" class="plantingEnd">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Oogsttijd (eerste maand):</label></td>
-                        <td><form:select path="harvestingStart" type="text" id="harvestingStart">
+                        <td><form:select path="harvestingStart" type="text" class="harvestingStart">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Oogsttijd (laatste maand):</label></td>
-                        <td><form:select path="harvestingEnd" type="text" id="harvestingEnd">
+                        <td><form:select path="harvestingEnd" type="text" class="harvestingEnd">
                         </form:select></td>
                     </tr>
                     <tr>
