@@ -8,28 +8,32 @@
     <title>Nieuwe plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-            var lightingList = new Array ("zon", "halfschaduw", "schaduw");
 
             $(document).ready(function() {
+
+                var lightingList = new Array ("zon", "halfschaduw", "schaduw");
+
                 for (i = 0; i < lightingList.length; i++) {
                     $(lighting).append('<option>'+lightingList[i]+'</option>')
                 }
             });
 
-            var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
-
             $(document).ready(function() {
+
+                var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
+
                 for (j = 0; j < soilList.length; j++) {
                     $(soilType).append('<option>'+soilList[j]+'</option>')
                 }
             });
 
-            var idList = new Array (".sowingStart", ".sowingEnd", ".plantingStart", ".plantingEnd", ".harvestingStart", ".harvestingEnd");
-
-            var monthList = new Array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september",
-                "oktober", "november", "december");
-
             $(document).ready(function() {
+
+                var idList = new Array (sowingStart, sowingEnd, plantingStart, plantingEnd, harvestingStart, harvestingEnd);
+
+                var monthList = new Array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september",
+                    "oktober", "november", "december");
+
                 for (k = 0; k < idList.length; k++) {
                     for (m = 0; m < monthList.length; m++) {
                         $(idList[k]).append('<option>'+monthList[m]+'</option>')
@@ -39,7 +43,7 @@
     </script>
 
     <div class="container">
-        <div class="form-group row">
+        <div class="form">
             <form:form method="post" modelAttribute="plantInformation">
                 <h1 class="display-3">Plant toevoegen</h1>
                 <table>
@@ -67,32 +71,32 @@
                     </tr>
                     <tr>
                         <td><label>Zaaitijd (eerste maand):</label></td>
-                        <td><form:select path="sowingStart" type="text" class="sowingStart">
+                        <td><form:select path="sowingStart" type="text" id="sowingStart">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Zaaitijd (laatste maand):</label></td>
-                        <td><form:select path="sowingEnd" type="text" class="sowingEnd">
+                        <td><form:select path="sowingEnd" type="text" id="sowingEnd">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Planttijd (eerste maand):</label></td>
-                        <td><form:select path="plantingStart" type="text" class="plantingStart">
+                        <td><form:select path="plantingStart" type="text" id="plantingStart">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Planttijd (laatste maand):</label></td>
-                        <td><form:select path="plantingEnd" type="text" class="plantingEnd">
+                        <td><form:select path="plantingEnd" type="text" id="plantingEnd">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Oogsttijd (eerste maand):</label></td>
-                        <td><form:select path="harvestingStart" type="text" class="harvestingStart">
+                        <td><form:select path="harvestingStart" type="text" id="harvestingStart">
                         </form:select></td>
                     </tr>
                     <tr>
                         <td><label>Oogsttijd (laatste maand):</label></td>
-                        <td><form:select path="harvestingEnd" type="text" class="harvestingEnd">
+                        <td><form:select path="harvestingEnd" type="text" id="harvestingEnd">
                         </form:select></td>
                     </tr>
                     <tr>

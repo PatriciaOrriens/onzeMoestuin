@@ -7,16 +7,20 @@
     <title>Verander plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-            var lightingList = new Array ("zon", "halfschaduw", "schaduw");
+
             $(document).ready(function() {
+
+                var lightingList = new Array ("zon", "halfschaduw", "schaduw");
 
                 for (i = 0; i < lightingList.length; i++) {
                         $(lighting).append('<option>'+lightingList[i]+'</option>')
                 }
             });
 
-            var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
+
             $(document).ready(function() {
+
+                var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
 
                 for (j = 0; j < soilList.length; j++) {
                     $(soilType).append('<option>'+soilList[j]+'</option>')
