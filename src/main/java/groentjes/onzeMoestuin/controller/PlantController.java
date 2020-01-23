@@ -74,23 +74,9 @@ public class PlantController {
 
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
-
-
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                plant.setPlantInformation(plantInfo.get());
-                plant.setGarden(garden.get());
-                plant.setStartDate(new Date());
-                plantRepository.save(plant);
-                ArrayList<TaskPlantInfo> taskPlantInfos = new ArrayList<>();
-                taskPlantInfos = taskPlantInfoRepository.findAllByPlantInformation(plant.getPlantInformation());
-                for (TaskPlantInfo taskInfoPlant : taskPlantInfos) {
-                    TaskPlant taskPlant = new TaskPlant();
-                    taskPlant.setPlant(plant);
-                    taskPlant.setTaskPlantInfo(taskInfoPlant);
-                    taskPlant.calculateDueDate();
-                    taskPlantRepository.save(taskPlant);
-                }
+                savePlantAndTaskPlant(plantInfo, garden, plant);
                 return "redirect:/garden/" + gardenId;
             }
         }
@@ -106,5 +92,21 @@ public class PlantController {
                 plantRepository.delete(plant.get());
         }
         return "redirect:/userManageGardens";
+    }
+
+    private void savePlantAndTaskPlant(Optional<PlantInformation> plantInfo, Optional<Garden> garden, Plant plant) {
+        plant.setPlantInformation(plantInfo.get());
+        plant.setGarden(garden.get());
+        plant.setStartDate(new Date());
+        plantRepository.save(plant);
+        ArrayList<TaskPlantInfo> taskPlantInfos;
+        taskPlantInfos = taskPlantInfoRepository.findAllByPlantInformation(plant.getPlantInformation());
+        for (TaskPlantInfo taskInfoPlant : taskPlantInfos) {
+            TaskPlant taskPlant = new TaskPlant();
+            taskPlant.setPlant(plant);
+            taskPlant.setTaskPlantInfo(taskInfoPlant);
+            taskPlant.calculateDueDate();
+            taskPlantRepository.save(taskPlant);
+        }
     }
 }
