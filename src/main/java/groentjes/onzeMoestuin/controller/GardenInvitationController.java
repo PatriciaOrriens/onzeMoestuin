@@ -88,36 +88,4 @@ public class GardenInvitationController {
         }
         return "redirect:/userManageGardens";
     }
-
-    @GetMapping("/invitation")
-    protected String emailInvitation(@RequestParam(name ="token") String token,
-                                     Model model, @ModelAttribute User user) {
-
-        Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.findOneByInvitationToken(UUID.fromString(token));
-        if (gardenInvitation.isPresent()) {
-            model.addAttribute("invitation", gardenInvitation.get());
-            return "register";
-        } else {
-            return "redirect:/";
-        }
-    }
-
-    @PostMapping("/invitation")
-    protected String registerByInvite(@Valid User user, Errors errors, @RequestParam(name ="token") String token) {
-
-        Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.findOneByInvitationToken(UUID.fromString(token));
-
-        if (gardenInvitation.isPresent() && !errors.hasErrors()) {
-
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-
-            gardenInvitation.get().setInvitedUser(user);
-            gardenInvitationRepository.save(gardenInvitation.get());
-
-            return "redirect:/login";
-        } else {
-            return "redirect:/";
-        }
-    }
 }

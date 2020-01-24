@@ -9,7 +9,7 @@
         <p><q>${body}</q></p>
         </#if>
 
-        <p>Klik <a href="http://localhost:8080/invitation?token=${invitation.invitationToken}">hier</a> om te accepteren</p>
+        <p>Klik <a href="http://localhost:8080/registerUser?token=${invitation.invitationToken}">hier</a> om te accepteren</p>
     </body>
 
 </html>
