@@ -1,6 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.GardenInvitation;
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Eric van Dalen and Gjalt G. Wybenga

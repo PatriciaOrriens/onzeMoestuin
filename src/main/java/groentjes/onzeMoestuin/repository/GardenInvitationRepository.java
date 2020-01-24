@@ -17,6 +17,8 @@ public interface GardenInvitationRepository extends JpaRepository<GardenInvitati
 
     List<GardenInvitation> findAllByInvitedUserAndAcceptedNull(User user);
 
+    List<GardenInvitation> findAllByEmailAddress(String emailAddress);
+
     Optional<GardenInvitation> findByGardenAndInvitedUser(Garden garden, User user);
 
     Optional<GardenInvitation> findOneByInvitationToken(UUID uuid);

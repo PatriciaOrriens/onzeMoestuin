@@ -9,10 +9,14 @@ import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,6 +34,9 @@ public class GardenInvitationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Invite existing member to garden
     @PostMapping("/garden/{gardenId}/invite")
@@ -90,6 +97,25 @@ public class GardenInvitationController {
         if (gardenInvitation.isPresent()) {
             model.addAttribute("invitation", gardenInvitation.get());
             return "register";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/invitation")
+    protected String registerByInvite(@Valid User user, Errors errors, @RequestParam(name ="token") String token) {
+
+        Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.findOneByInvitationToken(UUID.fromString(token));
+
+        if (gardenInvitation.isPresent() && !errors.hasErrors()) {
+
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+
+            gardenInvitation.get().setInvitedUser(user);
+            gardenInvitationRepository.save(gardenInvitation.get());
+
+            return "redirect:/login";
         } else {
             return "redirect:/";
         }
