@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * @author Eric van Dalen and Gjalt G. Wybenga
+ * @author Wim Kruizinga, Eric van Dalen and Gjalt G. Wybenga
  * Controller class for a screen to register as a user and create your own user account
  */
 
@@ -62,6 +62,7 @@ public class RegisterController {
                 Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.
                         findOneByInvitationToken(UUID.fromString(token.get()));
                 if (gardenInvitation.isPresent()) {
+                    // update invitation: link new user
                     gardenInvitation.get().setInvitedUser(user);
                     gardenInvitationRepository.save(gardenInvitation.get());
                 }
