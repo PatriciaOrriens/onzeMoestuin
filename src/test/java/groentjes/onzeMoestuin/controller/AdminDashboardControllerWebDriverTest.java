@@ -51,8 +51,8 @@ public class AdminDashboardControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/adminDashboard";
 
         // Activate
-        this.driver.get(expectedUrl);
         loginAsAdministrator();
+        this.driver.get(expectedUrl);
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
@@ -64,8 +64,8 @@ public class AdminDashboardControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/manageUsers";
 
         // Activate
-        this.driver.get("http://localhost:8080/adminDashboard");
         loginAsAdministrator();
+        this.driver.get("http://localhost:8080/adminDashboard");
         Thread.sleep(500);
         driver.findElement(By.name("selectManageUser")).click();
         Thread.sleep(500);
@@ -80,8 +80,8 @@ public class AdminDashboardControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/adminManagePlantInformation";
 
         // Activate
-        this.driver.get("http://localhost:8080/adminDashboard");
         loginAsAdministrator();
+        this.driver.get("http://localhost:8080/adminDashboard");
         Thread.sleep(500);
         driver.findElement(By.name("selectManagePlantInformation")).click();
         Thread.sleep(500);
@@ -93,11 +93,11 @@ public class AdminDashboardControllerWebDriverTest {
     @Test
     void testAdminDashboardSubmitLogoutButton() throws Exception {
         // Arrange
-        String expectedUrl = "http://localhost:8080/login";
+        String expectedUrl = "http://localhost:8080/";
 
         // Activate
-        this.driver.get("http://localhost:8080/adminDashboard");
         loginAsAdministrator();
+        this.driver.get("http://localhost:8080/adminDashboard");
         Thread.sleep(500);
         driver.findElement(By.name("adminLogoutButton")).click();
         Thread.sleep(500);
@@ -107,6 +107,7 @@ public class AdminDashboardControllerWebDriverTest {
     }
 
     private void loginAsAdministrator() {
+        this.driver.get("http://localhost:8080/login");
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();

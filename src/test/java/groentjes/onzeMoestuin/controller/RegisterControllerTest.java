@@ -1,27 +1,31 @@
 package groentjes.onzeMoestuin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
-import org.apache.catalina.User;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import static org.mockito.ArgumentCaptor.forClass;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
-
 
 /**
- * @author Wim Kruizinga
+ * @author Wim Kruizinga and Eric van Dalen
+ * Tests concerning registration of users
  */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = RegisterController.class)
@@ -30,8 +34,8 @@ class RegisterControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-//    @Autowired
-//    private ObjectMapper objectMapper;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private UserRepository userRepository;
@@ -40,18 +44,27 @@ class RegisterControllerTest {
     GardenUserDetailsService gardenUserDetailsService;
 
     @Test
-    @WithMockUser(roles = "ADMIN")
-    void testRegisterUserPage() throws Exception {
+    void testGetRegisterUserForm() throws Exception {
         final ResultActions result = mockMvc.perform(get("/registerUser"))
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/WEB-INF/views/register.jsp"));
     }
 
-    //TODO
-//    @Test
-//    @WithMockUser(roles = "ADMIN")
-//    void testRegisterUser() throws Exception {
-//        mockMvc.perform(post("/registerUser")
-//
-//    }
+    @Test
+    void testSaveOrUpdateUserWithAdminstrator() throws Exception {
+        String username = "gebruiker";
+        String password = "wachtwoord";
+        mockMvc.perform(post("/registerUser").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , username).param("password", password)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/login"))
+                .andExpect(redirectedUrl("/login"));
+
+        ArgumentCaptor<User> formObjectArgument = forClass(User.class);
+        verify(userRepository, times(1)).save(formObjectArgument.capture());
+        Mockito.verifyNoMoreInteractions(userRepository);
+
+        User formObject = formObjectArgument.getValue();
+        Assertions.assertThat(formObject.getUsername()).isEqualTo(username);
+    }
 }

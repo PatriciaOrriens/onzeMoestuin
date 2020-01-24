@@ -86,8 +86,8 @@ public class NewGardenControllerWebDriverTest {
         boolean expectedFound = true;
 
         // Activate
-        this.driver.get("http://localhost:8080/garden/add");
         loginAsAUser();
+        this.driver.get("http://localhost:8080/garden/add");
         Thread.sleep(500);
         createGarden();
         Thread.sleep(500);
@@ -99,6 +99,7 @@ public class NewGardenControllerWebDriverTest {
     }
 
     private void loginAsAUser() {
+        this.driver.get("http://localhost:8080/login");
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();

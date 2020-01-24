@@ -80,8 +80,8 @@ public class ManageGardenControllerWebDriverTest {
         Integer gardenId = garden.get().getGardenId();
 
         // Activate
-        this.driver.get("http://localhost:8080/user/garden/delete/" + gardenId);
         loginAsAUser(NAME, PASSWORD);
+        this.driver.get("http://localhost:8080/user/garden/delete/" + gardenId);
         boolean actualFound = gardenRepository.findByGardenName(NAMEGARDEN).isPresent();
 
         // Assert
@@ -98,8 +98,8 @@ public class ManageGardenControllerWebDriverTest {
         Integer gardenId = garden.get().getGardenId();
 
         // Activate
-        this.driver.get("http://localhost:8080/user/garden/delete/"+ gardenId);
         loginAsAUser(SECONDNAME, SECONDPASSWORD);
+        this.driver.get("http://localhost:8080/user/garden/delete/"+ gardenId);
         boolean actualFound = gardenRepository.findByGardenName(NAMEGARDEN).isPresent();
 
         // Assert
@@ -117,6 +117,7 @@ public class ManageGardenControllerWebDriverTest {
     }
 
     private void loginAsAUser(String name, String password) {
+        this.driver.get("http://localhost:8080/login");
         driver.findElement(By.name("username")).sendKeys(name);
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.name("inlogbutton")).submit();
