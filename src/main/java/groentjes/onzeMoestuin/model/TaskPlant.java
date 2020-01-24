@@ -46,6 +46,11 @@ public class TaskPlant implements Comparable<TaskPlant> {
         this.dueDate = sdf.format(new Date(beginning + addedMilliseconds));
     }
 
+    public String getCurrentDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(new Date());
+    }
+
     public Integer getTaskPlantId() {
         return taskPlantId;
     }
