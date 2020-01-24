@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 /**
- *  @author Eric van Dalen and Gjalt Wybenga
+ *  @author Eric van Dalen
  *  Test class for webdriver test for adding new gardens
  */
 @SpringBootTest

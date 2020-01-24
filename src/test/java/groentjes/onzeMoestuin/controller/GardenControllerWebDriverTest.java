@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  *  @author Gjalt Wybenga
  *  Code based on NewGardenControllerWebDriverTest
- *  Tests navigation to addGarden (implicitly), tests garden addition, test the removal of a garden
+ *  Tests navigation to addGarden (implicitly), tests garden addition, tests the removal of a garden
  */
 
 @SpringBootTest
