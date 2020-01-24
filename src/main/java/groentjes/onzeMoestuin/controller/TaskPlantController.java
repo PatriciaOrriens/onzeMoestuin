@@ -24,26 +24,37 @@ public class TaskPlantController {
     private TaskPlantRepository taskPlantRepository;
 
     @GetMapping("/user/taskPlant/completed/{taskPlantId}")
-    public String completeTaskPlant(@PathVariable("taskPlantId") final Integer taskPlantId, @AuthenticationPrincipal User user) {
+    public String processCompletedTaskPlant(@PathVariable("taskPlantId") final Integer taskPlantId,
+                                    @AuthenticationPrincipal User user) {
+
         Optional<TaskPlant> taskPlant = taskPlantRepository.findById(taskPlantId);
         if (taskPlant.isPresent()) {
             Plant plant = taskPlant.get().getPlant();
             Garden garden = plant.getGarden();
-            TaskPlantInfo taskPlantInfo = taskPlant.get().getTaskPlantInfo();
-            if (taskPlant.get().getCompletedDate() == null && taskPlant.get().getUser() == null) {
-                taskPlant.get().setCompletedDate(taskPlant.get().getCurrentDate());
-                taskPlant.get().setUser(user);
-                taskPlantRepository.save(taskPlant.get());
-                if(taskPlant.get().getTaskPlantInfo().isRepetitiveTask()) {
-                    TaskPlant newTaskPlant = new TaskPlant();
-                    newTaskPlant.setPlant(plant);
-                    newTaskPlant.setTaskPlantInfo(taskPlantInfo);
-                    newTaskPlant.calculateDueDate();
-                    taskPlantRepository.save(newTaskPlant);
-                }
-            }
+            completeDataTaskPlant(taskPlant, plant, user);
             return "redirect:/garden/" + garden.getGardenId();
         }
-        return "redirect:/login";
+        return "redirect:/";
+    }
+
+    private void completeDataTaskPlant(Optional<TaskPlant> taskPlant, Plant plant, User user) {
+
+        TaskPlantInfo taskPlantInfo = taskPlant.get().getTaskPlantInfo();
+        if (taskPlant.get().getCompletedDate() == null && taskPlant.get().getUser() == null) {
+            taskPlant.get().setCompletedDate(taskPlant.get().getCurrentDate());
+            taskPlant.get().setUser(user);
+            taskPlantRepository.save(taskPlant.get());
+            if(taskPlant.get().getTaskPlantInfo().isRepetitiveTask()) {
+                createAndSaveNewTaskPlant(plant, taskPlantInfo);
+            }
+        }
+    }
+
+    private void createAndSaveNewTaskPlant(Plant plant, TaskPlantInfo taskPlantInfo) {
+        TaskPlant newTaskPlant = new TaskPlant();
+        newTaskPlant.setPlant(plant);
+        newTaskPlant.setTaskPlantInfo(taskPlantInfo);
+        newTaskPlant.calculateDueDate();
+        taskPlantRepository.save(newTaskPlant);
     }
 }
