@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.web.WebAppConfiguration;
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -83,27 +82,16 @@ public class GardenControllerWebDriverTest {
 
         // Activate
         this.driver.get("http://localhost:8080");
-        Thread.sleep(1000);
         clickLoginButton();
-        Thread.sleep(1000);
         loginAsAUser();
-        Thread.sleep(1000);
         clickAddGardenButton();
-        Thread.sleep(1000);
         createGarden1();
-        Thread.sleep(1000);
         submitGardenData();
-        Thread.sleep(1000);
         clickReturnToOverViewButton();
-        Thread.sleep(1000);
         clickAddGardenButton();
-        Thread.sleep(1000);
         createGarden2();
-        Thread.sleep(1000);
         submitGardenData();
-        Thread.sleep(1000);
         clickLogoutButton();
-        Thread.sleep(1000);
 
         // Assert
         Assertions.assertAll("test whether both gardens were successfully created",
@@ -115,37 +103,26 @@ public class GardenControllerWebDriverTest {
     @Test
     void testRemoveGarden() throws Exception {
         // Arrange
-        // code replaced with assertTrue/assertFalse statement in Assert
+
+        // Arrange code replaced with assertTrue/assertFalse statement in Assert
 
         // Activate
         this.driver.get("http://localhost:8080");
-        Thread.sleep(1000);
         clickLoginButton();
-        Thread.sleep(1000);
         loginAsAUser();
-        Thread.sleep(1000);
         clickAddGardenButton();
-        Thread.sleep(1000);
         createGarden1();
-        Thread.sleep(1000);
         submitGardenData();
-        Thread.sleep(1000);
         clickReturnToOverViewButton();
-        Thread.sleep(1000);
         clickAddGardenButton();
-        Thread.sleep(1000);
         createGarden2();
-        Thread.sleep(1000);
         submitGardenData();
-        Thread.sleep(1000);
         clickReturnToOverViewButton();
-        Thread.sleep(1000);
         clickOverViewRemoveButton();
         Thread.sleep(1000);
         clickModalRemoveButton();
         Thread.sleep(1000);
         clickLogoutButton();
-        Thread.sleep(1000);
 
         // Assert
         Assertions.assertAll("test whether garden1 was successfully removed",
@@ -164,19 +141,19 @@ public class GardenControllerWebDriverTest {
         driver.findElement(By.name("login")).click();
     }
 
-    private void clickAddGardenButton() {
+    private void clickAddGardenButton() throws InterruptedException {
         driver.findElement(By.name("tuintoevoegen")).click();
     }
 
-    private void submitGardenData() {
+    private void submitGardenData() throws InterruptedException {
         driver.findElement(By.name("opslaanTuin")).submit();
     }
 
-    private void clickReturnToOverViewButton() {
+    private void clickReturnToOverViewButton() throws InterruptedException {
         driver.findElement(By.name("returntooverview")).click();
     }
 
-    private void clickLogoutButton() {
+    private void clickLogoutButton() throws InterruptedException {
         driver.findElement(By.name("logout")).click();
     }
 
