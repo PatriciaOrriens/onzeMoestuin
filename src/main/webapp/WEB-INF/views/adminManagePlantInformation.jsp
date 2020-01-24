@@ -5,7 +5,6 @@
         <h1 class="display-3">Overzicht van plantinformatie </h1>
         <table class="table table-striped">
                     <tr>
-                        <th>Id</th>
                         <th>Nederlandse naam</th>
                         <th>Latijnse plantnaam</th>
                         <th>Wijzig plant</th>
@@ -14,7 +13,6 @@
                     </tr>
         <c:forEach items="${plantInformation}" var="plant">
             <tr>
-                <td><c:out value="${plant.plantInfoId}" /></td>
                 <td><c:out value="${plant.plantName}" /></td>
                 <td><c:out value="${plant.latinName}" /></td>
                 <td><a class="btn btn-success" href="/plantinfo/update/<c:out value="${plant.plantInfoId}" />"

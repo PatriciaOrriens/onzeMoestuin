@@ -14,19 +14,17 @@
     <h1 class="display-3">Overzicht van taken</h1>
     <table class="table table-striped">
         <tr>
-            <th>Id</th>
             <th>Taaknaam</th>
-            <th></th>
-            <th></th>
+            <th>Wijzig taak</th>
+            <th>Verwijder taak</th>
         </tr>
         <c:forEach items="${allTasks}" var="task">
             <tr>
-                <td><c:out value="${task.taskId}" /></td>
                 <td><c:out value="${task.taskName}" /></td>
                 <td><a class="btn btn-success" href="/task/update/<c:out value="${task.taskId}" />"
-                    >Wijzig</a></td>
+                    ><i class='far fa-edit'></i></a></td>
                 <td><a class="btn btn-warning" href="/task/delete/<c:out value="${task.taskId}" />"
-                    >Verwijder</a></td></td>
+                    ><i class='fas fa-trash-alt'></i></a></td></td>
             </tr>
         </c:forEach>
     </table>

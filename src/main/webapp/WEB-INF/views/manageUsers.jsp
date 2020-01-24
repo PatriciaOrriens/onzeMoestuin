@@ -8,15 +8,15 @@
             <thead>
             <tr>
                 <th>Naam</th>
-                <th></th>
+                <th>Verwijder gebruiker</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${allUsers}" var="user">
                 <tr>
                     <td><c:out value="${user.username}" /></td>
-                    <td><a class="btn btn-warning" href="/user/delete/<c:out value="${user.username}" />"
-                        >Verwijder</a></td>
+                    <td><a class="btn btn-warning" href="/plantinfo/delete/<c:out value="${plant.plantInfoId}" />"
+                        ><i class='fas fa-trash-alt'></i></a></td></td>
                 </tr>
             </c:forEach>
         </table>

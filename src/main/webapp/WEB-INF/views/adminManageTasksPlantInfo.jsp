@@ -17,8 +17,8 @@
                     <th>Taak</th>
                     <th>Dagen na startdatum plant</th>
                     <th>Moet herhaald worden</th>
-                    <th></th>
-                    <th></th>
+                    <th>Wijzig taak</th>
+                    <th>Verwijder taak</th>
                 </tr>
                 <c:forEach items="${plantInfo.tasks}" var="task">
                     <tr>
@@ -28,10 +28,10 @@
                         <td>${task.repetitiveTask}</td>
                         <td><a class="btn btn-outline-primary" href="/plantinfo/${plantInfoId}/task/update/<c:out
                         value="${task.taskPlantInfoId}" />"
-                            >Wijzig</a></td>
+                            ><i class='far fa-edit'></i></a></td>
                         <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out
                         value="${task.taskPlantInfoId}" />"
-                            >Verwijder</a></td>
+                            ><i class='fas fa-trash-alt'></i></a></td>
                     </tr>
                 </c:forEach>
             </table>

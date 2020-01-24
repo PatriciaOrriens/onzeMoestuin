@@ -22,10 +22,11 @@
                         <c:out value="${garden.gardenName}"/></a>
                 </td>
                 <td><a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
-                                    >Wijzig</a></td>
+                                    ><i class='far fa-edit'></i></a></td>
                 <td>
 
-                        <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+                        <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">
+                            <i class='fas fa-trash-alt'></i></a>
 
                 </td>
             </tr>
@@ -44,7 +45,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                            <a href="/user/garden/delete/${garden.gardenId}" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
+                            <a href="/user/garden/delete/${garden.gardenId}" title="Delete">Verwijderen</a>
                         </div>
                     </div>
                 </div>
