@@ -22,7 +22,7 @@
                 </span>
 
                 <label for="email">E-mailadres:</label>
-                <form:input path="email" type="text" class="form-control" placeholder="${invitation.emailAddress}" />
+                <form:input path="email" type="text" class="form-control" value="${invitation.emailAddress}" />
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('email') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('email').defaultMessage : ''}
                 </span>
