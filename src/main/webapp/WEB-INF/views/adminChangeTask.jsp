@@ -22,11 +22,11 @@
                     <br/>
                     <br/>
 
-                    <input class="btn btn-primary" type="submit" value="Toepassen"/>
+                    <input class="btn btn-success" type="submit" value="Toepassen"/>
                 </form:form>
             </div>
                 <br />
-                <a href="/adminManageTasks" class="btn btn-primary">Terug</a>
+                <a href="/adminManageTasks" class="btn btn-success">Terug</a>
     </div>
 
 </body>

@@ -13,7 +13,7 @@
             <label for "name">E-mailadres </label>
             <input name="search" class="form-control" type="email" />
         </div>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Zoek</button>
+        <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Zoek</button>
     </form>
 
     <!-- Display notification if present -->
@@ -38,7 +38,7 @@
 
                <form:form method="post" action="../${garden.gardenId}/invite" modelAttribute="foundUser">
                    <form:hidden path="userId" />
-                 <form:button type="submit" name="submit_param" class="btn btn-primary">
+                 <form:button type="submit" name="submit_param" class="btn btn-success">
                    Uitnodigen
                  </form:button>
                </form:form>

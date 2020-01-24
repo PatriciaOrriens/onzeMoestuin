@@ -5,5 +5,5 @@
      <div class="container">
         <h1 class="display-3">Er is iets fout gegaan !</h1>
         <br/>
-        <button class="btn btn-primary" input type="button" onclick="history.go(-1)">Terug</button>
+        <button class="btn btn-success" input type="button" onclick="history.go(-1)">Terug</button>
 <c:import url="partials/footer.jsp" />

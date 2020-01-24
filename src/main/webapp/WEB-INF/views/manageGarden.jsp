@@ -21,11 +21,11 @@
                 <td><a href="garden/${garden.gardenId}">
                         <c:out value="${garden.gardenName}"/></a>
                 </td>
-                <td><a class="btn btn-outline-primary" href="garden/update/<c:out value="${garden.gardenId}" />"
+                <td><a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
                                     >Wijzig</a></td>
                 <td>
 
-                        <a class="btn btn-outline-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+                        <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
 
                 </td>
             </tr>
@@ -51,8 +51,8 @@
             </div>
         </c:forEach>
     </table>
-    <a href="/garden/add" class="btn btn-primary">Tuin toevoegen</a>
-    <a href="../logout" class="btn btn-primary">Uitloggen</a>
+    <a href="/garden/add" class="btn btn-success">Tuin toevoegen</a>
+    <a href="../logout" class="btn btn-success">Uitloggen</a>
 
 
 

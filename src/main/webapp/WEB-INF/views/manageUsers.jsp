@@ -15,16 +15,16 @@
             <c:forEach items="${allUsers}" var="user">
                 <tr>
                     <td><c:out value="${user.username}" /></td>
-                    <td><a class="btn btn-outline-warning" href="/user/delete/<c:out value="${user.username}" />"
+                    <td><a class="btn btn-warning" href="/user/delete/<c:out value="${user.username}" />"
                         >Verwijder</a></td>
                 </tr>
             </c:forEach>
         </table>
         <br/>
-        <a href="/user/new" name="buttonGoToAdminCreateUser" class="btn btn-primary">
+        <a href="/user/new" name="buttonGoToAdminCreateUser" class="btn btn-success">
         <i class="fa fa-user-plus"></i> Toevoegen</a>
         <br/>
         <br/>
-        <a href="/adminDashboard" name="buttonGoToAdminDashboard" class="btn btn-primary">Terug</a>
+        <a href="/adminDashboard" name="buttonGoToAdminDashboard" class="btn btn-success">Terug</a>
     </body>
 </html>

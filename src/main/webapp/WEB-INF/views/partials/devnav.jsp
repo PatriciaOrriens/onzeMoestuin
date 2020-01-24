@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="../resources/css/navbar.css">
 
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+<nav class="navbar navbar-expand-sm bg-success navbar-dark">
   <ul class="navbar-nav">
          <li class="nav-item">
             <a class="navbar-brand" href="/">Onze Moestuin</a>

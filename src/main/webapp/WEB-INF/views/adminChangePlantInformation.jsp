@@ -105,10 +105,10 @@
                      </tr>
                 </table>
                 <br/>
-                <input class="btn btn-primary" type="submit" value="Toepassen"/>
+                <input class="btn btn-success" type="submit" value="Toepassen"/>
                 <br/>
                 <br/>
-                <a href="/adminManagePlantInformation" class="btn btn-primary">Terug</a>
+                <a href="/adminManagePlantInformation" class="btn btn-success">Terug</a>
             </form:form>
         </div>
     </div>

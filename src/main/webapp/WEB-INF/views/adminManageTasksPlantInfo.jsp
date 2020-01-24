@@ -36,8 +36,8 @@
                 </c:forEach>
             </table>
 
-            <p><a class="btn btn-primary" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
+            <p><a class="btn btn-success" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
             <br/>
-            <p><a class="btn btn-primary" href="/adminManagePlantInformation">Terug</a></p>
+            <p><a class="btn btn-success" href="/adminManagePlantInformation">Terug</a></p>
 
 <c:import url="partials/footer.jsp" />

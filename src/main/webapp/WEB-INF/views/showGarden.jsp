@@ -34,7 +34,7 @@
 
            </c:forEach>
       </ul>
-      <a href="/garden/${garden.gardenId}/invite" class="btn btn-primary">
+      <a href="/garden/${garden.gardenId}/invite" class="btn btn-success">
         <i class="fa fa-user-plus"></i>Lid toevoegen</a>
 
 
@@ -50,6 +50,6 @@
             </ul>
 
 
-      <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
+      <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />

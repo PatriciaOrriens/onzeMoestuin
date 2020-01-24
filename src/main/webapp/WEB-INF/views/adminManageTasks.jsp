@@ -23,9 +23,9 @@
             <tr>
                 <td><c:out value="${task.taskId}" /></td>
                 <td><c:out value="${task.taskName}" /></td>
-                <td><a class="btn btn-outline-primary" href="/task/update/<c:out value="${task.taskId}" />"
+                <td><a class="btn btn-success" href="/task/update/<c:out value="${task.taskId}" />"
                     >Wijzig</a></td>
-                <td><a class="btn btn-outline-warning" href="/task/delete/<c:out value="${task.taskId}" />"
+                <td><a class="btn btn-warning" href="/task/delete/<c:out value="${task.taskId}" />"
                     >Verwijder</a></td></td>
             </tr>
         </c:forEach>
@@ -42,13 +42,13 @@
             <label>Naam van taak: </label>
             <form:input path="taskName" type="text" />
             <br/>
-            <input class="btn btn-primary" type="submit" value="Toevoegen"/>
+            <input class="btn btn-success" type="submit" value="Toevoegen"/>
             </div>
         <br/>
     </form:form>
 
     <br/>
-    <a class="btn btn-primary" href="/adminDashboard">Terug</a>
+    <a class="btn btn-success" href="/adminDashboard">Terug</a>
 </div>
 
 </body>

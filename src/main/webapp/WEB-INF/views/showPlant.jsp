@@ -22,6 +22,6 @@
       <p><a href="/plantinformationoverview/${plant.plantInformation.plantInfoId}">Meer informatie</a></p>
     </div>
 
-        <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
+        <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />

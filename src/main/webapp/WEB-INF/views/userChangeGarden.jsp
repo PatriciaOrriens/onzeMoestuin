@@ -28,11 +28,11 @@
 
                          </div>
 
-                     <form:button type="submit" name="opslaanTuin" class="btn btn-primary">Toepassen</form:button>
+                     <form:button type="submit" name="opslaanTuin" class="btn btn-success">Toepassen</form:button>
                 </form:form>
             </div>
                 <br/>
-                <a href="/userManageGardens" class="btn btn-primary">Terug</a>
+                <a href="/userManageGardens" class="btn btn-success">Terug</a>
     </div>
 
 </body>
