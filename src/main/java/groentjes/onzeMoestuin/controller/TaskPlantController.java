@@ -1,9 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Plant;
-import groentjes.onzeMoestuin.model.TaskPlant;
-import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.PlantRepository;
 import groentjes.onzeMoestuin.repository.TaskPlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +27,21 @@ public class TaskPlantController {
     public String completeTaskPlant(@PathVariable("taskPlantId") final Integer taskPlantId, @AuthenticationPrincipal User user) {
         Optional<TaskPlant> taskPlant = taskPlantRepository.findById(taskPlantId);
         if (taskPlant.isPresent()) {
+            Plant plant = taskPlant.get().getPlant();
+            Garden garden = plant.getGarden();
+            TaskPlantInfo taskPlantInfo = taskPlant.get().getTaskPlantInfo();
             if (taskPlant.get().getCompletedDate() == null && taskPlant.get().getUser() == null) {
                 taskPlant.get().setCompletedDate(taskPlant.get().getCurrentDate());
                 taskPlant.get().setUser(user);
                 taskPlantRepository.save(taskPlant.get());
+                if(taskPlant.get().getTaskPlantInfo().isRepetitiveTask()) {
+                    TaskPlant newTaskPlant = new TaskPlant();
+                    newTaskPlant.setPlant(plant);
+                    newTaskPlant.setTaskPlantInfo(taskPlantInfo);
+                    newTaskPlant.calculateDueDate();
+                    taskPlantRepository.save(newTaskPlant);
+                }
             }
-            Plant plant = taskPlant.get().getPlant();
-            Garden garden = plant.getGarden();
             return "redirect:/garden/" + garden.getGardenId();
         }
         return "redirect:/login";
