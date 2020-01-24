@@ -40,7 +40,7 @@
         <div class="form">
             <form:form method="post" modelAttribute="plantInformation">
                 <h1 class="display-3">Plant toevoegen</h1>
-                <table>
+                <table class="table-sm table-borderless">
                     <tr>
                         <td><label>Nederlandse plantnaam: </label></td>
                         <td><form:input path="plantName" type="text" placeholder="plantnaam" id="plantName"/></td>
