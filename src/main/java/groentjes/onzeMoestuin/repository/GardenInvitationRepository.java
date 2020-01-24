@@ -23,4 +23,6 @@ public interface GardenInvitationRepository extends JpaRepository<GardenInvitati
 
     Optional<GardenInvitation> findOneByInvitationToken(UUID uuid);
 
+    Optional<GardenInvitation> findOneByInvitationTokenAndAcceptedNull(UUID uuid);
+
 }

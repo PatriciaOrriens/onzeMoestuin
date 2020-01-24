@@ -41,11 +41,7 @@ public class RegisterController {
     public String getRegisterUserForm(Model model, @ModelAttribute User user,
                                       @RequestParam(name="token") Optional<String> token) {
         // Check if invitation token is present
-        if (token.isPresent()) {
-            Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.
-                    findOneByInvitationToken(UUID.fromString(token.get()));
-            gardenInvitation.ifPresent(invitation -> model.addAttribute("invitation", invitation));
-        }
+        token.ifPresent(s -> model.addAttribute("invitation", getValidInvitation(s)));
         return "register";
     }
 
@@ -69,6 +65,12 @@ public class RegisterController {
             }
             return "redirect:/login";
         }
+    }
+
+    private GardenInvitation getValidInvitation(String token) {
+        Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.
+                findOneByInvitationTokenAndAcceptedNull(UUID.fromString(token));
+        return gardenInvitation.orElse(null);
     }
 }
 
