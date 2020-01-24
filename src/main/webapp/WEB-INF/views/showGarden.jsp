@@ -49,9 +49,9 @@
                     <td><c:out value="${taskPlant.dueDate}"/></td>
                     <td><c:out value="${taskPlant.completedDate}"/></td>
                     <td><c:out value="${taskPlant.user.username}"/></td>
-                    <td align="right">
+                    <td align="right"> <c:if test="${empty taskPlant.user}">
                         <a class="completedTaskButton"
-                            href="/user/taskPlant/completed/<c:out value="${taskPlant.taskPlantId}" />">Taak uitvoeren</a></td>
+                            href="/user/taskPlant/completed/<c:out value="${taskPlant.taskPlantId}" />">Taak uitvoeren</a> </c:if></td>
                  </tr>
                  </c:forEach>
             </ul>
