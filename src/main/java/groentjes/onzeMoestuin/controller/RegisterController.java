@@ -47,7 +47,6 @@ public class RegisterController {
 
     @PostMapping("/registerUser")
     public String saveNewUser(@Valid User user, Errors errors, @RequestParam(name ="token") Optional<String> token) {
-
         if (errors.hasErrors()) {
             return "redirect:/";
         } else {
@@ -55,12 +54,11 @@ public class RegisterController {
             userRepository.save(user);
             // Check if invitation token is present
             if (token.isPresent()) {
-                Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.
-                        findOneByInvitationToken(UUID.fromString(token.get()));
-                if (gardenInvitation.isPresent()) {
+                GardenInvitation invitation = getValidInvitation(token.get());
+                if (invitation != null) {
                     // update invitation: link new user
-                    gardenInvitation.get().setInvitedUser(user);
-                    gardenInvitationRepository.save(gardenInvitation.get());
+                    invitation.setInvitedUser(user);
+                    gardenInvitationRepository.save(invitation);
                 }
             }
             return "redirect:/login";
