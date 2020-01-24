@@ -13,7 +13,7 @@
             <li><a href="/adminManageTasks" name="selectManageTasks">Beheer taken</a></li>
         </ul>
         <br/>
-        <a href="/logout" class="btn btn-primary" name="adminLogoutButton">Logout</a>
+        <a href="/logout" class="btn btn-primary" name="adminLogoutButton">Uitloggen</a>
 
 <c:import url="partials/footer.jsp" />
 

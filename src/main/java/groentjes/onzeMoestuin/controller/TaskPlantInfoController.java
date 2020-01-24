@@ -104,7 +104,7 @@ public class TaskPlantInfoController {
             taskPlantInfo.setPlantInformation(plantInformation.get());
             taskPlantInfo.setTaskPlantInfoId(taskPlantInfoId);
             taskPlantInfoRepository.save(taskPlantInfo);
-            return "redirect:/adminManagePlantInformation";
+            return "redirect:/plantinfo/tasks/" + plantInfoId;
         }
     }
 

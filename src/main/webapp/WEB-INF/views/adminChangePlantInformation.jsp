@@ -39,7 +39,7 @@
         <div class="form">
             <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
                 <h1 class="display-3">Plant wijzigen</h1>
-                <table>
+                <table class="table-sm table-borderless">
                     <tr>
                         <td><label>Nederlandse plantnaam:</label></td>
                         <td><form:input path="plantName" type="text" value="${plantInformation.plantName}" id="plantName"/></td>
@@ -108,7 +108,7 @@
                 <input class="btn btn-primary" type="submit" value="Toepassen"/>
                 <br/>
                 <br/>
-                <a href="/adminDashboard" class="btn btn-primary">Terug</a>
+                <a href="/adminManagePlantInformation" class="btn btn-primary">Terug</a>
             </form:form>
         </div>
     </div>
