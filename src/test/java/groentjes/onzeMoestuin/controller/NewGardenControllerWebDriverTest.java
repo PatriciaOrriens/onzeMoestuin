@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *  @author Gjalt Wybenga
+ *  Code based on
  *  Tests navigation to addGarden (implicitly), tests garden addition, test the removal of a garden
  */
 
