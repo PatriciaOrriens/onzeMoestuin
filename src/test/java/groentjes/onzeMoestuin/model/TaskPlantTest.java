@@ -31,7 +31,7 @@ class TaskPlantTest {
     @Test
     void testCalculateDueDate() {
         // Arrange
-        String expectedString = "2020-02-04";
+        String expectedString = "04-02-2020";
 
         // Activate
         taskPlant.calculateDueDate();

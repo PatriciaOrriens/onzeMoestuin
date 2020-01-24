@@ -8,6 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -41,7 +43,7 @@ public class TaskPlantController {
 
         TaskPlantInfo taskPlantInfo = taskPlant.get().getTaskPlantInfo();
         if (taskPlant.get().getCompletedDate() == null && taskPlant.get().getUser() == null) {
-            taskPlant.get().setCompletedDate(taskPlant.get().getCurrentDate());
+            taskPlant.get().setCompletedDate(taskPlant.get().getStringFromDate(new Date()));
             taskPlant.get().setUser(user);
             taskPlantRepository.save(taskPlant.get());
             if(taskPlant.get().getTaskPlantInfo().isRepetitiveTask()) {
