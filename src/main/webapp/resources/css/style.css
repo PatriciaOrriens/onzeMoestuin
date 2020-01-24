@@ -9,3 +9,16 @@
   background: rgba(110, 110, 110, 0.75);
   padding: 75px;
 }
+
+.completedTaskButton {
+  background-color: white;
+  color: green;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #4CAF50; /* Green */
+}
+
+.completedTaskButton:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}

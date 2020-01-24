@@ -38,16 +38,24 @@
         <i class="fa fa-user-plus"></i>Lid toevoegen</a>
 
 
-      <!-- Tijdelijke code om taken weer te geven -->
             <h2>Taken voor deze tuin:</h2>
+            <table class="table table-striped">
             <ul>
+                <tr><td>Taak</td><td>Plantsoort(plantnummer)</td><td>Vervaldatum</td><td>Uitvoerdatum</td><td>Uitgevoerd door</td><td></td>
                  <c:forEach items="${taskPlants}" var="taskPlant">
-                        <li><c:out value="${taskPlant.taskPlantInfo.task.taskName}" />
-                        (plantnummer: <c:out value="${taskPlant.plant.plantId}"/>;
-                        plantnaam: <c:out value="${taskPlant.plant.plantInformation.plantName}"/>;
-                        vervaldatum: <c:out value="${taskPlant.dueDate}"/>)</li>
+                 <tr>
+                    <td><c:out value="${taskPlant.taskPlantInfo.task.taskName}" /> </td>
+                    <td><c:out value="${taskPlant.plant.plantInformation.plantName}"/>(<c:out value="${taskPlant.plant.plantId}"/>) </td>
+                    <td><c:out value="${taskPlant.dueDate}"/></td>
+                    <td><c:out value="${taskPlant.completedDate}"/></td>
+                    <td><c:out value="${taskPlant.user.username}"/></td>
+                    <td align="right">
+                        <a class="completedTaskButton"
+                            href="/user/taskPlant/completed/<c:out value="${taskPlant.taskPlantId}" />">Taak uitvoeren</a></td>
+                 </tr>
                  </c:forEach>
             </ul>
+            </table>
 
 
       <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
