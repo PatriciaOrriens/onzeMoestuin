@@ -25,12 +25,12 @@
                                     >Wijzig</a></td>
                 <td>
 
-                        <a class="btn btn-outline-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">Verwijderen</a>
+                        <a class="btn btn-outline-warning" href="#removeGardenModal" data-toggle="modal">Verwijderen</a>
 
                 </td>
             </tr>
             <!-- Modal -->
-            <div class="modal fade" id="removeGardenModal_${garden.gardenId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="removeGardenModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
