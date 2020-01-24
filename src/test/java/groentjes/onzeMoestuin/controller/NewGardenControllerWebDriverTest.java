@@ -4,9 +4,7 @@ import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
-import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.*;
-import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,8 +18,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *  @author Eric van Dalen and Gjalt Wybenga
- *  Test class for webdriver test for adding new gardens
+ *  @author Gjalt Wybenga
+ *  Tests navigation to addGarden (implicitly), tests garden addition, test the removal of a garden
  */
 
 @SpringBootTest
@@ -53,19 +51,16 @@ public class NewGardenControllerWebDriverTest {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
+        Optional<Garden> garden1 = gardenRepository.findByGardenName(GARDEN1);
+        garden1.ifPresent(value -> gardenRepository.delete(value));
+        Optional<Garden> garden2 = gardenRepository.findByGardenName(GARDEN2);
+        garden2.ifPresent(value -> gardenRepository.delete(value));
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
         User registeredUser = new User();
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
         userRepository.save(registeredUser);
-        Optional<Garden> garden1 = gardenRepository.findByGardenName(GARDEN1);
-        garden1.ifPresent(value -> gardenRepository.delete(value));
-        Optional<Garden> garden2 = gardenRepository.findByGardenName(GARDEN2);
-        garden2.ifPresent(value -> gardenRepository.delete(value));
-//        Optional<User> optionalUser = userRepository.findByUsername(NAME);
-//        optionalUser.ifPresent(user -> userRepository.delete(user));
-
     }
 
     @AfterEach
@@ -119,7 +114,7 @@ public class NewGardenControllerWebDriverTest {
     @Test
     void testRemoveGarden() throws Exception {
         // Arrange
-        boolean expectedFound = true;
+        // code replaced with assertTrue/assertFalse statement in Assert
 
         // Activate
         this.driver.get("http://localhost:8080");
@@ -153,8 +148,8 @@ public class NewGardenControllerWebDriverTest {
 
         // Assert
         Assertions.assertAll("test whether garden1 was successfully removed",
-                () -> assertEquals(false, gardenRepository.findByGardenName(GARDEN1).isPresent()),
-                () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN2).isPresent())
+                () -> assertFalse(gardenRepository.findByGardenName(GARDEN1).isPresent()),
+                () -> assertTrue(gardenRepository.findByGardenName(GARDEN2).isPresent())
         );
     }
 
