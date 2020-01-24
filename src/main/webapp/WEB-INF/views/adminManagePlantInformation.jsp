@@ -8,9 +8,9 @@
                         <th>Id</th>
                         <th>Nederlandse naam</th>
                         <th>Latijnse plantnaam</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>Wijzig plant</th>
+                        <th>Beheer taken</th>
+                        <th>Verwijder plant</th>
                     </tr>
         <c:forEach items="${plantInformation}" var="plant">
             <tr>
@@ -18,16 +18,16 @@
                 <td><c:out value="${plant.plantName}" /></td>
                 <td><c:out value="${plant.latinName}" /></td>
                 <td><a class="btn btn-success" href="/plantinfo/update/<c:out value="${plant.plantInfoId}" />"
-                    >Wijzig</a></td>
+                    ><i class='far fa-edit'></i></a></td>
                 <td><a class="btn btn-success" href="/plantinfo/tasks/<c:out value="${plant.plantInfoId}" />"
-                    >Beheer taken</a></td>
+                    ><i class='fas fa-calendar-alt'></i></a></td>
                 <td><a class="btn btn-warning" href="/plantinfo/delete/<c:out value="${plant.plantInfoId}" />"
-                    >Verwijder</a></td></td>
+                    ><i class='fas fa-trash-alt'></i></a></td></td>
             </tr>
         </c:forEach>
         </table>
 
-        <a class="btn btn-success" href="admincreateplantinfo">Plant toevoegen</a>
+        <a class="btn btn-success" href="admincreateplantinfo"><i class='fas fa-seedling'></i> toevoegen</a>
         <br/>
         <br/>
         <a class="btn btn-success" href="/adminDashboard">Terug</a>

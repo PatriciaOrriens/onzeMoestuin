@@ -20,7 +20,7 @@
                     </a>
                 <td>
                 <td align="right">
-                    <a href="/plant/delete/${plant.plantId}">Verwijderen</a>
+                    <a class="btn btn-warning" href="/plant/delete/${plant.plantId}">Verwijderen</a>
                 </td>
             </tr>
         </c:forEach>
