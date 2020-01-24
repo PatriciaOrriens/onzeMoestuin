@@ -108,7 +108,7 @@
                 <input class="btn btn-primary" type="submit" value="Toepassen"/>
                 <br/>
                 <br/>
-                <a href="/adminDashboard" class="btn btn-primary">Terug</a>
+                <a href="/adminManagePlantInformation" class="btn btn-primary">Terug</a>
             </form:form>
         </div>
     </div>
