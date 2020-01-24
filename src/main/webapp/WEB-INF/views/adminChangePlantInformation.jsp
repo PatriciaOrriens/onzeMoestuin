@@ -7,12 +7,13 @@
     <title>Verander plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-            $(document).ready(function() {
+
+        $(document).ready(function() {
 
                 var lightingList = new Array ("zon", "halfschaduw", "schaduw");
 
                 for (i = 0; i < lightingList.length; i++) {
-                        $(lighting).append('<option>'+lightingList[i]+'</option>')
+                    $(lighting).append('<option>'+lightingList[i]+'</option>')
                 }
 
                 var soilList = new Array ("standaard tuingrond", "kleigrond", "zandgrond", "kalkrijke grond");
@@ -31,11 +32,10 @@
                         $(idList[k]).append('<option>'+monthList[m]+'</option>')
                     }
                 }
-            });
+        });
     </script>
 
-        <div class="container">
-
+    <div class="container">
         <div class="form">
             <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
                 <h1 class="display-3">Plant wijzigen</h1>
