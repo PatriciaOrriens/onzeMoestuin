@@ -14,15 +14,29 @@
     <table class="table table-striped">
         <c:forEach items="${plants}" var="plant">
             <tr>
-                <td>
-                    <a href="../plant/${plant.plantId}">
-                        <c:out value="${plant.plantInformation.plantName}" />
-                    </a>
-                <td>
-                <td align="right">
-                    <a href="/plant/delete/${plant.plantId}">Verwijderen</a>
-                </td>
+                <td><a href="../plant/${plant.plantId}"><c:out value="${plant.plantInformation.plantName}" /></a><td>
+                <td><a class="btn btn-outline-warning" href="#removePlantModal" data-toggle="modal">Verwijderen</a></td>
             </tr>
+            <!-- Modal -->
+            <div class="modal fade" id="removePlantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Plant verwijderen</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                            <div class="modal-body">
+                                <p>Weet je zeker dat je plant ${plant.plantId} wilt verwijderen?</p>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                            <a type="button" class="btn btn-secondary" href="/plant/delete/${plant.plantId}" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </c:forEach>
      </table>
 
