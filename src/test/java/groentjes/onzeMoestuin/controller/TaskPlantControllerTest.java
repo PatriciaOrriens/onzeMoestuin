@@ -36,7 +36,7 @@ class TaskPlantControllerTest {
     private static final int EIGHT = 8;
     private static final String DATE = "25-01-2020";
 
-    private TaskPlant taskPlant, newTaskPlant;
+    private TaskPlant taskPlant;
     private TaskPlantInfo taskPlantInfo;
     private Plant plant;
     private Garden garden;
@@ -59,7 +59,6 @@ class TaskPlantControllerTest {
     @BeforeEach
     void setUp() {
         taskPlant = new TaskPlant();
-        newTaskPlant = new TaskPlant();
         taskPlant.setTaskPlantId(TWO);
         taskPlantInfo = new TaskPlantInfo();
         taskPlantInfo.setDaysAfterStart(EIGHT);
