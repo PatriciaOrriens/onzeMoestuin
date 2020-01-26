@@ -46,6 +46,7 @@ public class GardenControllerWebDriverTest {
     private static final String GARDEN2 = "tuin2";
     private static final String GARDEN2LENGTH = "2";
     private static final String GARDEN2WIDTH = "2";
+    private static final int THOUSAND = 1000;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -81,23 +82,16 @@ public class GardenControllerWebDriverTest {
         boolean expectedFound = true;
 
         // Activate
-        this.driver.get("http://localhost:8080");
-        clickLoginButton();
         loginAsAUser();
-        clickAddGardenButton();
-        createGarden1();
-        submitGardenData();
-        clickReturnToOverViewButton();
-        clickAddGardenButton();
-        createGarden2();
-        submitGardenData();
-        clickLogoutButton();
+        createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
+        driver.findElement(By.name("returntooverview")).click();
+        createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
+        driver.findElement(By.name("logout")).click();
 
         // Assert
         Assertions.assertAll("test whether both gardens were successfully created",
                 () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN1).isPresent()),
-                () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN2).isPresent())
-        );
+                () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN2).isPresent()));
     }
 
     @Test
@@ -107,73 +101,36 @@ public class GardenControllerWebDriverTest {
         // Arrange code replaced with assertTrue/assertFalse statement in Assert
 
         // Activate
-        this.driver.get("http://localhost:8080");
-        clickLoginButton();
         loginAsAUser();
-        clickAddGardenButton();
-        createGarden1();
-        submitGardenData();
-        clickReturnToOverViewButton();
-        clickAddGardenButton();
-        createGarden2();
-        submitGardenData();
-        clickReturnToOverViewButton();
-        clickOverViewRemoveButton();
-        Thread.sleep(1000);
-        clickModalRemoveButton();
-        Thread.sleep(1000);
-        clickLogoutButton();
+        createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
+        driver.findElement(By.name("returntooverview")).click();
+        createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
+        driver.findElement(By.name("returntooverview")).click();
+        driver.findElement(By.name("verwijderen")).click();
+        Thread.sleep(THOUSAND);
+        driver.findElement(By.name("modal-verwijderen")).click();
+        Thread.sleep(THOUSAND);
+        driver.findElement(By.name("logout")).click();
 
         // Assert
         Assertions.assertAll("test whether garden1 was successfully removed",
                 () -> assertFalse(gardenRepository.findByGardenName(GARDEN1).isPresent()),
-                () -> assertTrue(gardenRepository.findByGardenName(GARDEN2).isPresent())
-        );
+                () -> assertTrue(gardenRepository.findByGardenName(GARDEN2).isPresent()));
     }
 
     private void loginAsAUser() {
+        this.driver.get("http://localhost:8080");
+        driver.findElement(By.name("login")).click();
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();
     }
 
-    private void clickLoginButton() {
-        driver.findElement(By.name("login")).click();
-    }
-
-    private void clickAddGardenButton() throws InterruptedException {
+    private void createGarden(String gardenName, String gardenLength, String gardenWidth) {
         driver.findElement(By.name("tuintoevoegen")).click();
-    }
-
-    private void submitGardenData() throws InterruptedException {
+        driver.findElement(By.name("gardenName")).sendKeys(gardenName);
+        driver.findElement(By.name("length")).sendKeys(gardenLength);
+        driver.findElement(By.name("width")).sendKeys(gardenWidth);
         driver.findElement(By.name("opslaanTuin")).submit();
-    }
-
-    private void clickReturnToOverViewButton() throws InterruptedException {
-        driver.findElement(By.name("returntooverview")).click();
-    }
-
-    private void clickLogoutButton() throws InterruptedException {
-        driver.findElement(By.name("logout")).click();
-    }
-
-    private void clickOverViewRemoveButton() {
-        driver.findElement(By.name("verwijderen")).click();
-    }
-
-    private void clickModalRemoveButton() {
-        driver.findElement(By.name("modal-verwijderen")).click();
-    }
-
-    private void createGarden1() {
-        driver.findElement(By.name("gardenName")).sendKeys(GARDEN1);
-        driver.findElement(By.name("length")).sendKeys(GARDEN1LENGTH);
-        driver.findElement(By.name("width")).sendKeys(GARDEN1WIDTH);
-    }
-
-    private void createGarden2() {
-        driver.findElement(By.name("gardenName")).sendKeys(GARDEN2);
-        driver.findElement(By.name("length")).sendKeys(GARDEN2LENGTH);
-        driver.findElement(By.name("width")).sendKeys(GARDEN2WIDTH);
     }
 }
