@@ -40,12 +40,12 @@
      <h2>Taken voor deze tuin:</h2>
      <table class="table table-striped">
         <tr>
-            <td>Taak</td>
-            <td>Plantsoort(plantnummer)</td>
-            <td>Vervaldatum</td>
-            <td>Uitvoerdatum</td>
-            <td>Uitgevoerd door</td>
-            <td></td>
+            <th>Taak</th>
+            <th>Plantsoort(plantnummer)</th>
+            <th>Vervaldatum</th>
+            <th>Uitvoerdatum</th>
+            <th>Uitgevoerd door</th>
+            <th></th>
         </tr>
         <c:forEach items="${taskPlants}" var="taskPlant">
             <tr>
