@@ -19,7 +19,7 @@
                     ><i class='far fa-edit'></i></a></td>
                 <td><a class="btn btn-success" href="/plantinfo/tasks/<c:out value="${plant.plantInfoId}" />"
                     ><i class='fas fa-calendar-alt'></i></a></td>
-                <td><a class="btn btn-warning" href="/plantinfo/delete/<c:out value="${plant.plantInfoId}" />"
+                <td><a class="btn btn-warning" href="#removePlantModal_${plant.plantInfoId}" data-toggle="modal"
                     ><i class='fas fa-trash-alt'></i></a></td></td>
             </tr>
 
