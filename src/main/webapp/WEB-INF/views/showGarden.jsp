@@ -24,7 +24,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="btn btn-warning" href="/plant/delete/${plant.plantId}"><i class='fas fa-trash'></i></a>
+                    <a class="btn btn-warning" href="/plant/delete/${plant.plantId}"><i class='fas fa-trash-alt'></i></a>
                 </td>
             </tr>
         </c:forEach>
@@ -40,6 +40,7 @@
       </ul>
       <a href="/garden/${garden.gardenId}/invite" class="btn btn-success">
         <i class="fa fa-user-plus"></i> Lid toevoegen</a>
+        <br/><br/>
 
 
      <h2>Taken voor deze tuin:</h2>

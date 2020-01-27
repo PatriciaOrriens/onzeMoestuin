@@ -24,11 +24,8 @@
                 <td><a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
                                     ><i class='far fa-edit'></i></a></td>
                 <td>
-                        <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">
-                            <i class='fas fa-trash-alt'></i></a>
-
-                        <a class="btn btn-outline-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen" data-toggle="modal">Verwijderen</a>
-
+                        <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name='verwijderen'
+                            data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
                 </td>
             </tr>
             <!-- Modal -->
@@ -46,8 +43,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                            <a type="button" class="btn btn-secondary" href="/user/garden/delete/${garden.gardenId}" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
-                            <a href="/user/garden/delete/${garden.gardenId}" title="Delete">Verwijderen</a>
+                            <a type="button" class="btn btn-secondary" href="/user/garden/delete/${garden.gardenId}"
+                                name="modal-verwijderen" title="Delete">Verwijderen</a>
                         </div>
                     </div>
                 </div>
@@ -55,10 +52,8 @@
         </c:forEach>
     </table>
     <a href="/garden/add" class="btn btn-success">Tuin toevoegen</a>
+    <br/>
+    <br/>
     <a href="../logout" class="btn btn-success">Uitloggen</a>
-
-
-
-
 
 <c:import url="partials/footer.jsp" />
