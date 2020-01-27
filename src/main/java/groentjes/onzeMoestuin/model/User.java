@@ -23,6 +23,7 @@ public class User implements UserDetails {
     @Size(min = 3, message = "Wachtwoord moet minimaal 3 tekens lang zijn")
     private String password;
 
+    @Column(unique = true)
     @Email(message = "Geen geldig e-mailadres")
     private String email;
 

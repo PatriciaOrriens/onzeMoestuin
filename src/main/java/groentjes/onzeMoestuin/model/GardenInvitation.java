@@ -3,9 +3,11 @@ package groentjes.onzeMoestuin.model;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.UUID;
 
 /**
  * @author Wim Kruizinga
@@ -17,12 +19,17 @@ public class GardenInvitation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer invitationId;
 
+    // Generate invitation token
+    @Column(unique = true)
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID invitationToken = UUID.randomUUID();
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "invitedById", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "invitedUserId", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User invitedUser;
@@ -85,6 +92,10 @@ public class GardenInvitation {
 
     public void setGarden(Garden garden) {
         this.garden = garden;
+    }
+
+    public UUID getInvitationToken() {
+        return invitationToken;
     }
 
 }

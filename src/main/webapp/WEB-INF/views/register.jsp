@@ -6,6 +6,11 @@
      <div class="container">
         <h1 class="display-3">Registreren</h1>
 
+        <c:if test="${not empty invitation}">
+            <div class="alert alert-primary" role="alert">
+            Je bent door <strong>${invitation.user.firstName}</strong> uitgenodigd om lid te worden van zijn of haar tuin <strong>${invitation.garden.gardenName}</strong>. Registreer je eerst om dit te kunnen doen.
+            </div>
+        </c:if>
 
        <form:form method="post" modelAttribute="user">
             <div class="form-group">
@@ -17,7 +22,7 @@
                 </span>
 
                 <label for="email">E-mailadres:</label>
-                <form:input path="email" type="text" class="form-control" />
+                <form:input path="email" type="text" class="form-control" value="${invitation.emailAddress}" />
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('email') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('email').defaultMessage : ''}
                 </span>

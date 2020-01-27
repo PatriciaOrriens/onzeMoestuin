@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <label for "name">E-mailadres </label>
-            <input name="search" class="form-control" type="text" />
+            <input name="search" class="form-control" type="email" />
         </div>
         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Zoek</button>
     </form>
@@ -24,11 +24,17 @@
                ${message.message}
             </div>
             </p>
+            <!-- If mail address is not found, show form to invite member by mail -->
+            <c:if test="${!empty invitationMail}">
+                <c:import url="partials/mailForm.jsp" />
+            </c:if>
+
         </c:when>
         <c:otherwise>
              <c:if test="${!empty foundUser}">
                <h2>Gevonden gebruiker:</h2>
-               <p>${foundUser.username}</p>
+               <p><c:out value="${foundUser.firstName}"></c:out>
+               <c:out value="${foundUser.lastName}"></c:out></p>
 
                <form:form method="post" action="../${garden.gardenId}/invite" modelAttribute="foundUser">
                    <form:hidden path="userId" />

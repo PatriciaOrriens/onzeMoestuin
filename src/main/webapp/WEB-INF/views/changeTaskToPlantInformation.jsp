@@ -45,6 +45,11 @@
         <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
             </form:form>
 
+            <p>
+                    </br>
+                    <a class="btn btn-primary" href="/plantinfo/tasks/${plantInfoId}" >Terug</a>
+                    </p>
+
 </div>
 
 

@@ -2,19 +2,23 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.GardenInvitation;
+import groentjes.onzeMoestuin.model.Mail;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Wim Kruizinga
@@ -30,6 +34,9 @@ public class GardenInvitationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Invite existing member to garden
     @PostMapping("/garden/{gardenId}/invite")

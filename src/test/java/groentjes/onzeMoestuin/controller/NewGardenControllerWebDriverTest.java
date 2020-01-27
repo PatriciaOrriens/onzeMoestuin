@@ -3,36 +3,22 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
-import groentjes.onzeMoestuin.repository.PlantRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
-import groentjes.onzeMoestuin.service.GardenUserDetailsService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 /**
- *  @author Eric van Dalen and Gjalt Wybenga
+ *  @author Eric van Dalen
  *  Test class for webdriver test for adding new gardens
  */
 @SpringBootTest
@@ -86,8 +72,8 @@ public class NewGardenControllerWebDriverTest {
         boolean expectedFound = true;
 
         // Activate
-        this.driver.get("http://localhost:8080/garden/add");
         loginAsAUser();
+        this.driver.get("http://localhost:8080/garden/add");
         Thread.sleep(500);
         createGarden();
         Thread.sleep(500);
@@ -99,6 +85,7 @@ public class NewGardenControllerWebDriverTest {
     }
 
     private void loginAsAUser() {
+        this.driver.get("http://localhost:8080/login");
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();

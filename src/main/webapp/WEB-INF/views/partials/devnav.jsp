@@ -19,7 +19,7 @@
      </security:authorize>
      <security:authorize access="hasRole('ROLE_USER')">
          <li class="nav-item">
-            <a class="nav-link" href="/garden/add">Tuin toevoegen</a>
+            <a class="nav-link" name="tuintoevoegen" href="/garden/add">Tuin toevoegen</a>
          </li>
      </security:authorize>
   </ul>
@@ -28,10 +28,10 @@
 
     <security:authorize access="isAnonymous()">
         <li class="nav-item">
-            <a class="nav-link" href="../registerUser">Registreren</a>
+            <a class="nav-link" href="/registerUser">Registreren</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="../login">Inloggen</a>
+            <a class="nav-link" href="/login">Inloggen</a>
         </li>
     </security:authorize>
 
@@ -42,7 +42,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="../logout">Uitloggen</a>
+            <a class="nav-link" name="logout" href="/logout">Uitloggen</a>
         </li>
     </security:authorize>
 

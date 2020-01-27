@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Wim Kruizinga
@@ -16,6 +17,12 @@ public interface GardenInvitationRepository extends JpaRepository<GardenInvitati
 
     List<GardenInvitation> findAllByInvitedUserAndAcceptedNull(User user);
 
+    List<GardenInvitation> findAllByEmailAddress(String emailAddress);
+
     Optional<GardenInvitation> findByGardenAndInvitedUser(Garden garden, User user);
+
+    Optional<GardenInvitation> findOneByInvitationToken(UUID uuid);
+
+    Optional<GardenInvitation> findOneByInvitationTokenAndAcceptedNull(UUID uuid);
 
 }

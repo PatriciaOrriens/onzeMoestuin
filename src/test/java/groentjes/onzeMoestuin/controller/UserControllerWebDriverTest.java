@@ -17,11 +17,11 @@ import java.util.Optional;
 
 /**
  * @author Eric van Dalen
- * Test class for webdriver test for management of Users (and later also for the gardens)
+ * Test class for webdriver test for management of Users.
  */
 @SpringBootTest
 @WebAppConfiguration
-class AdminManageUsersAndGardensControllerWebDriverTest {
+class UserControllerWebDriverTest {
 
     private WebDriver driver;
 
@@ -58,9 +58,8 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/manageUsers";
 
         // Activate
-        this.driver.get(expectedUrl);
         loginAsAdministrator();
-        Thread.sleep(500);
+        this.driver.get(expectedUrl);
 
         // Assert
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
@@ -72,8 +71,8 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/adminDashboard";
 
         // Activate
-        this.driver.get("http://localhost:8080/manageUsers");
         loginAsAdministrator();
+        this.driver.get("http://localhost:8080/manageUsers");
         Thread.sleep(500);
         driver.findElement(By.name("buttonGoToAdminDashboard")).click();
         Thread.sleep(500);
@@ -88,8 +87,8 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/user/new";
 
         // Activate
-        this.driver.get("http://localhost:8080/manageUsers");
         loginAsAdministrator();
+        this.driver.get("http://localhost:8080/manageUsers");
         Thread.sleep(500);
         driver.findElement(By.name("buttonGoToAdminCreateUser")).click();
         Thread.sleep(500);
@@ -105,8 +104,8 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
         String expectedUrl = "http://localhost:8080/manageUsers";
 
         // Activate
-        this.driver.get("http://localhost:8080/manageUsers");
         loginAsAdministrator();
+        this.driver.get("http://localhost:8080/manageUsers");
         Thread.sleep(500);
         driver.findElement(By.name("buttonGoToAdminCreateUser")).click();
         Thread.sleep(500);
@@ -121,6 +120,7 @@ class AdminManageUsersAndGardensControllerWebDriverTest {
     }
 
     private void loginAsAdministrator() {
+        this.driver.get("http://localhost:8080/login");
         driver.findElement(By.name("username")).sendKeys(ADMINNAME);
         driver.findElement(By.name("password")).sendKeys(ADMINPASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();

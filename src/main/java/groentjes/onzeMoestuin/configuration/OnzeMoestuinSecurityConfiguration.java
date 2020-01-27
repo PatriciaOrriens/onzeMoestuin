@@ -24,7 +24,8 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/registerUser", "/", "/resources/css/**", "/resources/img/**").permitAll()
+                .antMatchers("/registerUser", "/", "/resources/css/**", "/resources/img/**",
+                        "/invitation/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
