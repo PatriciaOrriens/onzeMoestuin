@@ -4,37 +4,28 @@
 
 <c:import url="partials/header.jsp" />
 
-<!DOCTYPE html>
+<div class="container">
+    <h1 class="display-3">Pas tuin aan</h1>
+        <div class="form">
+            <form:form action="/garden/update/${gardenId}" modelAttribute="garden">
+                <form:hidden path="user" />
+                <div class="form-group">
+                    <label>Naam: </label>
+                    <form:input path="gardenName" type="text" value="${garden.gardenName}" class="form-control"/>
 
-<head>
-    <title>Tuin wijzigen</title>
-</head>
+                    <label>Lengte (m): </label>
+                    <form:input path="length" type="text" value="${garden.length}" class="form-control"/>
 
-<body>
-    <div class="container">
-        <h1 class="display-3">Pas tuin aan</h1>
-            <div class="form">
-                <form:form action="/garden/update/${gardenId}" modelAttribute="garden">
-                    <form:hidden path="user" />
-                        <div class="form-group">
-                            <label>Naam: </label>
-                            <form:input path="gardenName" type="text" value="${garden.gardenName}" class="form-control"/>
+                    <label>Breedte (m): </label>
+                    <form:input path="width" type="text" value="${garden.width}" class="form-control"/>
 
-                            <label>Lengte (m): </label>
-                            <form:input path="length" type="text" value="${garden.length}" class="form-control"/>
+                </div>
 
-                            <label>Breedte (m): </label>
-                            <form:input path="width" type="text" value="${garden.width}" class="form-control"/>
-
-                         </div>
-
-                     <form:button type="submit" name="opslaanTuin" class="btn btn-success">Toepassen</form:button>
-                </form:form>
-            </div>
-                <br/>
-                <a href="/userManageGardens" class="btn btn-success">Terug</a>
-    </div>
-
-</body>
+                <form:button type="submit" name="opslaanTuin" class="btn btn-success">Toepassen</form:button>
+            </form:form>
+        </div>
+        <br/>
+        <a href="/userManageGardens" class="btn btn-success">Terug</a>
+</div>
 
 <c:import url="partials/footer.jsp" />

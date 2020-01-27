@@ -46,11 +46,10 @@
             </form:form>
 
             <p>
-                    </br>
-                    <a class="btn btn-success" href="/plantinfo/tasks/${plantInfoId}" >Terug</a>
-                    </p>
+            </br>
+            <a class="btn btn-success" href="/plantinfo/tasks/${plantInfoId}" >Terug</a>
+            </p>
 
 </div>
-
 
 <c:import url="partials/footer.jsp" />

@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!DOCTYPE html>
 <c:import url="partials/header.jsp" />
 
      <div class="container">
@@ -18,4 +17,5 @@
             <br/>
             <form:button type="submit" class="btn btn-success" name="inlogbutton">Inloggen</form:button>
         </form:form>
+
 <c:import url="partials/footer.jsp" />
