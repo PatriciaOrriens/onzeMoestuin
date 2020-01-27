@@ -4,11 +4,6 @@
 
 <c:import url="partials/header.jsp" />
 
-    <head>
-        <title>Taken bij plantinformatie</title>
-    </head>
-
-    <body>
         <div class="container">
             <h1 class="display-3">Taken bij ${plantInfo.plantName}</h1>
             <table class="table table-striped">
@@ -29,10 +24,28 @@
                         <td><a class="btn btn-success" href="/plantinfo/${plantInfoId}/task/update/<c:out
                         value="${task.taskPlantInfoId}" />"
                             ><i class='far fa-edit'></i></a></td>
-                        <td><a class="btn btn-warning" href="/plantinfo/task/delete/<c:out
-                        value="${task.taskPlantInfoId}" />"
-                            ><i class='fas fa-trash-alt'></i></a></td>
+                        <td><a class="btn btn-warning" href="#removeTaskPlantModal_${task.taskPlantInfoId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a></td>
                     </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="removeTaskPlantModal_${task.taskPlantInfoId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Taak verwijderen</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                    <div class="modal-body">
+                                        <p>Weet je zeker dat je taak ${task.taskPlantInfoId} wilt verwijderen?</p>
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                                    <a type="button" class="btn btn-secondary" href="/plantinfo/task/delete/<c:out value="${task.taskPlantInfoId}" />" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </c:forEach>
             </table>
 
