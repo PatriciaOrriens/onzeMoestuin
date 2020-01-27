@@ -4,20 +4,13 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Onze Moestuin</title>
-    <c:import url="partials/style.jsp" />
-</head>
-<body>
-    <c:import url="partials/devnav.jsp" />
+<c:import url="partials/header.jsp" />
+
     <!-- <div class="container"> -->
 
     <title>Verander plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
+    <script type="text/javascript" src="../../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
 
     <div class="container">
         <div class="form">
