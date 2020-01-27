@@ -23,9 +23,9 @@
                 </td>
                 <td><a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
                                     ><i class='far fa-edit'></i></a></td>
-                <td>
-                        <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name='verwijderen'
+                <td><a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}"
                             data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
+
                 </td>
             </tr>
             <!-- Modal -->
@@ -38,13 +38,13 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <p>Weet je zeker dat je ${garden.gardenName} wilt verwijderen?</p>
-                        </div>
+                            <div class="modal-body">
+                                <p>Weet je zeker dat je ${garden.gardenName} wilt verwijderen?</p>
+                            </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
                             <a type="button" class="btn btn-secondary" href="/user/garden/delete/${garden.gardenId}"
-                                name="modal-verwijderen" title="Delete">Verwijderen</a>
+                                name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
                         </div>
                     </div>
                 </div>
