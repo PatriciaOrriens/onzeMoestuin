@@ -54,6 +54,6 @@
             </ul>
 
 
-      <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a>
+      <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />

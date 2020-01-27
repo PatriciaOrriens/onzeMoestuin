@@ -16,11 +16,6 @@
     </c:if>
 
     <table class="table table-striped">
-        <tr>
-            <th>Naam van tuin</th>
-            <th>Tuin wijzigen</th>
-            <th>Tuin verwijderen</th>
-        </tr>
         <c:forEach var="garden" items="${allYourGardens}">
             <tr>
                 <td><a href="garden/${garden.gardenId}">
@@ -31,6 +26,9 @@
                 <td>
                         <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">
                             <i class='fas fa-trash-alt'></i></a>
+
+                        <a class="btn btn-outline-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen" data-toggle="modal">Verwijderen</a>
+
                 </td>
             </tr>
             <!-- Modal -->
@@ -48,6 +46,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                            <a type="button" class="btn btn-secondary" href="/user/garden/delete/${garden.gardenId}" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
                             <a href="/user/garden/delete/${garden.gardenId}" title="Delete">Verwijderen</a>
                         </div>
                     </div>
