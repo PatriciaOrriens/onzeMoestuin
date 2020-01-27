@@ -19,9 +19,11 @@
             <td>${plant.plantInformation.plantingDistance}</td>
         </tr>
       </table>
-      <p><a href="/plantinformationoverview/${plant.plantInformation.plantInfoId}">Meer informatie</a></p>
-    </div>
+      <p><a href="/plantinformationoverview/${plant.plantInformation.plantInfoId}" class="btn btn-success">Meer informatie</a>
+      <br/>
+      <br/>
+      <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a></p>
 
-        <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a>
+      </div>
 
 <c:import url="partials/footer.jsp" />

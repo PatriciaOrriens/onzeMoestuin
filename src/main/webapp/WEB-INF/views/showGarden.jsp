@@ -12,15 +12,19 @@
     </div>
 
     <table class="table table-striped">
+        <tr>
+            <th>Plant</th>
+            <th>Verwijderen</th>
+        </tr>
         <c:forEach items="${plants}" var="plant">
             <tr>
                 <td>
                     <a href="../plant/${plant.plantId}">
                         <c:out value="${plant.plantInformation.plantName}" />
                     </a>
+                </td>
                 <td>
-                <td align="right">
-                    <a class="btn btn-warning" href="/plant/delete/${plant.plantId}">Verwijderen</a>
+                    <a class="btn btn-warning" href="/plant/delete/${plant.plantId}"><i class='fas fa-trash'></i></a>
                 </td>
             </tr>
         </c:forEach>

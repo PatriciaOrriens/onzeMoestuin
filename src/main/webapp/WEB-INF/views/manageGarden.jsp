@@ -16,6 +16,11 @@
     </c:if>
 
     <table class="table table-striped">
+        <tr>
+            <th>Naam van tuin</th>
+            <th>Tuin wijzigen</th>
+            <th>Tuin verwijderen</th>
+        </tr>
         <c:forEach var="garden" items="${allYourGardens}">
             <tr>
                 <td><a href="garden/${garden.gardenId}">
@@ -24,10 +29,8 @@
                 <td><a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
                                     ><i class='far fa-edit'></i></a></td>
                 <td>
-
                         <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" data-toggle="modal">
                             <i class='fas fa-trash-alt'></i></a>
-
                 </td>
             </tr>
             <!-- Modal -->
