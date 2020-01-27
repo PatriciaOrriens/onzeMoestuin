@@ -24,10 +24,10 @@
                 <td><c:out value="${task.taskId}" /></td>
                 <td><c:out value="${task.taskName}" /></td>
                 <td><a class="btn btn-outline-primary" href="/task/update/<c:out value="${task.taskId}" />">Wijzig</a></td>
-                <td><a class="btn btn-outline-warning" href="#removeTaskModal" data-toggle="modal">Verwijder</a></td>
+                <td><a class="btn btn-outline-warning" href="#removeTaskModal_${task.taskId}" data-toggle="modal">Verwijder</a></td>
             </tr>
             <!-- Modal -->
-            <div class="modal fade" id="removeTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="removeTaskModal_${task.taskId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

@@ -15,10 +15,10 @@
         <c:forEach items="${plants}" var="plant">
             <tr>
                 <td><a href="../plant/${plant.plantId}"><c:out value="${plant.plantInformation.plantName}" /></a><td>
-                <td><a class="btn btn-outline-warning" href="#removePlantModal" data-toggle="modal">Verwijderen</a></td>
+                <td><a class="btn btn-outline-warning" href="#removePlantModal_${plant.plantId}" data-toggle="modal">Verwijderen</a></td>
             </tr>
             <!-- Modal -->
-            <div class="modal fade" id="removePlantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="removePlantModal_${plant.plantId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

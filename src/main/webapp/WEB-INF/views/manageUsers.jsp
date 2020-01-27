@@ -15,10 +15,10 @@
             <c:forEach items="${allUsers}" var="user">
                 <tr>
                     <td><c:out value="${user.username}" /></td>
-                    <td><a class="btn btn-outline-warning" href="#removeUserModal" data-toggle="modal">Verwijder</a></td>
+                    <td><a class="btn btn-outline-warning" href="#removeUserModal_${user.username}" data-toggle="modal">Verwijder</a></td>
                 </tr>
                 <!-- Modal -->
-                <div class="modal fade" id="removeUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="removeUserModal_${user.username}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
