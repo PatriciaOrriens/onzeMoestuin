@@ -7,7 +7,7 @@
 	        <h1 class="display-3">${garden.gardenName}</h1>
         </div>
         <div class="col-sm-1 my-auto">
-            <a href="${garden.gardenId}/addPlant" class="btn btn-outline-success">&#43; Plant</a>
+            <a href="${garden.gardenId}/addPlant" class="btn btn-success"><i class='fas fa-seedling'></i>&#43; </a>
         </div>
     </div>
 
@@ -35,7 +35,7 @@
            </c:forEach>
       </ul>
       <a href="/garden/${garden.gardenId}/invite" class="btn btn-success">
-        <i class="fa fa-user-plus"></i>Lid toevoegen</a>
+        <i class="fa fa-user-plus"></i> Lid toevoegen</a>
 
 
       <!-- Tijdelijke code om taken weer te geven -->

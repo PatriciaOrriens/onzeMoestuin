@@ -26,10 +26,10 @@
                         <td>${task.task.taskName}</td>
                         <td>${task.daysAfterStart}</td>
                         <td>${task.repetitiveTask}</td>
-                        <td><a class="btn btn-outline-primary" href="/plantinfo/${plantInfoId}/task/update/<c:out
+                        <td><a class="btn btn-success" href="/plantinfo/${plantInfoId}/task/update/<c:out
                         value="${task.taskPlantInfoId}" />"
                             ><i class='far fa-edit'></i></a></td>
-                        <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out
+                        <td><a class="btn btn-warning" href="/plantinfo/task/delete/<c:out
                         value="${task.taskPlantInfoId}" />"
                             ><i class='fas fa-trash-alt'></i></a></td>
                     </tr>
