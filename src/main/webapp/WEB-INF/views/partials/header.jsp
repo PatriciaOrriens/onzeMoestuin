@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Onze Moestuin</title>
+    <base href="/">
     <c:import url="partials/style.jsp" />
 </head>
 <body>
