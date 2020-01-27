@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *  @author Gjalt Wybenga
+ *  @author Gjalt Wybenga and Eric van Dalen
  *  Code based on NewGardenControllerWebDriverTest
  *  Tests navigation to addGarden (implicitly), tests garden addition, tests the removal of a garden
  */
