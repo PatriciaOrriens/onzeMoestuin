@@ -10,6 +10,19 @@
   padding: 75px;
 }
 
-.a {
-    color: success;
+.completedGreenTaskButton {
+  background-color: white;
+  color: green;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #4CAF50;
+}
+
+.completedGreenTaskButton:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.redText {
+color: red;
 }
