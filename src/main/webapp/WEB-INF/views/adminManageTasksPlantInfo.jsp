@@ -17,8 +17,8 @@
                     <th>Taak</th>
                     <th>Dagen na startdatum plant</th>
                     <th>Moet herhaald worden</th>
-                    <th></th>
-                    <th></th>
+                    <th>Wijzig taak</th>
+                    <th>Verwijder taak</th>
                 </tr>
                 <c:forEach items="${plantInfo.tasks}" var="task">
                     <tr>
@@ -26,18 +26,18 @@
                         <td>${task.task.taskName}</td>
                         <td>${task.daysAfterStart}</td>
                         <td>${task.repetitiveTask}</td>
-                        <td><a class="btn btn-outline-primary" href="/plantinfo/${plantInfoId}/task/update/<c:out
+                        <td><a class="btn btn-success" href="/plantinfo/${plantInfoId}/task/update/<c:out
                         value="${task.taskPlantInfoId}" />"
-                            >Wijzig</a></td>
-                        <td><a class="btn btn-outline-warning" href="/plantinfo/task/delete/<c:out
+                            ><i class='far fa-edit'></i></a></td>
+                        <td><a class="btn btn-warning" href="/plantinfo/task/delete/<c:out
                         value="${task.taskPlantInfoId}" />"
-                            >Verwijder</a></td>
+                            ><i class='fas fa-trash-alt'></i></a></td>
                     </tr>
                 </c:forEach>
             </table>
 
-            <p><a class="btn btn-primary" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
+            <p><a class="btn btn-success" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
             <br/>
-            <p><a class="btn btn-primary" href="/adminManagePlantInformation">Terug</a></p>
+            <p><a class="btn btn-success" href="/adminManagePlantInformation">Terug</a></p>
 
 <c:import url="partials/footer.jsp" />

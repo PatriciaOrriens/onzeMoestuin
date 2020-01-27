@@ -7,15 +7,25 @@
 	        <h1 class="display-3">${garden.gardenName}</h1>
         </div>
         <div class="col-sm-1 my-auto">
-            <a href="${garden.gardenId}/addPlant" class="btn btn-outline-success">&#43; Plant</a>
+            <a href="${garden.gardenId}/addPlant" class="btn btn-success"><i class='fas fa-seedling'></i>&#43; </a>
         </div>
     </div>
 
     <table class="table table-striped">
+        <tr>
+            <th>Plant</th>
+            <th>Verwijderen</th>
+        </tr>
         <c:forEach items="${plants}" var="plant">
             <tr>
-                <td><a href="../plant/${plant.plantId}"><c:out value="${plant.plantInformation.plantName}" /></a><td>
-                <td><a class="btn btn-outline-warning" href="#removePlantModal_${plant.plantId}" data-toggle="modal">Verwijderen</a></td>
+                <td>
+                    <a href="../plant/${plant.plantId}">
+                        <c:out value="${plant.plantInformation.plantName}" />
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="#removePlantModal_${plant.plantId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
+                </td>
             </tr>
 
             <!-- Modal -->
@@ -50,22 +60,39 @@
 
            </c:forEach>
       </ul>
-      <a href="/garden/${garden.gardenId}/invite" class="btn btn-primary">
-        <i class="fa fa-user-plus"></i>Lid toevoegen</a>
+      <a href="/garden/${garden.gardenId}/invite" class="btn btn-success">
+        <i class="fa fa-user-plus"></i> Lid toevoegen</a>
+        <br/><br/>
 
 
-      <!-- Tijdelijke code om taken weer te geven -->
-            <h2>Taken voor deze tuin:</h2>
-            <ul>
-                 <c:forEach items="${taskPlants}" var="taskPlant">
-                        <li><c:out value="${taskPlant.taskPlantInfo.task.taskName}" />
-                        (plantnummer: <c:out value="${taskPlant.plant.plantId}"/>;
-                        plantnaam: <c:out value="${taskPlant.plant.plantInformation.plantName}"/>;
-                        vervaldatum: <c:out value="${taskPlant.dueDate}"/>)</li>
-                 </c:forEach>
-            </ul>
+     <h2>Taken voor deze tuin:</h2>
+     <table class="table table-striped">
+        <tr>
+            <th>Taak</th>
+            <th>Plantsoort(plantnummer)</th>
+            <th>Vervaldatum</th>
+            <th>Uitvoerdatum</th>
+            <th>Uitgevoerd door</th>
+            <th></th>
+        </tr>
+        <c:forEach items="${taskPlants}" var="taskPlant">
+            <tr>
+                <td><c:out value="${taskPlant.taskPlantInfo.task.taskName}" /> </td>
+                <td><c:out value="${taskPlant.plant.plantInformation.plantName}"/>(<c:out value="${taskPlant.plant.plantId}"/>) </td>
+                <c:choose><c:when test="${empty taskPlant.completedDate}"><td class="redText"></c:when>
+                    <c:otherwise><td></c:otherwise> </c:choose> <c:out value="${taskPlant.dueDate}"/></td>
+                <td><c:out value="${taskPlant.completedDate}"/></td>
+                <td><c:out value="${taskPlant.user.username}"/></td>
+                <td align="right">
+                    <c:if test="${empty taskPlant.user}">
+                        <a class="completedGreenTaskButton"
+                            href="/user/taskPlant/completed/<c:out value="${taskPlant.taskPlantId}" />">Taak uitvoeren</a>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+     </table>
 
-
-      <a href="/userManageGardens" class="btn btn-primary">Terug naar tuinoverzicht</a>
+      <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />

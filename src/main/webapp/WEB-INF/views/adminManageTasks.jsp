@@ -14,17 +14,16 @@
     <h1 class="display-3">Overzicht van taken</h1>
     <table class="table table-striped">
         <tr>
-            <th>Id</th>
             <th>Taaknaam</th>
-            <th></th>
-            <th></th>
+            <th>Wijzig taak</th>
+            <th>Verwijder taak</th>
         </tr>
         <c:forEach items="${allTasks}" var="task">
             <tr>
-                <td><c:out value="${task.taskId}" /></td>
                 <td><c:out value="${task.taskName}" /></td>
-                <td><a class="btn btn-outline-primary" href="/task/update/<c:out value="${task.taskId}" />">Wijzig</a></td>
-                <td><a class="btn btn-outline-warning" href="#removeTaskModal_${task.taskId}" data-toggle="modal">Verwijder</a></td>
+                <td><a class="btn btn-success" href="/task/update/<c:out value="${task.taskId}" />">
+                    <i class='far fa-edit'></i></a></td>
+                <td><a class="btn btn-warning" href="#removeTaskModal_${task.taskId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a></td>
             </tr>
 
             <!-- Modal -->
@@ -62,13 +61,12 @@
             <label>Naam van taak: </label>
             <form:input path="taskName" type="text" />
             <br/>
-            <input class="btn btn-primary" type="submit" value="Toevoegen"/>
+            <input class="btn btn-success" type="submit" value="Toevoegen"/>
             </div>
         <br/>
     </form:form>
 
-    <br/>
-    <a class="btn btn-primary" href="/adminDashboard">Terug</a>
+    <a class="btn btn-success" href="/adminDashboard">Terug</a>
 </div>
 
 </body>

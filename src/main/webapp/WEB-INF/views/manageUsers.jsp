@@ -8,14 +8,15 @@
             <thead>
             <tr>
                 <th>Naam</th>
-                <th></th>
+                <th>Verwijder gebruiker</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${allUsers}" var="user">
                 <tr>
                     <td><c:out value="${user.username}" /></td>
-                    <td><a class="btn btn-outline-warning" href="#removeUserModal_${user.username}" data-toggle="modal">Verwijder</a></td>
+                    <td><a class="btn btn-warning" href="#removeUserModal_${user.username}" data-toggle="modal"
+                        ><i class='fas fa-trash-alt'></i></a></td></td>
                 </tr>
 
                 <!-- Modal -->
@@ -42,10 +43,10 @@
             </c:forEach>
         </table>
         <br/>
-        <a href="/user/new" name="buttonGoToAdminCreateUser" class="btn btn-primary">
+        <a href="/user/new" name="buttonGoToAdminCreateUser" class="btn btn-success">
         <i class="fa fa-user-plus"></i> Toevoegen</a>
         <br/>
         <br/>
-        <a href="/adminDashboard" name="buttonGoToAdminDashboard" class="btn btn-primary">Terug</a>
+        <a href="/adminDashboard" name="buttonGoToAdminDashboard" class="btn btn-success">Terug</a>
 
 <c:import url="partials/footer.jsp" />

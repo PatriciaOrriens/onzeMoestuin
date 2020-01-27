@@ -42,12 +42,12 @@
             </div>
         </div>
 
-        <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
+        <form:button type="submit" class="btn btn-success">Voeg toe</form:button>
             </form:form>
 
             <p>
                     </br>
-                    <a class="btn btn-primary" href="/plantinfo/tasks/${plantInfoId}" >Terug</a>
+                    <a class="btn btn-success" href="/plantinfo/tasks/${plantInfoId}" >Terug</a>
                     </p>
 
 </div>
