@@ -23,6 +23,7 @@
                     >Beheer taken</a></td>
                 <td><a class="btn btn-outline-warning" href="#removePlantModal_${plant.plantInfoId}" data-toggle="modal">Verwijder</a></td></td>
             </tr>
+
             <!-- Modal -->
                 <div class="modal fade" id="removePlantModal_${plant.plantInfoId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -43,6 +44,7 @@
                         </div>
                     </div>
                 </div>
+
         </c:forEach>
         </table>
 
