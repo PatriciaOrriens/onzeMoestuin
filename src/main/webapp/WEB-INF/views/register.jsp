@@ -40,7 +40,7 @@
                 </span>
 
             </div>
-            <form:button type="submit" class="btn btn-primary" name="registerbutton">Registreer</form:button>
+            <form:button type="submit" class="btn btn-success" name="registerbutton">Registreer</form:button>
         </form:form>
 
   <c:import url="partials/footer.jsp" />

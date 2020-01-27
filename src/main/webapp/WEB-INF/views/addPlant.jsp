@@ -16,7 +16,7 @@
                 </select>
             </div>
 
-           <form:button type="submit" class="btn btn-primary">Voeg toe</form:button>
+           <form:button type="submit" class="btn btn-success">Voeg <i class='fas fa-seedling'></i> toe</form:button>
         </form:form>
 
 <c:import url="partials/footer.jsp" />

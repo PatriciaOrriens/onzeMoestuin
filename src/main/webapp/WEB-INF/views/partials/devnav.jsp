@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="../resources/css/navbar.css">
 
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+<nav class="navbar navbar-expand-sm bg-success navbar-dark">
   <ul class="navbar-nav">
          <li class="nav-item">
             <a class="navbar-brand" href="/">Onze Moestuin</a>
@@ -19,7 +19,7 @@
      </security:authorize>
      <security:authorize access="hasRole('ROLE_USER')">
          <li class="nav-item">
-            <a class="nav-link" href="/garden/add">Tuin toevoegen</a>
+            <a class="nav-link" name="tuintoevoegen" href="/garden/add">Tuin toevoegen</a>
          </li>
      </security:authorize>
   </ul>
@@ -42,7 +42,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/logout">Uitloggen</a>
+            <a class="nav-link" name="logout" href="/logout">Uitloggen</a>
         </li>
     </security:authorize>
 

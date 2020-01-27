@@ -8,23 +8,45 @@
             <thead>
             <tr>
                 <th>Naam</th>
-                <th></th>
+                <th>Verwijder gebruiker</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${allUsers}" var="user">
                 <tr>
                     <td><c:out value="${user.username}" /></td>
-                    <td><a class="btn btn-outline-warning" href="/user/delete/<c:out value="${user.username}" />"
-                        >Verwijder</a></td>
+                    <td><a class="btn btn-warning" href="#removeUserModal_${user.username}" data-toggle="modal"
+                        ><i class='fas fa-trash-alt'></i></a></td></td>
                 </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="removeUserModal_${user.username}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Gebruiker verwijderen</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                                <div class="modal-body">
+                                    <p>Weet je zeker dat je gebruiker ${user.username} wilt verwijderen?</p>
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                                <a type="button" class="btn btn-secondary" href="/user/delete/<c:out value="${user.username}" />" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </c:forEach>
         </table>
         <br/>
-        <a href="/user/new" name="buttonGoToAdminCreateUser" class="btn btn-primary">
+        <a href="/user/new" name="buttonGoToAdminCreateUser" class="btn btn-success">
         <i class="fa fa-user-plus"></i> Toevoegen</a>
         <br/>
         <br/>
-        <a href="/adminDashboard" name="buttonGoToAdminDashboard" class="btn btn-primary">Terug</a>
-    </body>
-</html>
+        <a href="/adminDashboard" name="buttonGoToAdminDashboard" class="btn btn-success">Terug</a>
+
+<c:import url="partials/footer.jsp" />

@@ -18,7 +18,7 @@
             <form:input path="width" class="form-control" />
 
         </div>
-        <form:button type="submit" name="opslaanTuin" class="btn btn-primary">Opslaan</form:button>
+        <form:button type="submit" name="opslaanTuin" class="btn btn-success">Opslaan</form:button>
 	</form:form>
     
 <c:import url="partials/footer.jsp" />

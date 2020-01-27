@@ -16,6 +16,6 @@
                 <form:input path="password" type="password" class="form-control" />
             </div>
             <br/>
-            <form:button type="submit" class="btn btn-primary" name="inlogbutton">Inloggen</form:button>
+            <form:button type="submit" class="btn btn-success" name="inlogbutton">Inloggen</form:button>
         </form:form>
 <c:import url="partials/footer.jsp" />

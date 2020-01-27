@@ -14,11 +14,12 @@
                 <label for="password">Wachtwoord:</label>
                 <form:input path="password" type="password" class="form-control" />
             </div>
-            <form:button type="submit" class="btn btn-primary" name="createUserButton" >Toevoegen</form:button>
+            <form:button type="submit" class="btn btn-success" name="createUserButton">
+                <i class='fas fa-user'></i> Toevoegen</form:button>
         </form:form>
 
         <br />
-        <p><a href="/adminDashboard" class="btn btn-primary">Terug</a></p>
+        <p><a href="/adminDashboard" class="btn btn-success">Terug</a></p>
 
     </div>
 
