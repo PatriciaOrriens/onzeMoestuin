@@ -60,14 +60,9 @@ public class MailController {
                     "garden", newInvitation.getGarden(),
                     "sender", invitingUser
             )));
-
             sendMail(invitationMail);
-            System.out.println("Email verstuurd!");
-
             gardenInvitationRepository.save(newInvitation);
-
         } catch (Exception ex) {
-            System.out.println("Fout bij sturen mail");
             return "redirect:/";
         }
         return "redirect:/garden/" + gardenId;

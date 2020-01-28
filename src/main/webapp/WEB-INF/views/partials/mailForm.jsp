@@ -14,5 +14,5 @@
         <form:textarea path="body" rows="10" class="form-control"/>
 
     </div>
-    <form:button type="submit" name="sendMail" class="btn btn-primary">Versturen</form:button>
+    <form:button type="submit" name="sendMail" class="btn btn-success">Versturen</form:button>
 </form:form>

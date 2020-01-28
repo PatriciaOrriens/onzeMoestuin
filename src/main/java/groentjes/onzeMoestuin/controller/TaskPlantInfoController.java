@@ -38,7 +38,7 @@ public class TaskPlantInfoController {
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         List<Task> allTasks = taskRepository.findAll();
 
-        if (plantInformation.isPresent() && ! allTasks.isEmpty()) {
+        if (plantInformation.isPresent() && !allTasks.isEmpty()) {
             model.addAttribute("plantInfo", plantInformation.get());
             model.addAttribute("taskPlantInfo", new TaskPlantInfo());
             model.addAttribute("allTasks", allTasks);
