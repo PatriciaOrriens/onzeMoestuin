@@ -36,7 +36,7 @@
                <p><c:out value="${foundUser.firstName}"></c:out>
                <c:out value="${foundUser.lastName}"></c:out></p>
 
-               <form:form method="post" action="../${garden.gardenId}/invite" modelAttribute="foundUser">
+               <form:form method="post" action="../garden/${garden.gardenId}/invite" modelAttribute="foundUser">
                    <form:hidden path="userId" />
                  <form:button type="submit" name="submit_param" class="btn btn-success">
                    Uitnodigen
