@@ -16,12 +16,12 @@
     </c:if>
 
     <table class="table table-striped">
+        <tr>
+            <th>Tuin</th>
+            <th>Tuin aanpassen</th>
+            <th>Tuin verwijderen</th>
+       </tr>
         <c:forEach var="garden" items="${allYourGardens}">
-            <tr>
-                <th>Tuin</th>
-                <th>Tuin aanpassen</th>
-                <th>Tuin verwijderen</th>
-           </tr>
            <tr>
                 <td><a href="garden/${garden.gardenId}">
                         <c:out value="${garden.gardenName}"/></a>
