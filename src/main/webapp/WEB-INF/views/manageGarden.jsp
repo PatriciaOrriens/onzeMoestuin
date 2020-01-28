@@ -28,7 +28,7 @@
                 </td>
                 <td><a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
                                     ><i class='far fa-edit'></i></a></td>
-                <td><a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}"
+                <td><a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen"
                             data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
 
                 </td>

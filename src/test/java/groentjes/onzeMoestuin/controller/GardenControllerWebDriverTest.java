@@ -119,8 +119,7 @@ public class GardenControllerWebDriverTest {
     }
 
     private void loginAsAUser() {
-        this.driver.get("http://localhost:8080");
-        driver.findElement(By.name("login")).click();
+        this.driver.get("http://localhost:8080/login");
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();

@@ -99,7 +99,7 @@ public class AdminDashboardControllerWebDriverTest {
         loginAsAdministrator();
         this.driver.get("http://localhost:8080/adminDashboard");
         Thread.sleep(500);
-        driver.findElement(By.name("adminLogoutButton")).click();
+        driver.findElement(By.name("logout")).click();
         Thread.sleep(500);
 
         // Assert
