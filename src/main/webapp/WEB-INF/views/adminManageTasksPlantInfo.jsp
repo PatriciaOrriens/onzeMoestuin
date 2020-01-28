@@ -4,17 +4,17 @@
 
 <c:import url="partials/header.jsp" />
 
-        <div class="container">
-            <h1 class="display-3">Taken bij ${plantInfo.plantName}</h1>
-            <table class="table table-striped">
-                <tr>
-                    <th>Id</th>
-                    <th>Taak</th>
-                    <th>Dagen na startdatum plant</th>
-                    <th>Moet herhaald worden</th>
-                    <th>Wijzig taak</th>
-                    <th>Verwijder taak</th>
-                </tr>
+ <div class="container">
+        <h1 class="display-3">Taken bij ${plantInfo.plantName}</h1>
+        <table class="table table-striped">
+                    <tr>
+                        <th>Id</th>
+                        <th>Taak</th>
+                        <th>Dagen na startdatum plant</th>
+                        <th>Moet herhaald worden</th>
+                        <th>Wijzig taak</th>
+                        <th>Verwijder taak</th>
+                    </tr>
                 <c:forEach items="${plantInfo.tasks}" var="task">
                     <tr>
                         <td>${task.taskPlantInfoId}</td>
@@ -26,6 +26,7 @@
                             ><i class='far fa-edit'></i></a></td>
                         <td><a class="btn btn-warning" href="#removeTaskPlantModal_${task.taskPlantInfoId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a></td>
                     </tr>
+
                     <!-- Modal -->
                     <div class="modal fade" id="removeTaskPlantModal_${task.taskPlantInfoId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -47,10 +48,10 @@
                         </div>
                     </div>
                 </c:forEach>
-            </table>
+        </table>
 
-            <p><a class="btn btn-success" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
-            <br/>
-            <p><a class="btn btn-success" href="/adminManagePlantInformation">Terug</a></p>
+        <p><a class="btn btn-success" href="/plantinfo/${plantInfo.plantInfoId}/task/add">Taak toevoegen</a></p>
+        <br/>
+        <p><a class="btn btn-success" href="/adminManagePlantInformation">Terug</a></p>
 
 <c:import url="partials/footer.jsp" />

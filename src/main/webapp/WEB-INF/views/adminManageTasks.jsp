@@ -4,12 +4,6 @@
 
 <c:import url="partials/header.jsp" />
 
-<!DOCTYPE html>
-    <head>
-        <title>Generieke taken</title>
-    </head>
-
-<body>
 <div class="container">
     <h1 class="display-3">Overzicht van taken</h1>
     <table class="table table-striped">
@@ -69,5 +63,4 @@
     <a class="btn btn-success" href="/adminDashboard">Terug</a>
 </div>
 
-</body>
-    <c:import url="partials/footer.jsp" />
+<c:import url="partials/footer.jsp" />

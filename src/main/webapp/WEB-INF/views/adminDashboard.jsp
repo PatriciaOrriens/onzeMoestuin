@@ -3,7 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-  <div class="container">
+
+    <div class="container">
         <h1 class="display-3">Welkom beheerder </h1>
         <br/>
         <h2>Kies een taak:</h2>
@@ -12,6 +13,7 @@
             <li><a href="/adminManagePlantInformation" name="selectManagePlantInformation">Beheer plantinformatie</a></li>
             <li><a href="/adminManageTasks" name="selectManageTasks">Beheer taken</a></li>
         </ul>
+    </div>
 
 <c:import url="partials/footer.jsp" />
 

@@ -8,13 +8,13 @@
     <p>Dit is de plek om je moestuin digitaal te beheren.<br>
     Met deze app krijg je tips voor nieuwe planten en krijg je hulp om je tuin in te delen.</p>
       <p class="lead">
-    <a class="btn btn-success btn-lg" href="/login" role="button">Inloggen</a>
+    <a class="btn btn-success btn-lg" href="/login">Inloggen</a>
 
-    <a class="btn btn-success btn-lg" href="/registerUser" role="button">Registreren</a>
+    <a class="btn btn-success btn-lg" href="/registerUser">Registreren</a>
 
   </p>
   </div>
-</div>
+  </div>
 
 </div>
 

@@ -4,13 +4,6 @@
 
 <c:import url="partials/header.jsp" />
 
-<!DOCTYPE html>
-
-<head>
-    <title>Taak wijzigen</title>
-</head>
-
-<body>
     <div class="container">
         <h1 class="display-3">Pas taak aan</h1>
             <div class="form">
@@ -28,7 +21,5 @@
                 <br />
                 <a href="/adminManageTasks" class="btn btn-success">Terug</a>
     </div>
-
-</body>
 
 <c:import url="partials/footer.jsp" />
