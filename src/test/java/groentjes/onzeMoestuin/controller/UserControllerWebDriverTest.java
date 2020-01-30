@@ -35,6 +35,7 @@ class UserControllerWebDriverTest {
     private static final String ADMINPASSWORD = "admin";
     private static final String NAME = "testgebruiker1";
     private static final String PASSWORD = "testwachtwoord1";
+    private static final String EMAIL = "testgebruiker1@test.nl";
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -53,7 +54,7 @@ class UserControllerWebDriverTest {
     }
 
     @Test
-    void testManageUsersAndGardens() throws Exception {
+    void testManageUsers() throws Exception {
         // Arrange
         String expectedUrl = "http://localhost:8080/manageUsers";
 
@@ -66,7 +67,7 @@ class UserControllerWebDriverTest {
     }
 
     @Test
-    void testAdminManageUsersAndGardensSubmitGoToAdminDashboardButton() throws Exception {
+    void testAdminManageUsersSubmitGoToAdminDashboardButton() throws Exception {
         // Arrange
         String expectedUrl = "http://localhost:8080/adminDashboard";
 
@@ -82,7 +83,7 @@ class UserControllerWebDriverTest {
     }
 
     @Test
-    void testAdminManageUsersAndGardensSubmitGoToAdminCreateUserButton() throws Exception {
+    void testAdminManageUsersSubmitGoToAdminCreateUserButton() throws Exception {
         // Arrange
         String expectedUrl = "http://localhost:8080/user/new";
 
@@ -98,7 +99,7 @@ class UserControllerWebDriverTest {
     }
 
     @Test
-    void testAdminManageUsersAndGardensControllerAfterCreateUser() throws Exception {
+    void testAdminManageUsersControllerAfterCreateUser() throws Exception {
         // Arrange
         boolean expectedFound = true;
         String expectedUrl = "http://localhost:8080/manageUsers";
@@ -109,9 +110,7 @@ class UserControllerWebDriverTest {
         Thread.sleep(500);
         driver.findElement(By.name("buttonGoToAdminCreateUser")).click();
         Thread.sleep(500);
-        driver.findElement(By.name("username")).sendKeys(NAME);
-        driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.name("createUserButton")).submit();
+        createUser();
         boolean actualFound = userRepository.findByUsername(NAME).isPresent();
 
         // Assert
@@ -124,5 +123,12 @@ class UserControllerWebDriverTest {
         driver.findElement(By.name("username")).sendKeys(ADMINNAME);
         driver.findElement(By.name("password")).sendKeys(ADMINPASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();
+    }
+
+    private void createUser() {
+        driver.findElement(By.name("username")).sendKeys(NAME);
+        driver.findElement(By.name("email")).sendKeys(EMAIL);
+        driver.findElement(By.name("password")).sendKeys(PASSWORD);
+        driver.findElement(By.name("createUserButton")).submit();
     }
 }
