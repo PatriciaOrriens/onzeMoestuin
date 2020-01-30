@@ -5,20 +5,27 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
+/**
+ * @Author Patricia Orriens-Spuij
+ * Model to send and show messages in a message board of a garden
+ */
+@Entity
 public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer messageId;
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "senderId", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User sender;
 
-    //many-to-one relatie (moet ook in garden worden gezet!)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "gardenId")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -26,13 +33,16 @@ public class Message {
 
     private String messageBody;
 
-    // TODO: is dit de beste optie?
     private LocalDateTime dateTime;
 
     // reply to another message
-    // many-to-many to Message
-    //@ManyToMany
-    Message rootMessage;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "replyToMessage")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Message> replies = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "replyToMessage", referencedColumnName = "messageId")
+    private Message replyToMessage;
 
 
     public Message() { }
