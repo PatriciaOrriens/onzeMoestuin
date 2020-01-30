@@ -5,9 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -31,6 +29,8 @@ public class Message {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Garden garden;
 
+    private String title;
+
     private String messageBody;
 
     private LocalDateTime dateTime;
@@ -45,10 +45,72 @@ public class Message {
     private Message replyToMessage;
 
 
-    public Message() { }
+    public Message() {
+    }
 
 
+    // getters and setters
+   public Integer getMessageId() {
+        return messageId;
+    }
 
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
+    }
 
+    public User getSender() {
+        return sender;
+    }
 
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public Garden getGarden() {
+        return garden;
+    }
+
+    public void setGarden(Garden garden) {
+        this.garden = garden;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMessageBody() {
+        return messageBody;
+    }
+
+    public void setMessageBody(String messageBody) {
+        this.messageBody = messageBody;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Set<Message> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(Set<Message> replies) {
+        this.replies = replies;
+    }
+
+    public Message getReplyToMessage() {
+        return replyToMessage;
+    }
+
+    public void setReplyToMessage(Message replyToMessage) {
+        this.replyToMessage = replyToMessage;
+    }
 }
