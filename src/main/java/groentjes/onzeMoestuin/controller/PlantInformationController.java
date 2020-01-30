@@ -54,11 +54,11 @@ public class PlantInformationController {
 
     @PostMapping("/admincreateplantinfo")
     @Secured("ROLE_ADMIN")
-    public String saveNewPlantInfo(@RequestParam("file") MultipartFile file,
-                                   @ModelAttribute("plantInformation") PlantInformation plantInformation
+    public String saveNewPlantInfo(@ModelAttribute PlantInformation plantInformation,
+                                   @RequestParam("file") MultipartFile file
                                    ) throws IOException {
 
-            plantInformation.setFile(file.getBytes());
+            plantInformation.setImage(file.getBytes());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
     }

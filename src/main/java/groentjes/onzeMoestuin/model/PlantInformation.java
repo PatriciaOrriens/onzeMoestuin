@@ -1,6 +1,5 @@
 package groentjes.onzeMoestuin.model;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
@@ -29,7 +28,9 @@ public class PlantInformation {
     private Integer growTime;
 
     @Lob
-    private byte[] file;
+    @Basic(fetch = FetchType.LAZY)
+    @Column(length=100000000)
+    private byte[] image;
 
     @OneToMany(
             mappedBy = "plantInformation",
@@ -153,12 +154,11 @@ public class PlantInformation {
         this.growTime = growTime;
     }
 
-    public byte[] getFile() {
-        return file;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setFile(byte[] file) {
-        this.file = file;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
-
 }

@@ -12,7 +12,6 @@
      <h1 class="display-3">Plant toevoegen</h1>
         <div class="form">
             <form:form method="post" modelAttribute="plantInformation" enctype="multipart/form-data">
-
                 <table class="table-sm table-borderless">
                     <tr>
                         <td><label>Nederlandse plantnaam:</label></td>
