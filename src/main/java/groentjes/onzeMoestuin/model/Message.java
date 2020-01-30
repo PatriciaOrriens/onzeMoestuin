@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -25,7 +26,7 @@ public class Message {
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "gardenId")
+    @JoinColumn(name = "gardenId", referencedColumnName = "gardenId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Garden garden;
 
@@ -73,6 +74,10 @@ public class Message {
         this.garden = garden;
     }
 
+    // TODO: mapping does not work otherwise in MessageController. Why?
+    public void setGarden(Optional<Garden> garden) {
+    }
+
     public String getTitle() {
         return title;
     }
@@ -112,4 +117,6 @@ public class Message {
     public void setReplyToMessage(Message replyToMessage) {
         this.replyToMessage = replyToMessage;
     }
+
+
 }
