@@ -7,17 +7,17 @@
     <div class="container">
        <h1 class="display-3">Gebruiker toevoegen</h1>
 
-       <form name="myForm" method="post" modelAttribute="user" onsubmit="return validateForm()">
+       <form:form name="userForm" method="post" modelAttribute="user" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="username">Gebruikersnaam:</label>
-                <input name="username" path="username" class="form-control" />
+                <form:input name="username" path="username" class="form-control" />
 
                 <label for="password">Wachtwoord:</label>
-                <input path="password" type="password" class="form-control" />
+                <form:input path="password" type="password" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-success" name="createUserButton">
-                <i class='fas fa-user'></i> Toevoegen</button>
-        </form>
+            <form:button type="submit" class="btn btn-success" name="createUserButton">
+                <i class='fas fa-user'></i> Toevoegen</form:button>
+        </form:form>
 
         <br />
         <p><a href="/adminDashboard" class="btn btn-success">Terug</a></p>
