@@ -39,7 +39,6 @@ public class UserController {
     public String doDeleteUser(@ModelAttribute("userName") String username, BindingResult result) {
         Optional<User> user = userRepository.findByUsername(username);
         if(user.isPresent()) {
-            System.out.println(user);
             userRepository.delete(user.get());
         }
         return "redirect:/manageUsers";

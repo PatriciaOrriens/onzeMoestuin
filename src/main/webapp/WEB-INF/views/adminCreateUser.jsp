@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-<script src="../resources/javascript/adminCreateUser.js"></script>
+<script src="../resources/javascript/createUser.js"></script>
 
     <div class="container">
        <h1 class="display-3">Gebruiker toevoegen</h1>
@@ -13,7 +13,7 @@
                 <form:input name="username" path="username" class="form-control" />
 
                 <label for="password">Wachtwoord:</label>
-                <form:input path="password" type="password" class="form-control" />
+                <form:input name="password" path="password" type="password" class="form-control" />
             </div>
             <form:button type="submit" class="btn btn-success" name="createUserButton">
                 <i class='fas fa-user'></i> Toevoegen</form:button>
