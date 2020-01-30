@@ -2,21 +2,22 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
+<script src="../resources/javascript/adminCreateUser.js"></script>
 
     <div class="container">
        <h1 class="display-3">Gebruiker toevoegen</h1>
 
-       <form:form method="post" modelAttribute="user">
+       <form name="myForm" method="post" modelAttribute="user" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="username">Gebruikersnaam:</label>
-                <form:input path="username" class="form-control" />
+                <input name="username" path="username" class="form-control" />
 
                 <label for="password">Wachtwoord:</label>
-                <form:input path="password" type="password" class="form-control" />
+                <input path="password" type="password" class="form-control" />
             </div>
-            <form:button type="submit" class="btn btn-success" name="createUserButton">
-                <i class='fas fa-user'></i> Toevoegen</form:button>
-        </form:form>
+            <button type="submit" class="btn btn-success" name="createUserButton">
+                <i class='fas fa-user'></i> Toevoegen</button>
+        </form>
 
         <br />
         <p><a href="/adminDashboard" class="btn btn-success">Terug</a></p>
