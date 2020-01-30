@@ -1,5 +1,6 @@
 package groentjes.onzeMoestuin.model;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
@@ -27,11 +28,17 @@ public class PlantInformation {
     private String harvestingEnd;
     private Integer growTime;
 
+    @Lob
+    private byte[] file;
+
     @OneToMany(
             mappedBy = "plantInformation",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private Set<TaskPlantInfo> tasks = new HashSet<>();
+
+    public PlantInformation() {
+    }
 
     // getters and setters
     public Integer getPlantInfoId() {
@@ -145,4 +152,13 @@ public class PlantInformation {
     public void setGrowTime(Integer growTime) {
         this.growTime = growTime;
     }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
 }

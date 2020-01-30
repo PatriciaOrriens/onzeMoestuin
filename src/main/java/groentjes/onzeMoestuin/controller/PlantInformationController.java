@@ -1,19 +1,18 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.PlantInformation;
-import groentjes.onzeMoestuin.model.TaskPlantInfo;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -55,13 +54,13 @@ public class PlantInformationController {
 
     @PostMapping("/admincreateplantinfo")
     @Secured("ROLE_ADMIN")
-    public String saveNewPlantInfo(@ModelAttribute() PlantInformation plantInformation, BindingResult result) {
-        if (result.hasErrors()){
-            return "adminCreatePlantInformation";
-        } else {
+    public String saveNewPlantInfo(@RequestParam("file") MultipartFile file,
+                                   @ModelAttribute("plantInformation") PlantInformation plantInformation
+                                   ) throws IOException {
+
+            plantInformation.setFile(file.getBytes());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
-        }
     }
 
     @GetMapping("/plantinfo/update/{plantInfoId}")

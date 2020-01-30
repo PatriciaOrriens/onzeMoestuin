@@ -9,9 +9,10 @@
     <script src="../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
 
     <div class="container">
+     <h1 class="display-3">Plant toevoegen</h1>
         <div class="form">
-            <form:form method="post" modelAttribute="plantInformation">
-                <h1 class="display-3">Plant toevoegen</h1>
+            <form:form method="post" modelAttribute="plantInformation" enctype="multipart/form-data">
+
                 <table class="table-sm table-borderless">
                     <tr>
                         <td><label>Nederlandse plantnaam:</label></td>
@@ -68,6 +69,10 @@
                     <tr>
                         <td><label>Groeitijd in dagen:</label></td>
                         <td><form:input path="growTime" type="number" placeholder="groeitijd" min="0" id="growTime"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Plantplaatje:</label></td>
+                        <td><input type="file" name="file"/></td>
                     </tr>
                 </table>
                 <br/>
