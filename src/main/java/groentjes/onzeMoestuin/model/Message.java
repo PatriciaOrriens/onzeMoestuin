@@ -48,7 +48,6 @@ public class Message {
     public Message() {
     }
 
-
     // getters and setters
    public Integer getMessageId() {
         return messageId;
