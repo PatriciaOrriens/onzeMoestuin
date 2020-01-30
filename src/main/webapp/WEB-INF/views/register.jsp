@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
+<script src="../resources/javascript/createUser.js"></script>
 
      <div class="container">
         <h1 class="display-3">Registreren</h1>
@@ -12,11 +13,11 @@
             </div>
         </c:if>
 
-       <form:form method="post" modelAttribute="user">
+       <form:form name="userForm" method="post" modelAttribute="user" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="username">Gebruikersnaam:</label>
 
-                <form:input path="username" class="form-control" required="required" />
+                <form:input name="username" path="username" class="form-control"  />
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('username') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('username').defaultMessage : ''}
                 </span>
@@ -34,7 +35,7 @@
                 </span>
 
                 <label for="password">Wachtwoord:</label>
-                <form:input path="password" type="password" class="form-control" required="required" />
+                <form:input name="password" path="password" type="password" class="form-control" />
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('password') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('password').defaultMessage : ''}
                 </span>
