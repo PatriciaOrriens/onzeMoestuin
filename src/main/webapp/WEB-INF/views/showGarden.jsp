@@ -122,6 +122,15 @@
                 var newWidth = $(elem).attr('data-gs-width');
                 console.log("Height: " + newHeight + ", Width: " + newWidth);
               });
+
+              // Get new x/y coordinate on moving
+              $('.grid-stack').on('dragstop', function(event, ui) {
+                  var grid = this;
+                  var elem = event.target;
+                  var newX = $(elem).attr('data-gs-x');
+                  var newY = $(elem).attr('data-gs-y');
+                  console.log("New x: " + newX + ", new Y: " + newY);
+              });
         </script>
 
 <c:import url="partials/footer.jsp" />
