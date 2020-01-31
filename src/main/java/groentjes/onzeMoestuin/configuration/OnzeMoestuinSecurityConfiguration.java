@@ -26,7 +26,6 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/registerUser", "/", "/resources/css/**", "/resources/img/**", "/resources/javascript/**",
                         "/invitation/**").permitAll()
@@ -68,7 +67,7 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(200000);
+        multipartResolver.setMaxUploadSize(100000);
         return multipartResolver;
     }
 

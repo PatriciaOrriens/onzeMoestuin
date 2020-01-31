@@ -11,7 +11,7 @@
     <div class="container">
      <h1 class="display-3">Plant toevoegen</h1>
         <div class="form">
-            <form:form method="post" modelAttribute="plantInformation" enctype="multipart/form-data">
+            <form:form method="post" action="/admincreateplantinfo?${_csrf.parameterName}=${_csrf.token}" modelAttribute="plantInformation" enctype="multipart/form-data">
                 <table class="table-sm table-borderless">
                     <tr>
                         <td><label>Nederlandse plantnaam:</label></td>
