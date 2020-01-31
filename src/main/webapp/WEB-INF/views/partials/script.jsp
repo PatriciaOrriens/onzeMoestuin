@@ -4,3 +4,6 @@
 
   <!-- GridStack.js for Garden View -->
   <script src="https://cdn.jsdelivr.net/npm/gridstack@0.6.0/dist/gridstack.all.js"></script>
+
+  <!-- Handlebars.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.js"></script>

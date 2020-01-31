@@ -12,9 +12,18 @@
     </div>
 
 
+    <div class="grid-stack" data-gs-column="${garden.width}" data-gs-current-row="${garden.length}" data-gs-max-row="${garden.length}">
+
+        <c:forEach items="${plants}" var="plant">
+            <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes">
+                <div class="grid-stack-item-content">${plant.plantInformation.plantName}</div>
+            </div>
+        </c:forEach>
 
 
 
+
+    </div>
 
     <!-- comment old code out
     <table class="table table-striped">
@@ -100,5 +109,12 @@
      </table>
 
       <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
+
+        <!-- TODO: temporary location for GridStack script -->
+       <script type="text/javascript">
+              $('.grid-stack').gridstack({
+
+              });
+        </script>
 
 <c:import url="partials/footer.jsp" />

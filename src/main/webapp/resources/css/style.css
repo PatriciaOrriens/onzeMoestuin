@@ -26,3 +26,17 @@
 .redText {
 color: red;
 }
+
+.grid-stack {
+    border: 1px solid;
+    padding: 3px;
+}
+
+.grid-stack-item {
+}
+
+.grid-stack-item-content {
+    background-color: green;
+    color: white;
+    padding: 3px;
+}
