@@ -28,7 +28,6 @@ public class PlantInformation {
     private Integer growTime;
 
     @Lob
-    @Basic(fetch = FetchType.LAZY)
     @Column(length=100000000)
     private byte[] image;
 

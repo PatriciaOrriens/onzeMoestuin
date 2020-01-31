@@ -61,7 +61,7 @@ public class PlantInformationController {
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
         } else {
-            return "403error";
+            return "404error";
         }
     }
 
