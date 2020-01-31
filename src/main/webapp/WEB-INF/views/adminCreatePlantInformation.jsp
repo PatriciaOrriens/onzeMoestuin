@@ -7,6 +7,7 @@
     <title>Nieuwe plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
+    <script src="../resources/javascript/bootstrap-filestyle.js"></script>
 
     <div class="container">
      <h1 class="display-3">Plant toevoegen</h1>
@@ -70,10 +71,9 @@
                         <td><form:input path="growTime" type="number" placeholder="groeitijd" min="0" id="growTime"/></td>
                     </tr>
                     <tr>
-                        <td><label>Plaatje van plant:</label></td>
-                        <td><div class="custom-file">
-                            <input type="file" id="customFileLang" name="file" accept=".png, .jpg, .jpeg" class="custom-file-input" lang="nl">
-                            <label class="custom-file-label" for="customFileLang">Selecteer een file ...</label></div>
+                        <td><label>Plaatje:</label></td>
+                        <td>
+                            <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" data-placeholder="Plaatje toevoegen ...">
                         </td>
                     </tr>
                 </table>
