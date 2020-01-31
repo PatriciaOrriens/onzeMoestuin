@@ -11,6 +11,9 @@
         </div>
     </div>
 
+
+
+    <!-- comment old code out
     <table class="table table-striped">
         <tr>
             <th>Plant</th>
@@ -26,9 +29,9 @@
                 <td>
                     <a class="btn btn-warning" href="#removePlantModal_${plant.plantId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
                 </td>
-            </tr>
+            </tr> -->
 
-            <!-- Modal -->
+            <!-- Modal
             <div class="modal fade" id="removePlantModal_${plant.plantId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -50,7 +53,7 @@
             </div>
 
         </c:forEach>
-     </table>
+     </table> -->
 
       <!-- Tijdelijke code om tuinleden weer te geven -->
       <h2>Leden van deze tuin:</h2>
