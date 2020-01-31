@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,13 +41,14 @@ public class PlantController {
                                   @AuthenticationPrincipal User user) {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
-        if (garden.isPresent()) {
+        List<PlantInformation> allPlantInformation = plantInformationRepository.findAll();
+        if (garden.isPresent() && (allPlantInformation.size() != 0)) {
             if(garden.get().isGardenMember(user)) {
                 Plant plant = new Plant();
                 plant.setGarden(garden.get());
                 model.addAttribute("plant", plant);
                 model.addAttribute("garden", garden.get());
-                model.addAttribute("allPlantInformation", plantInformationRepository.findAll());
+                model.addAttribute("allPlantInformation", allPlantInformation);
                 return "addPlant";
             }
         }
