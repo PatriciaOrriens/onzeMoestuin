@@ -23,6 +23,12 @@ public class Plant {
     private Date startDate;
     private Date harvestDate;
 
+    // Location & size in garden
+    private int xCoordinate;
+    private int yCoordinate;
+    private int width;
+    private int height;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "garden_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -83,5 +89,37 @@ public class Plant {
 
     public void setPlantInformation(PlantInformation plantInformation) {
         this.plantInformation = plantInformation;
+    }
+
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
