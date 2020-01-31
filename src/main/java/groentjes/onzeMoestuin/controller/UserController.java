@@ -16,10 +16,14 @@ import java.util.Optional;
 
 /**
  * @author Eric van Dalen
- * Controller class for the administrator to manage users (and later also the gardens)
+ * Controller class for the administrator to manage users.
  */
 @Controller
 public class UserController {
+
+    private static final String EMPTY_STRING = "";
+    private static final String ERROR_STRING = "Er is een fout opgetreden";
+    private static final String ERROR_USERNAME_STRING = "Kies een andere gebruikersnaam";
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -48,13 +52,20 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     protected String showNewUserForm(Model model){
         model.addAttribute("user", new User());
+        model.addAttribute("remark", EMPTY_STRING);
         return "adminCreateUser";
     }
 
     @PostMapping("/user/new")
     @Secured("ROLE_ADMIN")
-    protected String saveOrUpdateUser(@ModelAttribute("user") User user, BindingResult result){
+    protected String saveOrUpdateUser(@ModelAttribute("user") User user, @ModelAttribute("remark") String remark,
+                                      BindingResult result, Model model){
+
         if(result.hasErrors()){
+            model.addAttribute("remark", ERROR_STRING);
+            return "adminCreateUser";
+        } else if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            model.addAttribute("remark", ERROR_USERNAME_STRING);
             return "adminCreateUser";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));

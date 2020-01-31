@@ -108,6 +108,8 @@ public class GardenControllerWebDriverTest {
         driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("returntooverview")).click();
+        driver.findElement(By.name("verwijderen")).click();
+        Thread.sleep(THOUSAND);
         driver.findElement(By.name("modal-verwijderen")).click();
         Thread.sleep(THOUSAND);
         driver.findElement(By.name("logout")).click();

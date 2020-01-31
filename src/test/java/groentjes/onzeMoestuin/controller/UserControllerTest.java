@@ -1,10 +1,11 @@
 package groentjes.onzeMoestuin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -26,6 +27,8 @@ import static org.mockito.Mockito.verify;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.Optional;
+
 /**
  * @author Eric van Dalen
  * Test class for management of Users.
@@ -33,6 +36,11 @@ import org.springframework.test.web.servlet.ResultActions;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = UserController.class)
 class UserControllerTest {
+
+    private static final String USERNAME = "gebruikersnaam";
+    private static final String PASSWORD = "wachtwoord";
+    private static final String EMAIL = "gebruiker@email.com";
+    private User otherUser = new User();
 
     @Autowired
     private MockMvc mockMvc;
@@ -48,6 +56,13 @@ class UserControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @BeforeEach
+    void setUp() {
+        otherUser.setUsername(USERNAME);
+        otherUser.setEmail(EMAIL);
+        otherUser.setPassword(PASSWORD);
+    }
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -74,21 +89,35 @@ class UserControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testSaveOrUpdateUserWithAdminstrator() throws Exception {
-        String username = "gebruiker";
-        String password = "wachtwoord";
+    void testSaveOrUpdateUserByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.empty());
+
         mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username" , username).param("password", password)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
                 .flashAttr("user", new User()).with(csrf())).andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/manageUsers"))
                 .andExpect(redirectedUrl("/manageUsers"));
 
         ArgumentCaptor<User> formObjectArgument = forClass(User.class);
         verify(userRepository, times(1)).save(formObjectArgument.capture());
-        Mockito.verifyNoMoreInteractions(userRepository);
 
         User formObject = formObjectArgument.getValue();
-        Assertions.assertThat(formObject.getUsername()).isEqualTo(username);
+        Assertions.assertThat(formObject.getUsername()).isEqualTo(USERNAME);
+        Assertions.assertThat(formObject.getEmail()).isEqualTo(EMAIL);
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithAnExistingUsernameByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.of(otherUser));
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
     }
 
     @Test
