@@ -112,7 +112,9 @@
             <artifactId>freemarker</artifactId>
             <version>2.3.29</version>
         </dependency>
-    </dependencies>
+	</dependencies>
+
+
 
 	<build>
 		<plugins>
@@ -120,6 +122,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 		</plugins>
 	</build>
 
