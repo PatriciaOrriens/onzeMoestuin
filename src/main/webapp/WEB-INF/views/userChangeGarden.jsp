@@ -11,13 +11,16 @@
                 <form:hidden path="user" />
                 <div class="form-group">
                     <label>Naam: </label>
-                    <form:input path="gardenName" type="text" value="${garden.gardenName}" class="form-control"/>
+                    <form:input path="gardenName" type="text" value="${garden.gardenName}" class="form-control"
+                        required="required"/>
 
                     <label>Lengte (m): </label>
-                    <form:input path="length" type="text" value="${garden.length}" class="form-control"/>
+                    <form:input path="length" type="number" value="${garden.length}" class="form-control"
+                        min="0" required="required" />
 
                     <label>Breedte (m): </label>
-                    <form:input path="width" type="text" value="${garden.width}" class="form-control"/>
+                    <form:input path="width" type="number" value="${garden.width}" class="form-control"
+                        min="0" required="required" />
 
                 </div>
 
