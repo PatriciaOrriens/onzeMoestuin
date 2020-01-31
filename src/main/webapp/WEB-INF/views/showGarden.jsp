@@ -115,6 +115,13 @@
               $('.grid-stack').gridstack({
 
               });
+
+              // Get new height & width on resize {}
+              $('.grid-stack').on('gsresizestop', function(event, elem) {
+                var newHeight = $(elem).attr('data-gs-height');
+                var newWidth = $(elem).attr('data-gs-width');
+                console.log("Height: " + newHeight + ", Width: " + newWidth);
+              });
         </script>
 
 <c:import url="partials/footer.jsp" />
