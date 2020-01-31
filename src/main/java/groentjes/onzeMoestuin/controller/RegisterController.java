@@ -28,6 +28,9 @@ import java.util.UUID;
 @Controller
 public class RegisterController {
 
+    private static final String EMPTY_STRING = "";
+    private static final String ERROR_USERNAME_STRING = "Kies een andere gebruikersnaam";
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -38,30 +41,40 @@ public class RegisterController {
     private GardenInvitationRepository gardenInvitationRepository;
 
     @GetMapping("/registerUser")
-    public String getRegisterUserForm(Model model, @ModelAttribute User user,
+    public String getRegisterUserForm(Model model, @ModelAttribute User user, @ModelAttribute("remark") String remark,
                                       @RequestParam(name="token") Optional<String> token) {
+
+        model.addAttribute("remark", EMPTY_STRING);
         // Check if invitation token is present
         token.ifPresent(s -> model.addAttribute("invitation", getValidInvitation(s)));
         return "register";
     }
 
     @PostMapping("/registerUser")
-    public String saveNewUser(@Valid User user, Errors errors, @RequestParam(name ="token") Optional<String> token) {
+    public String saveNewUser(@Valid User user, Errors errors, Model model,  @ModelAttribute("remark") String remark,
+                              @RequestParam(name ="token") Optional<String> token) {
+
         if (errors.hasErrors()) {
             return "redirect:/";
+        } else if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            model.addAttribute("remark", ERROR_USERNAME_STRING);
+            return "register";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
-            // Check if invitation token is present
-            if (token.isPresent()) {
-                GardenInvitation invitation = getValidInvitation(token.get());
-                if (invitation != null) {
-                    // update invitation: link new user
-                    invitation.setInvitedUser(user);
-                    gardenInvitationRepository.save(invitation);
-                }
-            }
+            checkIfInvitationIsPresent(token, user);
             return "redirect:/login";
+        }
+    }
+
+    private void checkIfInvitationIsPresent(Optional<String> token, User user) {
+        if (token.isPresent()) {
+            GardenInvitation invitation = getValidInvitation(token.get());
+            if (invitation != null) {
+                // update invitation: link new user
+                invitation.setInvitedUser(user);
+                gardenInvitationRepository.save(invitation);
+            }
         }
     }
 

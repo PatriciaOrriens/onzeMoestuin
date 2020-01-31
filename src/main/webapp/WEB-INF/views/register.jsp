@@ -18,6 +18,7 @@
                 <label for="username">Gebruikersnaam:</label>
 
                 <form:input name="username" path="username" class="form-control"  />
+                <p class="redText">${remark}</p>
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('username') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('username').defaultMessage : ''}
                 </span>
