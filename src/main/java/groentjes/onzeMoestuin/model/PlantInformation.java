@@ -28,7 +28,7 @@ public class PlantInformation {
     private String imageName;
 
     @Lob
-    @Column(length=100001)
+    @Column(nullable = false)
     private byte[] image;
 
     @OneToMany(

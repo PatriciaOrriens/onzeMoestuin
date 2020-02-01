@@ -2,13 +2,27 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -53,16 +67,31 @@ public class PlantController {
         return "redirect:/";
     }
 
-    @GetMapping("/plant/{plantId}")
-    public String showPlantDetails(Model model, @PathVariable("plantId") final Integer plantId,
-                                   @AuthenticationPrincipal User user) {
+    @GetMapping(value = "/plant/{plantId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, HttpServletResponse response,
+                                   Model model,
+                                   @AuthenticationPrincipal User user) throws IOException, SQLException {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
+
         if (plant.isPresent()) {
             if (plant.get().isOwnerOfPlant(user)) {
                 model.addAttribute(plant.get());
                 return "showPlant";
             }
+
+//            Blob image = plant.get().getPlantInformation().getImage();
+//
+//            StreamUtils.copy(image.getBinaryStream(), response.getOutputStream());
+
+
+//            ByteArrayInputStream input =
+//                    new ByteArrayInputStream(plant.get().getPlantInformation().getImage());
+//            BufferedImage buffer = ImageIO.read(input);
+//            ImageIO.write(buffer, )
+
+
+
         }
         return "redirect:/";
     }

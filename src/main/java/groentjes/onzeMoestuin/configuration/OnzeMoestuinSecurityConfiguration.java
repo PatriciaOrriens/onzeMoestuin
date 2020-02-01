@@ -67,11 +67,9 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(100000);
+        multipartResolver.setMaxUploadSize(5242880);
         return multipartResolver;
     }
-
-
 }
 
 

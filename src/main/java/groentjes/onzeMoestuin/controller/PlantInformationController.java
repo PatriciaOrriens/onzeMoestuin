@@ -29,9 +29,7 @@ public class PlantInformationController {
     @GetMapping("/plantinformationoverview/{plantInfoId}")
     protected String showPlants(@PathVariable("plantInfoId") Integer plantInfoId, Model model){
         Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
-        if (foundPlantInformation.isPresent()) {
-            model.addAttribute("plantinformation", foundPlantInformation.get());
-        }
+        foundPlantInformation.ifPresent(plantInformation -> model.addAttribute("plantinformation", plantInformation));
         return "plantInformationOverview";
     }
 
@@ -55,14 +53,19 @@ public class PlantInformationController {
     @PostMapping("/admincreateplantinfo")
     @Secured("ROLE_ADMIN")
     public String saveNewPlantInfo(@ModelAttribute("plantInformation") PlantInformation plantInformation,
-                                   @RequestParam("file") MultipartFile file) throws IOException {
-        if (!file.isEmpty()) {
+                                   @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
+
+        if (bindingResult.hasErrors() || file.isEmpty()) {
+            return "uploadError";
+        }
+
+        try {
             plantInformation.setImage(file.getBytes());
             plantInformation.setImageName(file.getOriginalFilename());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
-        } else {
-            return "404error";
+        } catch (Exception e) {
+            return "uploadError";
         }
     }
 
@@ -82,15 +85,19 @@ public class PlantInformationController {
     protected String updatePlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId,
                                      @ModelAttribute("plantInformation") PlantInformation plantInformation,
                                      @RequestParam("file") MultipartFile file,
-                                     BindingResult result) throws IOException {
-        if (!file.isEmpty()){
+                                     BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors() || file.isEmpty()) {
+            return "uploadError";
+        }
+
+        try {
             plantInformation.setPlantInfoId(plantInfoId);
             plantInformation.setImage(file.getBytes());
             plantInformation.setImageName(file.getOriginalFilename());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
-        } else {
-            return "404error";
+        } catch (Exception e) {
+            return "uploadError";
         }
     }
 

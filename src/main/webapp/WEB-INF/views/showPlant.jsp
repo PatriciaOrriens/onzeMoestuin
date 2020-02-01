@@ -19,6 +19,9 @@
             <td>${plant.plantInformation.plantingDistance}</td>
         </tr>
       </table>
+      <div>
+        <img src="data:image/jpg; ${plant.plantInformation.image}" width="240" height="300"/>
+      </div>
       <p><a href="/plantinformationoverview/${plant.plantInformation.plantInfoId}" class="btn btn-success">Meer informatie</a>
       <br/>
       <br/>

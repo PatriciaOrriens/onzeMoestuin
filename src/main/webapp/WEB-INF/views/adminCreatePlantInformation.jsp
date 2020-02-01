@@ -73,7 +73,7 @@
                     <tr>
                         <td><label>Plaatje:</label></td>
                         <td>
-                            <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" data-placeholder="Voeg plaatje toe">
+                            <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" data-placeholder="Voeg een plaatje toe">
                         </td>
                     </tr>
                 </table>
