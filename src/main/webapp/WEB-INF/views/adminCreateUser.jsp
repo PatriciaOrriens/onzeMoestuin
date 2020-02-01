@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="username">Gebruikersnaam:</label>
                 <form:input name="username" path="username" class="form-control" />
-                <p class="redText">${remark}</p>
+                <p class="centeredRedText">${remark}</p>
                 <label for="email">E-mailadres:</label>
                 <form:input name="email" path="email" type="text" class="form-control" />
                 <label for="password">Wachtwoord:</label>

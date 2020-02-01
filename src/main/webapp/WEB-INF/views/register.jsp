@@ -18,7 +18,7 @@
                 <label for="username">Gebruikersnaam:</label>
 
                 <form:input name="username" path="username" class="form-control"  />
-                <p class="redText">${remark}</p>
+                <p  class="centeredRedText">${remark}</p>
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('username') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('username').defaultMessage : ''}
                 </span>
@@ -31,6 +31,12 @@
 
                 <label for="firstName">Voornaam:</label>
                 <form:input path="firstName" type="text" class="form-control" />
+                <span class="text-danger">
+                    ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('firstName') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('firstName').defaultMessage : ''}
+                </span>
+
+                <label for="lastName">Achternaam:</label>
+                <form:input path="lastName" type="text" class="form-control" />
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('firstName') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('firstName').defaultMessage : ''}
                 </span>
