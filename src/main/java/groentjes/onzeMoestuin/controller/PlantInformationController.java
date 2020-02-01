@@ -58,6 +58,7 @@ public class PlantInformationController {
                                    @RequestParam("file") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             plantInformation.setImage(file.getBytes());
+            plantInformation.setImageName(file.getOriginalFilename());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
         } else {
@@ -80,11 +81,14 @@ public class PlantInformationController {
     @Secured("ROLE_ADMIN")
     protected String updatePlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId,
                                      @ModelAttribute("plantInformation") PlantInformation plantInformation,
-                                     BindingResult result) {
+                                     @RequestParam("file") MultipartFile file,
+                                     BindingResult result) throws IOException {
         if (result.hasErrors()){
             return "redirect:/plantinfo/update";
         } else {
             plantInformation.setPlantInfoId(plantInfoId);
+            plantInformation.setImage(file.getBytes());
+            plantInformation.setImageName(file.getOriginalFilename());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
         }

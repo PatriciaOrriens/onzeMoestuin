@@ -26,6 +26,9 @@ public class PlantInformation {
     private String harvestingStart;
     private String harvestingEnd;
     private Integer growTime;
+    private String imageName;
+
+
 
     @Lob
     @Column(length=100000000)
@@ -159,5 +162,13 @@ public class PlantInformation {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
