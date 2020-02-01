@@ -32,14 +32,14 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/loginsuccess", true)
+                .loginPage("/login")
+                .defaultSuccessUrl("/loginsuccess", true)
                 .failureUrl("/loginfailed")
-                    .permitAll()
+                .permitAll()
                 .and()
-                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/")
-                    .invalidateHttpSession(true);
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
     }
 
     // in-memory saving of user information
@@ -73,3 +73,5 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
 
 
 }
+
+

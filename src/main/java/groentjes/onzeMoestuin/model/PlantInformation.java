@@ -14,7 +14,6 @@ public class PlantInformation {
 
     @NotEmpty
     private String plantName;
-
     private String latinName;
     private Integer plantingDistance;
     private String lighting;
@@ -28,10 +27,8 @@ public class PlantInformation {
     private Integer growTime;
     private String imageName;
 
-
-
     @Lob
-    @Column(length=100000000)
+    @Column(length=100001)
     private byte[] image;
 
     @OneToMany(
