@@ -46,6 +46,7 @@ public class NewGardenController {
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
                 addAttributesToShowGardenView(garden, model);
+                addMessagesToGardenView(garden, user, model);
                 return "showGarden";
             }
         }
@@ -89,12 +90,20 @@ public class NewGardenController {
         model.addAttribute("taskPlants", taskPlants);
         model.addAttribute("plants", plants);
         model.addAttribute("garden", garden.get());
+    }
 
+    private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
         // load messages that are connected to this garden
         List<Message> messages = messageRepository.findAllByGarden(garden.get());
-        model.addAttribute("messages", messages);
-        System.out.println(messages + "zijn geladen");
         //List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
+        model.addAttribute("messages", messages);
+
+        Message newMessage = new Message();
+        newMessage.setSender(user);
+        newMessage.setGarden(garden);
+        model.addAttribute("newMessage", newMessage);
+
+        System.out.println(messages + "zijn geladen");
     }
 
 }

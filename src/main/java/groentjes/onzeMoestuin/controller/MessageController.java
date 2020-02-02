@@ -34,7 +34,8 @@ public class MessageController {
     @Autowired
     GardenRepository gardenRepository;
 
-    @GetMapping("/garden/{gardenId}/newMessage")
+    //TODO: deze methode is niet meer nodig; verwerkt in NewGardenController. Kijken hoe PostMapping erin komt.
+   /* @GetMapping("/garden/{gardenId}/newMessage")
     public String getNewMessageForm (Model model, @PathVariable("gardenId") final Integer gardenId,
                                      @AuthenticationPrincipal User user) {
 
@@ -47,7 +48,7 @@ public class MessageController {
         } else {
             return "redirect:/garden/" + gardenId;
         }
-    }
+    }*/
 
     @PostMapping("/garden/{gardenId}/newMessage")
     public String sendMessage (@ModelAttribute("message") Message message, BindingResult result,
