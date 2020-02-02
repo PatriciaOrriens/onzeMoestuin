@@ -15,7 +15,7 @@
     <div class="grid-stack" data-gs-column="${garden.width}" data-gs-current-row="${garden.length}" data-gs-max-row="${garden.length}">
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes">
-                <div class="grid-stack-item-content" onclick="ajaxGetPlant(${plant.plantId})">${plant.plantInformation.plantName}</div>
+                <div class="grid-stack-item-content" id="${plant.plantId}">${plant.plantInformation.plantName}</div>
             </div>
         </c:forEach>
     </div>
@@ -118,11 +118,21 @@
 
               });
 
+              $('.grid-stack-item').on('click', function(e) {
+                ajaxGetPlant(e.target.id);
+              });
+
               // Get new height & width on resize {}
               $('.grid-stack').on('gsresizestop', function(event, elem) {
                 var newHeight = $(elem).attr('data-gs-height');
                 var newWidth = $(elem).attr('data-gs-width');
                 console.log("Height: " + newHeight + ", Width: " + newWidth);
+              });
+
+              $('.grid-stack').on('dragstart', function(event, ui) {
+                var grid = this;
+                var element = event.target;
+                $(element).removeClass('onclick');
               });
 
               // Get new x/y coordinate on moving
