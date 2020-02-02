@@ -13,16 +13,18 @@
 
 
     <div class="grid-stack" data-gs-column="${garden.width}" data-gs-current-row="${garden.length}" data-gs-max-row="${garden.length}">
-
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes">
                 <div class="grid-stack-item-content" onclick="ajaxGetPlant(${plant.plantId})">${plant.plantInformation.plantName}</div>
             </div>
         </c:forEach>
+    </div>
 
-
-
-
+    <!-- Modal to show Plant details-->
+    <div id="plantModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+         <div id="plantContainer"></div>
+     </div>
     </div>
 
     <!-- comment old code out
@@ -141,15 +143,54 @@
                     type: "GET",
                     url: "../api/getPlant/" + plantId,
                     success: function(response) {
-                        console.log(response);
+                        plantHTML(response);
+                        $('#plantModal').modal('show')
                     },
                     error : function(e) {
-                        console.log("ERROR: ", e);
+						console.log("ERROR: ", e);
                     }
                 });
             }
-
-
+            <!-- Handlebars generating HTML -->
+            function plantHTML(plantData) {
+                // load Handlebars template from id in html file {}
+                var rawTemplate = document.getElementById("plantTemplate").innerHTML;
+                // create dynamic template function
+                var compiledTemplate = Handlebars.compile(rawTemplate);
+                // populate template with JSON data, generate string of HTML
+                var ourGeneratedHTML = compiledTemplate(plantData);
+                // add html to DOM
+                var plantContainer = document.getElementById("plantContainer");
+                plantContainer.innerHTML = ourGeneratedHTML;
+            }
         </script>
+
+        <!-- Handlebars template for Plant modal -->
+        <script id="plantTemplate" type="text/x-handlebars-template">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <h4 class="modal-title">{{plantInformation.plantName}}</h4>
+             </div>
+             <div class="modal-body">
+               <p>{{plantInformation.plantName}}</p>
+
+               {{#if startDate}}
+                <p>Gestart op {{startDate}}</p>
+               {{else}}
+                <p>Nog niet gestart</p>
+               {{/if}}
+
+               {{#if harvestDate}}
+                <p>Al geoogst</p>
+               {{else}}
+                <p>Nog niet geoogst</p>
+               {{/if}}
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Sluit</button>
+             </div>
+           </div>
+       </script>
 
 <c:import url="partials/footer.jsp" />
