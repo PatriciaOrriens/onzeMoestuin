@@ -92,15 +92,10 @@
             </tr>
         </c:forEach>
      </table>
+      <br/><br/>
 
-      <h2>Berichten bij de tuin:</h2>
-      <table class="table table-striped" class = "table table-sm">
-          <tr>
-              <th>afzender</th>
-              <th>bericht</th>
-          </tr>
-      </table>
-
+      <c:import url="messages.jsp" />
+      <br/><br/>
 
       <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
 

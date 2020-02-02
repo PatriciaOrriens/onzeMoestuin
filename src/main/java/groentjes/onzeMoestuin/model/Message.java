@@ -30,8 +30,6 @@ public class Message {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Garden garden;
 
-    private String title;
-
     private String messageBody;
 
     private LocalDateTime dateTime;
@@ -76,14 +74,6 @@ public class Message {
 
     // TODO: mapping does not work otherwise in MessageController. Why?
     public void setGarden(Optional<Garden> garden) {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getMessageBody() {

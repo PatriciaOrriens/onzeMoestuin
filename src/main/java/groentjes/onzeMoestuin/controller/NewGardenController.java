@@ -1,13 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Plant;
-import groentjes.onzeMoestuin.model.TaskPlant;
-import groentjes.onzeMoestuin.model.User;
-import groentjes.onzeMoestuin.repository.GardenRepository;
-import groentjes.onzeMoestuin.repository.PlantRepository;
-import groentjes.onzeMoestuin.repository.TaskPlantRepository;
-import groentjes.onzeMoestuin.repository.UserRepository;
+import groentjes.onzeMoestuin.model.*;
+import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -19,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,6 +34,9 @@ public class NewGardenController {
 
     @Autowired
     private TaskPlantRepository taskPlantRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
@@ -81,6 +79,7 @@ public class NewGardenController {
 
     private void addAttributesToShowGardenView(Optional<Garden> garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
+        // load tasks for plants of this garden
         ArrayList<TaskPlant> taskPlants = new ArrayList<>();
         for (Plant plant : plants) {
             ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findNotCompletedTaskPlant(plant);
@@ -90,5 +89,12 @@ public class NewGardenController {
         model.addAttribute("taskPlants", taskPlants);
         model.addAttribute("plants", plants);
         model.addAttribute("garden", garden.get());
+
+        // load messages that are connected to this garden
+        List<Message> messages = messageRepository.findAllByGarden(garden.get());
+        model.addAttribute("messages", messages);
+        System.out.println(messages + "zijn geladen");
+        //List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
     }
+
 }

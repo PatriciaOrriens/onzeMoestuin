@@ -24,7 +24,7 @@ public class MessageRepositoryIntegrationTest {
     @Autowired
     private MessageRepository messageRepository;
 
-    @Test
+    /*@Test
     public void returnTestByGardenOrderByDateDesc() {
         // Arrange
         User testUser1 = new User();
@@ -55,8 +55,8 @@ public class MessageRepositoryIntegrationTest {
         // Activate
         List<Message> results = messageRepository.findAllByGardenOrderByDateTimeDesc(testMessage.getGarden());
 
-        // Assert
-        
+        // Assert*/
+
 
     }
-}
+
