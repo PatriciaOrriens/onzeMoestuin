@@ -2,6 +2,7 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
+import org.apache.commons.io.IOUtils;
 import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,34 +69,26 @@ public class PlantController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/plant/{plantId}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, HttpServletResponse response,
+    @GetMapping(value = "/plant/{plantId}")
+    public String showPlantDetails(@PathVariable("plantId") final Integer plantId,
                                    Model model,
-                                   @AuthenticationPrincipal User user) throws IOException, SQLException {
+                                   @AuthenticationPrincipal User user) throws IOException {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
 
         if (plant.isPresent()) {
             if (plant.get().isOwnerOfPlant(user)) {
                 model.addAttribute(plant.get());
+                InputStream input = new ByteArrayInputStream(plant.get().getPlantInformation().getImage());
+                BufferedImage image = ImageIO.read(input);
+                model.addAttribute(image);
                 return "showPlant";
             }
-
-//            Blob image = plant.get().getPlantInformation().getImage();
-//
-//            StreamUtils.copy(image.getBinaryStream(), response.getOutputStream());
-
-
-//            ByteArrayInputStream input =
-//                    new ByteArrayInputStream(plant.get().getPlantInformation().getImage());
-//            BufferedImage buffer = ImageIO.read(input);
-//            ImageIO.write(buffer, )
-
-
-
         }
         return "redirect:/";
     }
+
+
 
     @PostMapping("/garden/{gardenId}/addPlant")
     public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
