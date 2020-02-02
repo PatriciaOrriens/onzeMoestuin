@@ -16,7 +16,7 @@
 
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes">
-                <div class="grid-stack-item-content">${plant.plantInformation.plantName}</div>
+                <div class="grid-stack-item-content" onclick="ajaxGetPlant(${plant.plantId})">${plant.plantInformation.plantName}</div>
             </div>
         </c:forEach>
 
@@ -131,6 +131,25 @@
                   var newY = $(elem).attr('data-gs-y');
                   console.log("New x: " + newX + ", new Y: " + newY);
               });
+        </script>
+
+        <!-- TODO: temporary location for AJAX code -->
+        <script>
+            // Get plant details when clicked {}
+            function ajaxGetPlant(plantId) {
+                $.ajax({
+                    type: "GET",
+                    url: "../api/getPlant/" + plantId,
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error : function(e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
+            }
+
+
         </script>
 
 <c:import url="partials/footer.jsp" />
