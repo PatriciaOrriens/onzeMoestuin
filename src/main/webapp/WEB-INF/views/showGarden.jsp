@@ -86,7 +86,7 @@
                 <td align="right">
                     <c:if test="${empty taskPlant.user}">
                         <a class="completedGreenTaskButton"
-                            href="/user/taskPlant/completed/<c:out value="${taskPlant.taskPlantId}" />">Taak uitvoeren</a>
+                            href="/user/taskPlant/completed/<c:out value="${taskPlant.taskId}" />">Taak uitvoeren</a>
                     </c:if>
                 </td>
             </tr>

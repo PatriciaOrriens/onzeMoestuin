@@ -20,7 +20,7 @@ public class TaskPlantInfo {
     private PlantInformation plantInformation;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "task_id", nullable = false)
+    @JoinColumn(name = "taskDescription_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private TaskDescription taskDescription;
 

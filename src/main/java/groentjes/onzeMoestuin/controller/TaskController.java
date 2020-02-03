@@ -66,7 +66,7 @@ public class TaskController {
         if (result.hasErrors()){
             return "redirect:/task/update";
         } else {
-            taskDescription.setTaskId(taskId);
+            taskDescription.setTaskDescriptionId(taskId);
             taskDescriptionRepository.save(taskDescription);
             return "redirect:/adminManageTasks";
         }

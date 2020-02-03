@@ -1,29 +1,28 @@
 package groentjes.onzeMoestuin.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 /**
- * @author Patricia Orriens-Spuij
- * Task can be an abstract (super)class in the future, for the creation of tasks with a description or image.
+ * @author Patricia Orriens-Spuij and Eric van Dalen
+ * This class gives a description of tasks for plants in general
  */
 @Entity
 public class TaskDescription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer taskId;
+    private Integer taskDescriptionId;
 
     @Column(unique = true)
     private String taskName;
 
     // getters and setters
-    public Integer getTaskId() {
-        return taskId;
+    public Integer getTaskDescriptionId() {
+        return taskDescriptionId;
     }
 
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
+    public void setTaskDescriptionId(Integer taskDescriptionId) {
+        this.taskDescriptionId = taskDescriptionId;
     }
 
     public String getTaskName() {
