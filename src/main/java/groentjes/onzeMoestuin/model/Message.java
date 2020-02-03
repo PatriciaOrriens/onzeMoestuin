@@ -72,10 +72,6 @@ public class Message {
         this.garden = garden;
     }
 
-    // TODO: mapping does not work otherwise in MessageController. Why?
-    public void setGarden(Optional<Garden> garden) {
-    }
-
     public String getMessageBody() {
         return messageBody;
     }

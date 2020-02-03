@@ -100,10 +100,8 @@ public class NewGardenController {
 
         Message newMessage = new Message();
         newMessage.setSender(user);
-        newMessage.setGarden(garden);
+        newMessage.setGarden(garden.get());
         model.addAttribute("newMessage", newMessage);
-
-        System.out.println(messages + "zijn geladen");
     }
 
 }

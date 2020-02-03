@@ -34,22 +34,6 @@ public class MessageController {
     @Autowired
     GardenRepository gardenRepository;
 
-    //TODO: deze methode is niet meer nodig; verwerkt in NewGardenController. Kijken hoe PostMapping erin komt.
-   /* @GetMapping("/garden/{gardenId}/newMessage")
-    public String getNewMessageForm (Model model, @PathVariable("gardenId") final Integer gardenId,
-                                     @AuthenticationPrincipal User user) {
-
-        Optional<Garden> garden = gardenRepository.findById(gardenId);
-        if (garden.isPresent() && garden.get().isGardenMember(user)) {
-                Message message = new Message();
-                message.setSender(user);
-                message.setGarden(garden);
-                return "newMessageForm";
-        } else {
-            return "redirect:/garden/" + gardenId;
-        }
-    }*/
-
     @PostMapping("/garden/{gardenId}/newMessage")
     public String sendMessage (@ModelAttribute("message") Message message, BindingResult result,
                                @PathVariable("gardenId") final Integer gardenId,
