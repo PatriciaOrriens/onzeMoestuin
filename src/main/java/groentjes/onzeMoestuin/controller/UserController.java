@@ -21,9 +21,13 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    private static final int START_REPLACE = 30;
+    private static final int END_REPLACE = 35;
+    private static final  String REPLACE = " en ";
     private static final String EMPTY_STRING = "";
     private static final String ERROR_STRING = "Er is een fout opgetreden";
     private static final String ERROR_USERNAME_STRING = "Kies een andere gebruikersnaam";
+    private static final String ERROR_EMAIL_STRING = "Kies een ander E-mailadres";
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -61,16 +65,35 @@ public class UserController {
     protected String saveOrUpdateUser(@ModelAttribute("user") User user, @ModelAttribute("remark") String remark,
                                       BindingResult result, Model model){
 
-        if(result.hasErrors()){
-            model.addAttribute("remark", ERROR_STRING);
-            return "adminCreateUser";
-        } else if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            model.addAttribute("remark", ERROR_USERNAME_STRING);
+        boolean isResultError = result.hasErrors();
+        boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
+        boolean isExistingEmail = userRepository.findByEmail(user.getEmail()).isPresent();
+        if(isResultError || isExistingName || isExistingEmail) {
+            checkForInvalidInput(model, user, isResultError);
             return "adminCreateUser";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return "redirect:/manageUsers";
+        }
+    }
+
+    private void checkForInvalidInput(Model model, User user, boolean isResultError) {
+        if(isResultError){
+            model.addAttribute("remark", ERROR_STRING);
+        } else if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            model.addAttribute("remark", ERROR_USERNAME_STRING);
+            checkEmailInput(model, user);
+        } else if (userRepository.findByEmail(user.getEmail()).isPresent())  {
+            model.addAttribute("remark", ERROR_EMAIL_STRING);
+        }
+    }
+
+    private void checkEmailInput(Model model, User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            StringBuilder stringBuilder = new StringBuilder(ERROR_USERNAME_STRING);
+            stringBuilder.append(ERROR_EMAIL_STRING).replace(START_REPLACE, END_REPLACE, REPLACE);
+            model.addAttribute("remark", stringBuilder);
         }
     }
 }
