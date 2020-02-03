@@ -6,8 +6,8 @@
 
     <title>Nieuwe plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
-    <script src="../resources/javascript/bootstrap-filestyle.js"></script>
+    <script type="text/javascript" src="../../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
+    <script src="../resources/javascript/bootstrapFilestyle.js"></script>
 
     <div class="container">
      <h1 class="display-3">Plant toevoegen</h1>

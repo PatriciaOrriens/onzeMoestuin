@@ -10,8 +10,8 @@
 
     <title>Verander plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
-    <script src="../resources/javascript/bootstrap-filestyle.js"></script>
+    <script type="text/javascript" src="../../resources/javascript/adminChangePlantInformation.js"></script>
+    <script src="../resources/javascript/bootstrapFilestyle.js"></script>
 
     <div class="container">
         <div class="form">
