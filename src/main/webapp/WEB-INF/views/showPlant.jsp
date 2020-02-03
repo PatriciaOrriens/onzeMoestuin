@@ -20,12 +20,12 @@
         </tr>
         <tr>
             <td>Plaatje:</td>
-            <td> <img src="/plant/${plant.plantInformation.plantInfoId}/image", width="300"/></td>
+            <td> <img src="/plant/${plant.plantId}/image", width="300"/></td>
         </tr>
       </table>
       <br/>
       <br/>
-      <p><a href="/plantinformationoverview/${plant.plantInformation.plantInfoId}" class="btn btn-success">Meer informatie</a>
+      <p><a href="/plantinformationoverview/${plant.plantId}" class="btn btn-success">Meer informatie</a>
       <br/>
       <br/>
       <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a></p>
