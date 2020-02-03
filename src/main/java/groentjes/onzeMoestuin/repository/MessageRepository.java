@@ -12,6 +12,5 @@ import java.util.Optional;
  */
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
-    //List<Message> findAllByGardenOrderByDateTimeDesc(Garden garden);
-    List<Message> findAllByGarden(Garden garden);
+    List<Message> findAllByGardenOrderByDateTimeDesc(Garden garden);
 }

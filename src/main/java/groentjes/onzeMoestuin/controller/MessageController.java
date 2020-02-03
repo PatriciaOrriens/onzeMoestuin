@@ -41,8 +41,6 @@ public class MessageController {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (result.hasErrors()) {
-            // rather show modal
-            System.out.println("message was niet in orde");
             return "redirect:/";
         } else {
             if (garden.isPresent() && garden.get().isGardenMember(user)) {
@@ -50,7 +48,6 @@ public class MessageController {
                 message.setGarden(garden.get());
                 message.setDateTime(LocalDateTime.now());
                 messageRepository.save(message);
-                System.out.println("message is opgeslagen");
             }
         }
         return "redirect:/garden/" + gardenId;

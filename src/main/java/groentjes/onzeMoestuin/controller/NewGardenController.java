@@ -93,11 +93,10 @@ public class NewGardenController {
     }
 
     private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
-        // load messages that are connected to this garden
-        List<Message> messages = messageRepository.findAllByGarden(garden.get());
-        //List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
+        // load list of messages that are connected to this garden
+        List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
         model.addAttribute("messages", messages);
-
+        // load possibility for a new message
         Message newMessage = new Message();
         newMessage.setSender(user);
         newMessage.setGarden(garden.get());
