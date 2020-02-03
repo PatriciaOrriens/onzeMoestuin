@@ -62,11 +62,6 @@ public class PlantController {
         return "redirect:/";
     }
 
-
-
-
-
-
     @GetMapping(value = "/plant/{plantId}")
     public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model, @AuthenticationPrincipal User user) throws IOException {
 
@@ -81,13 +76,12 @@ public class PlantController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/plant/image/{plantId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/plant/{plantId}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@PathVariable("plantId") final Integer plantId) throws IOException {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
 
         InputStream input = new ByteArrayInputStream(plant.get().getPlantInformation().getImage());
-
         return IOUtils.toByteArray(input);
     }
 
