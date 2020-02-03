@@ -4,7 +4,9 @@ import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +62,11 @@ public class PlantController {
         return "redirect:/";
     }
 
+
+
+
+
+
     @GetMapping(value = "/plant/{plantId}")
     public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model, @AuthenticationPrincipal User user) throws IOException {
 
@@ -74,7 +81,7 @@ public class PlantController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/plant/{plantId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/plant/image/{plantId}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@PathVariable("plantId") final Integer plantId) throws IOException {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
