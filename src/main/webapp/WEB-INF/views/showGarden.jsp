@@ -77,7 +77,7 @@
         </tr>
         <c:forEach items="${taskPlants}" var="taskPlant">
             <tr>
-                <td><c:out value="${taskPlant.taskPlantInfo.task.taskName}" /> </td>
+                <td><c:out value="${taskPlant.taskPlantInfo.taskDescription.taskName}" /> </td>
                 <td><c:out value="${taskPlant.plant.plantInformation.plantName}"/>(<c:out value="${taskPlant.plant.plantId}"/>) </td>
                 <c:choose><c:when test="${empty taskPlant.completedDate}"><td class="redText"></c:when>
                     <c:otherwise><td></c:otherwise> </c:choose> <c:out value="${taskPlant.dueDate}"/></td>

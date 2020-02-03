@@ -9,7 +9,7 @@ import java.util.Date;
  * @author Eric van Dalen
  * tests for methods in TaskPlant model
  */
-class TaskPlantTest {
+class TaskDescriptionPlantTest {
 
     private static final long numberOfMillisecond = 1579267590507L;
     private static final int numberOfDays = 18;

@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = TaskPlantController.class)
-class TaskPlantControllerTest {
+class TaskDescriptionPlantControllerTest {
 
     private static final int ONE = 1;
     private static final int TWO = 2;

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
  * Task can be an abstract (super)class in the future, for the creation of tasks with a description or image.
  */
 @Entity
-public class Task {
+public class TaskDescription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
