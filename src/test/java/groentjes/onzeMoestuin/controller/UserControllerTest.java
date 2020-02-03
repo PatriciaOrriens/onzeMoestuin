@@ -26,6 +26,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.validation.BindingResult;
 
 import java.util.Optional;
 
@@ -92,6 +93,7 @@ class UserControllerTest {
     void testSaveOrUpdateUserByAdminstrator() throws Exception {
 
         Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.empty());
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
 
         mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
@@ -112,6 +114,35 @@ class UserControllerTest {
     void testSaveOrUpdateUserWithAnExistingUsernameByAdminstrator() throws Exception {
 
         Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.of(otherUser));
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithAnExistingEmailAdresByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.empty());
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.of(otherUser));
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithAnExistingUsernameAndEmailAdresByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.of(otherUser));
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.of(otherUser));
 
         mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
