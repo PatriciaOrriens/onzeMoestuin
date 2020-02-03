@@ -18,11 +18,13 @@
             <td>Plantafstand (cm):</td>
             <td>${plant.plantInformation.plantingDistance}</td>
         </tr>
-        <tr>
-            <td>Plaatje:</td>
-            <td> <img src="/plant/${plant.plantId}/image", width="300"/></td>
-        </tr>
+
       </table>
+
+
+      <div>
+        <img src="/plant/${plant.plantId}/image", name="image"/></td>
+      </div>
       <br/>
       <br/>
       <p><a href="/plantinformationoverview/${plant.plantId}" class="btn btn-success">Meer informatie</a>
