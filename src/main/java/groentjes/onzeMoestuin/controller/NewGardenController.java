@@ -81,6 +81,8 @@ public class NewGardenController {
 
     private void addAttributesToShowGardenView(Optional<Garden> garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGardenAndStartDateIsNotNull(garden);
+        ArrayList<Plant> unstartedPlants = plantRepository.findAllByGardenAndStartDateIsNull(garden);
+
         ArrayList<TaskPlant> taskPlants = new ArrayList<>();
         for (Plant plant : plants) {
             ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findNotCompletedTaskPlant(plant);
@@ -89,6 +91,7 @@ public class NewGardenController {
         Collections.sort(taskPlants);
         model.addAttribute("taskPlants", taskPlants);
         model.addAttribute("plants", plants);
+        model.addAttribute("unstartedPlants", unstartedPlants);
         model.addAttribute("garden", garden.get());
     }
 }

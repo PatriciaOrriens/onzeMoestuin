@@ -24,6 +24,16 @@
         </c:forEach>
     </div>
 
+
+    <c:if test="${not empty unstartedPlants}">
+        <h2>Nog niet geplante planten:</h2>
+        <ul>
+        <c:forEach items="${unstartedPlants}" var = "unstartedPlant">
+            <li>${unstartedPlant.plantInformation.plantName}</li>
+        </c:forEach>
+        </ul>
+    </c:if>
+
     <!-- Modal to show Plant details-->
     <div id="plantModal" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg">
