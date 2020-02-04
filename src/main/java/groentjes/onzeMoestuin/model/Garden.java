@@ -1,11 +1,14 @@
 package groentjes.onzeMoestuin.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author Eric van Dalen
+ * @author Eric van Dalen, Wim Kruizinga
  * The Garden class concerns a garden of a user(users).
  */
 @Entity
@@ -15,8 +18,15 @@ public class Garden {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer gardenId;
 
+    @Size(min = 3, message = "De naam van de tuin moet minstens drie tekens lang zijn")
     private String gardenName;
+
+    @NotNull
+    @Min(value = 1, message = "Geef een heel getal in meters op (minimaal 1)")
     private Integer length;
+
+    @NotNull
+    @Min(value = 1, message = "Geef een heel getal in meters op (minimaal 1)")
     private Integer width;
 
     @OneToOne

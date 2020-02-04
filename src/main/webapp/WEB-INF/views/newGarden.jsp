@@ -12,10 +12,10 @@
             <form:input path="gardenName" class="form-control" type="text" required="required"/>
 
             <label for="name">Lengte (m):</label>
-            <form:input path="length" class="form-control" type="number" min="0" required="required"/>
+            <form:input path="length" class="form-control" type="number" min="1" required="required"/>
 
             <label for="name">Breedte (m):</label>
-            <form:input path="width" class="form-control" type="number" min="0" required="required"/>
+            <form:input path="width" class="form-control" type="number" min="1" required="required"/>
 
         </div>
         <form:button type="submit" name="opslaanTuin" class="btn btn-success">Opslaan</form:button>
