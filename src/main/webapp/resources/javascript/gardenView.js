@@ -62,9 +62,9 @@ function ajaxGetPlant(plantId) {
             plantHTML(response);
             $('#plantModal').modal('show')
         },
-        error: function(e) {
-            console.log("ERROR: ", e);
-        }
+//        error: function(e) {
+//            console.log("ERROR: ", e);
+//        }
     });
 }
 
