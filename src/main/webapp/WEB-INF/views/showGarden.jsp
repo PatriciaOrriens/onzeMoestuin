@@ -94,5 +94,6 @@
      </table>
 
       <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
-
+      <a href="garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
+      
 <c:import url="partials/footer.jsp" />
