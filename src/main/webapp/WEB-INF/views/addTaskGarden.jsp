@@ -2,18 +2,21 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
+<script src="../resources/javascript/addTaskGarden.js"></script>
   <div class="container">
 	<h1 class="display-3">Nieuwe tuintaak aanmaken</h1>
 	<!-- JSTL form -->
-    <form:form action="/garden/${gardenId}/addTaskGarden" modelAttribute="taskGarden">
-    <form:hidden path="user" />
+    <form:form name="taskGardenForm" method="post" modelAttribute="taskGarden" onsubmit="return validateForm()">
         <div class="form-group">
-            <label for="name">Taakomschrijving:</label>
-            <form:input path="taskGardenName" class="form-control" />
+            <label for="taskGardenName">Taakomschrijving:</label>
+            <form:input name="taskGardenName" path="taskGardenName" class="form-control" />
+            <p id="taskGardenNameError" class="redText"></p>
 
-            <label for="name">Vervaldatum (dd-mm-jjjj):</label>
-            <form:input path="dueDate" class="form-control" />
-
+            <label for="dueDate">Vervaldatum (dd-mm-jjjj):</label>
+            <form:input name="dueDate" path="dueDate" class="form-control" />
+            <p id="taskGardenNameError" class="redText"></p>
+            <p id="dateLengthError" class="redText"></p>
+            <p id="dateStructureError" class="redText"></p>
         </div>
         <form:button type="submit" name="storeTaskGarden" class="btn btn-success">Opslaan</form:button>
 	</form:form>
