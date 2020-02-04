@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface PlantRepository extends JpaRepository<Plant, Integer> {
     ArrayList<Plant> findAllByGarden(Optional<Garden> garden);
+
+    ArrayList<Plant> findAllByGardenAndStartDateIsNotNull(Optional<Garden> garden);
 }

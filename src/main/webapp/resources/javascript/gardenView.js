@@ -8,10 +8,10 @@ $(function () {
 });
 
 // Button to add new plant
-var btnAddPlant = document.getElementById("btnAddPlant");
-btnAddPlant.addEventListener("click", function() {
-    alert("ADD PLANT");
-});
+//var btnAddPlant = document.getElementById("btnAddPlant");
+//btnAddPlant.addEventListener("click", function() {
+//    alert("ADD PLANT");
+//});
 
 
 // GridStack script

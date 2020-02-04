@@ -76,7 +76,13 @@ public class PlantController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                savePlantAndTaskPlant(plantInfo, garden, plant);
+                //TODO commented out for testing with GridStack
+//                savePlantAndTaskPlant(plantInfo, garden, plant);
+                plant.setPlantInformation(plantInfo.get());
+                plant.setGarden(garden.get());
+                plantRepository.save(plant);
+
+
                 return "redirect:/garden/" + gardenId;
             }
         }
