@@ -40,12 +40,12 @@ $('.grid-stack').on('dragstart', function(event, ui) {
 // Get new x/y coordinate on moving
 $('.grid-stack').on('dragstop', function(event, ui) {
       var grid = this;
-      var elem = event.target;
-
+      var elem = $(event.target);
+      var node = elem.data('_gridstack_node');
       plant = {
         plantId: $(elem).attr('data-plantId'),
-        xCoordinate: $(elem).attr('data-gs-x'),
-        yCoordinate: $(elem).attr('data-gs-y')
+        xCoordinate: node.x,
+        yCoordinate: node.y
       }
       movePlant(plant);
 });
