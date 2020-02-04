@@ -14,7 +14,6 @@
 
             <label for="dueDate">Vervaldatum (dd-mm-jjjj):</label>
             <form:input name="dueDate" path="dueDate" class="form-control" />
-            <p id="taskGardenNameError" class="redText"></p>
             <p id="dateLengthError" class="redText"></p>
             <p id="dateStructureError" class="redText"></p>
         </div>
