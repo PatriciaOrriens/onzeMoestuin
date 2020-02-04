@@ -8,10 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -24,7 +26,6 @@ public class UserController {
     private static final int START_REPLACE = 30;
     private static final int END_REPLACE = 35;
     private static final  String REPLACE = " en ";
-    private static final String EMPTY_STRING = "";
     private static final String ERROR_STRING = "Er is een fout opgetreden";
     private static final String ERROR_USERNAME_STRING = "Kies een andere gebruikersnaam";
     private static final String ERROR_EMAIL_STRING = "Kies een ander E-mailadres";
@@ -56,16 +57,15 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     protected String showNewUserForm(Model model){
         model.addAttribute("user", new User());
-        model.addAttribute("remark", EMPTY_STRING);
         return "adminCreateUser";
     }
 
     @PostMapping("/user/new")
     @Secured("ROLE_ADMIN")
-    protected String saveOrUpdateUser(@ModelAttribute("user") User user, @ModelAttribute("remark") String remark,
-                                      BindingResult result, Model model){
+    protected String saveOrUpdateUser(@Valid User user, Errors errors, @ModelAttribute("remark") String remark,
+                                      Model model){
 
-        boolean isResultError = result.hasErrors();
+        boolean isResultError = errors.hasErrors();
         boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
         boolean isExistingEmail = userRepository.findByEmail(user.getEmail()).isPresent();
         if(isResultError || isExistingName || isExistingEmail) {
