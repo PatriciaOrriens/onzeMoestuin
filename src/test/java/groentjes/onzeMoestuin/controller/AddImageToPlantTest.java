@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Optional;
+
 
 @SpringBootTest
 @WebAppConfiguration
@@ -38,13 +40,25 @@ public class AddImageToPlantTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    //admin variables
+    private static final String ADMINNAME = "admin";
+    private static final String ADMINPASSWORD = "admin";
+
+    //plantinformation variables
+    private static final String plantName = "tomaat";
+    private static final String latinName = "tomatum";
+    private static final String plantingDistance = "1";
+    private static final String growtime = "1";
+    private static final String cabbage = "src/main/webapp/resources/img/cabbage.jpg";
+
+    //user variables
     private static final String NAME = "gebruiker1";
     private static final String PASSWORD = "wachtwoord1";
     private static final String GARDEN1 = "tuin1";
     private static final String GARDEN1LENGTH = "1";
     private static final String GARDEN1WIDTH = "1";
-    private static final int THOUSAND = 1000;
 
+    //prepare for testing
     @BeforeEach
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
@@ -59,6 +73,7 @@ public class AddImageToPlantTest {
         userRepository.save(registeredUser);
     }
 
+    //clean up after testing
     @AfterEach
     public void tearDown() {
         this.driver.quit();
@@ -69,38 +84,94 @@ public class AddImageToPlantTest {
         optionalUser.ifPresent(user -> userRepository.delete(user));
     }
 
+    //actual test
     @Test
     void testImageSize() throws Exception {
         // Arrange
-        BufferedImage tomatoImage = ImageIO.read(new File("src/main/webapp/resources/img/tomato.jpg"));
-        //byte[] expectedArray = ((DataBufferByte) tomatoImage.getData().getDataBuffer()).getData();
+        BufferedImage cabbage = ImageIO.read(new File(AddImageToPlantTest.cabbage));
 
         // Activate
+        loginAsAdministrator();
+        administratorAddPlant();
         loginAsAUser();
-        Thread.sleep(2000);
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        Thread.sleep(2000);
-        driver.findElement(By.name("addplant")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.name("toevoegen")).click();
-        Thread.sleep(2000);
+        addPlantToGarden();
         driver.findElement(By.name("plantlink")).click();
-        Thread.sleep(2000);
-        driver.manage().window().maximize();
         WebElement myWebElement = driver.findElement(By.name("image"));
+        driver.manage().window().maximize();
 
-        BufferedImage image = new AShot()
+        //take a screenshot
+        BufferedImage screenShot = new AShot()
                 .takeScreenshot(driver, myWebElement)
                 .getImage();
 
-        //byte[] actualArray = ((DataBufferByte) image.getData().getDataBuffer()).getData();
-
-        ImageDiffer imgDiff = new ImageDiffer();
-        ImageDiff diff = imgDiff.makeDiff(tomatoImage, image);
+        //establish image difference
+        ImageDiff diff = new ImageDiffer().makeDiff(cabbage, screenShot);
 
         // Assert
-        Assertions.assertFalse(diff.hasDiff());
+        Assertions.assertTrue(diff.hasDiff());
+    }
 
+    private void loginAsAdministrator() {
+        this.driver.get("http://localhost:8080/login");
+        driver.findElement(By.name("username")).sendKeys(ADMINNAME);
+        driver.findElement(By.name("password")).sendKeys(ADMINPASSWORD);
+        driver.findElement(By.name("inlogbutton")).submit();
+    }
+
+    private void administratorAddPlant() throws InterruptedException {
+        //navigate to adminCreatePlantInformation form
+        driver.findElement(By.name("admindashboard")).click();
+        driver.findElement(By.name("selectManagePlantInformation")).click();
+        driver.findElement(By.name("admincreateplantinfo")).click();
+
+        //add variable values
+        driver.findElement(By.name("plantName")).sendKeys(plantName);
+        driver.findElement(By.name("latinName")).sendKeys(latinName);
+        driver.findElement(By.name("plantingDistance")).sendKeys(plantingDistance);
+
+        driver.findElement(By.name("lighting"));
+        Select drpLighting = new Select(driver.findElement(By.name("lighting")));
+        drpLighting.selectByVisibleText("zon");
+
+        driver.findElement(By.name("soilType"));
+        Select drpSoilType = new Select( driver.findElement(By.name("soilType")));
+        drpSoilType.selectByVisibleText("standaard tuingrond");
+
+        driver.findElement(By.name("sowingStart"));
+        Select drpSowingStart = new Select( driver.findElement(By.name("sowingStart")));
+        drpSowingStart.selectByVisibleText("januari");
+
+        driver.findElement(By.name("sowingEnd"));
+        Select drpSowingEnd = new Select( driver.findElement(By.name("sowingEnd")));
+        drpSowingEnd.selectByVisibleText("februari");
+
+        driver.findElement(By.name("plantingStart"));
+        Select drpPlantingStart = new Select( driver.findElement(By.name("plantingStart")));
+        drpPlantingStart.selectByVisibleText("maart");
+
+        driver.findElement(By.name("plantingEnd"));
+        Select drpPlantingEnd = new Select( driver.findElement(By.name("plantingEnd")));
+        drpPlantingEnd.selectByVisibleText("april");
+
+        driver.findElement(By.name("harvestingStart"));
+        Select drpHarvestingStart = new Select( driver.findElement(By.name("harvestingStart")));
+        drpHarvestingStart.selectByVisibleText("mei");
+
+        driver.findElement(By.name("harvestingEnd"));
+        Select drpHarvestingEnd = new Select( driver.findElement(By.name("harvestingEnd")));
+        drpHarvestingEnd.selectByVisibleText("juni");
+
+        driver.findElement(By.name("growTime")).sendKeys(growtime);
+
+        //upload tomato image
+        WebElement uploadImage = driver.findElement(By.name("file"));
+        File file = new File("src/main/webapp/resources/img/tomato.jpg");
+        uploadImage.sendKeys(file.getAbsolutePath());
+        driver.findElement(By.name("toevoegen")).click();
+
+        //logout
+        driver.findElement(By.name("logout")).click();
     }
 
     private void loginAsAUser() {
@@ -116,5 +187,12 @@ public class AddImageToPlantTest {
         driver.findElement(By.name("length")).sendKeys(gardenLength);
         driver.findElement(By.name("width")).sendKeys(gardenWidth);
         driver.findElement(By.name("opslaanTuin")).submit();
+    }
+
+    private void addPlantToGarden() {
+        driver.findElement(By.name("addplant")).click();
+        Select drpPlant = new Select(driver.findElement(By.name("plantInfoId")));
+        drpPlant.selectByVisibleText(plantName);
+        driver.findElement(By.name("toevoegen")).click();
     }
 }

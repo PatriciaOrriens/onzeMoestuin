@@ -73,12 +73,12 @@
                     <tr>
                         <td><label>Plaatje:</label></td>
                         <td>
-                            <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" data-placeholder="Voeg een plaatje toe">
+                            <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" id="image" data-placeholder="Voeg een plaatje toe">
                         </td>
                     </tr>
                 </table>
                 <br/>
-                <input class="btn btn-success" type="submit" value="Toevoegen"/>
+                <input class="btn btn-success" name="toevoegen" type="submit" value="Toevoegen"/>
                 <br/>
                 <br/>
                 <a href="/adminDashboard" class="btn btn-success">Terug</a>
