@@ -1,5 +1,9 @@
 package groentjes.onzeMoestuin.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -13,6 +17,8 @@ import java.util.Set;
  * @Author Patricia Orriens-Spuij
  * Model to send and show messages in a message board of a garden
  */
+@JsonIgnoreProperties({"garden", "sender"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "messageId")
 @Entity
 public class Message {
 
@@ -32,6 +38,7 @@ public class Message {
 
     private String messageBody;
 
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
     private LocalDateTime dateTime;
 
     // reply to another message
