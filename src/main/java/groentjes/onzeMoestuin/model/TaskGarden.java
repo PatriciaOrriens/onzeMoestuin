@@ -29,4 +29,12 @@ public class TaskGarden extends Task {
     public void setTaskGardenName(String taskGardenName) {
         this.taskGardenName = taskGardenName;
     }
+
+    public Garden getGarden() {
+        return garden;
+    }
+
+    public void setGarden(Garden garden) {
+        this.garden = garden;
+    }
 }

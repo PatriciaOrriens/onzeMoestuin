@@ -1,5 +1,9 @@
 package groentjes.onzeMoestuin.model;
 
+/**
+ * @author Eric van Dalen
+ * abstract builder class
+ */
 abstract class Builder {
 
     protected TaskGarden taskGarden;
@@ -14,4 +18,5 @@ abstract class Builder {
 
     public abstract Builder buildTaskGardenName(String taskGardenName);
     public abstract Builder buildDueDate(String dueDate);
+    public abstract Builder buildLinkToGarden(Garden garden);
 }

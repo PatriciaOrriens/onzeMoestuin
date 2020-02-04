@@ -5,13 +5,13 @@
   <div class="container">
 	<h1 class="display-3">Nieuwe tuintaak aanmaken</h1>
 	<!-- JSTL form -->
-    <form:form action="/garden/add" modelAttribute="taskGarden">
+    <form:form action="/garden/${gardenId}/addTaskGarden" modelAttribute="taskGarden">
     <form:hidden path="user" />
         <div class="form-group">
-            <label for="name">Taak Omschrijving:</label>
+            <label for="name">Taakomschrijving:</label>
             <form:input path="taskGardenName" class="form-control" />
 
-            <label for="name">VervalDatum (dd-mm-jjjj):</label>
+            <label for="name">Vervaldatum (dd-mm-jjjj):</label>
             <form:input path="dueDate" class="form-control" />
 
         </div>
