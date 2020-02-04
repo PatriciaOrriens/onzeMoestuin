@@ -31,8 +31,6 @@ public class RegisterController {
     private static final int START_REPLACE = 30;
     private static final int END_REPLACE = 35;
     private static final  String REPLACE = " en ";
-    private static final String EMPTY_STRING = "";
-    private static final String ERROR_STRING = "Er is een fout opgetreden";
     private static final String ERROR_USERNAME_STRING = "Kies een andere gebruikersnaam";
     private static final String ERROR_EMAIL_STRING = "Kies een ander E-mailadres";
 
@@ -46,10 +44,9 @@ public class RegisterController {
     private GardenInvitationRepository gardenInvitationRepository;
 
     @GetMapping("/registerUser")
-    public String getRegisterUserForm(Model model, @ModelAttribute User user, @ModelAttribute("remark") String remark,
+    public String getRegisterUserForm(Model model, @ModelAttribute User user,
                                       @RequestParam(name="token") Optional<String> token) {
 
-        model.addAttribute("remark", EMPTY_STRING);
         // Add invitation token if present
         token.ifPresent(s -> model.addAttribute("invitation", getValidInvitation(s)));
         return "register";
@@ -62,7 +59,6 @@ public class RegisterController {
         boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
         boolean isExistingEmail = userRepository.findByEmail(user.getEmail()).isPresent();
         if(errors.hasErrors()) {
-            model.addAttribute("remark", ERROR_STRING);
             return "register";
         } else if (isExistingName || isExistingEmail) {
             checkForInvalidInput(model, user);

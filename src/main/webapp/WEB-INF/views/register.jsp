@@ -47,7 +47,6 @@
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('password') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('password').defaultMessage : ''}
                 </p>
 
-
                 <p class="centeredRedText">${remark}</p>
 
             </div>
