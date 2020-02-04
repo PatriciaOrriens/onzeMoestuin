@@ -1,3 +1,13 @@
+// Make Spring Security allow AJAX
+$(function () {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+});
+
+
 // GridStack script
 
 $('.grid-stack').gridstack({
@@ -10,9 +20,14 @@ $('.grid-stack-item').on('click', function(e) {
 
 // Get new height & width on resize {}
 $('.grid-stack').on('gsresizestop', function(event, elem) {
-    var newHeight = $(elem).attr('data-gs-height');
-    var newWidth = $(elem).attr('data-gs-width');
-    console.log("Height: " + newHeight + ", Width: " + newWidth);
+    plant = {
+        plantId: $(elem).attr('data-plantId'),
+        width: $(elem).attr('data-gs-width'),
+        height: $(elem).attr('data-gs-height')
+    }
+    console.log(plant);
+
+    resizePlant(plant);
 });
 
 $('.grid-stack').on('dragstart', function(event, ui) {
@@ -47,6 +62,24 @@ function ajaxGetPlant(plantId) {
         }
     });
 }
+
+function resizePlant(plant) {
+
+
+   $.ajax({
+       type: "POST",
+       contentType: 'application/json; charset=utf-8',
+       dataType: 'json',
+       url: "/api/plant/resize",
+       data: JSON.stringify(plant), // Note it is important
+       success :function(result) {
+
+       }
+   });
+
+}
+
+
 <!-- Handlebars generating HTML -->
 function plantHTML(plantData) {
     // load Handlebars template from id in html file {}
