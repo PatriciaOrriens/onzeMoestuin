@@ -7,11 +7,17 @@ $(function () {
     });
 });
 
+// Button to add new plant
+var btnAddPlant = document.getElementById("btnAddPlant");
+btnAddPlant.addEventListener("click", function() {
+    alert("ADD PLANT");
+});
+
 
 // GridStack script
 
 $('.grid-stack').gridstack({
-
+    acceptWidgets: '.newWidget'
 });
 
 $('.grid-stack-item').on('click', function(e) {
