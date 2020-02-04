@@ -38,4 +38,19 @@ public class AjaxRestController {
         plant.setHeight(updatedPlant.getHeight());
         plantRepository.save(plant);
     }
+
+    @PostMapping("/plant/move")
+    public void movePlant(@RequestBody String json) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Plant updatedPlant = mapper.readValue(json, Plant.class);
+
+        Plant plant = plantRepository.getOne(updatedPlant.getPlantId());
+        plant.setxCoordinate(updatedPlant.getxCoordinate());
+        plant.setyCoordinate(updatedPlant.getyCoordinate());
+        plantRepository.save(plant);
+    }
+
+
+
+
 }

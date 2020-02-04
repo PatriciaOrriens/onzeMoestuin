@@ -18,6 +18,7 @@ $('.grid-stack-item').on('click', function(e) {
     ajaxGetPlant(e.target.id);
 });
 
+
 // Get new height & width on resize {}
 $('.grid-stack').on('gsresizestop', function(event, elem) {
     plant = {
@@ -25,10 +26,9 @@ $('.grid-stack').on('gsresizestop', function(event, elem) {
         width: $(elem).attr('data-gs-width'),
         height: $(elem).attr('data-gs-height')
     }
-    console.log(plant);
-
     resizePlant(plant);
 });
+
 
 $('.grid-stack').on('dragstart', function(event, ui) {
     var grid = this;
@@ -36,13 +36,18 @@ $('.grid-stack').on('dragstart', function(event, ui) {
     $(element).removeClass('onclick');
 });
 
+
 // Get new x/y coordinate on moving
 $('.grid-stack').on('dragstop', function(event, ui) {
       var grid = this;
       var elem = event.target;
-      var newX = $(elem).attr('data-gs-x');
-      var newY = $(elem).attr('data-gs-y');
-      console.log("New x: " + newX + ", new Y: " + newY);
+
+      plant = {
+        plantId: $(elem).attr('data-plantId'),
+        xCoordinate: $(elem).attr('data-gs-x'),
+        yCoordinate: $(elem).attr('data-gs-y')
+      }
+      movePlant(plant);
 });
 
 // AJAX code
@@ -57,26 +62,36 @@ function ajaxGetPlant(plantId) {
             plantHTML(response);
             $('#plantModal').modal('show')
         },
-        error : function(e) {
+        error: function(e) {
             console.log("ERROR: ", e);
         }
     });
 }
 
 function resizePlant(plant) {
-
-
    $.ajax({
        type: "POST",
        contentType: 'application/json; charset=utf-8',
        dataType: 'json',
        url: "/api/plant/resize",
-       data: JSON.stringify(plant), // Note it is important
-       success :function(result) {
+       data: JSON.stringify(plant),
+       success: function(result) {
 
        }
    });
+}
 
+function movePlant(plant) {
+       $.ajax({
+           type: "POST",
+           contentType: 'application/json; charset=utf-8',
+           dataType: 'json',
+           url: "/api/plant/move",
+           data: JSON.stringify(plant),
+           success :function(result) {
+
+           }
+   });
 }
 
 
