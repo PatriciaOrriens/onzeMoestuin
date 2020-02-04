@@ -9,6 +9,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.*;
 
+/**
+ * @author Wim Kruizinga
+ */
 @Entity (name = "User")
 public class User implements UserDetails {
 
@@ -28,7 +31,6 @@ public class User implements UserDetails {
     private String email;
 
     private String firstName;
-
     private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY,

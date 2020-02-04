@@ -50,7 +50,7 @@ public class RegisterController {
                                       @RequestParam(name="token") Optional<String> token) {
 
         model.addAttribute("remark", EMPTY_STRING);
-        // Check if invitation token is present
+        // Add invitation token if present
         token.ifPresent(s -> model.addAttribute("invitation", getValidInvitation(s)));
         return "register";
     }
@@ -63,7 +63,7 @@ public class RegisterController {
         boolean isExistingEmail = userRepository.findByEmail(user.getEmail()).isPresent();
         if(errors.hasErrors()) {
             model.addAttribute("remark", ERROR_STRING);
-            return "redirect:/";
+            return "register";
         } else if (isExistingName || isExistingEmail) {
             checkForInvalidInput(model, user);
             return "register";
