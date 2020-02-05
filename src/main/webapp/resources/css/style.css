@@ -29,11 +29,14 @@ color: red;
 
 .grid-stack {
     border: 1px solid;
+    margin: 5px;
     padding: 3px;
     min-height: 800px;
 }
 
 .grid-stack-item {
+    margin: 10px;
+
 
 }
 
@@ -41,4 +44,7 @@ color: red;
     background-color: green;
     color: white;
     padding: 3px;
+    margin: 0px;
 }
+
+
