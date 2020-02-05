@@ -27,9 +27,9 @@
 
     <c:if test="${not empty unstartedPlants}">
         <h2>Nog niet geplante planten:</h2>
-        <ul>
+        <ul id="newPlants">
         <c:forEach items="${unstartedPlants}" var = "unstartedPlant">
-            <li>${unstartedPlant.plantInformation.plantName}</li>
+            <li><span data-newPlantId="${unstartedPlant.plantId}">${unstartedPlant.plantInformation.plantName}</span></li>
         </c:forEach>
         </ul>
     </c:if>

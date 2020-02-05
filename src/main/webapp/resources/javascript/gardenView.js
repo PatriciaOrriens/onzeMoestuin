@@ -13,6 +13,16 @@ $(function () {
 //    alert("ADD PLANT");
 //});
 
+$('#newPlants li span').on('click', function(e) {
+
+    var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + $(this).attr('data-newPlantId') +
+    "\"><div class=\"grid-stack-item-content\">" + $(this).text() + "</div></div>");
+    var grid = $('.grid-stack').data('gridstack');
+    grid.addWidget(el, null, null, 1, 1, true);
+//    alert($(this).attr('data-newPlantId'));
+});
+
+
 
 // GridStack script
 
