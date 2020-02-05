@@ -84,7 +84,7 @@
                      <tr>
                          <td><label>Plaatje:</label></td>
                          <td>
-                             <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" input path="image" value="${plantInformation.image}" data-placeholder="${plantInformation.imageName}" id="image" >
+                             <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" input path="image" value="${plantInformation.image}" id="image" >
                          </td>
                      </tr>
                 </table>
