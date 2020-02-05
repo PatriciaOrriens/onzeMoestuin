@@ -14,12 +14,17 @@ $(function () {
 //});
 
 $('#newPlants li span').on('click', function(e) {
+    plant = {
+            plantId: $(this).attr('data-newPlantId'),
+            width: 1,
+            height: 1
+        }
 
-    var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + $(this).attr('data-newPlantId') +
-    "\"><div class=\"grid-stack-item-content\">" + $(this).text() + "</div></div>");
+    var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
+    "\"><div class=\"grid-stack-item-content\" id=\"" + plant.plantId + "\">" + $(this).text() + "</div></div>");
     var grid = $('.grid-stack').data('gridstack');
-    grid.addWidget(el, null, null, 1, 1, true);
-//    alert($(this).attr('data-newPlantId'));
+    grid.addWidget(el, null, null, plant.width, plant.height, true);
+    ajaxStartPlant(plant);
 });
 
 
@@ -90,6 +95,19 @@ function resizePlant(plant) {
        contentType: 'application/json; charset=utf-8',
        dataType: 'json',
        url: "/api/plant/resize",
+       data: JSON.stringify(plant),
+       success: function(result) {
+
+       }
+   });
+}
+
+function ajaxStartPlant(plant) {
+   $.ajax({
+       type: "POST",
+       contentType: 'application/json; charset=utf-8',
+       dataType: 'json',
+       url: "/api/plant/start",
        data: JSON.stringify(plant),
        success: function(result) {
 

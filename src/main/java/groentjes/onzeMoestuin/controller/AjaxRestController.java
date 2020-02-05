@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -50,7 +51,15 @@ public class AjaxRestController {
         plantRepository.save(plant);
     }
 
+    @PostMapping("/plant/start")
+    public void startPlant(@RequestBody String json) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Plant plantStart = mapper.readValue(json, Plant.class);
 
-
-
+        Plant plant = plantRepository.getOne(plantStart.getPlantId());
+        plant.setWidth(plantStart.getWidth());
+        plant.setHeight(plantStart.getHeight());
+        plant.setStartDate(new Date());
+        plantRepository.save(plant);
+    }
 }
