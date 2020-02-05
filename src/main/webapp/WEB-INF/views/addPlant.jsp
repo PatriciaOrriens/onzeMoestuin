@@ -56,7 +56,7 @@
                   <c:forEach items="${allPlantInformation}" var="plantInfo">
                   <tr>
     <%--                  tijdelijke code voor eerste kolom--%>
-                      <td><c:out value="${plantInfo.plantInfoId}" /></td>
+                      <td><input type="radio" name="chosenPlant"></td>
                       <td><c:out value="${plantInfo.plantName}" /></td>
                       <td><c:out value="${plantInfo.latinName}" /></td>
                       <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
@@ -66,13 +66,9 @@
                   </c:forEach>
                   </tbody>
               </table>
+<%--              parameter van plantinfoId nodig bij het versturen en daarna weer laden van addPlantForm--%>
               <form:button type="submit" class="btn btn-success">Voeg <i class='fas fa-seedling'></i> toe</form:button>
           </form:form>
       </div>
-
-
-
-
-
 
 <c:import url="partials/footer.jsp" />
