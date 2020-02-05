@@ -11,12 +11,11 @@
         </div>
         <div class="col-sm-1 my-auto">
             <a href="garden/${garden.gardenId}/addPlant" class="btn btn-success"><i class='fas fa-seedling'></i>&#43; </a>
-            <!-- <button type="button" class="button btn-success" id="btnAddPlant"><i class='fas fa-seedling'></i>&#43;</button> -->
         </div>
     </div>
 
 
-    <div class="grid-stack" data-gs-column="${garden.width}" data-gs-current-row="${garden.length}" data-gs-max-row="${garden.length}">
+    <div class="grid-stack" data-gs-column="${garden.width}" data-gs-current-height="${garden.length}" data-gs-max-row="${garden.length}">
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes" data-plantId="${plant.plantId}">
                 <div class="grid-stack-item-content" id="${plant.plantId}">${plant.plantInformation.plantName}</div>

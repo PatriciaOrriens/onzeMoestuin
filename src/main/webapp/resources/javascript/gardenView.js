@@ -7,11 +7,8 @@ $(function () {
     });
 });
 
-// Button to add new plant
-//var btnAddPlant = document.getElementById("btnAddPlant");
-//btnAddPlant.addEventListener("click", function() {
-//    alert("ADD PLANT");
-//});
+$(document).ready(loadGrid);
+
 
 $('#newPlants li span').on('click', function(e) {
     var plant = {
@@ -25,56 +22,59 @@ $('#newPlants li span').on('click', function(e) {
     var grid = $('.grid-stack').data('gridstack');
     var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
     var node = newWidget.data('_gridstack_node');
-
     Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
-
-
     ajaxStartPlant(plant);
+    loadGrid();
 });
 
 
 
-// GridStack script
+// Load GridStack script
+function loadGrid() {
 
-$('.grid-stack').gridstack({
-    acceptWidgets: '.newWidget'
-});
+    $('.grid-stack').gridstack({
+        acceptWidgets: '.newWidget'
+    });
 
-$('.grid-stack-item').on('click', function(e) {
-    ajaxGetPlant(e.target.id);
-});
-
-
-// Get new height & width on resize {}
-$('.grid-stack').on('gsresizestop', function(event, elem) {
-    plant = {
-        plantId: $(elem).attr('data-plantId'),
-        width: $(elem).attr('data-gs-width'),
-        height: $(elem).attr('data-gs-height')
-    }
-    resizePlant(plant);
-});
+    $('.grid-stack-item').on('click', function(e) {
+        ajaxGetPlant(e.target.id);
+    });
 
 
-$('.grid-stack').on('dragstart', function(event, ui) {
-    var grid = this;
-    var element = event.target;
-    $(element).removeClass('onclick');
-});
+    // Get new height & width on resize {}
+    $('.grid-stack').on('gsresizestop', function(event, elem) {
+        plant = {
+            plantId: $(elem).attr('data-plantId'),
+            width: $(elem).attr('data-gs-width'),
+            height: $(elem).attr('data-gs-height')
+        }
+        resizePlant(plant);
+    });
 
 
-// Get new x/y coordinate on moving
-$('.grid-stack').on('dragstop', function(event, ui) {
-      var grid = this;
-      var elem = $(event.target);
-      var node = elem.data('_gridstack_node');
-      plant = {
-        plantId: $(elem).attr('data-plantId'),
-        xCoordinate: node.x,
-        yCoordinate: node.y
-      }
-      movePlant(plant);
-});
+    $('.grid-stack').on('dragstart', function(event, ui) {
+        var grid = this;
+        var element = event.target;
+        $(element).removeClass('onclick');
+    });
+
+
+    // Get new x/y coordinate on moving
+    $('.grid-stack').on('dragstop', function(event, ui) {
+          var grid = this;
+          var elem = $(event.target);
+          var node = elem.data('_gridstack_node');
+          plant = {
+            plantId: $(elem).attr('data-plantId'),
+            xCoordinate: node.x,
+            yCoordinate: node.y
+          }
+          movePlant(plant);
+    });
+
+}
+
+
 
 // AJAX code
 
