@@ -59,6 +59,8 @@ public class AjaxRestController {
         Plant plant = plantRepository.getOne(plantStart.getPlantId());
         plant.setWidth(plantStart.getWidth());
         plant.setHeight(plantStart.getHeight());
+        plant.setxCoordinate(plantStart.getxCoordinate());
+        plant.setyCoordinate(plantStart.getyCoordinate());
         plant.setStartDate(new Date());
         plantRepository.save(plant);
     }

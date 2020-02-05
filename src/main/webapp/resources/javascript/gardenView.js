@@ -14,16 +14,21 @@ $(function () {
 //});
 
 $('#newPlants li span').on('click', function(e) {
-    plant = {
+    var plant = {
             plantId: $(this).attr('data-newPlantId'),
             width: 1,
             height: 1
-        }
+        };
 
     var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
     "\"><div class=\"grid-stack-item-content\" id=\"" + plant.plantId + "\">" + $(this).text() + "</div></div>");
     var grid = $('.grid-stack').data('gridstack');
-    grid.addWidget(el, null, null, plant.width, plant.height, true);
+    var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
+    var node = newWidget.data('_gridstack_node');
+
+    Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
+
+
     ajaxStartPlant(plant);
 });
 
