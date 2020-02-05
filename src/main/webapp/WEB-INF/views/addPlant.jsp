@@ -5,7 +5,7 @@
   <div class="container">
 	<h1 class="display-3">Plant toevoegen aan ${garden.gardenName}</h1>
 
-		<!-- JSTL form -->
+		<!-- JSTL form: ik laat het nog even staan, zolang rest nog niet klaar is -->
         <form:form action="/garden/${garden.gardenId}/addPlant" modelAttribute="plant">
 
             <div class="form-group">
@@ -38,8 +38,7 @@
                   <td><c:out value="${plantInfo.latinName}" /></td>
                   <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
                   <td><c:out value="${plantInfo.plantingStart}" /> t/m <c:out value="${plantInfo.plantingEnd}" /></td>
-<%--                  tijdelijke code voor laatste kolom--%>
-                    <td>link</td>
+                  <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" class="btn btn-success">Alle informatie</a></td>
               </tr>
               </c:forEach>
           </table>
