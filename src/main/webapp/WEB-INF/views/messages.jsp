@@ -14,9 +14,9 @@
     </table>
     <br/>
 
-    <button type=""button" class="btn btn-success" data-toggle="collapse" data-target="#newMessage">Nieuw bericht</button>
+    <button type=""button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
     <br/><br/>
-    <div id="newMessage" class="collapse">
+    <div id="newMessageForm" class="collapse">
         <!-- JSTL form -->
         <form:form action="/garden/${garden.gardenId}/newMessage" modelAttribute="newMessage" >
             <div class="form-group">

@@ -17,8 +17,6 @@ import java.util.Set;
  * @Author Patricia Orriens-Spuij
  * Model to send and show messages in a message board of a garden
  */
-@JsonIgnoreProperties({"garden", "sender"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "messageId")
 @Entity
 public class Message {
 
@@ -37,8 +35,7 @@ public class Message {
     private Garden garden;
 
     private String messageBody;
-
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    
     private LocalDateTime dateTime;
 
     // reply to another message
