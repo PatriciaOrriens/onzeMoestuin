@@ -62,6 +62,7 @@ public class Task implements Comparable<Task> {
         return simpleDateFormat.format(date);
     }
 
+    // does not account for leap years
     public boolean isDateString(String dateString) {
         if (dateString.length() != DATE_STRING_LENGTH || !dateString.matches(DATE_MATCH)) {
             return false;
@@ -79,9 +80,7 @@ public class Task implements Comparable<Task> {
     private boolean isDayAndMonthCorrect(int day, int  month) {
         if ((month > 0 && month <= 12) && day > 0) {
             int numberOfDaysInMonth = giveDaysInMonth(month);
-            if (day <= numberOfDaysInMonth) {
-                return true;
-            }
+            return day <= numberOfDaysInMonth;
         }
         return false;
     }
