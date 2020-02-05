@@ -9,7 +9,6 @@ $(function () {
 
 $(document).ready(loadGrid);
 
-
 $('#newPlants li span').on('click', function(e) {
     var plant = {
             plantId: $(this).attr('data-newPlantId'),

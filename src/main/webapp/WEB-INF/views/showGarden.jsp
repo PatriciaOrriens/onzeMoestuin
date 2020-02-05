@@ -18,7 +18,9 @@
     <div class="grid-stack" data-gs-column="${garden.width}" data-gs-current-height="${garden.length}" data-gs-max-row="${garden.length}">
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes" data-plantId="${plant.plantId}">
-                <div class="grid-stack-item-content" id="${plant.plantId}">${plant.plantInformation.plantName}</div>
+                <div class="grid-stack-item-content" id="${plant.plantId}">
+                    ${plant.plantInformation.plantName}
+                </div>
             </div>
         </c:forEach>
     </div>
