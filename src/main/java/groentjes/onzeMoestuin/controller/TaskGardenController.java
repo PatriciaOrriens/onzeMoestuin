@@ -7,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -62,6 +60,10 @@ public class TaskGardenController {
             model.addAttribute("remark", DATE_ERROR);
             return "addTaskGarden";
         }
+        return storeTaskGardenAndReturn(gardenId, user, taskGarden);
+    }
+
+    private String storeTaskGardenAndReturn(int gardenId, User user, TaskGarden taskGarden) {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if(garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
@@ -69,7 +71,6 @@ public class TaskGardenController {
                 taskGardenBuilder.createNewTaskGarden();
                 taskGardenBuilder.buildDueDate(taskGarden.getDueDate()).buildLinkToGarden(garden.get());
                 taskGardenBuilder.buildTaskGardenName(taskGarden.getTaskGardenName());
-                System.out.println(taskGardenBuilder.getTaskGarden().getTaskGardenName());
                 taskGardenRepository.save(taskGardenBuilder.getTaskGarden());
                 return "redirect:/garden/" + gardenId;
             }
