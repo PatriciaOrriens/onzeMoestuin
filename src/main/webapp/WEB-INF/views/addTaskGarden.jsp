@@ -10,12 +10,21 @@
         <div class="form-group">
             <label for="taskGardenName">Taakomschrijving:</label>
             <form:input name="taskGardenName" path="taskGardenName" class="form-control" />
-            <p id="taskGardenNameError" class="redText"></p>
+            <p id="taskGardenNameError" class="redText">
+                <span class="text-danger">
+                    ${requestScope['org.springframework.validation.BindingResult.taskGarden'].hasFieldErrors('taskGardenName') ? requestScope['org.springframework.validation.BindingResult.taskGarden'].getFieldError('taskGardenName').defaultMessage : ''}
+                </span>
+            </p>
+
 
             <label for="dueDate">Vervaldatum (dd-mm-jjjj):</label>
             <form:input name="dueDate" path="dueDate" class="form-control" />
-            <p id="dateLengthError" class="redText"></p>
+            <p id="dateLengthError" class="redText">
+                <span class="text-danger">
+                    ${requestScope['org.springframework.validation.BindingResult.taskGarden'].hasFieldErrors('dueDate') ? requestScope['org.springframework.validation.BindingResult.taskGarden'].getFieldError('dueDate').defaultMessage : ''}
+                </span></p>
             <p id="dateStructureError" class="redText"></p>
+            <p class="redText">${remark}</p>
         </div>
         <form:button type="submit" name="storeTaskGarden" class="btn btn-success">Opslaan</form:button>
 	</form:form>

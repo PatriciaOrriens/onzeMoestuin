@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 /**
  * @author Eric van Dalen
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class TaskGarden extends Task {
 
+    @Size(min = 3, message = "Taakomschrijving moet minimaal 3 tekens lang zijn")
     private String taskGardenName;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

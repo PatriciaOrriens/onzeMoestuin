@@ -4,6 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ public class Task implements Comparable<Task> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taskId;
 
+    @Size(min = 10, max=10, message = "Vervaldatum moet het patroon dd-mm-jjjj hebben")
     private String dueDate;
 
     private String completedDate;
