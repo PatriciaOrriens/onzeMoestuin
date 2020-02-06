@@ -55,7 +55,7 @@ public class PlantInformationController {
     public String saveNewPlantInfo(@ModelAttribute("plantInformation") PlantInformation plantInformation,
                                    @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
 
-        if (bindingResult.hasErrors() || file.isEmpty()) {
+        if (bindingResult.hasErrors()) {
             return "uploadError";
         }
 
@@ -86,7 +86,7 @@ public class PlantInformationController {
                                      @ModelAttribute("plantInformation") PlantInformation plantInformation,
                                      @RequestParam("file") MultipartFile file,
                                      BindingResult bindingResult) throws IOException {
-        if (bindingResult.hasErrors() || file.isEmpty()) {
+        if (bindingResult.hasErrors()) {
             return "uploadError";
         }
 
