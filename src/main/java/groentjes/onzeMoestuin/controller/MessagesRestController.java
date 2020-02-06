@@ -22,5 +22,7 @@ public class MessagesRestController {
     public List<Message> recentMessages() {
         PageRequest page = PageRequest.of(
                 0, 12, Sort.by("createdAt").descending());
+        return messageRepository.findAll(page).getContent();
+    }
 
 }
