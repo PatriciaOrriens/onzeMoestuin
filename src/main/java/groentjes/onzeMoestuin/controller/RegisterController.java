@@ -1,8 +1,10 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.GardenInvitation;
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +39,10 @@ public class RegisterController {
     @Autowired
     private GardenInvitationRepository gardenInvitationRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+
     @GetMapping("/registerUser")
     public String getRegisterUserForm(Model model, @ModelAttribute User user,
                                       @RequestParam(name="token") Optional<String> token) {
@@ -46,12 +52,18 @@ public class RegisterController {
     }
 
     @PostMapping("/registerUser")
-    public String saveNewUser(@Valid User user, Errors errors, @RequestParam(name ="token") Optional<String> token) {
+    public String saveNewUser(@Valid User user, Role role, Errors errors,
+                              @RequestParam(name ="token") Optional<String> token) {
         if (errors.hasErrors()) {
             return "redirect:/";
         } else {
+
+            role.setRoleName("USER");
+
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.getRole().add(role);
             userRepository.save(user);
+
             // Check if invitation token is present
             if (token.isPresent()) {
                 GardenInvitation invitation = getValidInvitation(token.get());
