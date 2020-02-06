@@ -27,15 +27,16 @@ public class MessagesRestController {
     @Autowired
     private GardenRepository gardenRepository;
 
-    @GetMapping("/garden/{id}/recentMessages")
-    public List<Message> recentMessages(@PathVariable("id") Integer gardenId) {
+    @GetMapping("/garden/{id}/messages/{page}")
+    public List<Message> recentMessages(@PathVariable("id") Integer gardenId,
+                                        @PathVariable("page") Integer pageNumber) {
 
         Optional<Garden> searchedGarden = gardenRepository.findById(gardenId);
 
         if (searchedGarden.isPresent()) {
             Garden garden = searchedGarden.get();
             PageRequest page = PageRequest.of(
-                    0, 1, Sort.by("dateTime").descending());
+                    pageNumber, 2, Sort.by("dateTime").descending());
             return messageRepository.findAllByGarden(garden, page);
         }
         return null;

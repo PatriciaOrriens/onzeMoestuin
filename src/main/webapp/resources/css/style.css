@@ -26,3 +26,7 @@
 .redText {
 color: red;
 }
+
+.msg-header {
+    width: 300px;
+}
