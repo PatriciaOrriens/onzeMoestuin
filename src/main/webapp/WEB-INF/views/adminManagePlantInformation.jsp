@@ -47,7 +47,7 @@
         </c:forEach>
         </table>
 
-        <a class="btn btn-success" href="admincreateplantinfo"><i class='fas fa-seedling'></i> toevoegen</a>
+        <a class="btn btn-success" href="admincreateplantinfo" name="admincreateplantinfo"><i class='fas fa-seedling'></i> toevoegen</a>
         <br/>
         <br/>
         <a class="btn btn-success" href="/adminDashboard">Terug</a>

@@ -1,19 +1,18 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.PlantInformation;
-import groentjes.onzeMoestuin.model.TaskPlantInfo;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -30,9 +29,7 @@ public class PlantInformationController {
     @GetMapping("/plantinformationoverview/{plantInfoId}")
     protected String showPlants(@PathVariable("plantInfoId") Integer plantInfoId, Model model){
         Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
-        if (foundPlantInformation.isPresent()) {
-            model.addAttribute("plantinformation", foundPlantInformation.get());
-        }
+        foundPlantInformation.ifPresent(plantInformation -> model.addAttribute("plantinformation", plantInformation));
         return "plantInformationOverview";
     }
 
@@ -55,12 +52,20 @@ public class PlantInformationController {
 
     @PostMapping("/admincreateplantinfo")
     @Secured("ROLE_ADMIN")
-    public String saveNewPlantInfo(@ModelAttribute() PlantInformation plantInformation, BindingResult result) {
-        if (result.hasErrors()){
-            return "adminCreatePlantInformation";
-        } else {
+    public String saveNewPlantInfo(@ModelAttribute("plantInformation") PlantInformation plantInformation,
+                                   @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
+
+        if (bindingResult.hasErrors() || file.isEmpty()) {
+            return "uploadError";
+        }
+
+        try {
+            plantInformation.setImage(file.getBytes());
+            plantInformation.setImageName(file.getOriginalFilename());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
+        } catch (Exception e) {
+            return "uploadError";
         }
     }
 
@@ -79,13 +84,20 @@ public class PlantInformationController {
     @Secured("ROLE_ADMIN")
     protected String updatePlantInfo(@PathVariable("plantInfoId") final Integer plantInfoId,
                                      @ModelAttribute("plantInformation") PlantInformation plantInformation,
-                                     BindingResult result) {
-        if (result.hasErrors()){
-            return "redirect:/plantinfo/update";
-        } else {
+                                     @RequestParam("file") MultipartFile file,
+                                     BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors() || file.isEmpty()) {
+            return "uploadError";
+        }
+
+        try {
             plantInformation.setPlantInfoId(plantInfoId);
+            plantInformation.setImage(file.getBytes());
+            plantInformation.setImageName(file.getOriginalFilename());
             plantInformationRepository.save(plantInformation);
             return "redirect:/adminManagePlantInformation";
+        } catch (Exception e) {
+            return "uploadError";
         }
     }
 
