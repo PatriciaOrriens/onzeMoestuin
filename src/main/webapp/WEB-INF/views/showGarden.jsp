@@ -82,18 +82,33 @@
             <th>Uitgevoerd door</th>
             <th></th>
         </tr>
-        <c:forEach items="${taskPlants}" var="taskPlant">
+        <c:forEach items="${tasks}" var="task">
             <tr>
-                <td><c:out value="${taskPlant.taskPlantInfo.taskDescription.taskName}" /> </td>
-                <td><c:out value="${taskPlant.plant.plantInformation.plantName}"/>(<c:out value="${taskPlant.plant.plantId}"/>) </td>
-                <c:choose><c:when test="${empty taskPlant.completedDate}"><td class="redText"></c:when>
-                    <c:otherwise><td></c:otherwise> </c:choose> <c:out value="${taskPlant.dueDate}"/></td>
-                <td><c:out value="${taskPlant.completedDate}"/></td>
-                <td><a onclick = "ajaxGetUser(${taskPlant.user.userId})" /><c:out value="${taskPlant.user.username}"/></a></td>
+                <td>
+                    <c:catch var="catchException">
+                        <c:out value="${task.taskPlantInfo.taskDescription.taskName}" />
+                    </c:catch>
+                    <c:catch var="catchException">
+                        <c:out value="${task.taskGardenName}" />
+                    </c:catch>
+                </td>
+                <td>
+                    <c:catch var="catchException">
+                        <c:out value="${task.plant.plantInformation.plantName}"/>(<c:out value="${task.plant.plantId}"/>)
+                    </c:catch>
+                </td>
+                    <c:choose>
+                        <c:when test="${empty task.completedDate}"><td class="redText"></c:when>
+                        <c:otherwise><td></c:otherwise>
+                    </c:choose>
+                    <c:out value="${task.dueDate}"/>
+                </td>
+                <td><c:out value="${task.completedDate}"/></td>
+                <td><a onclick = "ajaxGetUser(${task.user.userId})" /><c:out value="${task.user.username}"/></a></td>
                 <td align="right">
-                    <c:if test="${empty taskPlant.user}">
+                    <c:if test="${empty task.user}">
                         <a class="completedGreenTaskButton"
-                            href="/user/taskPlant/completed/<c:out value="${taskPlant.taskId}" />">Taak uitvoeren</a>
+                            href="/user/taskPlant/completed/<c:out value="${task.taskId}" />">Taak uitvoeren</a>
                     </c:if>
                 </td>
             </tr>
@@ -108,7 +123,7 @@
          <div  class="modal-content">
            <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal">&times;</button>
-             <h4 class="modal-title">{{taskPlant.user.username}}</h4>
+             <h4 class="modal-title">{{task.user.username}}</h4>
            </div>
            <div class="modal-body">
            <table class="table table-striped">
