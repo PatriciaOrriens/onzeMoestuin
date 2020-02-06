@@ -36,7 +36,8 @@ public class Message {
     private Garden garden;
 
     private String messageBody;
-    
+
+    @JsonFormat(pattern="dd-MM-yyyy (HH:mm)")
     private LocalDateTime dateTime;
 
     // reply to another message

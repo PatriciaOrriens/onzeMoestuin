@@ -19,7 +19,7 @@
 
         <div id="message-container"></div>
 
-    <button type="button" class="btn btn-success" id="msgNextBtn">Volgende berichten</button>
+    <button type="button" class="btn btn-success" id="msgNextBtn">Oudere berichten</button>
 
 
     <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
