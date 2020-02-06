@@ -25,15 +25,21 @@
     <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
     <br/><br/>
     <div id="newMessageForm" class="collapse">
+        <textarea id="messageText" rows="2" class="form-control"></textarea>
+
+        <button type="button" class="btn btn-success" id="postMsgBtn">Versturen</button>
+
+
         <!-- JSTL form -->
-        <form:form action="/garden/${garden.gardenId}/newMessage" modelAttribute="newMessage" >
+      <%--  <form:form action="/garden/${garden.gardenId}/newMessage" modelAttribute="newMessage" >
             <div class="form-group">
                 <label>Schrijf jouw bericht:</label>
                 <form:textarea path="messageBody" rows="4" class="form-control"/>
             </div>
         <form:button type="submit" name="sendMessage" class="btn btn-success">Versturen</form:button>
         </form:form>
-    </div>
+
+    </div> --%>
 </div>
 
 <script id="messageTemplate" type="text/x-handlebars-template">

@@ -1,3 +1,12 @@
+// Make Spring Security allow AJAX
+$(function () {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+});
+
 $(document).ready(function() {
     var page = 0;
     ajaxGetMessages();
@@ -15,9 +24,29 @@ $(document).ready(function() {
         });
     }
 
+    function ajaxPostMessage() {
+        newMessage = { messageBody: document.getElementById("messageText").value }
+
+       $.ajax({
+           type: "POST",
+           contentType: 'application/json; charset=utf-8',
+           dataType: 'json',
+           url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/add",
+           data: JSON.stringify(newMessage),
+           success: function(result) {
+                console.log(result);
+           }
+       });
+    }
+
+
     msgNextBtn.addEventListener("click", function() {
         ajaxGetMessages();
         page++;
+    });
+
+    postMsgBtn.addEventListener("click", function() {
+        ajaxPostMessage();
     });
 
 
