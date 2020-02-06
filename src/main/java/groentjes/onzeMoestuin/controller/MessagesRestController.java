@@ -6,6 +6,8 @@ import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +35,8 @@ public class MessagesRestController {
         if (searchedGarden.isPresent()) {
             Garden garden = searchedGarden.get();
             PageRequest page = PageRequest.of(
-                    0, 12, Sort.by("dateTime").descending());
-            return messageRepository.findAll(page).getContent();
+                    0, 5, Sort.by("dateTime").descending());
+            return messageRepository.findAllByGarden(garden, page);
         }
         return null;
 

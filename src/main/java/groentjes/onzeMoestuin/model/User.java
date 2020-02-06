@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity (name = "User")
-@JsonIgnoreProperties({"joinedGardens"})
+@JsonIgnoreProperties({"joinedGardens", "password", "authorities", "email"})
 public class User implements UserDetails {
 
     @Id

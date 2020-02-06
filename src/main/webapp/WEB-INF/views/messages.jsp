@@ -26,6 +26,7 @@
         <form:button type="submit" name="sendMessage" class="btn btn-success">Versturen</form:button>
         </form:form>
     </div>
-
 </div>
+
+<script src="../resources/javascript/messages.js"></script>
 
