@@ -1,5 +1,8 @@
 package groentjes.onzeMoestuin.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +13,8 @@ import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity (name = "User")
+@JsonIgnoreProperties({"user"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User implements UserDetails {
 
     @Id

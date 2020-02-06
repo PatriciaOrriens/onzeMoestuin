@@ -28,6 +28,13 @@
                 </td>
             </tr>
 
+            <!-- Modal to show User details-->
+                <div id="userModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog modal-lg">
+                     <div id="userContainer"></div>
+                 </div>
+                </div>
+
             <!-- Modal -->
             <div class="modal fade" id="removePlantModal_${plant.plantId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -82,7 +89,7 @@
                 <c:choose><c:when test="${empty taskPlant.completedDate}"><td class="redText"></c:when>
                     <c:otherwise><td></c:otherwise> </c:choose> <c:out value="${taskPlant.dueDate}"/></td>
                 <td><c:out value="${taskPlant.completedDate}"/></td>
-                <td><c:out value="${taskPlant.user.username}"/></td>
+                <td><a onclick = "ajaxGetUser(${taskPlant.user.userId})" /><c:out value="${taskPlant.user.username}"/></a></td>
                 <td align="right">
                     <c:if test="${empty taskPlant.user}">
                         <a class="completedGreenTaskButton"
@@ -93,7 +100,31 @@
         </c:forEach>
      </table>
 
-      <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
-      <a href="garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
-      
+     <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
+     <a href="garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
+
+     <!-- Handlebars template for User modal -->
+      <script id="userTemplate" type="text/x-handlebars-template">
+         <div  class="modal-content">
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <h4 class="modal-title">{{taskPlant.user.username}}</h4>
+           </div>
+           <div class="modal-body">
+           <table class="table table-striped">
+             <tr><th>Gebruikersnaam:</td><td>{{username}}</td></tr>
+             <tr><th>E-mailadres:</th><td>{{email}}</td>
+             <tr><th>Voornaam:</th><td>{{firstName}}</td></tr>
+             <tr><th>Achternaam:</th><td>{{lastName}}</td></tr>
+           </table>
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-default" data-dismiss="modal">Sluit</button>
+           </div>
+         </div>
+    </script>
+
+
+
+<script src="../resources/javascript/showGarden.js"></script>
 <c:import url="partials/footer.jsp" />

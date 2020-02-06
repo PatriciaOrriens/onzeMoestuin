@@ -83,7 +83,7 @@ public class NewGardenController {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
         ArrayList<TaskPlant> taskPlants = new ArrayList<>();
         for (Plant plant : plants) {
-            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findNotCompletedTaskPlant(plant);
+            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
             taskPlants.addAll(tasksForPlant);
         }
         Collections.sort(taskPlants);
