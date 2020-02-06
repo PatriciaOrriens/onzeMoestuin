@@ -19,8 +19,14 @@ $(document).ready(function() {
             url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/" + page,
             dataType: 'json',
             success: function(response) {
+                $("#message-error").hide();
                 messageHTML(response);
+                page++;
             },
+           error: function() {
+                $("#message-error > p").html("<strong>Sorry!</strong> Berichten konden niet worden opgehaald.");
+                $("#message-error").fadeIn("slow");
+           }
         });
     }
 
@@ -33,8 +39,14 @@ $(document).ready(function() {
            dataType: 'json',
            url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/add",
            data: JSON.stringify(newMessage),
-           success: function(result) {
-                console.log(result);
+           success: function(response) {
+                $("#message-error").hide();
+                newMessageHTML(response);
+                $(".new-message").fadeIn("slow");
+           },
+           error: function() {
+                $("#message-error > p").html("<strong>Sorry!</strong> Fout bij het plaatsen van je bericht");
+                $("#message-error").fadeIn("slow");
            }
        });
     }
@@ -42,11 +54,16 @@ $(document).ready(function() {
 
     msgNextBtn.addEventListener("click", function() {
         ajaxGetMessages();
-        page++;
     });
 
     postMsgBtn.addEventListener("click", function() {
         ajaxPostMessage();
+    });
+
+    legen.addEventListener("click", function() {
+        $("#message-container").empty();
+        page = 0;
+        ajaxGetMessages();
     });
 
 
@@ -67,4 +84,16 @@ $(document).ready(function() {
         }
     }
 
+    // Parse newly posted message
+    function newMessageHTML(messageData) {
+            // load Handlebars template from id in html file {}
+            var rawTemplate = document.getElementById("newMessageTemplate").innerHTML;
+            // create dynamic template function
+            var compiledTemplate = Handlebars.compile(rawTemplate);
+            // populate template with JSON data, generate string of HTML
+            var ourGeneratedHTML = compiledTemplate(messageData);
+            // add html to DOM
+            var messageContainer = document.getElementById("message-container");
+            messageContainer.innerHTML = ourGeneratedHTML + messageContainer.innerHTML;
+    }
 });

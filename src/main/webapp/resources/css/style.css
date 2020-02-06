@@ -35,3 +35,7 @@ color: red;
     background-color: rgba(51, 170, 51, .5);
     display: none;
 }
+
+#message-error {
+    display: none;
+}

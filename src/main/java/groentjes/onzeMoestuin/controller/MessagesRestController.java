@@ -41,7 +41,7 @@ public class MessagesRestController {
         if (searchedGarden.isPresent()) {
             Garden garden = searchedGarden.get();
             PageRequest page = PageRequest.of(
-                    pageNumber, 2, Sort.by("dateTime").descending());
+                    pageNumber, 4, Sort.by("dateTime").descending());
             return messageRepository.findAllByGarden(garden, page);
         }
         return null;
