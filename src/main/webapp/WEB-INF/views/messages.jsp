@@ -3,7 +3,8 @@
 <link id="gardenId" data-gardenId="${garden.gardenId}" />
 
 <div class="container mt-3">
-    <h2>Berichten bij de tuin:</h2>
+    <h2 id="messageToggle">Berichten bij de tuin:</h2>
+    <div id="messageDiv">
 
     <!-- AJAX error -->
     <div class="alert alert-danger" id="message-error"><p></p></div>
@@ -20,6 +21,7 @@
             <textarea id="messageText" rows="2" class="form-control"></textarea><br />
             <button type="button" class="btn btn-success" id="postMsgBtn">Versturen</button>
 
+        </div>
         </div>
 
 <script id="messageTemplate" type="text/x-handlebars-template">

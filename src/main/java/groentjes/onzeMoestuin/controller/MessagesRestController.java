@@ -33,7 +33,7 @@ public class MessagesRestController {
     private GardenRepository gardenRepository;
 
     @GetMapping("/garden/{id}/messages/{page}")
-    public List<Message> recentMessages(@PathVariable("id") Integer gardenId,
+    public ResponseEntity<List<Message>> recentMessages(@PathVariable("id") Integer gardenId,
                                         @PathVariable("page") Integer pageNumber) {
 
         Optional<Garden> searchedGarden = gardenRepository.findById(gardenId);
@@ -42,13 +42,14 @@ public class MessagesRestController {
             Garden garden = searchedGarden.get();
             PageRequest page = PageRequest.of(
                     pageNumber, 4, Sort.by("dateTime").descending());
-            return messageRepository.findAllByGarden(garden, page);
+            return new ResponseEntity<>(messageRepository.findAllByGarden(garden, page), HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
 
-    @PostMapping("/garden/{id}/messages/add")
+    @PostMapping(value = "/garden/{id}/messages/add", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED) // return http status 201
     public ResponseEntity<Object> postMessage(@RequestBody String json,
                                               @PathVariable("id") Integer gardenId,
                                               @AuthenticationPrincipal User user) throws JsonProcessingException {
@@ -62,7 +63,9 @@ public class MessagesRestController {
             newMessage.setDateTime(LocalDateTime.now());
             newMessage.setGarden(garden.get());
             messageRepository.save(newMessage);
+            return new ResponseEntity<Object>(newMessage, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.I_AM_A_TEAPOT);
         }
-        return new ResponseEntity<Object>(newMessage, HttpStatus.OK);
     }
 }

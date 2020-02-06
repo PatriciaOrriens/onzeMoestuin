@@ -66,6 +66,10 @@ $(document).ready(function() {
         ajaxGetMessages();
     });
 
+    $("#messageToggle").on('click', function() {
+        $("#messageDiv").slideToggle();
+    });
+
 
     function messageHTML(messageData) {
         // Hide button when there are no more messages to load
