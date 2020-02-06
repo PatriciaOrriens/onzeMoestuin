@@ -34,7 +34,6 @@ public class MessageRepositoryIntegrationTest {
         Garden testGarden1 = new Garden();
         testGarden1.setGardenId(1);
         testMessage.setMessageId(1);
-        testMessage.setTitle("testMessage");
         testMessage.setMessageBody("testMessageBody");
         testMessage.setDateTime(LocalDateTime.now());
         testMessage.setGarden(testGarden1);

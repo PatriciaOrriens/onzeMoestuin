@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -94,16 +96,13 @@ public class NewGardenController {
 
     private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
         // load messages that are connected to this garden
-        List<Message> messages = messageRepository.findAllByGarden(garden.get());
-        //List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
+        List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
         model.addAttribute("messages", messages);
-
+        // initialize a new message
         Message newMessage = new Message();
         newMessage.setSender(user);
-        newMessage.setGarden(garden);
+        newMessage.setGarden(garden.get());
         model.addAttribute("newMessage", newMessage);
-
-        System.out.println(messages + "zijn geladen");
     }
 
 }

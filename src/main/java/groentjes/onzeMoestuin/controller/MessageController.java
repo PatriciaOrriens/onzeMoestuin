@@ -34,22 +34,6 @@ public class MessageController {
     @Autowired
     GardenRepository gardenRepository;
 
-    //TODO: deze methode is niet meer nodig; verwerkt in NewGardenController. Kijken hoe PostMapping erin komt.
-   /* @GetMapping("/garden/{gardenId}/newMessage")
-    public String getNewMessageForm (Model model, @PathVariable("gardenId") final Integer gardenId,
-                                     @AuthenticationPrincipal User user) {
-
-        Optional<Garden> garden = gardenRepository.findById(gardenId);
-        if (garden.isPresent() && garden.get().isGardenMember(user)) {
-                Message message = new Message();
-                message.setSender(user);
-                message.setGarden(garden);
-                return "newMessageForm";
-        } else {
-            return "redirect:/garden/" + gardenId;
-        }
-    }*/
-
     @PostMapping("/garden/{gardenId}/newMessage")
     public String sendMessage (@ModelAttribute("message") Message message, BindingResult result,
                                @PathVariable("gardenId") final Integer gardenId,
@@ -57,8 +41,6 @@ public class MessageController {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (result.hasErrors()) {
-            // rather show modal
-            System.out.println("message was niet in orde");
             return "redirect:/";
         } else {
             if (garden.isPresent() && garden.get().isGardenMember(user)) {
@@ -66,7 +48,6 @@ public class MessageController {
                 message.setGarden(garden.get());
                 message.setDateTime(LocalDateTime.now());
                 messageRepository.save(message);
-                System.out.println("message is opgeslagen");
             }
         }
         return "redirect:/garden/" + gardenId;

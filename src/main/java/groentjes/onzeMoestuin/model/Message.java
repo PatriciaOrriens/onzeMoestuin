@@ -1,5 +1,9 @@
 package groentjes.onzeMoestuin.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -31,7 +35,7 @@ public class Message {
     private Garden garden;
 
     private String messageBody;
-
+    
     private LocalDateTime dateTime;
 
     // reply to another message
