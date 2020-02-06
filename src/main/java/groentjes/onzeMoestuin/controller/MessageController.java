@@ -63,7 +63,7 @@ public class MessageController {
         } else {
             if (garden.isPresent() && garden.get().isGardenMember(user)) {
                 message.setSender(user);
-                message.setGarden(garden);
+                message.setGarden(garden.get());
                 message.setDateTime(LocalDateTime.now());
                 messageRepository.save(message);
                 System.out.println("message is opgeslagen");
