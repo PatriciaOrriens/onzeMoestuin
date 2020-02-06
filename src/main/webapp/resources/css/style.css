@@ -30,3 +30,8 @@ color: red;
 .msg-header {
     width: 300px;
 }
+
+.new-message {
+    background-color: rgba(51, 170, 51, .5);
+    display: none;
+}
