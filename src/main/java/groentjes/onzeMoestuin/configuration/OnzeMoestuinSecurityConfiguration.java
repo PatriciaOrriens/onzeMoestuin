@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -29,14 +32,14 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/loginsuccess", true)
+                .loginPage("/login")
+                .defaultSuccessUrl("/loginsuccess", true)
                 .failureUrl("/loginfailed")
-                    .permitAll()
+                .permitAll()
                 .and()
-                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/")
-                    .invalidateHttpSession(true);
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
     }
 
     // in-memory saving of user information
@@ -60,4 +63,13 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(5242880);
+        return multipartResolver;
+    }
 }
+
+

@@ -12,7 +12,7 @@ $(document).ready(function() {
         $(soilType).append('<option>'+soilList[j]+'</option>')
     }
 
-    var idList = new Array (sowingStart, sowingEnd, plantingStart, plantingEnd, harvestingStart, harvestingEnd);
+    var idList = new Array ("#sowingStart", "#sowingEnd", "#plantingStart", "#plantingEnd", "#harvestingStart", "#harvestingEnd");
 
     var monthList = new Array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september",
         "oktober", "november", "december");
