@@ -13,6 +13,13 @@
             });
         });
     });
+
+    $(document).ready(function() {
+        $("td").click(function () {
+            $('.selected').removeClass('selected');
+            $(this).parents('#plantRow').addClass('selected');
+        });
+    });
 </script>
 
   <%--<div class="container">
@@ -40,11 +47,10 @@
           <input id="input" type="text" placeholder="Zoek...">
           <br><br>
 
-          <form:form action="/garden/${garden.gardenId}/addPlant" modelAttribute="plant">
+          <form:form action="/garden/${garden.gardenId}/addPlant" method="post" modelAttribute="plant">
               <table class="table table-striped" id="tablePlants">
                   <thead>
                   <tr>
-                      <th>Selecteer</th>
                       <th>Nederlandse naam</th>
                       <th>Latijnse naam</th>
                       <th>Zaaitijd</th>
@@ -54,9 +60,8 @@
                   </thead>
                   <tbody id="plantsTable">
                   <c:forEach items="${allPlantInformation}" var="plantInfo">
-                  <tr>
+                  <tr id="plantRow">
     <%--                  tijdelijke code voor eerste kolom--%>
-                      <td><input type="radio" name="chosenPlant"></td>
                       <td><c:out value="${plantInfo.plantName}" /></td>
                       <td><c:out value="${plantInfo.latinName}" /></td>
                       <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
