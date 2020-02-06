@@ -18,6 +18,7 @@ import java.util.Set;
  * Model to send and show messages in a message board of a garden
  */
 @Entity
+@JsonIgnoreProperties({"garden"})
 public class Message {
 
     @Id

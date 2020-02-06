@@ -25,7 +25,7 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
         http
                 .authorizeRequests()
                 .antMatchers("/registerUser", "/", "/resources/css/**", "/resources/img/**", "/resources/javascript/**",
-                        "/invitation/**").permitAll()
+                        "/invitation/**", "/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
