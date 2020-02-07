@@ -18,7 +18,7 @@
 
 
             <label for="dueDate">Vervaldatum (dd-mm-jjjj):</label>
-            <form:input name="dueDate" path="dueDate" type="date" class="form-control" />
+            <form:input name="dueDate" path="dueDate" class="form-control" />
             <p id="dateLengthError" class="centeredRedText">
                 <span class="text-danger">
                     ${requestScope['org.springframework.validation.BindingResult.taskGarden'].hasFieldErrors('dueDate') ? requestScope['org.springframework.validation.BindingResult.taskGarden'].getFieldError('dueDate').defaultMessage : ''}
