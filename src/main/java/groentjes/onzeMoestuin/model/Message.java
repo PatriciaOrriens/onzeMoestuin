@@ -39,7 +39,6 @@ public class Message {
 
     private LocalDateTime dateTime;
 
-
     // reply to another message
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "replyToMessage")
     @OnDelete(action = OnDeleteAction.CASCADE)
