@@ -27,6 +27,11 @@
 color: red;
 }
 
+.centeredRedText {
+color: red;
+text-align: center;
+}
+
 .msg-header {
     width: 300px;
 }

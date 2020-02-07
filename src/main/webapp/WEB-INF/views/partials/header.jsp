@@ -8,7 +8,6 @@
     <base href="/">
     <c:import url="partials/style.jsp" />
     <c:import url="partials/script.jsp" />
-
 </head>
 <body>
     <c:import url="partials/devnav.jsp" />

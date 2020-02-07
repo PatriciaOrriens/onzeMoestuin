@@ -15,13 +15,13 @@
         <c:forEach items="${allTasks}" var="task">
             <tr>
                 <td><c:out value="${task.taskName}" /></td>
-                <td><a class="btn btn-success" href="/task/update/<c:out value="${task.taskId}" />">
+                <td><a class="btn btn-success" href="/task/update/<c:out value="${task.taskDescriptionId}" />">
                     <i class='far fa-edit'></i></a></td>
-                <td><a class="btn btn-warning" href="#removeTaskModal_${task.taskId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a></td>
+                <td><a class="btn btn-warning" href="#removeTaskModal_${task.taskDescriptionId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a></td>
             </tr>
 
             <!-- Modal -->
-            <div class="modal fade" id="removeTaskModal_${task.taskId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="removeTaskModal_${task.taskDescriptionId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -35,7 +35,7 @@
                             </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                            <a type="button" class="btn btn-secondary" href="/task/delete/<c:out value="${task.taskId}" />" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
+                            <a type="button" class="btn btn-secondary" href="/task/delete/<c:out value="${task.taskDescriptionId}" />" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
                         </div>
                     </div>
                 </div>

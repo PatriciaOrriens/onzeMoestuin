@@ -1,7 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.Task;
-import groentjes.onzeMoestuin.repository.TaskRepository;
+import groentjes.onzeMoestuin.model.TaskDescription;
+import groentjes.onzeMoestuin.repository.TaskDescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -19,29 +19,29 @@ import java.util.Optional;
  * Controller for generic tasks (for administrator)
  */
 @Controller
-public class TaskController {
+public class TaskDescriptionController {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskDescriptionRepository taskDescriptionRepository;
 
     // admin gets list of all task names and loads form for adding new task
     @GetMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
     public String manageTasks(Model model) {
-        model.addAttribute("allTasks", taskRepository.findAll());
-        Task newTask = new Task();
-        model.addAttribute("newTask", newTask);
+        model.addAttribute("allTasks", taskDescriptionRepository.findAll());
+        TaskDescription newTaskDescription = new TaskDescription();
+        model.addAttribute("newTask", newTaskDescription);
         return "adminManageTasks";
     }
 
     // admin creates new (generic) tasks
     @PostMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
-    public String saveNewTask(@ModelAttribute()Task task, BindingResult result) {
+    public String saveNewTask(@ModelAttribute() TaskDescription taskDescription, BindingResult result) {
         if (result.hasErrors()){
             return "adminManageTasks";
         } else {
-            taskRepository.save(task);
+            taskDescriptionRepository.save(taskDescription);
             return "redirect:/adminManageTasks";
         }
     }
@@ -50,7 +50,7 @@ public class TaskController {
     @GetMapping("/task/update/{taskId}")
     @Secured("ROLE_ADMIN")
     protected String showUpdateTask(@PathVariable("taskId") final Integer taskId, Model model){
-        Optional<Task> foundTask = taskRepository.findById(taskId);
+        Optional<TaskDescription> foundTask = taskDescriptionRepository.findById(taskId);
         if (foundTask.isPresent()) {
             model.addAttribute("task", foundTask.get());
             return "adminChangeTask";
@@ -61,13 +61,13 @@ public class TaskController {
     @PostMapping("/task/update/{taskId}")
     @Secured("ROLE_ADMIN")
     protected String updatePlantInfo(@PathVariable("taskId") final Integer taskId,
-                                     @ModelAttribute("task") Task task,
+                                     @ModelAttribute("task") TaskDescription taskDescription,
                                      BindingResult result) {
         if (result.hasErrors()){
             return "redirect:/task/update";
         } else {
-            task.setTaskId(taskId);
-            taskRepository.save(task);
+            taskDescription.setTaskDescriptionId(taskId);
+            taskDescriptionRepository.save(taskDescription);
             return "redirect:/adminManageTasks";
         }
     }
@@ -77,8 +77,8 @@ public class TaskController {
     @GetMapping("/task/delete/{taskId}")
     @Secured("ROLE_ADMIN")
     public String deleteTask(@ModelAttribute("taskId") Integer taskId, BindingResult result) {
-        Optional<Task> task = taskRepository.findById(taskId);
-        task.ifPresent(information -> taskRepository.delete(information));
+        Optional<TaskDescription> task = taskDescriptionRepository.findById(taskId);
+        task.ifPresent(information -> taskDescriptionRepository.delete(information));
         return "redirect:/adminManageTasks";
     }
 

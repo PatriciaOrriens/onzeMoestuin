@@ -40,6 +40,9 @@ public class NewGardenController {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private TaskGardenRepository taskGardenRepository;
+
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
                                 @AuthenticationPrincipal User user) {
@@ -47,8 +50,8 @@ public class NewGardenController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                addAttributesToShowGardenView(garden, model);
                 addMessagesToGardenView(garden, user, model);
+                addAttributesToShowGardenView(garden.get(), model);
                 return "showGarden";
             }
         }
@@ -80,18 +83,22 @@ public class NewGardenController {
         }
     }
 
-    private void addAttributesToShowGardenView(Optional<Garden> garden, Model model) {
+    // retrieve all tasks for one garden for view
+    private void addAttributesToShowGardenView(Garden garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
         // load tasks for plants of this garden
         ArrayList<TaskPlant> taskPlants = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         for (Plant plant : plants) {
-            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findNotCompletedTaskPlant(plant);
-            taskPlants.addAll(tasksForPlant);
+            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
+            tasks.addAll(tasksForPlant);
         }
-        Collections.sort(taskPlants);
-        model.addAttribute("taskPlants", taskPlants);
+        ArrayList<TaskGarden> taskGardens = taskGardenRepository.findAllByGarden(garden);
+        tasks.addAll(taskGardens);
+        Collections.sort(tasks);
+        model.addAttribute("tasks", tasks);
         model.addAttribute("plants", plants);
-        model.addAttribute("garden", garden.get());
+        model.addAttribute("garden", garden);
     }
 
     private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
