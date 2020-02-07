@@ -62,7 +62,7 @@
      </table>
 
       <!-- Tijdelijke code om tuinleden weer te geven -->
-      <h2>Leden van deze tuin:</h2>
+      <h2>Leden</h2>
       <ul>
            <c:forEach items="${garden.gardenMembers}" var="member">
                   <li><c:out value="${member.username}" /></li>
@@ -71,10 +71,13 @@
       </ul>
       <a href="/garden/${garden.gardenId}/invite" class="btn btn-success">
         <i class="fa fa-user-plus"></i> Lid toevoegen</a>
-        <br/><br/>
+
+      <br/><br/>
+      <c:import url="messages.jsp" />
+      <br/>
 
 
-     <h2>Taken voor deze tuin:</h2>
+     <h2>Taken</h2>
      <table class="table table-striped">
         <tr>
             <th>Taak</th>
@@ -116,10 +119,7 @@
             </tr>
         </c:forEach>
      </table>
-      <br/><br/>
 
-      <c:import url="messages.jsp" />
-      <br/><br/>
 
      <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
      <a href="garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>

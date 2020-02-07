@@ -3,7 +3,7 @@
 <link id="gardenId" data-gardenId="${garden.gardenId}" />
 
 <div class="container mt-3">
-    <h2 id="messageToggle">Berichten bij de tuin:</h2>
+    <h2 id="messageToggle">Berichten</h2>
     <div id="messageDiv">
 
     <!-- AJAX error -->
@@ -17,7 +17,6 @@
         <button type="button" class="btn btn-success" id="msgNextBtn">Oudere berichten</button>
 
         <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
-        <button type="button" class="btn btn-success" id="legen">Reset</button>
 
         <br/><br/>
         <div id="newMessageForm" class="collapse">
