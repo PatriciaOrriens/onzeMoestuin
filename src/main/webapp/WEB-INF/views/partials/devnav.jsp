@@ -9,7 +9,7 @@
          </li>
      <security:authorize access="hasRole('ROLE_ADMIN')">
          <li class="nav-item">
-            <a class="nav-link" href="/adminDashboard">Admin dashboard</a>
+            <a class="nav-link" href="/adminDashboard" name="admindashboard">Admin dashboard</a>
          </li>
      </security:authorize>
      <security:authorize access="hasRole('ROLE_USER')">

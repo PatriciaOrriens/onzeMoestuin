@@ -7,7 +7,7 @@
 	        <h1 class="display-3">${garden.gardenName}</h1>
         </div>
         <div class="col-sm-1 my-auto">
-            <a href="garden/${garden.gardenId}/addPlant" class="btn btn-success"><i class='fas fa-seedling'></i>&#43; </a>
+            <a href="garden/${garden.gardenId}/addPlant" class="btn btn-success"><i name="addplant" class='fas fa-seedling'></i>&#43;</a>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
         <c:forEach items="${plants}" var="plant">
             <tr>
                 <td>
-                    <a href="../plant/${plant.plantId}">
+                    <a href="../plant/${plant.plantId}" name="plantlink">
                         <c:out value="${plant.plantInformation.plantName}" />
                     </a>
                 </td>

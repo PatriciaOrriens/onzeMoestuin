@@ -6,12 +6,13 @@
 
     <title>Nieuwe plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
+    <script type="text/javascript" src="../../resources/javascript/adminCreatePlantInformation.js"></script>
+    <script src="../resources/javascript/bootstrapFilestyle.js"></script>
 
     <div class="container">
+     <h1 class="display-3">Plant toevoegen</h1>
         <div class="form">
-            <form:form method="post" modelAttribute="plantInformation">
-                <h1 class="display-3">Plant toevoegen</h1>
+            <form:form method="post" action="/admincreateplantinfo?${_csrf.parameterName}=${_csrf.token}" modelAttribute="plantInformation" enctype="multipart/form-data">
                 <table class="table-sm table-borderless">
                     <tr>
                         <td><label>Nederlandse plantnaam:</label></td>
@@ -69,14 +70,19 @@
                         <td><label>Groeitijd in dagen:</label></td>
                         <td><form:input path="growTime" type="number" placeholder="groeitijd" min="0" id="growTime"/></td>
                     </tr>
+                    <tr>
+                        <td><label>Plaatje:</label></td>
+                        <td>
+                            <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" id="image" data-placeholder="Voeg een plaatje toe">
+                        </td>
+                    </tr>
                 </table>
                 <br/>
-                <input class="btn btn-success" type="submit" value="Toevoegen"/>
+                <input class="btn btn-success" name="toevoegen" type="submit" value="Toevoegen"/>
                 <br/>
                 <br/>
                 <a href="/adminDashboard" class="btn btn-success">Terug</a>
             </form:form>
         </div>
     </div>
-
     <c:import url="partials/footer.jsp" />
