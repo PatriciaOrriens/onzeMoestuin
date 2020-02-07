@@ -3,6 +3,8 @@
 
 <c:import url="partials/header.jsp" />
 
+    <script type="text/javascript" src="../../resources/javascript/adminCreateUser.js"></script>
+
     <div class="container">
        <h1 class="display-3">Gebruiker toevoegen</h1>
 
@@ -10,6 +12,15 @@
             <div class="form-group">
                 <label for="username">Gebruikersnaam:</label>
                 <form:input path="username" class="form-control" />
+
+                <label for="email">E-mailadres:</label>
+                <form:input path="email" type="text" class="form-control" value="${invitation.emailAddress}" />
+
+                <label for="firstName">Voornaam:</label>
+                <form:input path="firstName" type="text" class="form-control" />
+
+                <label>Rol:</label>
+                <form:select path="role" type="text" class="form-control" id="role"></form:select>
 
                 <label for="password">Wachtwoord:</label>
                 <form:input path="password" type="password" class="form-control" />
