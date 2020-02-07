@@ -7,13 +7,21 @@ $(function () {
     });
 });
 
+
 $(document).ready(function() {
     var page = 0;
+    var latestMessageTimeStamp = null;
     ajaxGetMessages();
+
+
+    // Re-check for new messages every 5 seconds
+    setInterval(checkForMessages, 5000);
+
 
     // Check for new messages {}
     function checkForMessages() {
-        newMessage = { dateTime: "2020-02-07T09:52:37.067184" }
+        var newMessage = {};
+        newMessage['dateTime'] = latestMessageTimeStamp;
 
        $.ajax({
            type: "POST",
@@ -23,14 +31,11 @@ $(document).ready(function() {
            data: JSON.stringify(newMessage),
            success: function(response) {
                 if (response == true) {
-
                     $("#new-messages-alert").fadeIn("slow");
+                } else {
+                    $("#new-messages-alert").hide();
                 }
-
            },
-//           error: function() {
-//
-//           }
        });
     }
 
@@ -42,7 +47,12 @@ $(document).ready(function() {
             url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/" + page,
             dataType: 'json',
             success: function(response) {
+                // candidate for refactoring
+                if (latestMessageTimeStamp === null) {
+                    latestMessageTimeStamp = response[0].dateTime;
+                }
                 $("#message-error").hide();
+                $("#new-messages-alert").hide();
                 messageHTML(response);
                 page++;
             },
@@ -52,6 +62,7 @@ $(document).ready(function() {
            }
         });
     }
+
 
     function ajaxPostMessage() {
         newMessage = { messageBody: document.getElementById("messageText").value }
@@ -63,6 +74,7 @@ $(document).ready(function() {
            url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/add",
            data: JSON.stringify(newMessage),
            success: function(response) {
+                latestMessageTimeStamp = response.dateTime;
                 $("#message-error").hide();
                 newMessageHTML(response);
                 $(".new-message").fadeIn("slow");
@@ -79,16 +91,24 @@ $(document).ready(function() {
         ajaxGetMessages();
     });
 
+
     postMsgBtn.addEventListener("click", function() {
         ajaxPostMessage();
     });
 
-    legen.addEventListener("click", function() {
-//        $("#message-container").empty();
-//        page = 0;
-//        ajaxGetMessages();
-         checkForMessages();
+
+    getNewMessages.addEventListener("click", function() {
+        $("#message-container").empty();
+            page = 0;
+            latestMessageTimeStamp = null;
+            ajaxGetMessages();
     });
+
+
+    legen.addEventListener("click", function() {
+        checkForMessages();
+    });
+
 
     $("#messageToggle").on('click', function() {
         $("#messageDiv").slideToggle();
@@ -111,6 +131,7 @@ $(document).ready(function() {
             messageContainer.innerHTML += ourGeneratedHTML;
         }
     }
+
 
     // Parse newly posted message
     function newMessageHTML(messageData) {

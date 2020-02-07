@@ -43,3 +43,8 @@ color: red;
 #new-messages-alert {
     display: none;
 }
+
+.ajax-link:hover {
+    text-decoration: underline;
+}
+

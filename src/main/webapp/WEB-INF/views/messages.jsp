@@ -8,9 +8,9 @@
 
     <!-- AJAX error -->
     <div class="alert alert-danger" id="message-error"><p></p></div>
-    <div class="alert alert-info" id="new-messages-alert"><p>
-        Er zijn nieuwe berichten!
-    </p></div>
+    <div class="alert alert-info" id="new-messages-alert">
+        <p>Er zijn nieuwe berichten! <span class="ajax-link" id="getNewMessages">Verversen</span></p>
+    </div>
 
         <div id="message-container"></div>
 

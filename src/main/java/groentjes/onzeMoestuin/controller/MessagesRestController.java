@@ -10,18 +10,20 @@ import groentjes.onzeMoestuin.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Wim Kruizinga & Patricia Orriens-Spuij
+ * REST controller for getting & posting messages
+ */
 @RestController
 @RequestMapping(path="/api", produces="application/json")
 public class MessagesRestController {
@@ -54,14 +56,12 @@ public class MessagesRestController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             Optional<Message> latestMessage = messageRepository.findFirstByGardenOrderByDateTimeDesc(garden.get());
-            System.out.println(message.getDateTime());
-            System.out.println(latestMessage.get().getDateTime());
-            System.out.println(message.getDateTime().isBefore(latestMessage.get().getDateTime()));
-            Boolean ifNewMessages = message.getDateTime().isBefore(latestMessage.get().getDateTime());
-            return new ResponseEntity<>(ifNewMessages, HttpStatus.OK);
+            if (latestMessage.isPresent()) {
+                Boolean ifNewMessages = message.getDateTime().isBefore(latestMessage.get().getDateTime());
+                return new ResponseEntity<>(ifNewMessages, HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
     }
 
 
