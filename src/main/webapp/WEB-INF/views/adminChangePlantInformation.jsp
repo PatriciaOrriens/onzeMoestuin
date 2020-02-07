@@ -10,11 +10,12 @@
 
     <title>Verander plantinformatie</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../../resources/javascript/adminCreatePlantInformationJavaScript.js"></script>
+    <script type="text/javascript" src="../../resources/javascript/adminChangePlantInformation.js"></script>
+    <script src="../resources/javascript/bootstrapFilestyle.js"></script>
 
     <div class="container">
         <div class="form">
-            <form:form action="/plantinfo/update/${plantInfoId}" modelAttribute="plantInformation">
+            <form:form action="/plantinfo/update/${plantInfoId}?${_csrf.parameterName}=${_csrf.token}" modelAttribute="plantInformation" enctype="multipart/form-data">
                 <h1 class="display-3">Plant wijzigen</h1>
                 <table class="table-sm table-borderless">
                     <tr>
@@ -79,6 +80,12 @@
                     <tr>
                         <td><label>Groeitijd in dagen:</label></td>
                         <td><form:input path="growTime" type="number" value="${plantInformation.growTime}" min="0" id="growTime"/></td>
+                     </tr>
+                     <tr>
+                         <td><label>Plaatje:</label></td>
+                         <td>
+                             <input type="file" class="filestyle" name="file" accept=".png, .jpg, .jpeg" input path="image" value="${plantInformation.image}" id="image" >
+                         </td>
                      </tr>
                 </table>
                 <br/>

@@ -8,7 +8,7 @@
         <h1 class="display-3">Pas taak aan</h1>
             <div class="form">
                 <form:form action="/task/update/${taskId}" modelAttribute="task">
-                    <form:input path="taskId" type="hidden"/>
+                    <form:input path="taskDescriptionId" type="hidden"/>
                     <br/>
                     <label>Naam van taak: </label>
                     <form:input path="taskName" type="text" value="${task.taskName}" class="taskName"/>
