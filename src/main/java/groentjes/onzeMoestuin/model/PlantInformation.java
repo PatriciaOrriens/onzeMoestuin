@@ -17,7 +17,6 @@ public class PlantInformation {
 
     @NotEmpty
     private String plantName;
-
     private String latinName;
     private Integer plantingDistance;
     private String lighting;
@@ -29,12 +28,20 @@ public class PlantInformation {
     private String harvestingStart;
     private String harvestingEnd;
     private Integer growTime;
+    private String imageName;
+
+    @Lob
+
+    private byte[] image;
 
     @OneToMany(
             mappedBy = "plantInformation",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private Set<TaskPlantInfo> tasks = new HashSet<>();
+
+    public PlantInformation() {
+    }
 
     // getters and setters
     public Integer getPlantInfoId() {
@@ -147,5 +154,21 @@ public class PlantInformation {
 
     public void setGrowTime(Integer growTime) {
         this.growTime = growTime;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

@@ -27,6 +27,33 @@
 color: red;
 }
 
+.centeredRedText {
+color: red;
+text-align: center;
+}
+
+.msg-header {
+    width: 300px;
+}
+
+.new-message {
+    background-color: rgba(51, 170, 51, .5);
+    display: none;
+}
+
+#message-error {
+    display: none;
+}
+
+#new-messages-alert {
+    display: none;
+}
+
+.ajax-link:hover {
+    text-decoration: underline;
+}
+
+
 .grid-stack {
     border: 1px solid;
     margin: 5px;
@@ -36,8 +63,6 @@ color: red;
 
 .grid-stack-item {
     margin: 10px;
-
-
 }
 
 .grid-stack-item-content {

@@ -19,6 +19,8 @@
             <tr><td>Groeitijd in dagen</td><td>${plantinformation.growTime}</td></tr>
         </table>
 
+
+
       <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a>
 
 <c:import url="partials/footer.jsp" />
