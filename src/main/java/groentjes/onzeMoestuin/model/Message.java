@@ -25,7 +25,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer messageId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "senderId", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User sender;
