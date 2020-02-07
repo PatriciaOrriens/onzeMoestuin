@@ -9,6 +9,7 @@ import java.util.Set;
  * A user can have different roles, and a role can be assigned to different users.
  */
 @Entity
+@Table(name = "role")
 public class Role {
 
     @Id
