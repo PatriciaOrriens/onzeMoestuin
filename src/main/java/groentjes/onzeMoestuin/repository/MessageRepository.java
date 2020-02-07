@@ -22,9 +22,4 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
     Optional<Message> findFirstByGardenOrderByDateTimeDesc(Garden garden);
 
-//    @Query("select case when count(m) > 0 then true else false end from Message m where m.dateTime > :dateTime")
-//    boolean existsMessageNewerThanCustomQuery(@Param("dateTime") LocalDateTime dateTime);
-
-//    @Query("select case when count(c)> 0 then true else false end from Car c where lower(c.model) like lower(:model)")
-//    boolean existsCarLikeCustomQuery(@Param("model") String model);
 }

@@ -22,7 +22,11 @@ $(document).ready(function() {
            url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/checkNew",
            data: JSON.stringify(newMessage),
            success: function(response) {
-                console.log(response);
+                if (response == true) {
+
+                    $("#new-messages-alert").fadeIn("slow");
+                }
+
            },
 //           error: function() {
 //

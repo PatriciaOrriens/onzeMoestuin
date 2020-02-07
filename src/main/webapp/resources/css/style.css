@@ -39,3 +39,7 @@ color: red;
 #message-error {
     display: none;
 }
+
+#new-messages-alert {
+    display: none;
+}
