@@ -50,7 +50,7 @@ public class NewGardenController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                addMessagesToGardenView(garden, user, model);
+                addMessagesToGardenView(garden.get(), user, model);
                 addAttributesToShowGardenView(garden.get(), model);
                 return "showGarden";
             }
@@ -83,13 +83,11 @@ public class NewGardenController {
         }
     }
 
-    private void addAttributesToShowGardenView(Optional<Garden> garden, Model model) {
+    private void addAttributesToShowGardenView(Garden garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGardenAndStartDateIsNotNull(garden);
         ArrayList<Plant> unstartedPlants = plantRepository.findAllByGardenAndStartDateIsNull(garden);
 
     // retrieve all tasks for one garden for view
-    private void addAttributesToShowGardenView(Garden garden, Model model) {
-        ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
         // load tasks for plants of this garden
         ArrayList<TaskPlant> taskPlants = new ArrayList<>();
         ArrayList<Task> tasks = new ArrayList<>();
@@ -103,17 +101,17 @@ public class NewGardenController {
         model.addAttribute("tasks", tasks);
         model.addAttribute("plants", plants);
         model.addAttribute("unstartedPlants", unstartedPlants);
-        model.addAttribute("garden", garden.get());
+        model.addAttribute("garden", garden);
     }
 
-    private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
+    private void addMessagesToGardenView(Garden garden, User user, Model model) {
         // load messages that are connected to this garden
-        List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
+        List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden);
         model.addAttribute("messages", messages);
         // initialize a new message
         Message newMessage = new Message();
         newMessage.setSender(user);
-        newMessage.setGarden(garden.get());
+        newMessage.setGarden(garden);
         model.addAttribute("newMessage", newMessage);
     }
 

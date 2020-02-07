@@ -105,11 +105,6 @@ $(document).ready(function() {
     });
 
 
-    legen.addEventListener("click", function() {
-        checkForMessages();
-    });
-
-
     $("#messageToggle").on('click', function() {
         $("#messageDiv").slideToggle();
     });

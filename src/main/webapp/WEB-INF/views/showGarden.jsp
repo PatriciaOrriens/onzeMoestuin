@@ -90,7 +90,7 @@
             </div>
 
         </c:forEach>
-     </table> -->
+     </table>
 
       <!-- Tijdelijke code om tuinleden weer te geven -->
       <h2>Leden</h2>
