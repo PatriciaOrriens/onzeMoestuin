@@ -19,7 +19,7 @@ import java.util.Optional;
  * Controller for generic tasks (for administrator)
  */
 @Controller
-public class TaskController {
+public class TaskDescriptionController {
 
     @Autowired
     private TaskDescriptionRepository taskDescriptionRepository;

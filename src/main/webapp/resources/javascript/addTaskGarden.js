@@ -10,7 +10,7 @@ function validateForm() {
     }
     var dueDate = document.forms["taskGardenForm"]["dueDate"].value;
     if (dueDate.length < 10 || dueDate.length > 10) {
-         document.getElementById("dateLengthError").innerHTML = "Vervaldatum moet 10 tekens lang zijn";
+         document.getElementById("dateLengthError").innerHTML = "Ongeldige vervaldatum";
          isValid = false;
     }
     var count = 0;
@@ -21,7 +21,7 @@ function validateForm() {
         count = count + 1;
     }
     if (count < 2 || count > 2) {
-        document.getElementById("dateStructureError").innerHTML = "Aantal/Positionering - tekens klopt niet in vervaldatum";
+        document.getElementById("dateStructureError").innerHTML = "Aantal tekens kloppen niet in vervaldatum";
         isValid =  false;
     }
     return isValid;
