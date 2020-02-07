@@ -90,6 +90,7 @@ public class Message {
         return dateTime;
     }
 
+    // Additional getter to add readable datatime format to JSON
     @JsonFormat(pattern="dd-MM-yyyy (HH:mm)")
     public LocalDateTime getFormattedDateTime() {
         return getDateTime();
