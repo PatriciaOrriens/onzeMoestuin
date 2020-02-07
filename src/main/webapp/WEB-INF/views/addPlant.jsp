@@ -47,7 +47,6 @@
           <input id="input" type="text" placeholder="Zoek...">
           <br><br>
 
-          <form:form action="/garden/${garden.gardenId}/addPlant" method="post" modelAttribute="plant">
               <table class="table table-striped" id="tablePlants">
                   <thead>
                   <tr>
@@ -61,7 +60,6 @@
                   <tbody id="plantsTable">
                   <c:forEach items="${allPlantInformation}" var="plantInfo">
                   <tr id="plantRow">
-    <%--                  tijdelijke code voor eerste kolom--%>
                       <td><c:out value="${plantInfo.plantName}" /></td>
                       <td><c:out value="${plantInfo.latinName}" /></td>
                       <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
@@ -71,9 +69,6 @@
                   </c:forEach>
                   </tbody>
               </table>
-<%--              parameter van plantinfoId nodig bij het versturen en daarna weer laden van addPlantForm--%>
-              <form:button type="submit" class="btn btn-success">Voeg <i class='fas fa-seedling'></i> toe</form:button>
-          </form:form>
       </div>
 
 <c:import url="partials/footer.jsp" />
