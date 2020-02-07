@@ -8,6 +8,7 @@
 
     <!-- AJAX error -->
     <div class="alert alert-danger" id="message-error"><p></p></div>
+    <div class="alert alert-info" id="new-messages-alert"><p></p></div>
 
         <div id="message-container"></div>
 
@@ -28,7 +29,7 @@
     <table class="table table-striped">
     {{#each this}}
         <tr>
-            <td class="msg-header"><h5>{{sender.username}}</h5><small>{{dateTime}}</small> </td>
+            <td class="msg-header"><h5>{{sender.username}}</h5><small>{{formattedDateTime}}</small> </td>
             <td class="msg-body">{{messageBody}}</td>
         </tr>
     {{/each}}
@@ -38,7 +39,7 @@
 <script id="newMessageTemplate" type="text/x-handlebars-template">
     <table class="table table-striped new-message">
         <tr>
-            <td class="msg-header"><h5>{{sender.username}}</h5><small>{{dateTime}}</small> </td>
+            <td class="msg-header"><h5>{{sender.username}}</h5><small>{{formattedDateTime}}</small> </td>
             <td class="msg-body">{{messageBody}}</td>
         </tr>
     </table>

@@ -47,6 +47,28 @@ public class MessagesRestController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping(value = "/garden/{id}/messages/checkNew", consumes = "application/json")
+    public ResponseEntity<Boolean> checkNewMessages(@RequestBody Message message,
+                                                    @PathVariable("id") Integer gardenId) throws JsonProcessingException {
+
+//        ObjectMapper mapper = new ObjectMapper();
+//        Message newMessage = mapper.readValue(json, Message.class);
+
+        Optional<Garden> garden = gardenRepository.findById(gardenId);
+        if (garden.isPresent()) {
+            Optional<Message> latestMessage = messageRepository.findFirstByGardenOrderByDateTimeDesc(garden.get());
+            System.out.println(message.getDateTime());
+            System.out.println(latestMessage.get().getDateTime());
+            System.out.println(message.getDateTime().isBefore(latestMessage.get().getDateTime()));
+         /*   if (messageRepository.existsMessageNewerThanCustomQuery(newMessage.getDateTime())) {
+                System.out.println("nieuwer bestaat");
+            }*/
+        }
+
+    return new ResponseEntity<>(null, HttpStatus.I_AM_A_TEAPOT);
+    }
+
+
 
     @PostMapping(value = "/garden/{id}/messages/add", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED) // return http status 201

@@ -11,6 +11,25 @@ $(document).ready(function() {
     var page = 0;
     ajaxGetMessages();
 
+    // Check for new messages {}
+    function checkForMessages() {
+        newMessage = { dateTime: "2020-02-07T09:52:37.067184" }
+
+       $.ajax({
+           type: "POST",
+           contentType: 'application/json; charset=utf-8',
+           dataType: 'json',
+           url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/checkNew",
+           data: JSON.stringify(newMessage),
+           success: function(response) {
+                console.log(response);
+           },
+//           error: function() {
+//
+//           }
+       });
+    }
+
 
     // Get next messages for garden {}
     function ajaxGetMessages() {
@@ -61,9 +80,10 @@ $(document).ready(function() {
     });
 
     legen.addEventListener("click", function() {
-        $("#message-container").empty();
-        page = 0;
-        ajaxGetMessages();
+//        $("#message-container").empty();
+//        page = 0;
+//        ajaxGetMessages();
+         checkForMessages();
     });
 
     $("#messageToggle").on('click', function() {

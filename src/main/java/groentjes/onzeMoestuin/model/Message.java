@@ -37,8 +37,8 @@ public class Message {
 
     private String messageBody;
 
-    @JsonFormat(pattern="dd-MM-yyyy (HH:mm)")
     private LocalDateTime dateTime;
+
 
     // reply to another message
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "replyToMessage")
@@ -88,6 +88,11 @@ public class Message {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    @JsonFormat(pattern="dd-MM-yyyy (HH:mm)")
+    public LocalDateTime getFormattedDateTime() {
+        return getDateTime();
     }
 
     public void setDateTime(LocalDateTime dateTime) {
