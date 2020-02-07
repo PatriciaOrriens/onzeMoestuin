@@ -68,7 +68,6 @@ public class NewGardenController {
 
     @PostMapping({"/garden/add"})
     protected String saveOrUpdateGarden(@Valid Garden garden, Errors errors,
-//            @ModelAttribute("garden") Garden garden, BindingResult result,
                                         @AuthenticationPrincipal User user) {
 
         if (errors.hasErrors()) {

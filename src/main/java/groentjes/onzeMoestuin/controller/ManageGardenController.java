@@ -11,12 +11,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,11 +76,13 @@ public class ManageGardenController {
         return "redirect:/userManageGardens";
     }
 
+
     @PostMapping("/garden/update/{gardenId}")
-    protected String updateGarden(@ModelAttribute("garden") Garden garden,
-                                  @AuthenticationPrincipal User user, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/garden/update";
+    protected String updateGarden(@Valid Garden garden, Errors errors, Model model,
+                                  @AuthenticationPrincipal User user) {
+        if (errors.hasErrors()) {
+            model.addAttribute("gardenId", garden.getGardenId());
+            return "userChangeGarden";
         } else {
             User owner = userRepository.getOne(user.getUserId());
             garden.addGardenMember(owner);
