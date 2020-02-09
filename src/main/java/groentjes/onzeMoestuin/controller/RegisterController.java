@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * @author Wim Kruizinga, Eric van Dalen and Gjalt G. Wybenga
+ * @author Wim Kruizinga, Eric van Dalen and Gjalt Wybenga
  * Controller class for a screen to register as a user and create your own user account
  */
 
@@ -59,7 +59,6 @@ public class RegisterController {
         } else {
 
             role.setRoleName("USER");
-
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.getRole().add(role);
             userRepository.save(user);

@@ -9,7 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.*;
 
-@Entity (name = "User")
+@Entity
+@Table(name = "User")
 public class User implements UserDetails {
 
     @Id

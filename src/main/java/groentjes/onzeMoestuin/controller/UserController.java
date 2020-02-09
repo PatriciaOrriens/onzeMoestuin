@@ -1,6 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -26,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/manageUsers")
     @Secured("ROLE_ADMIN")
@@ -54,12 +60,19 @@ public class UserController {
 
     @PostMapping("/user/new")
     @Secured("ROLE_ADMIN")
-    protected String saveOrUpdateUser(@ModelAttribute("user") User user, BindingResult result){
+    protected String saveOrUpdateUser(@ModelAttribute("user") User user,
+                                      Role role,
+                                      BindingResult result){
         if(result.hasErrors()){
             return "adminCreateUser";
         } else {
+
+
+
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.getRole().add(role);
             userRepository.save(user);
+
             return "redirect:/manageUsers";
         }
     }

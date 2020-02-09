@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * @author Gjalt Wybenga
- * A user can have different roles, and a role can be assigned to different users.
+ * A user can have many different roles, and a role can be assigned to many different users.
  */
 @Entity
 @Table(name = "role")
