@@ -9,7 +9,6 @@
 
     <div class="container">
        <h1 class="display-3">Gebruiker toevoegen</h1>
-
        <form:form method="post" modelAttribute="user">
             <div class="form-group">
                 <label for="username">Gebruikersnaam:</label>
@@ -22,7 +21,7 @@
                 <form:input path="firstName" type="text" class="form-control" />
 
                 <label>Rol:</label>
-                <form:select path="${roleName}" type="text" value="${roleName}" class="form-control" id="rights"></form:select>
+                <form:select path="${roleName}" name="roleName" type="text" value="${roleName}" class="form-control" id="rights"></form:select>
 
                 <label for="password">Wachtwoord:</label>
                 <form:input path="password" type="password" class="form-control" />

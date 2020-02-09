@@ -61,18 +61,15 @@ public class UserController {
     @PostMapping("/user/new")
     @Secured("ROLE_ADMIN")
     protected String saveOrUpdateUser(@ModelAttribute("user") User user,
-                                      Role role,
+                                      Role role, Model model,
                                       BindingResult result){
         if(result.hasErrors()){
             return "adminCreateUser";
         } else {
-
-
-
+            model.addAttribute(role.getRoleName());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.getRole().add(role);
             userRepository.save(user);
-
             return "redirect:/manageUsers";
         }
     }
