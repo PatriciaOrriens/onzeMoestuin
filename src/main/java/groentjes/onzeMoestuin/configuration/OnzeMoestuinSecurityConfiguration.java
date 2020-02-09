@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -19,6 +20,9 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService customUserDetailsService;
 
     @Autowired
     GardenUserDetailsService gardenUserDetailsService;
@@ -45,9 +49,13 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
     // in-memory saving of user information
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
-        auth.authenticationProvider(authProvider());
+        auth
+                .userDetailsService(customUserDetailsService)
+                .passwordEncoder(passwordEncoder());
+
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
+//        auth.authenticationProvider(authProvider());
     }
 
     @Bean

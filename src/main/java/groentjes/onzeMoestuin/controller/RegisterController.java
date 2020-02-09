@@ -58,7 +58,7 @@ public class RegisterController {
             return "redirect:/";
         } else {
 
-            role.setRoleName("USER");
+            role.setRoleName("ROLE_USER");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.getRole().add(role);
             userRepository.save(user);
