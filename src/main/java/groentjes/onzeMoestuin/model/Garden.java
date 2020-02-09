@@ -96,6 +96,7 @@ public class Garden {
     public void setUser(User user) {
         this.user = user;
     }
+
     public Set<User> getGardenMembers() {
         return gardenMembers;
     }
