@@ -13,16 +13,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.multipart.MultipartResolver;
+//import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+//import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService customUserDetailsService;
+    private UserDetailsService authenticationService;
 
     @Autowired
     GardenUserDetailsService gardenUserDetailsService;
@@ -46,17 +46,22 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .invalidateHttpSession(true);
     }
 
-    // in-memory saving of user information
+    //Enables custom user roles e.g. role_user, role_admin, role_manager ...
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(customUserDetailsService)
+                .userDetailsService(authenticationService)
                 .passwordEncoder(passwordEncoder());
+    }
 
+//    //Spring Security-defined user roles
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
 //                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
 //        auth.authenticationProvider(authProvider());
-    }
+//    }
+
 
     @Bean
     public DaoAuthenticationProvider authProvider() {

@@ -39,7 +39,7 @@ public class ManageGardenController {
     @GetMapping("/userManageGardens")
     public String allGardensByMember(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(currentUser));
-        User user = (User) userRepository.findByUsername(currentUser.getUsername()).get();
+        User user = userRepository.findByUsername(currentUser.getUsername()).get();
         model.addAttribute("currentUser", user);
 
         List<GardenInvitation> invitations = gardenInvitationRepository.findAllByInvitedUserAndAcceptedNull(user);

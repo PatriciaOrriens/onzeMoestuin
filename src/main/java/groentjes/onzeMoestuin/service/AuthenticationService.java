@@ -14,9 +14,14 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collection;
 
+
+/**
+ * @author Gjalt Wybenga
+ * service that authenticates users
+ */
 @Service
 @Transactional
-public class CustomUserDetailsService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
