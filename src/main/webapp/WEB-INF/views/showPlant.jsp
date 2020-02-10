@@ -18,8 +18,16 @@
             <td>Plantafstand (cm):</td>
             <td>${plant.plantInformation.plantingDistance}</td>
         </tr>
+
       </table>
-      <p><a href="/plantinformationoverview/${plant.plantInformation.plantInfoId}" class="btn btn-success">Meer informatie</a>
+
+
+      <div>
+        <img src="/plant/${plant.plantId}/image", name="image"/></td>
+      </div>
+      <br/>
+      <br/>
+      <p><a href="/plantinformationoverview/${plant.plantId}" class="btn btn-success">Meer informatie</a>
       <br/>
       <br/>
       <a href="/userManageGardens" class="btn btn-success">Terug naar tuinoverzicht</a></p>

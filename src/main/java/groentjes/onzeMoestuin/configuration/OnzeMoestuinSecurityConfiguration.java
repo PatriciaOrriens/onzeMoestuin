@@ -25,7 +25,7 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
         http
                 .authorizeRequests()
                 .antMatchers("/registerUser", "/", "/resources/css/**", "/resources/img/**", "/resources/javascript/**",
-                        "/invitation/**").permitAll()
+                        "/invitation/**", "/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -34,9 +34,9 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                     .failureUrl("/login?error=true")
                     .permitAll()
                 .and()
-                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/")
-                    .invalidateHttpSession(true);
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
     }
 
     // in-memory saving of user information
@@ -60,4 +60,11 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(5242880);
+        return multipartResolver;
+    }
 }

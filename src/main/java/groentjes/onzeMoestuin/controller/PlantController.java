@@ -2,13 +2,22 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,11 +64,11 @@ public class PlantController {
         return "redirect:/";
     }
 
-    @GetMapping("/plant/{plantId}")
-    public String showPlantDetails(Model model, @PathVariable("plantId") final Integer plantId,
-                                   @AuthenticationPrincipal User user) {
+    @GetMapping(value = "/plant/{plantId}")
+    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model, @AuthenticationPrincipal User user) throws IOException {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
+
         if (plant.isPresent()) {
             if (plant.get().isOwnerOfPlant(user)) {
                 model.addAttribute(plant.get());
@@ -67,6 +76,15 @@ public class PlantController {
             }
         }
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/plant/{plantId}/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@PathVariable("plantId") final Integer plantId) throws IOException {
+
+        Optional<Plant> plant = plantRepository.findById(plantId);
+
+        InputStream input = new ByteArrayInputStream(plant.get().getPlantInformation().getImage());
+        return IOUtils.toByteArray(input);
     }
 
     @PostMapping("/garden/{gardenId}/addPlant")
