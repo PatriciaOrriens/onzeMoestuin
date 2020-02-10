@@ -31,7 +31,7 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .formLogin()
                     .loginPage("/login")
                     .defaultSuccessUrl("/loginsuccess", true)
-                .failureUrl("/loginfailed")
+                    .failureUrl("/login?error=true")
                     .permitAll()
                 .and()
                     .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
