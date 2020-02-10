@@ -17,7 +17,6 @@ $(document).ready(function() {
     // Re-check for new messages every 5 seconds
     setInterval(checkForMessages, 5000);
 
-
     // Check for new messages {}
     function checkForMessages() {
         var newMessage = {};
@@ -47,7 +46,7 @@ $(document).ready(function() {
             url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/" + page,
             dataType: 'json',
             success: function(response) {
-                // candidate for refactoring
+                // If messages are loaded for the first time, set imitial timestamp
                 if (latestMessageTimeStamp === null) {
                     latestMessageTimeStamp = response[0].dateTime;
                 }

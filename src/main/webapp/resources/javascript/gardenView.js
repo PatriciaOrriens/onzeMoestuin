@@ -9,6 +9,15 @@ $(function () {
 
 $(document).ready(loadGrid);
 
+// Set size of GiridStack elements
+$(document).ready(function() {
+    // Width of GridStack container
+    console.log($("#grid-container").width());
+
+
+});
+
+
 $('#newPlants li span').on('click', function(e) {
     var plant = {
             plantId: $(this).attr('data-newPlantId'),
@@ -31,9 +40,18 @@ $('#newPlants li span').on('click', function(e) {
 // Load GridStack script
 function loadGrid() {
 
-    $('.grid-stack').gridstack({
-        acceptWidgets: '.newWidget'
-    });
+    var options = {
+        acceptWidgets: '.newWidget',
+        // Cell/element size
+        cellHeight: 70,
+        itemClass: 'grid-stack-item',
+        cellHeightUnit:'px'
+    };
+
+    $('.grid-stack').gridstack(options);
+
+
+
 
     $('.grid-stack-item').on('click', function(e) {
         ajaxGetPlant(e.target.id);

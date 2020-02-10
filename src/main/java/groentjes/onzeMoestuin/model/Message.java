@@ -52,6 +52,14 @@ public class Message {
     public Message() {
     }
 
+    public Message(Integer messageId, User sender, Garden garden, String messageBody, LocalDateTime dateTime) {
+        this.messageId = messageId;
+        this.sender = sender;
+        this.garden = garden;
+        this.messageBody = messageBody;
+        this.dateTime = dateTime;
+    }
+
     // getters and setters
    public Integer getMessageId() {
         return messageId;

@@ -15,11 +15,13 @@
     </div>
 
 
-    <div class="grid-stack" data-gs-column="${garden.width}" data-gs-current-height="${garden.length}" data-gs-max-row="${garden.length}">
+    <div id="grid-container" class="grid-stack" data-gs-column="${garden.width}" data-gs-current-height="${garden.length}" data-gs-max-row="${garden.length}">
+    <!-- <div id="grid-container" class="grid-stack" data-gs-max-row="${garden.length}"> -->
+
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes" data-plantId="${plant.plantId}">
                 <div class="grid-stack-item-content" id="${plant.plantId}">
-                    ${plant.plantInformation.plantName}
+                        ${plant.plantInformation.plantName}
                 </div>
             </div>
         </c:forEach>
@@ -42,7 +44,7 @@
      </div>
     </div>
 
-    <!-- comment old code out
+    <%-- comment old code out
     <table class="table table-striped">
         <tr>
             <th>Plant</th>
@@ -58,7 +60,7 @@
                 <td>
                     <a class="btn btn-warning" href="#removePlantModal_${plant.plantId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
                 </td>
-            </tr> -->
+            </tr>
 
             <!-- Modal
             <!-- Modal to show User details-->
@@ -90,7 +92,7 @@
             </div>
 
         </c:forEach>
-     </table>
+     </table>--%>
 
       <!-- Tijdelijke code om tuinleden weer te geven -->
       <h2>Leden</h2>
