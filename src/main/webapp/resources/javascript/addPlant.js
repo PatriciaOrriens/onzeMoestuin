@@ -8,3 +8,14 @@ $(document).ready(function() {
     });
 
 });
+
+$(document).ready(function () {
+    // click on table body
+    $("#tablePlants tbody tr").click(function () {
+        //get row contents into an array
+        var tableData = $(this).children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+    });
+});

@@ -53,3 +53,7 @@ text-align: center;
     text-decoration: underline;
 }
 
+.plantRow:hover {
+    background-color: olivedrab;
+}
+
