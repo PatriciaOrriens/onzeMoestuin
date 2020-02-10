@@ -87,7 +87,6 @@ public class NewGardenController {
     private void addAttributesToShowGardenView(Garden garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
         // load tasks for plants of this garden
-        ArrayList<TaskPlant> taskPlants = new ArrayList<>();
         ArrayList<Task> tasks = new ArrayList<>();
         for (Plant plant : plants) {
             ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
