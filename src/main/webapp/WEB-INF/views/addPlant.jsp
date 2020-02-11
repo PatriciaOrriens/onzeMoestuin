@@ -3,23 +3,6 @@
 
 <c:import url="partials/header.jsp" />
 
-  <%--<div class="container">
-	<h1 class="display-3">Plant toevoegen aan ${garden.gardenName}</h1>
-
-		<!-- JSTL form: ik laat het nog even staan, zolang rest nog niet klaar is -->
-        <form:form action="/garden/${garden.gardenId}/addPlant" modelAttribute="plant">
-
-            <div class="form-group">
-                <select name="plantInfoId" class="form-control">
-                <c:forEach items="${allPlantInformation}" var="plantInfo">
-                <option value="${plantInfo.plantInfoId}">${plantInfo.plantName}</option>
-                </c:forEach>
-                </select>
-            </div>
-
-           <form:button type="submit" class="btn btn-success">Voeg <i class='fas fa-seedling'></i> toe</form:button>
-        </form:form>--%>
-
       <div class="container">
           <h1 class="display-3">Plant toevoegen aan ${garden.gardenName}</h1>
             <br/>
@@ -41,8 +24,7 @@
                   </thead>
                   <tbody id="plantsTable">
                   <c:forEach items="${allPlantInformation}" var="plantInfo">
-                  <tr id="plantRow">
-<%--                      <td><form:button type="submit" class="btn btn-success" name="${plantInfo.plantInfoId}InGarden">Voeg <i class='fas fa-seedling'></i> <c:out value="" /> toe</form:button></td>--%>
+                  <tr>
                       <td><a href="/garden/${garden.gardenId}/addPlant/${plantInfo.plantInfoId}" name="plantInfoId" class="btn btn-success"><i class='fas fa-seedling'></i>&#43;</a></td>
                       <td><c:out value="${plantInfo.plantName}" /></td>
                       <td><c:out value="${plantInfo.latinName}" /></td>
@@ -53,7 +35,6 @@
                   </c:forEach>
                   </tbody>
               </table>
-<%--        </form:form>--%>
 
           <p><a class="btn btn-success" href="/garden/${garden.gardenId}">Terug naar de tuin</a></p>
       </div>
