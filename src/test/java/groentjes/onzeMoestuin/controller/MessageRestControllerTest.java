@@ -97,7 +97,7 @@ public class MessageRestControllerTest {
 
         time = LocalDateTime.now();
         mockUser = new User();
-
+        mockUser.setUsername("testuser");
 
     }
 
@@ -120,15 +120,10 @@ public class MessageRestControllerTest {
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        String expected = "[{\"messageId\": 1}, {\"messageId\": 2}]";
+        String expected = "[{\"messageId\": 1, \"sender\": { \"username\": \"testuser\" }, \"messageBody\": \"Test message\" }," +
+                " {\"messageId\": 2, \"sender\": { \"username\": \"testuser\" }, \"messageBody\": \"Test message 2\" }]";
 
         JSONAssert.assertEquals(expected, response.getContentAsString(), JSONCompareMode.LENIENT);
 
     }
-
-
-
-
-
-
 }
