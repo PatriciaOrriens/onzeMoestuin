@@ -1,5 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.Message;
@@ -23,6 +25,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 import org.mockito.junit.MockitoJUnitRunner;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -32,10 +36,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,7 +76,7 @@ public class MessageRestControllerTest {
     @InjectMocks // ensures  that mocked repo is injected into the controller
     private MessagesRestController messageController;
 
-    @Mock
+    @MockBean
     private User mockUser;
 
     @Mock
@@ -89,14 +96,13 @@ public class MessageRestControllerTest {
                 .build();
 
         time = LocalDateTime.now();
+        mockUser = new User();
 
 
     }
 
     @Test
     public void canGetMessagesByGardenWhenExists() throws Exception {
-
-
         // given
         given(messageRepository.findAllByGarden(any(Garden.class), any(Pageable.class)))
                 .willReturn(new ArrayList<Message>(Arrays.asList(
@@ -114,11 +120,9 @@ public class MessageRestControllerTest {
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo(
-                jsonMessage.write(new ArrayList<Message>(Arrays.asList(
-                        new Message(1, mockUser, mockGarden, "Test message", time),
-                        new Message(2, mockUser, mockGarden, "Test message 2", time)
-                ))));
+        String expected = "[{\"messageId\": 1}, {\"messageId\": 2}]";
+
+        JSONAssert.assertEquals(expected, response.getContentAsString(), JSONCompareMode.LENIENT);
 
     }
 
