@@ -58,5 +58,6 @@ public class TaskController {
         tasks.addAll(taskGardens);
         Collections.sort(tasks);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("garden", garden);
     }
 }

@@ -42,9 +42,7 @@
         </c:forEach>
      </table>
 
-
-
-     <a href="garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
+     <a href="/garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
 
      <!-- Handlebars template for User modal -->
       <script id="userTemplate" type="text/x-handlebars-template">
