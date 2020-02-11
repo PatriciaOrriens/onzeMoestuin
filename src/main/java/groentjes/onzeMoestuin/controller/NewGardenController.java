@@ -7,12 +7,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.SimpleDateFormat;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,10 +71,10 @@ public class NewGardenController {
     }
 
     @PostMapping({"/garden/add"})
-    protected String saveOrUpdateGarden(@ModelAttribute("garden") Garden garden, BindingResult result,
+    protected String saveOrUpdateGarden(@Valid Garden garden, Errors errors,
                                         @AuthenticationPrincipal User user) {
 
-        if (result.hasErrors()) {
+        if (errors.hasErrors()) {
             return "newGarden";
         } else {
             // Retrieve complete User object from database to be able to add member to garden

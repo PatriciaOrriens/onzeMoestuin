@@ -8,10 +8,9 @@
     <p>Voer het e-mailadres van de gebruiker in om deze uit te nodigen.</p>
 
     <form method="get">
-
         <div class="form-group">
             <label for "name">E-mailadres </label>
-            <input name="search" class="form-control" type="email" />
+            <input name="search" class="form-control" type="email" required />
         </div>
         <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Zoek</button>
     </form>

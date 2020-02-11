@@ -39,6 +39,7 @@ public class GardenControllerWebDriverTest {
     private PasswordEncoder passwordEncoder;
 
     private static final String NAME = "gebruiker1";
+    private static final String EMAIL = "testgebruiker1@test.nl";
     private static final String PASSWORD = "wachtwoord1";
     private static final String GARDEN1 = "tuin1";
     private static final String GARDEN1LENGTH = "1";
@@ -61,6 +62,7 @@ public class GardenControllerWebDriverTest {
         User registeredUser = new User();
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
+        registeredUser.setEmail(EMAIL);
         userRepository.save(registeredUser);
     }
 
