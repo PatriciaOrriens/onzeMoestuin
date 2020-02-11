@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen and Gjalt Wybenga
+ * @author Eric van Dalen, Gjalt Wybenga and Patricia Orriens
  * Controller for managing the plants in a garden
  */
 @Controller
@@ -85,6 +85,7 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
+    // mapping activated after click on button in addPlant.
     @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
     public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
                                    @PathVariable("plantInfoId") final Integer plantInfoId,

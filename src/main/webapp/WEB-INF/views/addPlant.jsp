@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
 
@@ -25,13 +24,36 @@
                   <tbody id="plantsTable">
                   <c:forEach items="${allPlantInformation}" var="plantInfo">
                   <tr>
-                      <td><a href="/garden/${garden.gardenId}/addPlant/${plantInfo.plantInfoId}" name="plantInfoId" class="btn btn-success"><i class='fas fa-seedling'></i>&#43;</a></td>
+                      <td><a class="btn btn-success" href="#addPlantModal_${plantInfo.plantInfoId}" data-toggle="modal"><i class='fas fa-seedling'></i>&#43;</a></td>
                       <td><c:out value="${plantInfo.plantName}" /></td>
                       <td><c:out value="${plantInfo.latinName}" /></td>
                       <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
                       <td><c:out value="${plantInfo.plantingStart}" /> t/m <c:out value="${plantInfo.plantingEnd}" /></td>
-                      <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" class="btn btn-success">Meer informatie</a></td>
+                      <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" data-toggle="modal" class="btn btn-secondary">Meer informatie</a></td>
                   </tr>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="addPlantModal_${plantInfo.plantInfoId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Plant toevoegen</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <p>Je gaat nu nieuwe ${plantInfo.plantName} in je tuin zetten. </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <a type="button" class="btn btn-success" href="/garden/${garden.gardenId}/addPlant/<c:out value="${plantInfo.plantInfoId}" />" name="modal-verwijderen" title="addPlant">Bevestig</a>
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
                   </c:forEach>
                   </tbody>
               </table>
