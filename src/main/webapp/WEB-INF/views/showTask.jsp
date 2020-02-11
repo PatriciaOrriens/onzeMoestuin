@@ -7,7 +7,7 @@
                  </div>
                 </div>
 
-     <h2>Taken</h2>
+
      <table class="table table-striped">
         <tr>
             <th>Taak</th>

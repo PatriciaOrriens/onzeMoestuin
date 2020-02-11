@@ -6,15 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.text.SimpleDateFormat;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +23,8 @@ import java.util.Optional;
 @Controller
 public class NewGardenController {
 
-    final int NUMBER_OF_SHOWN_TASKS = 5;
+    private final static int START = 0;
+    private final static int MAXIMUM_NUMBER_OF_SHOWN_TASKS = 5;
 
     @Autowired
     private GardenRepository gardenRepository;
@@ -88,11 +84,29 @@ public class NewGardenController {
         }
     }
 
-    // retrieve all tasks for one garden for view
+    // retrieve the first five tasks, which has to be done for one garden, for the view
     private void addAttributesToShowGardenView(Garden garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
-        // load tasks for plants of this garden
+        ArrayList<Task> notCompletedTasks = getListOfNotCompletedTasks(plants, garden);
+        ArrayList<Task> tasksToBeShown = new ArrayList<>();
+        for (int i = START; i < getNumberOfShownTasks(notCompletedTasks) ; i++) {
+            tasksToBeShown.add(notCompletedTasks.get(i));
+        }
+        model.addAttribute("tasks", tasksToBeShown);
+        model.addAttribute("plants", plants);
+        model.addAttribute("garden", garden);
+    }
+
+    private int getNumberOfShownTasks(ArrayList<Task> tasks) {
+        if (tasks.size() < MAXIMUM_NUMBER_OF_SHOWN_TASKS) {
+            return tasks.size();
+        }
+        return MAXIMUM_NUMBER_OF_SHOWN_TASKS;
+    }
+
+    private ArrayList<Task> getListOfNotCompletedTasks(ArrayList<Plant> plants, Garden garden) {
         ArrayList<Task> notCompletedTasks = new ArrayList<>();
+        // load tasks for plants of this garden
         for (Plant plant : plants) {
             ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findNotCompletedTaskPlant(plant);
             notCompletedTasks.addAll(tasksForPlant);
@@ -100,9 +114,7 @@ public class NewGardenController {
         ArrayList<TaskGarden> taskGardens = taskGardenRepository.findNotCompletedTaskGarden(garden);
         notCompletedTasks.addAll(taskGardens);
         Collections.sort(notCompletedTasks);
-        //model.addAttribute("tasks", tasks);
-        model.addAttribute("plants", plants);
-        model.addAttribute("garden", garden);
+        return notCompletedTasks;
     }
 
     private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
@@ -115,5 +127,4 @@ public class NewGardenController {
         newMessage.setGarden(garden.get());
         model.addAttribute("newMessage", newMessage);
     }
-
 }

@@ -14,6 +14,6 @@ import java.util.ArrayList;
 public interface TaskGardenRepository extends JpaRepository<TaskGarden, Integer> {
     ArrayList<TaskGarden> findAllByGarden(Garden garden);
 
-    @Query("SELECT tg FROM TaskGarden tp WHERE tg.completedDate is null AND tg.garden=?1")
+    @Query("SELECT tg FROM TaskGarden tg WHERE tg.completedDate is null AND tg.garden=?1")
     ArrayList<TaskGarden> findNotCompletedTaskGarden(Garden garden);
 }
