@@ -29,7 +29,7 @@
                       <td><c:out value="${plantInfo.latinName}" /></td>
                       <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
                       <td><c:out value="${plantInfo.plantingStart}" /> t/m <c:out value="${plantInfo.plantingEnd}" /></td>
-                      <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" data-toggle="modal" class="btn btn-secondary">Meer informatie</a></td>
+                      <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" class="btn btn-secondary">Meer informatie</a></td>
                   </tr>
 
                       <!-- Modal -->
