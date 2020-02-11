@@ -1,5 +1,6 @@
 package groentjes.onzeMoestuin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +10,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.*;
 
+/**
+ * @author Wim Kruizinga
+ */
 @Entity (name = "User")
+@JsonIgnoreProperties({"joinedGardens", "password", "authorities"})
 public class User implements UserDetails {
 
     @Id
@@ -28,7 +33,6 @@ public class User implements UserDetails {
     private String email;
 
     private String firstName;
-
     private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY,

@@ -1,24 +1,24 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Plant;
-import groentjes.onzeMoestuin.model.TaskPlant;
-import groentjes.onzeMoestuin.model.User;
-import groentjes.onzeMoestuin.repository.GardenRepository;
-import groentjes.onzeMoestuin.repository.PlantRepository;
-import groentjes.onzeMoestuin.repository.TaskPlantRepository;
-import groentjes.onzeMoestuin.repository.UserRepository;
+import groentjes.onzeMoestuin.model.*;
+import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.text.SimpleDateFormat;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,6 +40,12 @@ public class NewGardenController {
     @Autowired
     private TaskPlantRepository taskPlantRepository;
 
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @Autowired
+    private TaskGardenRepository taskGardenRepository;
+
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
                                 @AuthenticationPrincipal User user) {
@@ -47,7 +53,8 @@ public class NewGardenController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                addAttributesToShowGardenView(garden, model);
+                addMessagesToGardenView(garden, user, model);
+                addAttributesToShowGardenView(garden.get(), model);
                 return "showGarden";
             }
         }
@@ -64,10 +71,10 @@ public class NewGardenController {
     }
 
     @PostMapping({"/garden/add"})
-    protected String saveOrUpdateGarden(@ModelAttribute("garden") Garden garden, BindingResult result,
+    protected String saveOrUpdateGarden(@Valid Garden garden, Errors errors,
                                         @AuthenticationPrincipal User user) {
 
-        if (result.hasErrors()) {
+        if (errors.hasErrors()) {
             return "newGarden";
         } else {
             // Retrieve complete User object from database to be able to add member to garden
@@ -79,16 +86,32 @@ public class NewGardenController {
         }
     }
 
-    private void addAttributesToShowGardenView(Optional<Garden> garden, Model model) {
+    // retrieve all tasks for one garden for view
+    private void addAttributesToShowGardenView(Garden garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
-        ArrayList<TaskPlant> taskPlants = new ArrayList<>();
+        // load tasks for plants of this garden
+        ArrayList<Task> tasks = new ArrayList<>();
         for (Plant plant : plants) {
             ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
-            taskPlants.addAll(tasksForPlant);
+            tasks.addAll(tasksForPlant);
         }
-        Collections.sort(taskPlants);
-        model.addAttribute("taskPlants", taskPlants);
+        ArrayList<TaskGarden> taskGardens = taskGardenRepository.findAllByGarden(garden);
+        tasks.addAll(taskGardens);
+        Collections.sort(tasks);
+        model.addAttribute("tasks", tasks);
         model.addAttribute("plants", plants);
-        model.addAttribute("garden", garden.get());
+        model.addAttribute("garden", garden);
     }
+
+    private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
+        // load messages that are connected to this garden
+        List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
+        model.addAttribute("messages", messages);
+        // initialize a new message
+        Message newMessage = new Message();
+        newMessage.setSender(user);
+        newMessage.setGarden(garden.get());
+        model.addAttribute("newMessage", newMessage);
+    }
+
 }

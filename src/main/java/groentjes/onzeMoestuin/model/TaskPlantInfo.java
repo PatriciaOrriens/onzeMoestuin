@@ -20,9 +20,9 @@ public class TaskPlantInfo {
     private PlantInformation plantInformation;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "task_id", nullable = false)
+    @JoinColumn(name = "taskDescription_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Task task;
+    private TaskDescription taskDescription;
 
     public Integer getTaskPlantInfoId() {
         return taskPlantInfoId;
@@ -56,11 +56,11 @@ public class TaskPlantInfo {
         this.plantInformation = plantInformation;
     }
 
-    public Task getTask() {
-        return task;
+    public TaskDescription getTaskDescription() {
+        return taskDescription;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setTaskDescription(TaskDescription taskDescription) {
+        this.taskDescription = taskDescription;
     }
 }

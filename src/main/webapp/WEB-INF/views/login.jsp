@@ -8,13 +8,15 @@
        <form:form method="post" modelAttribute="user">
             <div class="form-group">
                 <label for="name">Gebruikersnaam:</label>
-                <form:input path="username" class="form-control" />
+                <form:input path="username" class="form-control" required="required" />
             </div>
             <div>
                 <label for="password">Wachtwoord:</label>
-                <form:input path="password" type="password" class="form-control" />
+                <form:input path="password" type="password" class="form-control" required="required" />
             </div>
-            <br/>
+            <br />
+            <p class="centeredRedText"><c:if test="${not empty error}">${error}</c:if></p>
+
             <form:button type="submit" class="btn btn-success" name="inlogbutton">Inloggen</form:button>
         </form:form>
 

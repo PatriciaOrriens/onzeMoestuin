@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = TaskPlantController.class)
-class TaskPlantControllerTest {
+class TaskDescriptionPlantControllerTest {
 
     private static final int ONE = 1;
     private static final int TWO = 2;
@@ -59,7 +59,7 @@ class TaskPlantControllerTest {
     @BeforeEach
     void setUp() {
         taskPlant = new TaskPlant();
-        taskPlant.setTaskPlantId(TWO);
+        taskPlant.setTaskId(TWO);
         taskPlantInfo = new TaskPlantInfo();
         taskPlantInfo.setDaysAfterStart(EIGHT);
         taskPlant.setTaskPlantInfo(taskPlantInfo);
@@ -76,7 +76,7 @@ class TaskPlantControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     void testProcessCompletedTaskPlantWithExistingTaskPlant() throws Exception {
-        String taskPlantId = taskPlant.getTaskPlantId().toString();
+        String taskPlantId = taskPlant.getTaskId().toString();
 
         boolean expectedisCompleted = true;
 
@@ -95,7 +95,7 @@ class TaskPlantControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     void testProcessCompletedTaskPlantWithNonExistingTaskPlant() throws Exception {
-        String taskPlantId = taskPlant.getTaskPlantId().toString();
+        String taskPlantId = taskPlant.getTaskId().toString();
 
         boolean expectedisCompleted = false;
 

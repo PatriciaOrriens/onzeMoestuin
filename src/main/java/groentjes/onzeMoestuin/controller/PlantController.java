@@ -2,15 +2,25 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,24 +50,25 @@ public class PlantController {
                                   @AuthenticationPrincipal User user) {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
-        if (garden.isPresent()) {
+        List<PlantInformation> allPlantInformation = plantInformationRepository.findAll();
+        if (garden.isPresent() && (allPlantInformation.size() != 0)) {
             if(garden.get().isGardenMember(user)) {
                 Plant plant = new Plant();
                 plant.setGarden(garden.get());
                 model.addAttribute("plant", plant);
                 model.addAttribute("garden", garden.get());
-                model.addAttribute("allPlantInformation", plantInformationRepository.findAll());
+                model.addAttribute("allPlantInformation", allPlantInformation);
                 return "addPlant";
             }
         }
         return "redirect:/";
     }
 
-    @GetMapping("/plant/{plantId}")
-    public String showPlantDetails(Model model, @PathVariable("plantId") final Integer plantId,
-                                   @AuthenticationPrincipal User user) {
+    @GetMapping(value = "/plant/{plantId}")
+    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model, @AuthenticationPrincipal User user) throws IOException {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
+
         if (plant.isPresent()) {
             if (plant.get().isOwnerOfPlant(user)) {
                 model.addAttribute(plant.get());
@@ -65,6 +76,15 @@ public class PlantController {
             }
         }
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/plant/{plantId}/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@PathVariable("plantId") final Integer plantId) throws IOException {
+
+        Optional<Plant> plant = plantRepository.findById(plantId);
+
+        InputStream input = new ByteArrayInputStream(plant.get().getPlantInformation().getImage());
+        return IOUtils.toByteArray(input);
     }
 
     @PostMapping("/garden/{gardenId}/addPlant")

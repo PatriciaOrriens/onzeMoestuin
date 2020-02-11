@@ -37,11 +37,13 @@ public class ManageGardenControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private static final Integer ONE = 1;
     private static final String NAME = "testgebruiker1";
     private static final String PASSWORD = "testwachtwoord1";
     private static final String SECONDNAME = "testgebruiker2";
     private static final String SECONDPASSWORD = "testwachtwoord2";
     private static final String NAMEGARDEN = "testtuin1";
+    private Garden gardenToBeDeleted = new Garden();
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -51,10 +53,11 @@ public class ManageGardenControllerWebDriverTest {
         garden.ifPresent(value -> gardenRepository.delete(value));
         User user = saveUser(NAME, PASSWORD);
         User owner = userRepository.getOne(user.getUserId());
-        Garden gardenToBeDeleted = new Garden();
         gardenToBeDeleted.setGardenName(NAMEGARDEN);
         gardenToBeDeleted.setUser(owner);
         gardenToBeDeleted.addGardenMember(owner);
+        gardenToBeDeleted.setLength(ONE);
+        gardenToBeDeleted.setWidth(ONE);
         gardenRepository.save(gardenToBeDeleted);
         saveUser(SECONDNAME, SECONDPASSWORD);
     }
