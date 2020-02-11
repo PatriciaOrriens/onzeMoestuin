@@ -28,6 +28,8 @@ import java.util.Optional;
 @Controller
 public class NewGardenController {
 
+    final int NUMBER_OF_SHOWN_TASKS = 5;
+
     @Autowired
     private GardenRepository gardenRepository;
 
@@ -90,15 +92,15 @@ public class NewGardenController {
     private void addAttributesToShowGardenView(Garden garden, Model model) {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
         // load tasks for plants of this garden
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> notCompletedTasks = new ArrayList<>();
         for (Plant plant : plants) {
-            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
-            tasks.addAll(tasksForPlant);
+            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findNotCompletedTaskPlant(plant);
+            notCompletedTasks.addAll(tasksForPlant);
         }
-        ArrayList<TaskGarden> taskGardens = taskGardenRepository.findAllByGarden(garden);
-        tasks.addAll(taskGardens);
-        Collections.sort(tasks);
-        model.addAttribute("tasks", tasks);
+        ArrayList<TaskGarden> taskGardens = taskGardenRepository.findNotCompletedTaskGarden(garden);
+        notCompletedTasks.addAll(taskGardens);
+        Collections.sort(notCompletedTasks);
+        //model.addAttribute("tasks", tasks);
         model.addAttribute("plants", plants);
         model.addAttribute("garden", garden);
     }

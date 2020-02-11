@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -39,14 +38,14 @@ public class TaskController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if (garden.get().isGardenMember(user)) {
-                addTasksToModel(model, garden.get());
+                getAllTasksforView(model, garden.get());
                 return "showTaskOverview";
             }
         }
         return "manageUsers";
     }
 
-    private void addTasksToModel(Model model, Garden garden) {
+    private void getAllTasksforView(Model model, Garden garden) {
         ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
         // load tasks for plants of this garden
         ArrayList<Task> tasks = new ArrayList<>();

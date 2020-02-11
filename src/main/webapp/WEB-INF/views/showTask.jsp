@@ -1,4 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+    <!-- Modal to show User details-->
+                <div id="userModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog modal-lg">
+                     <div id="userContainer"></div>
+                 </div>
+                </div>
+
      <h2>Taken</h2>
      <table class="table table-striped">
         <tr>
@@ -67,5 +75,5 @@
 
 
 
-<script src="../resources/javascript/showGarden.js"></script>
+<script src="../resources/javascript/showTask.js"></script>
 
