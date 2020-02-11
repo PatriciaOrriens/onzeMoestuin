@@ -85,7 +85,24 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
-    @PostMapping("/garden/{gardenId}/addPlant")
+    @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
+    public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
+                                   @PathVariable("plantInfoId") final Integer plantInfoId,
+                                   @ModelAttribute("plant") Plant newPlant,
+                                   @AuthenticationPrincipal User user) {
+
+        Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
+        Optional<Garden> garden = gardenRepository.findById(gardenId);
+        if (plantInfo.isPresent() && garden.isPresent()) {
+            if(garden.get().isGardenMember(user)) {
+                savePlantAndTaskPlant(plantInfo, garden, newPlant);
+                return "redirect:/garden/" + gardenId + "/addPlant";
+            }
+        }
+        return "redirect:/";
+    }
+
+    /*@PostMapping("/garden/{gardenId}/addPlant")
     public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
                                    BindingResult result, @PathVariable("gardenId") final Integer gardenId,
                                    @AuthenticationPrincipal User user) {
@@ -99,7 +116,7 @@ public class PlantController {
             }
         }
         return "redirect:/";
-    }
+    }*/
 
     @GetMapping("/plant/delete/{plant.plantId}")
     public String deletePlant(@ModelAttribute("plant.plantId") Integer plantId,
