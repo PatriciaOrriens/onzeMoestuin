@@ -39,20 +39,24 @@ public class TaskController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if (garden.get().isGardenMember(user)) {
-                ArrayList<Plant> plants = plantRepository.findAllByGarden(garden.get());
-                // load tasks for plants of this garden
-                ArrayList<Task> tasks = new ArrayList<>();
-                for (Plant plant : plants) {
-                    ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
-                    tasks.addAll(tasksForPlant);
-                }
-                ArrayList<TaskGarden> taskGardens = taskGardenRepository.findAllByGarden(garden.get());
-                tasks.addAll(taskGardens);
-                Collections.sort(tasks);
-                model.addAttribute("tasks", tasks);
+                addTasksToModel(model, garden.get());
                 return "showTaskOverview";
             }
         }
         return "manageUsers";
+    }
+
+    private void addTasksToModel(Model model, Garden garden) {
+        ArrayList<Plant> plants = plantRepository.findAllByGarden(garden);
+        // load tasks for plants of this garden
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Plant plant : plants) {
+            ArrayList<TaskPlant> tasksForPlant = taskPlantRepository.findAllByPlant(plant);
+            tasks.addAll(tasksForPlant);
+        }
+        ArrayList<TaskGarden> taskGardens = taskGardenRepository.findAllByGarden(garden);
+        tasks.addAll(taskGardens);
+        Collections.sort(tasks);
+        model.addAttribute("tasks", tasks);
     }
 }
