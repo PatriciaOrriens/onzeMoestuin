@@ -43,7 +43,7 @@
                   <c:forEach items="${allPlantInformation}" var="plantInfo">
                   <tr id="plantRow">
 <%--                      <td><form:button type="submit" class="btn btn-success" name="${plantInfo.plantInfoId}InGarden">Voeg <i class='fas fa-seedling'></i> <c:out value="" /> toe</form:button></td>--%>
-                      <td><a href="/garden/${garden.gardenId}/addPlant/${plantInfo.plantInfoId}" name="plantInfoId" class="btn btn-success"><i class='fas fa-seedling'></i></td>
+                      <td><a href="/garden/${garden.gardenId}/addPlant/${plantInfo.plantInfoId}" name="plantInfoId" class="btn btn-success"><i class='fas fa-seedling'></i>&#43;</a></td>
                       <td><c:out value="${plantInfo.plantName}" /></td>
                       <td><c:out value="${plantInfo.latinName}" /></td>
                       <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
