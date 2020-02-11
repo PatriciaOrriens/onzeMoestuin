@@ -1,5 +1,6 @@
 //package groentjes.onzeMoestuin.controller;
 //
+//import com.fasterxml.jackson.databind.ObjectMapper;
 //import groentjes.onzeMoestuin.model.Garden;
 //import groentjes.onzeMoestuin.model.Message;
 //import groentjes.onzeMoestuin.model.User;
@@ -8,22 +9,34 @@
 //import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 //import net.sf.cglib.core.Local;
 //import org.apache.catalina.core.ApplicationContext;
+//import org.junit.Before;
 //import org.junit.Test;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.runner.RunWith;
+//import org.mockito.InjectMocks;
 //import org.mockito.Mock;
 //import org.mockito.Mockito;
 //
+//import static org.assertj.core.api.Assertions.assertThat;
 //import static org.hamcrest.Matchers.hasSize;
+//import static org.mockito.BDDMockito.given;
 //import static org.mockito.Mockito.*;
+//
+//import org.mockito.junit.MockitoJUnitRunner;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+//import org.springframework.boot.test.json.JacksonTester;
 //import org.springframework.boot.test.mock.mockito.MockBean;
 //import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.domain.Pageable;
+//import org.springframework.data.domain.Sort;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.MediaType;
+//import org.springframework.mock.web.MockHttpServletResponse;
 //import org.springframework.security.test.context.support.WithMockUser;
 //import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
+//import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 //
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 //import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -34,59 +47,76 @@
 //
 //import java.time.LocalDateTime;
 //import java.util.ArrayList;
+//import java.util.Arrays;
 //import java.util.List;
 //
 ///**
 // * @author Wim Kruizinga
 // */
-//@RunWith(SpringRunner.class)
+//// MockitoJUNitRunner adds functionality to SpringRunner - initializes all fields with @Mock (no need to call Mockito.initMocks()
+//@RunWith(MockitoJUnitRunner.class)
 //@WebMvcTest(value = MessagesRestController.class)
 //public class MessageRestControllerTest {
 //
-//    @Autowired
-//    private MockMvc mockMvc;
+//    private MockMvc mvc;
 //
-//    @Autowired
-//    ApplicationContext context;
-//
-//    @MockBean
+//    @Mock
 //    private MessageRepository messageRepository;
 //
-//    @MockBean
+//    @Mock
 //    private GardenRepository gardenRepository;
 //
-//    @Mock
-//    Garden mockGarden;
+//    @InjectMocks // ensures  that mocked repo is injected into the controller
+//    private MessagesRestController messageController;
 //
 //    @Mock
-//    PageRequest mockPage;
+//    private User mockUser;
 //
-//    @MockBean
-//    User mockUser;
+//    @Mock
+//    private Garden mockGarden;
 //
-//    @MockBean
-//    GardenUserDetailsService gardenUserDetailsService;
 //
-////    @BeforeEach
-////    void setUp() {
-////
-////
-////
-////    }
+//
+//    private LocalDateTime time;
+//
+//    // ?
+//    private JacksonTester<ArrayList<Message>> jsonMessage;
+//
+//    @Before
+//    public void setup() {
+//        JacksonTester.initFields(this, new ObjectMapper());
+//        mvc = MockMvcBuilders.standaloneSetup(messageController)
+//                .build();
+//
+//        time = LocalDateTime.now();
+//
+//
+//    }
 //
 //    @Test
-//    @WithMockUser(roles = "USER")
-//    public void testMessageRest() throws Exception {
-//        LocalDateTime time = LocalDateTime.now();
+//    public void canGetMessagesByGardenWhenExists() throws Exception {
 //
-//        List<Message> messages = new ArrayList<>();
 //
-//        messages.add(new Message(1, mockUser, mockGarden, "test message", time));
+//        // given
+//        given(messageRepository.findAllByGarden(any(Garden.class), any(Pageable.class)))
+//                .willReturn(new ArrayList<Message>(Arrays.asList(
+//                    new Message(1, mockUser, mockGarden, "Test message", time),
+//                    new Message(2, mockUser, mockGarden, "Test message 2", time)
+//                )));
 //
-//        Mockito.when(messageRepository.findAllByGarden(mockGarden, mockPage)).thenReturn(messages);
+//        // when
+//        MockHttpServletResponse response = mvc.perform(
+//                get("/api/garden/1/messages/0")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andReturn().getResponse();
 //
-//        mockMvc.perform(get("/garden/{id}/messages/{page}", 1, 1)).andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(1)));
+//        // then
+//        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+//        assertThat(response.getContentAsString()).isEqualTo(
+//                jsonMessage.write(new ArrayList<Message>(Arrays.asList(
+//                        new Message(1, mockUser, mockGarden, "Test message", time),
+//                        new Message(2, mockUser, mockGarden, "Test message 2", time)
+//                ))));
 //
 //    }
 //
