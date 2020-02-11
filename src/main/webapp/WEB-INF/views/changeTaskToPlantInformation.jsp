@@ -16,9 +16,9 @@
                 <select name="taskId" class="form-control">
 
                     <c:forEach items="${allTasks}" var="task">
-                    <option value="${task.taskId}">${task.taskName}</option>
+                    <option value="${task.taskDescriptionId}">${task.taskName}</option>
                     </c:forEach>
-                    <option value="${taskPlantInfo.task.taskId}" selected>${taskPlantInfo.task.taskName}</option>
+                    <option value="${taskPlantInfo.taskDescription.taskDescriptionId}" selected>${taskPlantInfo.taskDescription.taskName}</option>
                 </select>
             </div>
         </div>
