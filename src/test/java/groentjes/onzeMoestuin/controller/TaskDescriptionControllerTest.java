@@ -3,6 +3,8 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.TaskDescription;
 import groentjes.onzeMoestuin.repository.TaskDescriptionRepository;
+import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,8 +20,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Optional;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author Patricia Orriens-Spuij
@@ -42,6 +43,9 @@ public class TaskDescriptionControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
+    private GardenUserDetailsService gardenUserDetailsService;
+
+    @MockBean
     private TaskDescriptionRepository taskDescriptionRepository;
 
     @BeforeEach
@@ -55,21 +59,24 @@ public class TaskDescriptionControllerTest {
         taskDescriptionB.setTaskName(taskName2);
     }
 
-    //Activate test
     @Test
+    @WithMockUser(roles = "ADMIN")
+    void testManageTaskDescriptions() throws Exception {
+        final ResultActions result = mockMvc.perform(get("/adminManageTasks")).andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/views/adminManageTasks.jsp"));
+    }
+
+   /* @Test
     @WithMockUser(roles = "ADMIN")
     void testShowTaskForUpdate() throws Exception {
         String taskDescriptionId = taskDescriptionA.getTaskDescriptionId().toString();
 
-        boolean expectedIsCompleted = true;
-
-        Mockito.when(taskDescriptionRepository.findById(ONE))
-                .thenReturn(Optional.ofNullable(taskDescriptionA));
+        Mockito.when(taskDescriptionRepository.findById(ONE)).thenReturn(Optional.ofNullable(taskDescriptionA));
 
         final ResultActions result = mockMvc.perform(get("/task/update/" + taskDescriptionId)
-                .sessionAttr("taskId", taskDescriptionId)).andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
-    }
-    //Assert test
+                .sessionAttr("taskId", taskDescriptionId)).andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/views/adminManageTasks.jsp"));
+    }*/
+
 
 }
