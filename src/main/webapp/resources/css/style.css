@@ -71,6 +71,7 @@ text-align: center;
     padding: 3px;
     margin: 0px;
     text-align: center;
+
 }
 
 .vertical-align-grid-icon {
@@ -79,6 +80,7 @@ text-align: center;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+
 }
 
 .vertical-align-grid-icon img {

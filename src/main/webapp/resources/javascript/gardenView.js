@@ -53,10 +53,14 @@ function loadGrid() {
 
 
 
+    // Trigger event when clicked on grid element or child
     $('.grid-stack-item').on('click', function(e) {
-        ajaxGetPlant(e.target.id);
+        if (e.target.id) {
+            ajaxGetPlant(e.target.id);
+        } else {
+            ajaxGetPlant(e.target.parent.id);
+        }
     });
-
 
     // Get new height & width on resize {}
     $('.grid-stack').on('gsresizestop', function(event, elem) {
