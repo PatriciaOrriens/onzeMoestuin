@@ -20,7 +20,7 @@ public class Role {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.PERSIST,
+                    CascadeType.ALL,
                     CascadeType.MERGE
             },
             mappedBy = "role")
