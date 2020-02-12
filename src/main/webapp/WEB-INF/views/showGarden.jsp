@@ -45,31 +45,16 @@
      </div>
     </div>
 
-    <%-- comment old code out
-    <table class="table table-striped">
-        <tr>
-            <th>Plant</th>
-            <th>Verwijderen</th>
-        </tr>
-        <c:forEach items="${plants}" var="plant">
-            <tr>
-                <td>
-                    <a href="../plant/${plant.plantId}" name="plantlink">
-                        <c:out value="${plant.plantInformation.plantName}" />
-                    </a>
-                </td>
-                <td>
-                    <a class="btn btn-warning" href="#removePlantModal_${plant.plantId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
-                </td>
-            </tr>
 
-            <!-- Modal
+
+
             <!-- Modal to show User details-->
                 <div id="userModal" class="modal fade" role="dialog">
                   <div class="modal-dialog modal-lg">
                      <div id="userContainer"></div>
                  </div>
                 </div>
+    <%-- comment old code out
 
             <!-- Modal -->
             <div class="modal fade" id="removePlantModal_${plant.plantId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -92,8 +77,7 @@
                 </div>
             </div>
 
-        </c:forEach>
-     </table>--%>
+     --%>
 
       <!-- Tijdelijke code om tuinleden weer te geven -->
       <h2>Leden</h2>

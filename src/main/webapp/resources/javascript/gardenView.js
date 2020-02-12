@@ -57,8 +57,6 @@ function loadGrid() {
     $('.grid-stack-item').on('click', function(e) {
         if (e.target.id) {
             ajaxGetPlant(e.target.id);
-        } else {
-            ajaxGetPlant(e.target.parent.id);
         }
     });
 
