@@ -29,8 +29,8 @@ public class AdminDashboardControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final String NAME = "admin";
-    private static final String PASSWORD = "admin";
+    private static final String NAME = "abc";
+    private static final String PASSWORD = "abc";
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -43,7 +43,6 @@ public class AdminDashboardControllerWebDriverTest {
         this.driver.quit();
         this.driver = null;
     }
-
 
     @Test
     void testAdminDashboard() throws Exception {

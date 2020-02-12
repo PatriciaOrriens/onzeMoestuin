@@ -3,6 +3,7 @@ package groentjes.onzeMoestuin.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.assertj.core.api.Assertions;
@@ -42,10 +43,13 @@ class RegisterControllerTest {
     private UserRepository userRepository;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
+    private RoleRepository roleRepository;
 
     @MockBean
-    GardenInvitationRepository gardenInvitationRepository;
+    private GardenUserDetailsService gardenUserDetailsService;
+
+    @MockBean
+    private GardenInvitationRepository gardenInvitationRepository;
 
     @Test
     void testGetRegisterUserForm() throws Exception {

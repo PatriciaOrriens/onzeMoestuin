@@ -19,6 +19,4 @@ public class GardenUserDetailsService implements UserDetailsService {
                 () -> new UsernameNotFoundException("User " + s + " not found.")
         );
     }
-
-
 }
