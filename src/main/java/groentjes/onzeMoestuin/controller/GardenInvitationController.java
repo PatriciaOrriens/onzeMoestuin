@@ -46,10 +46,7 @@ public class GardenInvitationController {
     protected String inviteExistingMember(@ModelAttribute("foundUser") User newMember,
                                           @PathVariable("gardenId") Integer gardenId) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         GardenInvitation newInvitation = new GardenInvitation();
         User invitingUser = userRepository.findById(user.getUserId()).get();
@@ -66,10 +63,7 @@ public class GardenInvitationController {
     @GetMapping("/garden/{gardenId}/acceptInvitation")
     protected String acceptInvitation(@PathVariable("gardenId") Integer gardenId) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Garden garden = gardenRepository.findById(gardenId).get();
         Optional<GardenInvitation> invitation = gardenInvitationRepository.findByGardenAndInvitedUser(garden, user);
@@ -89,10 +83,7 @@ public class GardenInvitationController {
     @GetMapping("/garden/{gardenId}/refuseInvitation")
     protected String refuseInvitation(@PathVariable("gardenId") Integer gardenId) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Garden garden = gardenRepository.findById(gardenId).get();
         Optional<GardenInvitation> invitation = gardenInvitationRepository.findByGardenAndInvitedUser(garden, user);
@@ -105,5 +96,11 @@ public class GardenInvitationController {
             }
         }
         return "redirect:/userManageGardens";
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

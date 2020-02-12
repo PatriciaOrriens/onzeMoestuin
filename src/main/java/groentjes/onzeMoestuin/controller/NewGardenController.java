@@ -45,10 +45,8 @@ public class NewGardenController {
 
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
@@ -63,10 +61,7 @@ public class NewGardenController {
     @GetMapping("/garden/add")
     protected String showGardenForm(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Garden garden = new Garden();
         garden.setUser(user);
@@ -82,10 +77,7 @@ public class NewGardenController {
             return "newGarden";
         } else {
             // Retrieve complete User object from database to be able to add member to garden
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String currentPrincipalName = authentication.getName();
-            User user =
-                    userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+            User user = getUser();
 
             garden.addGardenMember(user);
             garden = gardenRepository.save(garden);
@@ -105,5 +97,11 @@ public class NewGardenController {
         model.addAttribute("taskPlants", taskPlants);
         model.addAttribute("plants", plants);
         model.addAttribute("garden", garden.get());
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

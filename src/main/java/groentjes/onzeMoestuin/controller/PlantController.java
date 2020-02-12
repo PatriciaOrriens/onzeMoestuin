@@ -53,10 +53,7 @@ public class PlantController {
     @GetMapping("/garden/{gardenId}/addPlant")
     public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
@@ -75,10 +72,7 @@ public class PlantController {
     @GetMapping(value = "/plant/{plantId}")
     public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model) throws IOException {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Optional<Plant> plant = plantRepository.findById(plantId);
 
@@ -104,10 +98,7 @@ public class PlantController {
     public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
                                    BindingResult result, @PathVariable("gardenId") final Integer gardenId) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
@@ -145,5 +136,11 @@ public class PlantController {
             taskPlant.calculateDueDate();
             taskPlantRepository.save(taskPlant);
         }
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

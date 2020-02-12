@@ -48,10 +48,7 @@ public class MailController {
     protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
                                      @ModelAttribute("invitationMail") Mail invitationMail) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         try {
             GardenInvitation newInvitation = new GardenInvitation();
@@ -84,5 +81,11 @@ public class MailController {
         helper.setSubject(mail.getSubject());
         helper.setText(mail.getMessage(), true);
         sender.send(message);
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

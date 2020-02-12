@@ -41,14 +41,9 @@ public class ManageGardenController {
     @GetMapping("/userManageGardens")
     public String allGardensByMember(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(user));
-        //User user = userRepository.findByUsername(user.getUsername()).get();
-
 
         List<GardenInvitation> invitations = gardenInvitationRepository.findAllByInvitedUserAndAcceptedNull(user);
 
@@ -61,10 +56,7 @@ public class ManageGardenController {
     @GetMapping("/user/garden/delete/{gardenId}")
     public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId, BindingResult result) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
@@ -88,10 +80,7 @@ public class ManageGardenController {
     @PostMapping("/garden/update/{gardenId}")
     protected String updateGarden(@ModelAttribute("garden") Garden garden, BindingResult result) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         if (result.hasErrors()) {
             return "redirect:/garden/update";
@@ -107,10 +96,7 @@ public class ManageGardenController {
     protected String inviteToGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
                                     @RequestParam(value = "search") Optional<String> search) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
 
@@ -141,5 +127,11 @@ public class ManageGardenController {
             return "inviteGardenMember";
         }
         return "redirect:/";
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

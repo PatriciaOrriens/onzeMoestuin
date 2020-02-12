@@ -35,10 +35,7 @@ public class TaskPlantController {
     @GetMapping("/user/taskPlant/completed/{taskPlantId}")
     public String processCompletedTaskPlant(@PathVariable("taskPlantId") final Integer taskPlantId) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user =
-                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        User user = getUser();
 
         Optional<TaskPlant> taskPlant = taskPlantRepository.findById(taskPlantId);
         if (taskPlant.isPresent()) {
@@ -69,5 +66,11 @@ public class TaskPlantController {
         newTaskPlant.setTaskPlantInfo(taskPlantInfo);
         newTaskPlant.calculateDueDate();
         taskPlantRepository.save(newTaskPlant);
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }
