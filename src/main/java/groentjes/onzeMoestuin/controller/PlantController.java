@@ -99,7 +99,6 @@ public class PlantController {
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
                 savePlantAndTaskPlant(plantInfo, garden, newPlant);
-                System.out.println("succesvol geplant");
                 return "redirect:/garden/" + gardenId + "/addPlant";
             }
         }
