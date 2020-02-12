@@ -23,7 +23,10 @@ $('#newPlants li span').on('click', function(e) {
         };
 
     var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
-    "\"><div class=\"grid-stack-item-content\" id=\"" + plant.plantId + "\">" + $(this).text() + "</div></div>");
+    "\"><div class=\"grid-stack-item-content\"><section class=\"vertical-align-grid-icon\" id=\"" + plant.plantId + "\">" +
+     "<img src=\"/plant/" + plant.plantId + "/image\", name=\"image\" height=\"50%\" id=" + plant.plantId + "\"/>" +
+     "<br />" + $(this).text() + "</div></div>");
+
     var grid = $('.grid-stack').data('gridstack');
     var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
     var node = newWidget.data('_gridstack_node');
@@ -31,8 +34,6 @@ $('#newPlants li span').on('click', function(e) {
     ajaxStartPlant(plant);
     loadGrid();
 });
-
-
 
 // Load GridStack script
 function loadGrid() {

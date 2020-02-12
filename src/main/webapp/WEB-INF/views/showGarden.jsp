@@ -15,7 +15,7 @@
     </div>
 
 
-    <div id="grid-container" class="grid-stack" data-gs-column="${garden.width}" data-gs-height="${garden.length}" data-gs-max-row="${garden.length}">
+    <div id="grid-container" class="grid-stack" data-gs-column="${garden.width}" data-gs-length="${garden.length}" data-gs-max-row="${garden.length}">
 
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes" data-plantId="${plant.plantId}">
@@ -31,7 +31,9 @@
         <h2>Nog niet geplante planten:</h2>
         <ul id="newPlants">
         <c:forEach items="${unstartedPlants}" var = "unstartedPlant">
-            <li><span data-newPlantId="${unstartedPlant.plantId}">${unstartedPlant.plantInformation.plantName}</span></li>
+            <li><span data-newPlantId="${unstartedPlant.plantId}">
+                ${unstartedPlant.plantInformation.plantName}
+            </span></li>
         </c:forEach>
         </ul>
     </c:if>
@@ -176,7 +178,6 @@
            </div>
          </div>
     </script>
-
 
         <!-- Handlebars template for Plant modal -->
         <script id="plantTemplate" type="text/x-handlebars-template">
