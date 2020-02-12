@@ -51,7 +51,7 @@ public class TaskPlantInfoController {
     @PostMapping("/plantinfo/{plantInfoId}/task/add")
     @Secured("ROLE_ADMIN")
     public String saveTaskPlantInfo (@RequestParam("taskId") Integer taskId,
-                                        @ModelAttribute("taskPlantInfo") TaskPlantInfo taskPlantInfo, BindingResult result,
+                                        @ModelAttribute("taskPlantInfo") TaskPlantInfo taskPlantInfo,
                                         @PathVariable("plantInfoId") final Integer plantInfoId) {
 
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
