@@ -90,6 +90,10 @@ text-align: center;
     object-fit: contain;
 }
 
+#plannedPlants {
+    display: none;
+}
+
 
 
 

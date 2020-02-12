@@ -12,6 +12,7 @@ $(document).ready(loadGrid);
 // Set size of GiridStack elements
 $(document).ready(function() {
     loadGrid();
+    ajaxGetUnstartedPlants();
 });
 
 
@@ -125,7 +126,12 @@ function ajaxGetUnstartedPlants() {
         url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/getPlannedPlants",
         dataType: 'json',
         success: function(response) {
-            console.log(response);
+            // Check if plants are returned
+            if (response.length > 0) {
+                // View HTML container that displays planned plants
+                $("#plannedPlants").toggle();
+
+            }
         },
        error: function() {
 

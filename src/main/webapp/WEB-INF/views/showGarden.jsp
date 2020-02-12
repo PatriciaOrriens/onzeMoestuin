@@ -28,14 +28,16 @@
 
 
     <c:if test="${not empty unstartedPlants}">
-        <h2>Nog niet geplante planten:</h2>
-        <ul id="newPlants">
-        <c:forEach items="${unstartedPlants}" var = "unstartedPlant">
-            <li><span data-newPlantId="${unstartedPlant.plantId}">
-                ${unstartedPlant.plantInformation.plantName}
-            </span></li>
-        </c:forEach>
-        </ul>
+        <div id="plannedPlants">
+            <h2>Nog niet geplante planten:</h2>
+            <ul id="newPlants">
+            <c:forEach items="${unstartedPlants}" var = "unstartedPlant">
+                <li><span data-newPlantId="${unstartedPlant.plantId}">
+                    ${unstartedPlant.plantInformation.plantName}
+                </span></li>
+            </c:forEach>
+            </ul>
+        </div>
     </c:if>
 
     <!-- Modal to show Plant details-->
