@@ -130,6 +130,7 @@ function ajaxGetUnstartedPlants() {
             if (response.length > 0) {
                 // View HTML container that displays planned plants
                 $("#plannedPlants").toggle();
+                plannedPlantsHTML(response);
 
             }
         },
@@ -179,8 +180,22 @@ function movePlant(plant) {
    });
 }
 
+//TODO refactor into reusable function
+// Handlebars generating html for planned plants {}
+function plannedPlantsHTML(plantData) {
+        // load Handlebars template from id in html file {}
+        var rawTemplate = document.getElementById("plannedPlantsTemplate").innerHTML;
+        // create dynamic template function
+        var compiledTemplate = Handlebars.compile(rawTemplate);
+        // populate template with JSON data, generate string of HTML
+        var ourGeneratedHTML = compiledTemplate(plantData);
+        // add html to DOM
+        var messageContainer = document.getElementById("plannedPlants-container");
+        messageContainer.innerHTML = ourGeneratedHTML;
+}
 
-<!-- Handlebars generating HTML -->
+
+// Handlebars generating HTML {}
 function plantHTML(plantData) {
     // load Handlebars template from id in html file {}
     var rawTemplate = document.getElementById("plantTemplate").innerHTML;

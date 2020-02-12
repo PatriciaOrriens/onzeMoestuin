@@ -27,8 +27,11 @@
     </div>
 
 
-    <c:if test="${not empty unstartedPlants}">
-        <div id="plannedPlants">
+    <div id="plannedPlants">
+        <div id="plannedPlants-container"></div>
+    </div>
+
+    <%-- <c:if test="${not empty unstartedPlants}">
             <h2>Nog niet geplante planten:</h2>
             <ul id="newPlants">
             <c:forEach items="${unstartedPlants}" var = "unstartedPlant">
@@ -37,8 +40,7 @@
                 </span></li>
             </c:forEach>
             </ul>
-        </div>
-    </c:if>
+    </c:if> --%>
 
     <!-- Modal to show Plant details-->
     <div id="plantModal" class="modal fade" role="dialog">
@@ -192,6 +194,12 @@
              </div>
            </div>
        </script>
+
+       <!-- Handlebars template for planned plants -->
+       <script id="plannedPlantsTemplate" type="text/x-handlebars-template">
+            <h2>Geplande, doch ongeplante planten</p>
+       </script>
+
 
        <script src="../resources/javascript/gardenView.js"></script>
 
