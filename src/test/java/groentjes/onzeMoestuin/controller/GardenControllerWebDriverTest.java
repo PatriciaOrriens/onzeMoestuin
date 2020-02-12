@@ -86,7 +86,6 @@ public class GardenControllerWebDriverTest {
         // Activate
         loginAsAUser();
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("logout")).click();
 
@@ -105,7 +104,6 @@ public class GardenControllerWebDriverTest {
         // Activate
         loginAsAUser();
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("returntooverview")).click();
         driver.findElement(By.name("verwijderen")).click();

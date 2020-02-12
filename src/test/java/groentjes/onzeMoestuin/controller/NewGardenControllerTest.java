@@ -1,9 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.repository.GardenRepository;
-import groentjes.onzeMoestuin.repository.PlantRepository;
-import groentjes.onzeMoestuin.repository.TaskPlantRepository;
-import groentjes.onzeMoestuin.repository.UserRepository;
+import groentjes.onzeMoestuin.repository.*;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +33,12 @@ public class NewGardenControllerTest {
 
     @MockBean
     private TaskPlantRepository taskPlantRepository;
+
+    @MockBean
+    private TaskGardenRepository taskGardenRepository;
+
+    @MockBean
+    private MessageRepository messageRepository;
 
     @MockBean
     GardenUserDetailsService gardenUserDetailsService;
