@@ -43,7 +43,7 @@ function loadGrid() {
     var options = {
         acceptWidgets: '.newWidget',
         // Cell/element size
-        cellHeight: 70,
+        cellHeight: 'auto',
         itemClass: 'grid-stack-item',
         cellHeightUnit:'px'
     };
