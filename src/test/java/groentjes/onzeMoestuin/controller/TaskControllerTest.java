@@ -17,8 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author Eric van Dalen
@@ -65,7 +64,7 @@ class TaskControllerTest {
         Mockito.when((gardenRepository.findById(FIRST_GARDEN_ID))).thenReturn(Optional.empty());
 
         final ResultActions result = mockMvc.perform(get("/userTaskOverview/" + gardenId)
-                .sessionAttr("gardenId", gardenId)).andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/views/manageUsers.jsp"));
+                .sessionAttr("gardenId", gardenId)).andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
     }
 }

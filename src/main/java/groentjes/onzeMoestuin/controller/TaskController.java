@@ -42,7 +42,7 @@ public class TaskController {
                 return "showTaskOverview";
             }
         }
-        return "manageUsers";
+        return "redirect:/";
     }
 
     private void getAllTasksforView(Model model, Garden garden) {
