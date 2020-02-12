@@ -21,7 +21,7 @@ $('#newPlants li span').on('click', function(e) {
             width: 1,
             height: 1
         };
-
+    //TODO use templating to improve maintainability
     var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
     "\"><div class=\"grid-stack-item-content\"><section class=\"vertical-align-grid-icon\" id=\"" + plant.plantId + "\">" +
      "<img src=\"/plant/" + plant.plantId + "/image\", name=\"image\" height=\"50%\" id=" + plant.plantId + "\"/>" +
@@ -112,6 +112,35 @@ function ajaxGetPlant(plantId) {
 //        }
     });
 }
+
+
+// Get plants added but not yet placed on grid
+
+//TODO
+// Get next messages for garden {}
+
+//function ajaxGetUnstartedPlants() {
+//    $.ajax({
+//        type: "GET",
+//        url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/" + page,
+//        dataType: 'json',
+//        success: function(response) {
+//            // If messages are loaded for the first time, set imitial timestamp
+//            if (latestMessageTimeStamp === null) {
+//                latestMessageTimeStamp = response[0].dateTime;
+//            }
+//            $("#message-error").hide();
+//            $("#new-messages-alert").hide();
+//            messageHTML(response);
+//            page++;
+//        },
+//       error: function() {
+//            $("#message-error > p").html("<strong>Sorry!</strong> Berichten konden niet worden opgehaald.");
+//            $("#message-error").fadeIn("slow");
+//       }
+//    });
+//}
+
 
 function resizePlant(plant) {
    $.ajax({

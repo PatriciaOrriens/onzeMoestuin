@@ -2,14 +2,18 @@ package groentjes.onzeMoestuin.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.Plant;
+import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +23,9 @@ public class AjaxRestController {
     @Autowired
     private PlantRepository plantRepository;
 
+    @Autowired
+    private GardenRepository gardenRepository;
+
     @GetMapping("/getPlant/{id}")
     public ResponseEntity<Plant> getPlant(@PathVariable("id") Integer plantId) {
         Optional<Plant> plant = plantRepository.findById(plantId);
@@ -27,6 +34,17 @@ public class AjaxRestController {
             return new ResponseEntity<>(plant.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/garden/{id}/getPlannedPlants")
+    public ResponseEntity<List<Plant>> getPlannedPlants(@PathVariable("id") Integer gardenId) {
+        Optional<Garden> searchedGarden = gardenRepository.findById(gardenId);
+
+        if (searchedGarden.isPresent()) {
+            Garden garden = searchedGarden.get();
+            return new ResponseEntity<>(plantRepository.findAllByGardenAndStartDateIsNull(garden), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.I_AM_A_TEAPOT);
     }
 
     @PostMapping("/plant/resize")
