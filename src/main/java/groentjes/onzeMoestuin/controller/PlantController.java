@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen and Gjalt Wybenga
+ * @author Eric van Dalen, Gjalt Wybenga and Patricia Orriens
  * Controller for managing the plants in a garden
  */
 @Controller
@@ -87,17 +87,19 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
-    @PostMapping("/garden/{gardenId}/addPlant")
-    public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
-                                   BindingResult result, @PathVariable("gardenId") final Integer gardenId,
+    // mapping activated after click on button in addPlant.
+    @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
+    public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
+                                   @PathVariable("plantInfoId") final Integer plantInfoId,
                                    @AuthenticationPrincipal User user) {
 
+        Plant newPlant = new Plant();
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                savePlantAndTaskPlant(plantInfo, garden, plant);
-                return "redirect:/garden/" + gardenId;
+                savePlantAndTaskPlant(plantInfo, garden, newPlant);
+                return "redirect:/garden/" + gardenId + "/addPlant";
             }
         }
         return "redirect:/";
