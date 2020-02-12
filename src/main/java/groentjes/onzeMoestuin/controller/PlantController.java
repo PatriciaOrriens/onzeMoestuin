@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +33,9 @@ import java.util.Optional;
 public class PlantController {
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private PlantRepository plantRepository;
 
     @Autowired
@@ -45,8 +51,12 @@ public class PlantController {
     private TaskPlantInfoRepository taskPlantInfoRepository;
 
     @GetMapping("/garden/{gardenId}/addPlant")
-    public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId,
-                                  @AuthenticationPrincipal User user) {
+    public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user =
+                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
@@ -63,7 +73,12 @@ public class PlantController {
     }
 
     @GetMapping(value = "/plant/{plantId}")
-    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model, @AuthenticationPrincipal User user) throws IOException {
+    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model) throws IOException {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user =
+                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
 
         Optional<Plant> plant = plantRepository.findById(plantId);
 
@@ -87,8 +102,12 @@ public class PlantController {
 
     @PostMapping("/garden/{gardenId}/addPlant")
     public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
-                                   BindingResult result, @PathVariable("gardenId") final Integer gardenId,
-                                   @AuthenticationPrincipal User user) {
+                                   BindingResult result, @PathVariable("gardenId") final Integer gardenId) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user =
+                userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
 
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
