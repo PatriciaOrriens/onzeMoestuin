@@ -9,20 +9,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-//import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-//import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserDetailsService authenticationService;
 
     @Autowired
     GardenUserDetailsService gardenUserDetailsService;
@@ -32,36 +26,27 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
         http
                 .authorizeRequests()
                 .antMatchers("/registerUser", "/", "/resources/css/**", "/resources/img/**", "/resources/javascript/**",
-                        "/invitation/**").permitAll()
+                        "/invitation/**", "/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/loginsuccess", true)
-                .failureUrl("/loginfailed")
-                .permitAll()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/loginsuccess", true)
+                    .failureUrl("/login?error=true")
+                    .permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
     }
 
-    //Enables custom user roles e.g. role_user, role_admin, role_manager ...
+    // in-memory saving of user information
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(authenticationService)
-                .passwordEncoder(passwordEncoder());
+        auth.inMemoryAuthentication()
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
+        auth.authenticationProvider(authProvider());
     }
-
-//    //Spring Security-defined user roles
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
-//        auth.authenticationProvider(authProvider());
-//    }
-
 
     @Bean
     public DaoAuthenticationProvider authProvider() {
@@ -84,5 +69,3 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
         return multipartResolver;
     }
 }
-
-

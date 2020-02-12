@@ -1,10 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.GardenInvitation;
-import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
-import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,12 +21,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * @author Wim Kruizinga, Eric van Dalen and Gjalt Wybenga
+ * @author Wim Kruizinga, Eric van Dalen and Gjalt G. Wybenga
  * Controller class for a screen to register as a user and create your own user account
  */
 
 @Controller
 public class RegisterController {
+
+    private static final int START_REPLACE = 30;
+    private static final int END_REPLACE = 35;
+    private static final  String REPLACE = " en ";
+    private static final String ERROR_USERNAME_STRING = "Kies een andere gebruikersnaam";
+    private static final String ERROR_EMAIL_STRING = "Kies een ander E-mailadres";
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -39,40 +43,42 @@ public class RegisterController {
     @Autowired
     private GardenInvitationRepository gardenInvitationRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-
     @GetMapping("/registerUser")
     public String getRegisterUserForm(Model model, @ModelAttribute User user,
                                       @RequestParam(name="token") Optional<String> token) {
-        // Check if invitation token is present
+
+        // Add invitation token if present
         token.ifPresent(s -> model.addAttribute("invitation", getValidInvitation(s)));
         return "register";
     }
 
     @PostMapping("/registerUser")
-    public String saveNewUser(@Valid User user, Role role, Errors errors,
+    public String saveNewUser(@Valid User user, Errors errors, Model model,  @ModelAttribute("remark") String remark,
                               @RequestParam(name ="token") Optional<String> token) {
-        if (errors.hasErrors()) {
-            return "redirect:/";
+
+        boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
+        boolean isExistingEmail = userRepository.findByEmail(user.getEmail()).isPresent();
+        if(errors.hasErrors()) {
+            return "register";
+        } else if (isExistingName || isExistingEmail) {
+            checkForInvalidInput(model, user);
+            return "register";
         } else {
-
-            role.setRoleName("ROLE_USER");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.getRole().add(role);
             userRepository.save(user);
-
-            // Check if invitation token is present
-            if (token.isPresent()) {
-                GardenInvitation invitation = getValidInvitation(token.get());
-                if (invitation != null) {
-                    // update invitation: link new user
-                    invitation.setInvitedUser(user);
-                    gardenInvitationRepository.save(invitation);
-                }
-            }
+            checkIfInvitationIsPresent(token, user);
             return "redirect:/login";
+        }
+    }
+
+    private void checkIfInvitationIsPresent(Optional<String> token, User user) {
+        if (token.isPresent()) {
+            GardenInvitation invitation = getValidInvitation(token.get());
+            if (invitation != null) {
+                // update invitation: link new user
+                invitation.setInvitedUser(user);
+                gardenInvitationRepository.save(invitation);
+            }
         }
     }
 
@@ -80,6 +86,19 @@ public class RegisterController {
         Optional<GardenInvitation> gardenInvitation = gardenInvitationRepository.
                 findOneByInvitationTokenAndAcceptedNull(UUID.fromString(token));
         return gardenInvitation.orElse(null);
+    }
+
+    private void checkForInvalidInput(Model model, User user) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            model.addAttribute("remark", ERROR_USERNAME_STRING);
+            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+                StringBuilder stringBuilder = new StringBuilder(ERROR_USERNAME_STRING);
+                stringBuilder.append(ERROR_EMAIL_STRING).replace(START_REPLACE, END_REPLACE, REPLACE);
+                model.addAttribute("remark", stringBuilder);
+            }
+        } else if (userRepository.findByEmail(user.getEmail()).isPresent())  {
+            model.addAttribute("remark", ERROR_EMAIL_STRING);
+        }
     }
 }
 

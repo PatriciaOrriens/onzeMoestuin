@@ -6,5 +6,5 @@
      <div class="container">
         <h1 class="display-3">Onjuiste gebruikersnaam of wachtwoord !</h1>
             <br/>
-            <a class="btn btn-primary" href="/login">Terug</a>
+            <a class="btn btn-success" href="/login">Terug</a>
 <c:import url="partials/footer.jsp" />

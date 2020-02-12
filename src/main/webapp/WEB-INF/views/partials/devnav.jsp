@@ -14,7 +14,7 @@
      </security:authorize>
      <security:authorize access="hasRole('ROLE_USER')">
          <li class="nav-item">
-            <a class="nav-link" href="/userManageGardens">Tuin overzicht</a>
+            <a class="nav-link" name="returntooverview" href="/userManageGardens">Tuin overzicht</a>
          </li>
      </security:authorize>
      <security:authorize access="hasRole('ROLE_USER')">

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +77,7 @@ public class ManageGardenController {
         }
         return "redirect:/userManageGardens";
     }
+
 
     @PostMapping("/garden/update/{gardenId}")
     protected String updateGarden(@ModelAttribute("garden") Garden garden, BindingResult result) {

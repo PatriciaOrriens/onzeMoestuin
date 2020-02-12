@@ -1,7 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
@@ -11,9 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.web.WebAppConfiguration;
 import java.util.Optional;
@@ -44,7 +40,6 @@ public class GardenControllerWebDriverTest {
 
     private static final String NAME = "gebruiker1";
     private static final String PASSWORD = "wachtwoord1";
-    private static final String ROLE = "ROLE_USER";
     private static final String GARDEN1 = "tuin1";
     private static final String GARDEN1LENGTH = "1";
     private static final String GARDEN1WIDTH = "1";
@@ -57,7 +52,6 @@ public class GardenControllerWebDriverTest {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
-
         Optional<Garden> garden1 = gardenRepository.findByGardenName(GARDEN1);
         garden1.ifPresent(value -> gardenRepository.delete(value));
         Optional<Garden> garden2 = gardenRepository.findByGardenName(GARDEN2);
@@ -67,7 +61,6 @@ public class GardenControllerWebDriverTest {
         User registeredUser = new User();
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
-
         userRepository.save(registeredUser);
     }
 
@@ -130,20 +123,13 @@ public class GardenControllerWebDriverTest {
         driver.findElement(By.name("username")).sendKeys(NAME);
         driver.findElement(By.name("password")).sendKeys(PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();
-
     }
 
-    private void createGarden(String gardenName, String gardenLength, String gardenWidth) throws InterruptedException {
-        Thread.sleep(THOUSAND);
+    private void createGarden(String gardenName, String gardenLength, String gardenWidth) {
         driver.findElement(By.name("tuintoevoegen")).click();
-        Thread.sleep(THOUSAND);
         driver.findElement(By.name("gardenName")).sendKeys(gardenName);
-        Thread.sleep(THOUSAND);
         driver.findElement(By.name("length")).sendKeys(gardenLength);
-        Thread.sleep(THOUSAND);
         driver.findElement(By.name("width")).sendKeys(gardenWidth);
-        Thread.sleep(THOUSAND);
         driver.findElement(By.name("opslaanTuin")).submit();
-        Thread.sleep(THOUSAND);
     }
 }

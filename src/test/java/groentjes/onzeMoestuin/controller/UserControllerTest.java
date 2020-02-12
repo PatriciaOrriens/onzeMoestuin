@@ -3,9 +3,11 @@ package groentjes.onzeMoestuin.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.RoleRepository;
+import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -26,6 +28,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.ResultActions;
+import java.util.Optional;
 
 /**
  * @author Eric van Dalen
@@ -34,6 +37,12 @@ import org.springframework.test.web.servlet.ResultActions;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = UserController.class)
 class UserControllerTest {
+
+    private static final String USERNAME = "gebruikersnaam";
+    private static final String INVALID_USERNAME = "A";
+    private static final String PASSWORD = "wachtwoord";
+    private static final String EMAIL = "gebruiker@email.com";
+    private User otherUser = new User();
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,6 +62,13 @@ class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @BeforeEach
+    void setUp() {
+        otherUser.setUsername(USERNAME);
+        otherUser.setEmail(EMAIL);
+        otherUser.setPassword(PASSWORD);
+    }
+
     @Test
     @WithMockUser(roles = "ADMIN")
     void testFindAllWithRoleAdminstrator() throws Exception {
@@ -69,30 +85,89 @@ class UserControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testDoDeleteUserWithRoleAdminstrator() throws Exception {
-        String userName = "test1";
-        final ResultActions result = mockMvc.perform(get("/user/delete/" + userName)
-                .sessionAttr("userName", userName)).andExpect(status().is3xxRedirection())
+    void testDoDeleteUserByAdminstrator() throws Exception {
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.of(otherUser));
+
+        final ResultActions result = mockMvc.perform(get("/user/delete/" + USERNAME)
+                .sessionAttr("userName", USERNAME)).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/manageUsers"));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testSaveOrUpdateUserWithAdminstrator() throws Exception {
-        String username = "gebruiker";
-        String password = "wachtwoord";
+    void testSaveOrUpdateUserByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.empty());
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
+
         mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username" , username).param("password", password)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
                 .flashAttr("user", new User()).with(csrf())).andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/manageUsers"))
                 .andExpect(redirectedUrl("/manageUsers"));
 
         ArgumentCaptor<User> formObjectArgument = forClass(User.class);
         verify(userRepository, times(1)).save(formObjectArgument.capture());
-        Mockito.verifyNoMoreInteractions(userRepository);
 
         User formObject = formObjectArgument.getValue();
-        Assertions.assertThat(formObject.getUsername()).isEqualTo(username);
+        Assertions.assertThat(formObject.getUsername()).isEqualTo(USERNAME);
+        Assertions.assertThat(formObject.getEmail()).isEqualTo(EMAIL);
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithAnExistingUsernameByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.of(otherUser));
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithAnExistingEmailAdresByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.empty());
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.of(otherUser));
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithAnExistingUsernameAndEmailAdresByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.of(otherUser));
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.of(otherUser));
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithInvalidUserNameByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(INVALID_USERNAME))).thenReturn(Optional.empty());
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , INVALID_USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
     }
 
     @Test

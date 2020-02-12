@@ -57,10 +57,16 @@ class TaskPlantControllerTest {
     @MockBean
     private TaskPlantRepository taskPlantRepository;
 
+    @MockBean
+    private TaskGardenRepository taskGardenRepository;
+
+    @MockBean
+    private TaskRepository taskRepository;
+
     @BeforeEach
     void setUp() {
         taskPlant = new TaskPlant();
-        taskPlant.setTaskPlantId(TWO);
+        taskPlant.setTaskId(TWO);
         taskPlantInfo = new TaskPlantInfo();
         taskPlantInfo.setDaysAfterStart(EIGHT);
         taskPlant.setTaskPlantInfo(taskPlantInfo);
@@ -77,15 +83,15 @@ class TaskPlantControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     void testProcessCompletedTaskPlantWithExistingTaskPlant() throws Exception {
-        String taskPlantId = taskPlant.getTaskPlantId().toString();
+        String taskId = taskPlant.getTaskId().toString();
 
         boolean expectedisCompleted = true;
 
-        Mockito.when(taskPlantRepository.findById(TWO))
+        Mockito.when(taskRepository.findById(TWO))
                 .thenReturn(Optional.ofNullable(taskPlant));
 
-        final ResultActions result = mockMvc.perform(get("/user/taskPlant/completed/" + taskPlantId)
-                .sessionAttr("taskPlantId", taskPlantId)).andExpect(status().is3xxRedirection())
+        final ResultActions result = mockMvc.perform(get("/user/task/completed/" + taskId)
+                .sessionAttr("taskId", taskId)).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/garden/" + garden.getGardenId()));
 
         boolean foundisCompleted = (taskPlant.getCompletedDate() != null);
@@ -96,15 +102,15 @@ class TaskPlantControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     void testProcessCompletedTaskPlantWithNonExistingTaskPlant() throws Exception {
-        String taskPlantId = taskPlant.getTaskPlantId().toString();
+        String taskId = taskPlant.getTaskId().toString();
 
         boolean expectedisCompleted = false;
 
-        Mockito.when(taskPlantRepository.findById(THREE))
+        Mockito.when(taskRepository.findById(THREE))
                 .thenReturn(Optional.ofNullable(taskPlant));
 
-        final ResultActions result = mockMvc.perform(get("/user/taskPlant/completed/" + taskPlantId)
-                .sessionAttr("taskPlantId", taskPlantId)).andExpect(status().is3xxRedirection())
+        final ResultActions result = mockMvc.perform(get("/user/task/completed/" + taskId)
+                .sessionAttr("taskId", taskId)).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/" ));
 
         boolean foundisCompleted = (taskPlant.getCompletedDate() != null);

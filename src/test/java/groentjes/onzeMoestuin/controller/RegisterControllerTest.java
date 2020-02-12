@@ -7,6 +7,7 @@ import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -18,6 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.Optional;
+
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,6 +36,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = RegisterController.class)
 class RegisterControllerTest {
+
+    private static final String USERNAME = "gebruikersnaam";
+    private static final String PASSWORD = "wachtwoord";
+    private static final String EMAIL = "gebruiker@email.com";
+    private User otherUser = new User();
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,6 +60,13 @@ class RegisterControllerTest {
     @MockBean
     private GardenInvitationRepository gardenInvitationRepository;
 
+    @BeforeEach
+    void setUp() {
+        otherUser.setUsername(USERNAME);
+        otherUser.setEmail(EMAIL);
+        otherUser.setPassword(PASSWORD);
+    }
+
     @Test
     void testGetRegisterUserForm() throws Exception {
         final ResultActions result = mockMvc.perform(get("/registerUser"))
@@ -59,20 +75,32 @@ class RegisterControllerTest {
     }
 
     @Test
-    void testSaveOrUpdateUserWithAdminstrator() throws Exception {
-        String username = "gebruiker";
-        String password = "wachtwoord";
+    void testSaveNewUserWithAnExistingUsername() throws Exception {
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.of(otherUser));
+
         mockMvc.perform(post("/registerUser").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username" , username).param("password", password)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("register"))
+                .andExpect(forwardedUrl("/WEB-INF/views/register.jsp"));
+    }
+
+    @Test
+    void testSaveNewUser() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(USERNAME))).thenReturn(Optional.empty());
+
+        mockMvc.perform(post("/registerUser").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
                 .flashAttr("user", new User()).with(csrf())).andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/login"))
                 .andExpect(redirectedUrl("/login"));
 
         ArgumentCaptor<User> formObjectArgument = forClass(User.class);
         verify(userRepository, times(1)).save(formObjectArgument.capture());
-        Mockito.verifyNoMoreInteractions(userRepository);
 
         User formObject = formObjectArgument.getValue();
-        Assertions.assertThat(formObject.getUsername()).isEqualTo(username);
+        Assertions.assertThat(formObject.getUsername()).isEqualTo(USERNAME);
+        Assertions.assertThat(formObject.getEmail()).isEqualTo(EMAIL);
     }
 }

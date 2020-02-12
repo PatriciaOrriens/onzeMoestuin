@@ -23,10 +23,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen and Gjalt Wybenga
+ * @author Eric van Dalen, Gjalt Wybenga and Patricia Orriens
  * Controller for managing the plants in a garden
  */
 @Controller
@@ -56,13 +57,14 @@ public class PlantController {
         User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
-        if (garden.isPresent()) {
+        List<PlantInformation> allPlantInformation = plantInformationRepository.findAll();
+        if (garden.isPresent() && (allPlantInformation.size() != 0)) {
             if(garden.get().isGardenMember(user)) {
                 Plant plant = new Plant();
                 plant.setGarden(garden.get());
                 model.addAttribute("plant", plant);
                 model.addAttribute("garden", garden.get());
-                model.addAttribute("allPlantInformation", plantInformationRepository.findAll());
+                model.addAttribute("allPlantInformation", allPlantInformation);
                 return "addPlant";
             }
         }
@@ -100,12 +102,19 @@ public class PlantController {
 
         User user = getUser();
 
+        // mapping activated after click on button in addPlant.
+    @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
+    public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
+                                   @PathVariable("plantInfoId") final Integer plantInfoId,
+                                   @AuthenticationPrincipal User user) {
+
+        Plant newPlant = new Plant();
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                savePlantAndTaskPlant(plantInfo, garden, plant);
-                return "redirect:/garden/" + gardenId;
+                savePlantAndTaskPlant(plantInfo, garden, newPlant);
+                return "redirect:/garden/" + gardenId + "/addPlant";
             }
         }
         return "redirect:/";

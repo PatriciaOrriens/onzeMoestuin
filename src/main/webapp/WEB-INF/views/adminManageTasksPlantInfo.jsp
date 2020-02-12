@@ -18,7 +18,7 @@
                 <c:forEach items="${plantInfo.tasks}" var="task">
                     <tr>
                         <td>${task.taskPlantInfoId}</td>
-                        <td>${task.task.taskName}</td>
+                        <td>${task.taskDescription.taskName}</td>
                         <td>${task.daysAfterStart}</td>
                         <td>${task.repetitiveTask}</td>
                         <td><a class="btn btn-success" href="/plantinfo/${plantInfoId}/task/update/<c:out
