@@ -197,7 +197,24 @@
 
        <!-- Handlebars template for planned plants -->
        <script id="plannedPlantsTemplate" type="text/x-handlebars-template">
-            <h2>Geplande, doch ongeplante planten</p>
+            <h2>Geplande, doch ongeplante planten</h2>
+            <div id="accordion" class="newPlantContainer">
+                  {{#each this}}
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="/plant/{{plantId}}/image">
+                            <a class="card-link" data-toggle="collapse" href="#collapse-{{plantId}}">
+                                {{plantInformation.plantName}}
+                            </a>
+                        </div>
+                        <div id="collapse-{{plantId}}" class="collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>{{plantInformation.plantName}} kan het best worden ingezaaid tussen {{plantInformation.sowingStart}} en {{plantInformation.sowingEnd}}.</p>
+                            </div>
+                        </div>
+                    </div>
+                  {{/each}}
+            </div>
        </script>
 
 
