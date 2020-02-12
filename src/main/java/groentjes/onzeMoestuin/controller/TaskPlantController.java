@@ -1,12 +1,12 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.*;
-import groentjes.onzeMoestuin.repository.PlantRepository;
-import groentjes.onzeMoestuin.repository.TaskGardenRepository;
-import groentjes.onzeMoestuin.repository.TaskPlantRepository;
-import groentjes.onzeMoestuin.repository.TaskRepository;
+import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,16 +36,11 @@ public class TaskPlantController {
     @Autowired
     private TaskRepository taskRepository;
 
-    @GetMapping("/user/taskPlant/completed/{taskPlantId}")
-    public String processCompletedTaskPlant(@PathVariable("taskPlantId") final Integer taskPlantId) {
-
-        User user = getUser();
-
     @GetMapping("/user/task/completed/{taskId}")
-    public String processCompletedTaskPlant(@PathVariable("taskId") final Integer taskId,
-                                            @AuthenticationPrincipal User user) {
+    public String processCompletedTaskPlant(@PathVariable("taskId") final Integer taskId) {
 
-        Optional<Task> task = taskRepository.findById(taskId);
+            User user = getUser();
+            Optional<Task> task = taskRepository.findById(taskId);
         if (task.isPresent()) {
             if (task.get() instanceof TaskPlant) {
                 TaskPlant taskPlant = (TaskPlant) task.get();

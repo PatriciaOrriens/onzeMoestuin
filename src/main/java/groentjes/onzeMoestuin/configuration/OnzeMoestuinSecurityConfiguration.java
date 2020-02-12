@@ -40,6 +40,11 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .invalidateHttpSession(true);
     }
 
+
+
+
+
+
     // in-memory saving of user information
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

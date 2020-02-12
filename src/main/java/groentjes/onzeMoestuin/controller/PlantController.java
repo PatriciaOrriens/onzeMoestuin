@@ -96,18 +96,18 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
-    @PostMapping("/garden/{gardenId}/addPlant")
+    /*@PostMapping("/garden/{gardenId}/addPlant")
     public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
                                    BindingResult result, @PathVariable("gardenId") final Integer gardenId) {
 
-        User user = getUser();
+    }*/
 
         // mapping activated after click on button in addPlant.
     @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
     public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
-                                   @PathVariable("plantInfoId") final Integer plantInfoId,
-                                   @AuthenticationPrincipal User user) {
-
+                                   @PathVariable("plantInfoId") final Integer plantInfoId
+                                   ) {
+        User user = getUser();
         Plant newPlant = new Plant();
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
@@ -153,3 +153,4 @@ public class PlantController {
         return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }
+
