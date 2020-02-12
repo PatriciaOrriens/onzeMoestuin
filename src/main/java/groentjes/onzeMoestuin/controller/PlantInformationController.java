@@ -101,7 +101,6 @@ public class PlantInformationController {
         }
     }
 
-    //TODO Ask user for confirmation
     @GetMapping("/plantinfo/delete/{plantInfoId}")
     @Secured("ROLE_ADMIN")
     public String deletePlantInformation(@ModelAttribute("plantInfoId") Integer plantInfoId, BindingResult result) {
