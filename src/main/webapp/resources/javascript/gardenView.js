@@ -11,10 +11,7 @@ $(document).ready(loadGrid);
 
 // Set size of GiridStack elements
 $(document).ready(function() {
-    // Width of GridStack container
-    console.log($("#grid-container").width());
-
-
+    loadGrid();
 });
 
 
@@ -49,6 +46,10 @@ function loadGrid() {
     };
 
     $('.grid-stack').gridstack(options);
+
+    // explicitly set the number of columns
+    columns = $('.grid-stack').attr('data-gs-column');
+    $('.grid-stack').data('gridstack').setColumn(columns);
 
 
 
