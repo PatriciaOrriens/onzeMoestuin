@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Optional;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -66,7 +68,15 @@ public class TaskDescriptionControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/adminManageTasks.jsp"));
     }
 
-   /* @Test
+    /*@Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveNewTaskDescription() throws Exception {
+        mockMvc.perform(post("/adminManageTasks").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("newTask")
+        );
+    }*/
+
+    /*@Test
     @WithMockUser(roles = "ADMIN")
     void testShowTaskForUpdate() throws Exception {
         String taskDescriptionId = taskDescriptionA.getTaskDescriptionId().toString();
@@ -77,6 +87,16 @@ public class TaskDescriptionControllerTest {
                 .sessionAttr("taskId", taskDescriptionId)).andExpect(status().isOk())
                 .andExpect(forwardedUrl("/WEB-INF/views/adminManageTasks.jsp"));
     }*/
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testDeleteTaskDescription() throws Exception {
+        Mockito.when((taskDescriptionRepository.findById(ONE))).thenReturn(Optional.of(taskDescriptionA));
+
+        final ResultActions result = mockMvc.perform(get("/task/delete/" + ONE)
+                .sessionAttr("taskId", ONE)).andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/adminManageTasks"));
+    }
 
 
 }

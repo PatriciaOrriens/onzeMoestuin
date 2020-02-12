@@ -37,7 +37,8 @@ public class TaskDescriptionController {
     // admin creates new task descriptions
     @PostMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
-    public String saveNewTaskDescription(@ModelAttribute() TaskDescription taskDescription, BindingResult result) {
+    public String saveNewTaskDescription(@ModelAttribute("newTask") TaskDescription taskDescription,
+                                         BindingResult result) {
         if (result.hasErrors()){
             return "adminManageTasks";
         } else {
