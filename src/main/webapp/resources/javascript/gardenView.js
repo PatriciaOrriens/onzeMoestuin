@@ -119,27 +119,19 @@ function ajaxGetPlant(plantId) {
 //TODO
 // Get next messages for garden {}
 
-//function ajaxGetUnstartedPlants() {
-//    $.ajax({
-//        type: "GET",
-//        url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/" + page,
-//        dataType: 'json',
-//        success: function(response) {
-//            // If messages are loaded for the first time, set imitial timestamp
-//            if (latestMessageTimeStamp === null) {
-//                latestMessageTimeStamp = response[0].dateTime;
-//            }
-//            $("#message-error").hide();
-//            $("#new-messages-alert").hide();
-//            messageHTML(response);
-//            page++;
-//        },
-//       error: function() {
-//            $("#message-error > p").html("<strong>Sorry!</strong> Berichten konden niet worden opgehaald.");
-//            $("#message-error").fadeIn("slow");
-//       }
-//    });
-//}
+function ajaxGetUnstartedPlants() {
+    $.ajax({
+        type: "GET",
+        url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/getPlannedPlants",
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+        },
+       error: function() {
+
+       }
+    });
+}
 
 
 function resizePlant(plant) {
