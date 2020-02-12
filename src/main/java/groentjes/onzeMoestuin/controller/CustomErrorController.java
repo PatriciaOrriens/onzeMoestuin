@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author Gjalt Wybenga
+ * catching specific error codes and displaying custom (rather than Spring Boot) generated error views.
+ */
+
 @Controller
 public class CustomErrorController implements ErrorController {
 
