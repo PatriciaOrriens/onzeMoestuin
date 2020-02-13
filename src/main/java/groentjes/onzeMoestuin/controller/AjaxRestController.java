@@ -17,6 +17,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Wim Kruizinga
+ * REST controller for plants in garden
+ */
 @RestController
 @RequestMapping(path = "/api", produces = "application/json")
 public class AjaxRestController {
