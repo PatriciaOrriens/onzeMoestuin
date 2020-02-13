@@ -11,6 +11,7 @@
         <c:import url="partials/gardenForm.jsp" />
     </div>
         </div>
+<%--        TODO: list of members placed here temporarily in temporary format. Does not work yet either.--%>
         <div class="col-4">
     <c:import url="partials/showMembersOfGarden.jsp" />
         </div>
