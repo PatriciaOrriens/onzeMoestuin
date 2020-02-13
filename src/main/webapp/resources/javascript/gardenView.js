@@ -33,7 +33,8 @@ $("body").on("click", ".plantStartBtn", function(e) {
     var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
     var node = newWidget.data('_gridstack_node');
     Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
-    ajaxStartPlant(plant);
+
+    $.when(ajaxStartPlant(plant)).then(ajaxGetUnstartedPlants());
     loadGrid();
 });
 
@@ -117,12 +118,8 @@ function ajaxGetPlant(plantId) {
 
 
 // Get plants added but not yet placed on grid
-
-//TODO
-// Get next messages for garden {}
-
 function ajaxGetUnstartedPlants() {
-    $.ajax({
+    return $.ajax({
         type: "GET",
         url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/getPlannedPlants",
         dataType: 'json',
@@ -130,9 +127,11 @@ function ajaxGetUnstartedPlants() {
             // Check if plants are returned
             if (response.length > 0) {
                 // View HTML container that displays planned plants
-                $("#plannedPlants").toggle();
+                $("#plannedPlants").show();
                 plannedPlantsHTML(response);
 
+            } else {
+                $("#plannedPlants").hide();
             }
         },
        error: function() {
@@ -156,7 +155,7 @@ function resizePlant(plant) {
 }
 
 function ajaxStartPlant(plant) {
-   $.ajax({
+   return $.ajax({
        type: "POST",
        contentType: 'application/json; charset=utf-8',
        dataType: 'json',
@@ -164,6 +163,7 @@ function ajaxStartPlant(plant) {
        data: JSON.stringify(plant),
        success: function(result) {
 
+            ajaxGetUnstartedPlants();
        }
    });
 }
