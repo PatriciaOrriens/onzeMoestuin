@@ -55,21 +55,17 @@ text-align: center;
 
 
 .grid-stack {
-    border: 1px solid;
     margin: 5px;
-    padding: 3px;
-    min-height: 800px;
+    background-color: rgba(84, 57, 38, 1);
 }
 
 .grid-stack-item {
-    margin: 10px;
 }
 
 .grid-stack-item-content {
     background-color: green;
     color: white;
     padding: 3px;
-    margin: 0px;
     text-align: center;
 
 }

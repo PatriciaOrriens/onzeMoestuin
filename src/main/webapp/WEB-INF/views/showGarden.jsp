@@ -19,8 +19,12 @@
 
         <c:forEach items="${plants}" var="plant">
             <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes" data-plantId="${plant.plantId}">
-                <div class="grid-stack-item-content" id="${plant.plantId}">
+                <div class="grid-stack-item-content">
+                    <section class="vertical-align-grid-icon" id="${plant.plantId}">
+                        <img src="/plant/${plant.plantId}/image", name="image" height="50%" id="${plant.plantId}"/>
+                        <br />
                         ${plant.plantInformation.plantName}
+                    </section>
                 </div>
             </div>
         </c:forEach>

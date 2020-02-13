@@ -7,8 +7,6 @@ $(function () {
     });
 });
 
-$(document).ready(loadGrid);
-
 // Set size of GiridStack elements
 $(document).ready(function() {
     loadGrid();
@@ -46,7 +44,7 @@ function loadGrid() {
         // Cell/element size
         cellHeight: 'auto',
         itemClass: 'grid-stack-item',
-        cellHeightUnit:'px'
+        cellHeightUnit:'px',
     };
 
     $('.grid-stack').gridstack(options);

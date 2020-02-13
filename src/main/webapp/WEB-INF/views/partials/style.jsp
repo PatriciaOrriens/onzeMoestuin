@@ -9,4 +9,4 @@
 
 <!-- GridStack.js styling -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@0.6.0/dist/gridstack.min.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@0.6.3/dist/gridstack-extra.css"/>
