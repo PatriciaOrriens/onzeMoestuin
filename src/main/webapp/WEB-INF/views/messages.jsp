@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link id="gardenId" data-gardenId="${garden.gardenId}" />
 
-<div class="container mt-3">
+<%--<div class="container mt-3">--%>
     <h2 id="messageToggle">Berichten</h2>
     <div id="messageDiv">
 
