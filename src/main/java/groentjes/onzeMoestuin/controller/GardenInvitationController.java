@@ -8,7 +8,10 @@ import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,8 +44,10 @@ public class GardenInvitationController {
     // Invite existing member to garden
     @PostMapping("/garden/{gardenId}/invite")
     protected String inviteExistingMember(@ModelAttribute("foundUser") User newMember,
-                                          @PathVariable("gardenId") Integer gardenId,
-                                          @AuthenticationPrincipal User user) {
+                                          @PathVariable("gardenId") Integer gardenId) {
+
+        User user = getUser();
+
         GardenInvitation newInvitation = new GardenInvitation();
         User invitingUser = userRepository.findById(user.getUserId()).get();
 
@@ -56,8 +61,10 @@ public class GardenInvitationController {
     }
 
     @GetMapping("/garden/{gardenId}/acceptInvitation")
-    protected String acceptInvitation(@PathVariable("gardenId") Integer gardenId,
-                                      @AuthenticationPrincipal User user) {
+    protected String acceptInvitation(@PathVariable("gardenId") Integer gardenId) {
+
+        User user = getUser();
+
         Garden garden = gardenRepository.findById(gardenId).get();
         Optional<GardenInvitation> invitation = gardenInvitationRepository.findByGardenAndInvitedUser(garden, user);
 
@@ -74,8 +81,10 @@ public class GardenInvitationController {
     }
 
     @GetMapping("/garden/{gardenId}/refuseInvitation")
-    protected String refuseInvitation(@PathVariable("gardenId") Integer gardenId,
-                                      @AuthenticationPrincipal User user) {
+    protected String refuseInvitation(@PathVariable("gardenId") Integer gardenId) {
+
+        User user = getUser();
+
         Garden garden = gardenRepository.findById(gardenId).get();
         Optional<GardenInvitation> invitation = gardenInvitationRepository.findByGardenAndInvitedUser(garden, user);
 
@@ -87,5 +96,11 @@ public class GardenInvitationController {
             }
         }
         return "redirect:/userManageGardens";
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

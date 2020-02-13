@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
+<script src="../resources/javascript/createUser.js"></script>
 
      <div class="container">
         <h1 class="display-3">Registreren</h1>
@@ -12,35 +13,44 @@
             </div>
         </c:if>
 
-       <form:form method="post" modelAttribute="user">
+       <form:form name="userForm" method="post" modelAttribute="user" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="username">Gebruikersnaam:</label>
-
-                <form:input path="username" class="form-control" required="required" />
-                <span class="text-danger">
+                <form:input name="username" path="username" class="form-control"  />
+                <p id="usernameError" class="centeredRedText">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('username') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('username').defaultMessage : ''}
-                </span>
+                </p>
+
 
                 <label for="email">E-mailadres:</label>
-                <form:input path="email" type="text" class="form-control" value="${invitation.emailAddress}" />
-                <span class="text-danger">
+                <form:input name="email" path="email" type="text" class="form-control" value="${invitation.emailAddress}" />
+                <p id="emailLengthError" class="centeredRedText"> </p>
+                <p id="emailStructureError" class="centeredRedText">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('email') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('email').defaultMessage : ''}
-                </span>
+                </p>
 
                 <label for="firstName">Voornaam:</label>
                 <form:input path="firstName" type="text" class="form-control" />
-                <span class="text-danger">
+                <p class="centeredRedText">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('firstName') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('firstName').defaultMessage : ''}
-                </span>
+                </p>
+
+                <label for="lastName">Achternaam:</label>
+                <form:input path="lastName" type="text" class="form-control" />
+                <p class="centeredRedText">
+                    ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('lastName') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('lastName').defaultMessage : ''}
+                </p>
 
                 <label for="password">Wachtwoord:</label>
-                <form:input path="password" type="password" class="form-control" required="required" />
-                <span class="text-danger">
+                <form:input name="password" path="password" type="password" class="form-control" />
+                <p id="passwordError" class="centeredRedText">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('password') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('password').defaultMessage : ''}
-                </span>
+                </p>
+
+                <p class="centeredRedText">${remark}</p>
 
             </div>
-            <form:button type="submit" class="btn btn-success" name="registerbutton">Registreer</form:button>
+            <form:button type="submit" class="btn btn-success" name="registerbutton" >Registreer</form:button>
         </form:form>
 
   <c:import url="partials/footer.jsp" />

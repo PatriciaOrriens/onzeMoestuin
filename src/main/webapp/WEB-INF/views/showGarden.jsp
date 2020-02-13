@@ -1,18 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <meta name="_csrf" content="${_csrf.token}"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
 <c:import url="partials/header.jsp" />
-  <div class="container">
-	<div class="row">
-	    <div class="col-sm-11">
-	        <h1 class="display-3">${garden.gardenName}</h1>
+    <div class="container">
+	    <div class="row">
+	        <div class="col-sm-11">
+	            <h1 class="display-3">${garden.gardenName}</h1>
+            </div>
+            <div class="col-sm-1 my-auto">
+                <a href="garden/${garden.gardenId}/addPlant" class="btn btn-success"><i name="addplant" class='fas fa-seedling'></i>&#43;</a>
+            </div>
         </div>
-        <div class="col-sm-1 my-auto">
-            <a href="garden/${garden.gardenId}/addPlant" class="btn btn-success"><i name="addplant" class='fas fa-seedling'></i>&#43;</a>
-        </div>
-    </div>
 
 
     <div id="grid-container" class="grid-stack" data-gs-column="${garden.width}" data-gs-length="${garden.length}" data-gs-max-row="${garden.length}">
@@ -65,53 +64,12 @@
       <c:import url="messages.jsp" />
       <br/>
 
-
-     <h2>Taken</h2>
-     <table class="table table-striped">
-        <tr>
-            <th>Taak</th>
-            <th>Plantsoort(plantnummer)</th>
-            <th>Vervaldatum</th>
-            <th>Uitvoerdatum</th>
-            <th>Uitgevoerd door</th>
-            <th></th>
-        </tr>
-        <c:forEach items="${tasks}" var="task">
-            <tr>
-                <td>
-                    <c:catch var="catchException">
-                        <c:out value="${task.taskPlantInfo.taskDescription.taskName}" />
-                    </c:catch>
-                    <c:catch var="catchException">
-                        <c:out value="${task.taskGardenName}" />
-                    </c:catch>
-                </td>
-                <td>
-                    <c:catch var="catchException">
-                        <c:out value="${task.plant.plantInformation.plantName}"/>(<c:out value="${task.plant.plantId}"/>)
-                    </c:catch>
-                </td>
-                    <c:choose>
-                        <c:when test="${empty task.completedDate}"><td class="redText"></c:when>
-                        <c:otherwise><td></c:otherwise>
-                    </c:choose>
-                    <c:out value="${task.dueDate}"/>
-                </td>
-                <td><c:out value="${task.completedDate}"/></td>
-                <td><a onclick = "ajaxGetUser(${task.user.userId})" /><c:out value="${task.user.username}"/></a></td>
-                <td align="right">
-                    <c:if test="${empty task.user}">
-                        <a class="completedGreenTaskButton"
-                            href="/user/task/completed/<c:out value="${task.taskId}" />">Afvinken</a>
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-     </table>
+        <h2>Meest dringende taken</h2>
+        <c:import url="partials/showTask.jsp" />
+        <a href="/userTaskOverview/${gardenId}" name="userTaskOverview" class="btn btn-success">Toon alle taken</a>
 
 
-     <a href="/userManageGardens" name="returntooverview" class="btn btn-success">Terug naar tuinoverzicht</a>
-     <a href="garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
+
 
      <!-- Handlebars template for User modal -->
       <script id="userTemplate" type="text/x-handlebars-template">

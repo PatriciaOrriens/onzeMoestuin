@@ -37,7 +37,7 @@ class LoginControllerTest {
 
     @Test
     void testLoginfailed() throws Exception {
-        final ResultActions result = mockMvc.perform(get("/loginfailed")).andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/views/loginFailed.jsp"));
+        final ResultActions result = mockMvc.perform(get("/login?error=true")).andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/views/login.jsp"));
     }
 }

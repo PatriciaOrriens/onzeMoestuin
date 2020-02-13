@@ -75,7 +75,7 @@ class PlantInformationControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testSaveNewPlantInfoWithRoleAdminstrator() throws Exception {
+    void testSaveNewPlantInfoWithRoleAdministrator() throws Exception {
         performMockMvc();
 
         ArgumentCaptor<PlantInformation> formObjectArgument = forClass(PlantInformation.class);

@@ -7,7 +7,9 @@ import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,10 +40,11 @@ public class ManageGardenController {
     private GardenInvitationRepository gardenInvitationRepository;
 
     @GetMapping("/userManageGardens")
-    public String allGardensByMember(Model model, @AuthenticationPrincipal User currentUser) {
-        model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(currentUser));
-        User user = (User) userRepository.findByUsername(currentUser.getUsername()).get();
-        model.addAttribute("currentUser", user);
+    public String allGardensByMember(Model model) {
+
+        User user = getUser();
+
+        model.addAttribute("allYourGardens", gardenRepository.findAllByGardenMembers(user));
 
         List<GardenInvitation> invitations = gardenInvitationRepository.findAllByInvitedUserAndAcceptedNull(user);
 
@@ -51,8 +55,9 @@ public class ManageGardenController {
     }
 
     @GetMapping("/user/garden/delete/{gardenId}")
-    public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId,
-                               @AuthenticationPrincipal User user, BindingResult result) {
+    public String deleteGarden(@ModelAttribute("gardenId") Integer gardenId, BindingResult result) {
+
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
@@ -73,9 +78,12 @@ public class ManageGardenController {
         return "redirect:/userManageGardens";
     }
 
+
     @PostMapping("/garden/update/{gardenId}")
-    protected String updateGarden(@ModelAttribute("garden") Garden garden,
-                                  @AuthenticationPrincipal User user, BindingResult result) {
+    protected String updateGarden(@ModelAttribute("garden") Garden garden, BindingResult result) {
+
+        User user = getUser();
+
         if (result.hasErrors()) {
             return "redirect:/garden/update";
         } else {
@@ -88,8 +96,10 @@ public class ManageGardenController {
 
     @GetMapping("/garden/{gardenId}/invite")
     protected String inviteToGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
-                                    @RequestParam(value = "search") Optional<String> search,
-                                    @AuthenticationPrincipal User user) {
+                                    @RequestParam(value = "search") Optional<String> search) {
+
+        User user = getUser();
+
         Optional<Garden> garden = gardenRepository.findById(gardenId);
 
         // Object for passing message to user
@@ -119,5 +129,11 @@ public class ManageGardenController {
             return "inviteGardenMember";
         }
         return "redirect:/";
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

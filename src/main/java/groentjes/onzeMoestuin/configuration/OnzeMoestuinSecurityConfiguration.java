@@ -12,9 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -32,15 +30,20 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/loginsuccess", true)
-                .failureUrl("/loginfailed")
-                .permitAll()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/loginsuccess", true)
+                    .failureUrl("/login?error=true")
+                    .permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
     }
+
+
+
+
+
 
     // in-memory saving of user information
     @Override
@@ -71,5 +74,3 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
         return multipartResolver;
     }
 }
-
-
