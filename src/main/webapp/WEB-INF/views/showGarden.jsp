@@ -41,14 +41,6 @@
      </div>
     </div>
 
-
-    <!-- Modal to show User details-->
-        <div id="userModal" class="modal fade" role="dialog">
-          <div class="modal-dialog modal-lg">
-             <div id="userContainer"></div>
-         </div>
-    </div>
-
       <!-- Tijdelijke code om tuinleden weer te geven -->
       <h2>Leden</h2>
       <ul>
@@ -69,28 +61,6 @@
         <a href="/userTaskOverview/${gardenId}" name="userTaskOverview" class="btn btn-success">Toon alle taken</a>
 
 
-
-
-     <!-- Handlebars template for User modal -->
-      <script id="userTemplate" type="text/x-handlebars-template">
-         <div  class="modal-content">
-           <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal">&times;</button>
-             <h4 class="modal-title">{{task.user.username}}</h4>
-           </div>
-           <div class="modal-body">
-           <table class="table table-striped">
-             <tr><th>Gebruikersnaam:</td><td>{{username}}</td></tr>
-             <tr><th>E-mailadres:</th><td>{{email}}</td>
-             <tr><th>Voornaam:</th><td>{{firstName}}</td></tr>
-             <tr><th>Achternaam:</th><td>{{lastName}}</td></tr>
-           </table>
-           </div>
-           <div class="modal-footer">
-             <button type="button" class="btn btn-default" data-dismiss="modal">Sluit</button>
-           </div>
-         </div>
-    </script>
 
         <!-- Handlebars template for Plant modal -->
         <script id="plantTemplate" type="text/x-handlebars-template">
