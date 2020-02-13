@@ -2,9 +2,21 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link id="gardenId" data-gardenId="${garden.gardenId}" />
 
-<%--<div class="container mt-3">--%>
-    <h2 id="messageToggle">Berichten</h2>
+<div>
+    <div class="row">
+        <div class="col-8">
+            <h2 id="messageToggle">Berichten</h2>
+        </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
+        </div>
+    </div>
     <div id="messageDiv">
+
+        <div id="newMessageForm" class="collapse">
+            <textarea id="messageText" rows="1" class="form-control"></textarea><br />
+            <button type="button" class="btn btn-success" id="postMsgBtn">Versturen</button><br/><br/>
+        </div>
 
     <!-- AJAX error -->
     <div class="alert alert-danger" id="message-error"><p></p></div>
@@ -16,15 +28,12 @@
 
         <button type="button" class="btn btn-success" id="msgNextBtn">Oudere berichten</button>
 
-        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
+
 
         <br/><br/>
-        <div id="newMessageForm" class="collapse">
-            <textarea id="messageText" rows="2" class="form-control"></textarea><br />
-            <button type="button" class="btn btn-success" id="postMsgBtn">Versturen</button>
 
         </div>
-        </div>
+</div>
 
 <script id="messageTemplate" type="text/x-handlebars-template">
     <table class="table table-striped">

@@ -6,11 +6,11 @@
 
 <c:import url="partials/garden2d.jsp" />
 
-<c:import url="partials/showMembersOfGarden.jsp" />
-
+<br/><br/>
 
 <div class="container">
     <div class="row">
+
         <div class="col-6">
             <c:import url="messages.jsp" />
         </div>
