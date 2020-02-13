@@ -26,7 +26,7 @@ $("body").on("click", ".plantStartBtn", function(e) {
     //TODO use templating to improve maintainability
     var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
     "\"><div class=\"grid-stack-item-content\"><section class=\"vertical-align-grid-icon\" id=\"" + plant.plantId + "\">" +
-     "<img src=\"/plant/" + plant.plantId + "/image\", name=\"image\" height=\"50%\" id=" + plant.plantId + "\"/>" +
+     "<img src=\"/plant/" + plant.plantId + "/image\", name=\"image\" height=\"50%\" id=\"" + plant.plantId + "\">" +
      "<br />" + $(this).attr('data-plantName') + "</div></div>");
 
     var grid = $('.grid-stack').data('gridstack');
@@ -59,6 +59,7 @@ function loadGrid() {
     // Trigger event when clicked on grid element or child
     $('.grid-stack-item').on('click', function(e) {
         if (e.target.id) {
+        console.log(e.target.id);
             ajaxGetPlant(e.target.id);
         }
     });
