@@ -3,8 +3,12 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.TaskGardenRepository;
+import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -31,15 +35,19 @@ public class TaskGardenController {
     @Autowired
     private TaskGardenRepository taskGardenRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/garden/{gardenId}/addTaskGarden")
-    protected String addTaskGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
-                                   @AuthenticationPrincipal User user) {
+    protected String addTaskGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
+
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
                 TaskGardenBuilder taskGardenBuilder = new TaskGardenBuilder();
-                taskGardenBuilder.createNewTaskGarden();;
+                taskGardenBuilder.createNewTaskGarden();
                 model.addAttribute("taskGarden", taskGardenBuilder.getTaskGarden());
                 return "addTaskGarden";
             }
@@ -50,8 +58,10 @@ public class TaskGardenController {
     @PostMapping("/garden/{gardenId}/addTaskGarden")
     protected String storeTaskGarden(@PathVariable("gardenId") final Integer gardenId,
                                      @Valid TaskGarden taskGarden, Errors error,
-                                     @AuthenticationPrincipal User user, @ModelAttribute("remark") String remark,
+                                     @ModelAttribute("remark") String remark,
                                      Model model) {
+
+        User user = getUser();
 
         model.addAttribute("remark", EMPTY);
         if(error.hasErrors()) {
@@ -76,5 +86,11 @@ public class TaskGardenController {
             }
         }
         return "redirect:/";
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

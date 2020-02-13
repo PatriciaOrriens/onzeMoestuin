@@ -1,8 +1,8 @@
 package groentjes.onzeMoestuin.configuration;
 
 import groentjes.onzeMoestuin.repository.UserRepository;
-//import groentjes.onzeMoestuin.service.AuthenticationService;
-import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+import groentjes.onzeMoestuin.service.AuthenticationService;
+//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +21,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    GardenUserDetailsService gardenUserDetailsService;
-
 //    @Autowired
-//    private UserDetailsService AuthenticationService;
+//    GardenUserDetailsService gardenUserDetailsService;
+
+    @Autowired
+    private UserDetailsService AuthenticationService;
 
 
     @Override
@@ -47,28 +47,28 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .invalidateHttpSession(true);
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(AuthenticationService)
-//                .passwordEncoder(passwordEncoder());
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(AuthenticationService)
+                .passwordEncoder(passwordEncoder());
+    }
+
+//    // in-memory saving of user information
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
+//        auth.authenticationProvider(authProvider());
 //    }
 
-    // in-memory saving of user information
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
-        auth.authenticationProvider(authProvider());
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(gardenUserDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
+//    @Bean
+//    public DaoAuthenticationProvider authProvider() {
+//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+//        authProvider.setUserDetailsService(gardenUserDetailsService);
+//        authProvider.setPasswordEncoder(passwordEncoder());
+//        return authProvider;
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
