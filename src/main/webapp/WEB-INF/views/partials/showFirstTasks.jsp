@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2>Eerstvolgende taken</h2>
+<h2><i class="fa fa-calendar"></i> Eerstvolgende taken</h2>
 
 <table class="table table-striped">
     <tr>

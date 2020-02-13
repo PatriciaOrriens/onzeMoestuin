@@ -10,11 +10,10 @@
 
 <div class="container">
     <div class="row">
-
         <div class="col-6">
             <c:import url="messages.jsp" />
         </div>
-            <div class="col-6">
+        <div class="col-6">
             <c:import url="partials/showFirstTasks.jsp" />
         </div>
     </div>

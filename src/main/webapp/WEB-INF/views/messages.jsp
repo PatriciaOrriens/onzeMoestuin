@@ -5,7 +5,7 @@
 <div>
     <div class="row">
         <div class="col-8">
-            <h2 id="messageToggle">Berichten</h2>
+            <h2 id="messageToggle"><i class="fa fa-comments"></i> Berichten</h2>
         </div>
         <div class="col-4">
             <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
@@ -27,10 +27,6 @@
         <div id="message-container"></div>
 
         <button type="button" class="btn btn-success" id="msgNextBtn">Oudere berichten</button>
-
-
-
-        <br/><br/>
 
         </div>
 </div>
