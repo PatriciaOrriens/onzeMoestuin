@@ -17,24 +17,24 @@ $(document).ready(function() {
 
 
 $("body").on("click", ".plantStartBtn", function(e) {
-    console.log("lol");
-//    var plant = {
-//            plantId: $(this).attr('data-newPlantId'),
-//            width: 1,
-//            height: 1
-//        };
-//    //TODO use templating to improve maintainability
-//    var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
-//    "\"><div class=\"grid-stack-item-content\"><section class=\"vertical-align-grid-icon\" id=\"" + plant.plantId + "\">" +
-//     "<img src=\"/plant/" + plant.plantId + "/image\", name=\"image\" height=\"50%\" id=" + plant.plantId + "\"/>" +
-//     "<br />" + $(this).text() + "</div></div>");
-//
-//    var grid = $('.grid-stack').data('gridstack');
-//    var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
-//    var node = newWidget.data('_gridstack_node');
-//    Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
-//    ajaxStartPlant(plant);
-//    loadGrid();
+    var plant = {
+        plantId: $(this).attr('data-newPlantId'),
+        width: 1,
+        height: 1
+    };
+
+    //TODO use templating to improve maintainability
+    var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
+    "\"><div class=\"grid-stack-item-content\"><section class=\"vertical-align-grid-icon\" id=\"" + plant.plantId + "\">" +
+     "<img src=\"/plant/" + plant.plantId + "/image\", name=\"image\" height=\"50%\" id=" + plant.plantId + "\"/>" +
+     "<br />" + $(this).text() + "</div></div>");
+
+    var grid = $('.grid-stack').data('gridstack');
+    var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
+    var node = newWidget.data('_gridstack_node');
+    Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
+    ajaxStartPlant(plant);
+    loadGrid();
 });
 
 // Load GridStack script
