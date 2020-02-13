@@ -1,6 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
@@ -39,6 +40,7 @@ public class ManageGardenControllerWebDriverTest {
 
     private static final Integer ONE = 1;
     private static final String NAME = "testgebruiker1";
+    private static final String ROLE = "ROLE_USER";
     private static final String PASSWORD = "testwachtwoord1";
     private static final String SECONDNAME = "testgebruiker2";
     private static final String SECONDPASSWORD = "testwachtwoord2";
@@ -115,6 +117,11 @@ public class ManageGardenControllerWebDriverTest {
         User registeredUser = new User();
         registeredUser.setUsername(name);
         registeredUser.setPassword(passwordEncoder.encode(password));
+
+        Role role = new Role();
+        role.setRoleName(ROLE);
+        registeredUser.getRole().add(role);
+
         userRepository.save(registeredUser);
         return registeredUser;
     }
@@ -125,4 +132,6 @@ public class ManageGardenControllerWebDriverTest {
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.name("inlogbutton")).submit();
     }
+
+
 }
