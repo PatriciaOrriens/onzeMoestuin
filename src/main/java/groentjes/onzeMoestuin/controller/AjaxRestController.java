@@ -91,7 +91,7 @@ public class AjaxRestController {
         return new ResponseEntity<>(plantRepository.save(plant), HttpStatus.CREATED);
     }
 
-
+    // Method to generate initial tasks for plant when it is put into garden
     private void generatePlantTasks(Plant plant) {
         ArrayList<TaskPlantInfo> taskPlantInfos = taskPlantInfoRepository.findAllByPlantInformation(plant.getPlantInformation());
         for (TaskPlantInfo task : taskPlantInfos) {
