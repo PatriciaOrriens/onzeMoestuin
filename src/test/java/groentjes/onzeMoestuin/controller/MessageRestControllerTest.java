@@ -67,8 +67,8 @@ public class MessageRestControllerTest {
         time = LocalDateTime.now();
         mockUser = new User();
         mockUser.setUsername("testuser");
-
     }
+
 
     @Test
     public void canGetMessagesByGardenWhenExists() throws Exception {
@@ -93,6 +93,5 @@ public class MessageRestControllerTest {
                 " {\"messageId\": 2, \"sender\": { \"username\": \"testuser\" }, \"messageBody\": \"Test message 2\" }]";
 
         JSONAssert.assertEquals(expected, response.getContentAsString(), JSONCompareMode.LENIENT);
-
     }
 }
