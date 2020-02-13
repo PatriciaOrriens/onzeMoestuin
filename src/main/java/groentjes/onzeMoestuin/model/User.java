@@ -33,12 +33,23 @@ public class User implements UserDetails {
     private String email;
 
     private String firstName;
+
     private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE },
             mappedBy = "gardenMembers")
     private Set<Garden> joinedGardens = new HashSet<>();
+
+   /* @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.ALL,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "user_role",
+            joinColumns = { @JoinColumn(name = "user_Id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_Id") })
+    private Set<Role> role = new HashSet<>();*/
 
     public User() {
     }
@@ -73,6 +84,7 @@ public class User implements UserDetails {
     public Integer getUserId() {
         return userId;
     }
+
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
@@ -127,4 +139,11 @@ public class User implements UserDetails {
         this.joinedGardens = joinedGardens;
     }
 
+    /*public Set<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }*/
 }

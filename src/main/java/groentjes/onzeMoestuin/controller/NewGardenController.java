@@ -3,11 +3,16 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
@@ -45,8 +50,9 @@ public class NewGardenController {
     private TaskGardenRepository taskGardenRepository;
 
     @GetMapping("/garden/{gardenId}")
-    protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
-                                @AuthenticationPrincipal User user) {
+    protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
+
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
@@ -60,7 +66,10 @@ public class NewGardenController {
     }
 
     @GetMapping("/garden/add")
-    protected String showGardenForm(Model model, @AuthenticationPrincipal User user) {
+    protected String showGardenForm(Model model) {
+
+        User user = getUser();
+
         Garden garden = new Garden();
         garden.setUser(user);
         model.addAttribute("garden", garden);
@@ -69,15 +78,15 @@ public class NewGardenController {
     }
 
     @PostMapping({"/garden/add"})
-    protected String saveOrUpdateGarden(@Valid Garden garden, Errors errors,
-                                        @AuthenticationPrincipal User user) {
+    protected String saveOrUpdateGarden(@Valid Garden garden, Errors errors) {
 
         if (errors.hasErrors()) {
             return "newGarden";
         } else {
             // Retrieve complete User object from database to be able to add member to garden
-            User owner = userRepository.getOne(user.getUserId());
-            garden.addGardenMember(owner);
+            User user = getUser();
+
+            garden.addGardenMember(user);
             garden = gardenRepository.save(garden);
 
             return "redirect:/garden/" + garden.getGardenId();
@@ -126,5 +135,11 @@ public class NewGardenController {
         newMessage.setSender(user);
         newMessage.setGarden(garden.get());
         model.addAttribute("newMessage", newMessage);
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

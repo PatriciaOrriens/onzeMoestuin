@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,11 +27,14 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Eric van Dalen and Gjalt Wybenga
+ * @author Eric van Dalen, Gjalt Wybenga and Patricia Orriens
  * Controller for managing the plants in a garden
  */
 @Controller
 public class PlantController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PlantRepository plantRepository;
@@ -46,8 +52,9 @@ public class PlantController {
     private TaskPlantInfoRepository taskPlantInfoRepository;
 
     @GetMapping("/garden/{gardenId}/addPlant")
-    public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId,
-                                  @AuthenticationPrincipal User user) {
+    public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
+
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         List<PlantInformation> allPlantInformation = plantInformationRepository.findAll();
@@ -65,7 +72,9 @@ public class PlantController {
     }
 
     @GetMapping(value = "/plant/{plantId}")
-    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model, @AuthenticationPrincipal User user) throws IOException {
+    public String showPlantDetails(@PathVariable("plantId") final Integer plantId, Model model) throws IOException {
+
+        User user = getUser();
 
         Optional<Plant> plant = plantRepository.findById(plantId);
 
@@ -87,17 +96,25 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
-    @PostMapping("/garden/{gardenId}/addPlant")
+    /*@PostMapping("/garden/{gardenId}/addPlant")
     public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
-                                   BindingResult result, @PathVariable("gardenId") final Integer gardenId,
-                                   @AuthenticationPrincipal User user) {
+                                   BindingResult result, @PathVariable("gardenId") final Integer gardenId) {
 
+    }*/
+
+        // mapping activated after click on button in addPlant.
+    @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
+    public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
+                                   @PathVariable("plantInfoId") final Integer plantInfoId
+                                   ) {
+        User user = getUser();
+        Plant newPlant = new Plant();
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                savePlantAndTaskPlant(plantInfo, garden, plant);
-                return "redirect:/garden/" + gardenId;
+                savePlantAndTaskPlant(plantInfo, garden, newPlant);
+                return "redirect:/garden/" + gardenId + "/addPlant";
             }
         }
         return "redirect:/";
@@ -129,4 +146,11 @@ public class PlantController {
             taskPlantRepository.save(taskPlant);
         }
     }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+    }
 }
+

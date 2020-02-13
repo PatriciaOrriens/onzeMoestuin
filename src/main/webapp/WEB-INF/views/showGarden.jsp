@@ -67,8 +67,5 @@
         <br/>
         <h2>Meest dringende taken</h2>
         <c:import url="partials/showTask.jsp" />
-        <a href="/userTaskOverview/${gardenId}" name="userTaskOverview" class="btn btn-success">Ga naar complete taakoverzicht</a>
-        <br/>
-        <br/>
-        <br/>
+        <a href="/userTaskOverview/${gardenId}" name="userTaskOverview" class="btn btn-success">Toon alle taken</a>
 <c:import url="partials/footer.jsp" />

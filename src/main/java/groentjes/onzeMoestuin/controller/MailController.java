@@ -11,7 +11,10 @@ import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,8 +46,10 @@ public class MailController {
     // Send Invitation mail
     @PostMapping("/garden/{gardenId}/sendEmailInvite")
     protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
-                                     @AuthenticationPrincipal User user,
                                      @ModelAttribute("invitationMail") Mail invitationMail) {
+
+        User user = getUser();
+
         try {
             GardenInvitation newInvitation = new GardenInvitation();
             User invitingUser = userRepository.findById(user.getUserId()).get();
@@ -76,5 +81,11 @@ public class MailController {
         helper.setSubject(mail.getSubject());
         helper.setText(mail.getMessage(), true);
         sender.send(message);
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }
