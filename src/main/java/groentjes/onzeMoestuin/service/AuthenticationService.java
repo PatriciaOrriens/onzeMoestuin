@@ -1,3 +1,4 @@
+/*
 package groentjes.onzeMoestuin.service;
 
 import groentjes.onzeMoestuin.model.Role;
@@ -16,10 +17,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+*/
 /**
  * @author Gjalt Wybenga
  * service that authenticates users
- */
+ *//*
+
 @Service
 public class AuthenticationService implements UserDetailsService {
 
@@ -54,3 +57,4 @@ public class AuthenticationService implements UserDetailsService {
 //        return AuthorityUtils.createAuthorityList(userRoles);
 //    }
 }
+*/

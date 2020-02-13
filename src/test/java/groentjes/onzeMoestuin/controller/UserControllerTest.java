@@ -1,6 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import groentjes.onzeMoestuin.model.User;
+/*import groentjes.onzeMoestuin.repository.RoleRepository;*/
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
@@ -49,7 +51,10 @@ class UserControllerTest {
     private UserRepository userRepository;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
+    private GardenUserDetailsService gardenUserDetailsService;
+
+  /*  @MockBean
+    private RoleRepository roleRepository;*/
 
     @Autowired
     private PasswordEncoder passwordEncoder;

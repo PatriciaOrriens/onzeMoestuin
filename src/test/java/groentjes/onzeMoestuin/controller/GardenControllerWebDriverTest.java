@@ -39,7 +39,6 @@ public class GardenControllerWebDriverTest {
     private PasswordEncoder passwordEncoder;
 
     private static final String NAME = "gebruiker1";
-    private static final String EMAIL = "testgebruiker1@test.nl";
     private static final String PASSWORD = "wachtwoord1";
     private static final String GARDEN1 = "tuin1";
     private static final String GARDEN1LENGTH = "1";
@@ -62,7 +61,6 @@ public class GardenControllerWebDriverTest {
         User registeredUser = new User();
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
-        registeredUser.setEmail(EMAIL);
         userRepository.save(registeredUser);
     }
 
@@ -86,6 +84,7 @@ public class GardenControllerWebDriverTest {
         // Activate
         loginAsAUser();
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
+        driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("logout")).click();
 
@@ -104,6 +103,7 @@ public class GardenControllerWebDriverTest {
         // Activate
         loginAsAUser();
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
+        driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("returntooverview")).click();
         driver.findElement(By.name("verwijderen")).click();
