@@ -57,7 +57,6 @@ function loadGrid() {
     // Trigger event when clicked on grid element or child
     $('.grid-stack-item').on('click', function(e) {
         if (e.target.id) {
-        console.log(e.target.id);
             ajaxGetPlant(e.target.id);
         }
     });
