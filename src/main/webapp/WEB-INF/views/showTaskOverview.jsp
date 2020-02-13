@@ -4,7 +4,7 @@
 <div class="container">
 
 
-
-<c:import url="partials/showCompletedTasks.jsp" />
+    <h2>Taken</h2>
+<c:import url="partials/showAllTasks.jsp" />
 </div>
 <c:import url="partials/footer.jsp" />

@@ -53,12 +53,14 @@
         <i class="fa fa-user-plus"></i> Lid toevoegen</a>
 
       <br/><br/>
+
+
       <c:import url="messages.jsp" />
       <br/>
 
-        <h2>Eerstvolgende taken</h2>
-        <c:import url="partials/showTask.jsp" />
-        <a href="/userTaskOverview/${gardenId}" name="userTaskOverview" class="btn btn-success">Toon alle taken</a>
+
+        <c:import url="partials/showFirstTasks.jsp" />
+
 
 
 

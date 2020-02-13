@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-    <h2>Voltooide taken</h2>
+
      <table class="table table-striped">
         <tr>
             <th>Taak</th>
