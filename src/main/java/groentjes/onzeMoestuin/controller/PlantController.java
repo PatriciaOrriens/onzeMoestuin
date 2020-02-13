@@ -96,11 +96,6 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
-    /*@PostMapping("/garden/{gardenId}/addPlant")
-    public String addPlantToGarden(@RequestParam("plantInfoId") Integer plantInfoId, @ModelAttribute("plant") Plant plant,
-                                   BindingResult result, @PathVariable("gardenId") final Integer gardenId) {
-
-    }*/
 
         // mapping activated after click on button in addPlant.
     @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
@@ -108,13 +103,15 @@ public class PlantController {
                                    @PathVariable("plantInfoId") final Integer plantInfoId
                                    ) {
         User user = getUser();
-        Plant newPlant = new Plant();
+        Plant plant = new Plant();
         Optional<PlantInformation> plantInfo  = plantInformationRepository.findById(plantInfoId);
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (plantInfo.isPresent() && garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                savePlantAndTaskPlant(plantInfo, garden, newPlant);
-                return "redirect:/garden/" + gardenId + "/addPlant";
+                plant.setPlantInformation(plantInfo.get());
+                plant.setGarden(garden.get());
+                plantRepository.save(plant);
+                return "redirect:/garden/" + gardenId;
             }
         }
         return "redirect:/";
@@ -129,22 +126,6 @@ public class PlantController {
                 plantRepository.delete(plant.get());
         }
         return "redirect:/userManageGardens";
-    }
-
-    private void savePlantAndTaskPlant(Optional<PlantInformation> plantInfo, Optional<Garden> garden, Plant plant) {
-        plant.setPlantInformation(plantInfo.get());
-        plant.setGarden(garden.get());
-        plant.setStartDate(new Date());
-        plantRepository.save(plant);
-        ArrayList<TaskPlantInfo> taskPlantInfos;
-        taskPlantInfos = taskPlantInfoRepository.findAllByPlantInformation(plant.getPlantInformation());
-        for (TaskPlantInfo taskInfoPlant : taskPlantInfos) {
-            TaskPlant taskPlant = new TaskPlant();
-            taskPlant.setPlant(plant);
-            taskPlant.setTaskPlantInfo(taskInfoPlant);
-            taskPlant.calculateDueDate();
-            taskPlantRepository.save(taskPlant);
-        }
     }
 
     private User getUser() {

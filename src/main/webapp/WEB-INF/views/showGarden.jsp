@@ -64,7 +64,7 @@
       <c:import url="messages.jsp" />
       <br/>
 
-        <h2>Meest dringende taken</h2>
+        <h2>Eerstvolgende taken</h2>
         <c:import url="partials/showTask.jsp" />
         <a href="/userTaskOverview/${gardenId}" name="userTaskOverview" class="btn btn-success">Toon alle taken</a>
 
@@ -148,5 +148,4 @@
 
 
 
-<script src="../resources/javascript/showGarden.js"></script>
 <c:import url="partials/footer.jsp" />

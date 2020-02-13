@@ -57,7 +57,7 @@ public class NewGardenController {
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
-                addMessagesToGardenView(garden.get(), user, model);
+                addMessagesToGardenView(garden, user, model);
                 addAttributesToShowGardenView(garden.get(), model);
                 return "showGarden";
             }
@@ -108,7 +108,6 @@ public class NewGardenController {
         model.addAttribute("garden", garden);
     }
 
-    private void addMessagesToGardenView(Garden garden, User user, Model model) {
     private int getNumberOfShownTasks(ArrayList<Task> tasks) {
         if (tasks.size() < MAXIMUM_NUMBER_OF_SHOWN_TASKS) {
             return tasks.size();
@@ -131,12 +130,12 @@ public class NewGardenController {
 
     private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
         // load messages that are connected to this garden
-        List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden);
+        List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
         model.addAttribute("messages", messages);
         // initialize a new message
         Message newMessage = new Message();
         newMessage.setSender(user);
-        newMessage.setGarden(garden);
+        newMessage.setGarden(garden.get());
         model.addAttribute("newMessage", newMessage);
     }
 

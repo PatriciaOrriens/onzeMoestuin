@@ -2,10 +2,11 @@ package groentjes.onzeMoestuin.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import groentjes.onzeMoestuin.model.Garden;
-import groentjes.onzeMoestuin.model.Plant;
+import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.PlantRepository;
+import groentjes.onzeMoestuin.repository.TaskPlantInfoRepository;
+import groentjes.onzeMoestuin.repository.TaskPlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,12 @@ public class AjaxRestController {
 
     @Autowired
     private GardenRepository gardenRepository;
+
+    @Autowired
+    private TaskPlantInfoRepository taskPlantInfoRepository;
+
+    @Autowired
+    private TaskPlantRepository taskPlantRepository;
 
     @GetMapping("/getPlant/{id}")
     public ResponseEntity<Plant> getPlant(@PathVariable("id") Integer plantId) {
@@ -80,6 +87,19 @@ public class AjaxRestController {
         plant.setxCoordinate(plantStart.getxCoordinate());
         plant.setyCoordinate(plantStart.getyCoordinate());
         plant.setStartDate(new Date());
+        generatePlantTasks(plant);
         return new ResponseEntity<>(plantRepository.save(plant), HttpStatus.CREATED);
+    }
+
+
+    private void generatePlantTasks(Plant plant) {
+        ArrayList<TaskPlantInfo> taskPlantInfos = taskPlantInfoRepository.findAllByPlantInformation(plant.getPlantInformation());
+        for (TaskPlantInfo task : taskPlantInfos) {
+            TaskPlant taskPlant = new TaskPlant();
+            taskPlant.setPlant(plant);
+            taskPlant.setTaskPlantInfo(task);
+            taskPlant.calculateDueDate();
+            taskPlantRepository.save(taskPlant);
+        }
     }
 }
