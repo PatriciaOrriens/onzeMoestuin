@@ -2,7 +2,7 @@ package groentjes.onzeMoestuin.service;
 
 import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
-import groentjes.onzeMoestuin.repository.RoleRepository;
+//import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,8 +26,8 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+//    @Autowired
+//    private RoleRepository roleRepository;
 
     @Override
     @Transactional

@@ -1,7 +1,7 @@
 //package groentjes.onzeMoestuin.controller;
 //
 //import groentjes.onzeMoestuin.repository.*;
-//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+////import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +41,16 @@
 //    private MessageRepository messageRepository;
 //
 //    @MockBean
-//    GardenUserDetailsService gardenUserDetailsService;
+//    private RoleRepository roleRepository;
+//
+////    @MockBean
+////    GardenUserDetailsService gardenUserDetailsService;
 //
 //    @Test
-//    @WithMockUser(roles = "USER")
+//    @WithMockUser(roles = "ROLE_USER")
 //    void testNewGardenPage() throws Exception {
 //        final ResultActions result = mockMvc.perform(get("/garden/add"))
-//                .andExpect(status().isOk())
+//
 //                .andExpect(forwardedUrl("/WEB-INF/views/newGarden.jsp"));
 //    }
 //}

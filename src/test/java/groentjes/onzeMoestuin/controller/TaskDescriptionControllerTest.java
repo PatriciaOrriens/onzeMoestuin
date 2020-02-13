@@ -2,8 +2,9 @@ package groentjes.onzeMoestuin.controller;
 
 
 import groentjes.onzeMoestuin.model.TaskDescription;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.TaskDescriptionRepository;
-import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +44,10 @@ public class TaskDescriptionControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private GardenUserDetailsService gardenUserDetailsService;
+    private RoleRepository roleRepository;
+
+//    @MockBean
+//    private GardenUserDetailsService gardenUserDetailsService;
 
     @MockBean
     private TaskDescriptionRepository taskDescriptionRepository;
