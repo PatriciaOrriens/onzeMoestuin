@@ -3,13 +3,11 @@ package groentjes.onzeMoestuin.model;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-/*
 
-*/
 /**
  * @author Gjalt Wybenga
  * A user can have many different roles, and a role can be assigned to many different users.
- *//*
+ */
 
 @Entity
 @Table(name = "role")
@@ -53,4 +51,3 @@ public class Role {
         this.user = user;
     }
 }
-*/

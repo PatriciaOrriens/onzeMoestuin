@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.*;
 
 /**
- * @author Wim Kruizinga
+ * @author Wim Kruizinga and Gjalt Wybenga
  */
 @Entity (name = "User")
 @JsonIgnoreProperties({"joinedGardens", "password", "authorities"})
@@ -41,7 +41,7 @@ public class User implements UserDetails {
             mappedBy = "gardenMembers")
     private Set<Garden> joinedGardens = new HashSet<>();
 
-   /* @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.ALL,
                     CascadeType.MERGE
@@ -49,7 +49,7 @@ public class User implements UserDetails {
     @JoinTable(name = "user_role",
             joinColumns = { @JoinColumn(name = "user_Id") },
             inverseJoinColumns = { @JoinColumn(name = "role_Id") })
-    private Set<Role> role = new HashSet<>();*/
+    private Set<Role> role = new HashSet<>();
 
     public User() {
     }
@@ -139,11 +139,11 @@ public class User implements UserDetails {
         this.joinedGardens = joinedGardens;
     }
 
-    /*public Set<Role> getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
     public void setRole(Set<Role> role) {
         this.role = role;
-    }*/
+    }
 }

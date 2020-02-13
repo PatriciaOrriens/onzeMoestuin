@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-<script src="../resources/javascript/createUser.js"></script>
+<script src="../resources/javascript/adminCreateUser.js"></script>
 
     <div class="container">
        <h1 class="display-3">Gebruiker toevoegen</h1>
@@ -14,6 +14,10 @@
                 <p id="usernameError" class="centeredRedText">
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('username') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('username').defaultMessage : ''}
                 </p>
+
+                <label>Rol:</label>
+                <form:select path="${roleName}" name="roleName" type="text" value="${roleName}" class="form-control" id="rights"></form:select>
+                </br>
 
                 <label for="email">E-mailadres:</label>
                 <form:input name="email" path="email" type="text" class="form-control" />

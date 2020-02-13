@@ -1,5 +1,7 @@
 package groentjes.onzeMoestuin.configuration;
 
+import groentjes.onzeMoestuin.repository.UserRepository;
+//import groentjes.onzeMoestuin.service.AuthenticationService;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -20,6 +23,10 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
 
     @Autowired
     GardenUserDetailsService gardenUserDetailsService;
+
+//    @Autowired
+//    private UserDetailsService AuthenticationService;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,10 +47,12 @@ public class OnzeMoestuinSecurityConfiguration extends WebSecurityConfigurerAdap
                 .invalidateHttpSession(true);
     }
 
-
-
-
-
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .userDetailsService(AuthenticationService)
+//                .passwordEncoder(passwordEncoder());
+//    }
 
     // in-memory saving of user information
     @Override

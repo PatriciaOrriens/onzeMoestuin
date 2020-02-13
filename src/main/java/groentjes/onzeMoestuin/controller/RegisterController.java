@@ -1,14 +1,15 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.GardenInvitation;
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,6 +43,9 @@ public class RegisterController {
     @Autowired
     private GardenInvitationRepository gardenInvitationRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @GetMapping("/registerUser")
     public String getRegisterUserForm(Model model, @ModelAttribute User user,
                                       @RequestParam(name="token") Optional<String> token) {
@@ -53,7 +56,9 @@ public class RegisterController {
     }
 
     @PostMapping("/registerUser")
-    public String saveNewUser(@Valid User user, Errors errors, Model model,  @ModelAttribute("remark") String remark,
+    public String saveNewUser(@Valid User user, Role role, Errors errors,
+                              Model model,
+                              @ModelAttribute("remark") String remark,
                               @RequestParam(name ="token") Optional<String> token) {
 
         boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
@@ -64,7 +69,9 @@ public class RegisterController {
             checkForInvalidInput(model, user);
             return "register";
         } else {
+            role.setRoleName("ROLE_USER");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.getRole().add(role);
             userRepository.save(user);
             checkIfInvitationIsPresent(token, user);
             return "redirect:/login";

@@ -1,9 +1,13 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import groentjes.onzeMoestuin.model.Role;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -35,6 +40,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/manageUsers")
     @Secured("ROLE_ADMIN")
@@ -62,8 +70,10 @@ public class UserController {
 
     @PostMapping("/user/new")
     @Secured("ROLE_ADMIN")
-    protected String saveOrUpdateUser(@Valid User user, Errors errors, @ModelAttribute("remark") String remark,
-                                      Model model){
+    protected String saveOrUpdateUser(@Valid User user, Role role,
+                                      Errors errors,
+                                      @ModelAttribute("remark") String remark,
+                                      Model model, BindingResult bindingResult){
 
         boolean isResultError = errors.hasErrors();
         boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
@@ -72,7 +82,9 @@ public class UserController {
             checkForInvalidInput(model, user, isResultError);
             return "adminCreateUser";
         } else {
+            model.addAttribute(role.getRoleName());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.getRole().add(role);
             userRepository.save(user);
             return "redirect:/manageUsers";
         }
@@ -95,5 +107,11 @@ public class UserController {
             stringBuilder.append(ERROR_EMAIL_STRING).replace(START_REPLACE, END_REPLACE, REPLACE);
             model.addAttribute("remark", stringBuilder);
         }
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }
