@@ -27,8 +27,6 @@
 color: red;
 }
 
-
-
 .centeredRedText {
 color: red;
 text-align: center;
@@ -54,5 +52,55 @@ text-align: center;
 .ajax-link:hover {
     text-decoration: underline;
 }
+
+
+.grid-stack {
+    margin: 5px;
+    background-color: rgba(84, 57, 38, 1);
+}
+
+.grid-stack-item {
+}
+
+.grid-stack-item-content {
+    background-color: green;
+    color: white;
+    padding: 3px;
+    text-align: center;
+
+}
+
+.vertical-align-grid-icon {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+}
+
+.vertical-align-grid-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-fit: contain;
+}
+
+#plannedPlants {
+    display: none;
+}
+
+.newPlantContainer {
+}
+
+.newPlantContainer img {
+  max-height: 50px;
+  max-width: 50px;
+  object-fit: cover;
+}
+
+
+
+
 
 
