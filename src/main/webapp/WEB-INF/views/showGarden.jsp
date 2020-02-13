@@ -26,21 +26,10 @@
         </c:forEach>
     </div>
 
-
+    <!-- Container for plants not yet placed in grid -->
     <div id="plannedPlants">
         <div id="plannedPlants-container"></div>
     </div>
-
-    <%-- <c:if test="${not empty unstartedPlants}">
-            <h2>Nog niet geplante planten:</h2>
-            <ul id="newPlants">
-            <c:forEach items="${unstartedPlants}" var = "unstartedPlant">
-                <li><span data-newPlantId="${unstartedPlant.plantId}">
-                    ${unstartedPlant.plantInformation.plantName}
-                </span></li>
-            </c:forEach>
-            </ul>
-    </c:if> --%>
 
     <!-- Modal to show Plant details-->
     <div id="plantModal" class="modal fade" role="dialog">
@@ -50,38 +39,12 @@
     </div>
 
 
-
-
-            <!-- Modal to show User details-->
-                <div id="userModal" class="modal fade" role="dialog">
-                  <div class="modal-dialog modal-lg">
-                     <div id="userContainer"></div>
-                 </div>
-                </div>
-    <%-- comment old code out
-
-            <!-- Modal -->
-            <div class="modal fade" id="removePlantModal_${plant.plantId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Plant verwijderen</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                            <div class="modal-body">
-                                <p>Weet je zeker dat je plant ${plant.plantId} wilt verwijderen?</p>
-                            </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                            <a type="button" class="btn btn-secondary" href="/plant/delete/${plant.plantId}" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-     --%>
+    <!-- Modal to show User details-->
+        <div id="userModal" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-lg">
+             <div id="userContainer"></div>
+         </div>
+    </div>
 
       <!-- Tijdelijke code om tuinleden weer te geven -->
       <h2>Leden</h2>

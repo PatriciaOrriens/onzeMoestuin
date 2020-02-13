@@ -1,7 +1,5 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<link rel="stylesheet" href="../resources/css/navbar.css">
-
 <nav class="navbar navbar-expand-sm bg-success navbar-dark">
   <ul class="navbar-nav">
          <li class="nav-item">
