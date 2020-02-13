@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @Author Patricia Orriens-Spuij
+ * @author Patricia Orriens-Spuij
  */
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
@@ -20,6 +20,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
     List<Message> findAllByGarden(Garden garden, Pageable pageable);
 
+    // Get most recent message for given Garden
     Optional<Message> findFirstByGardenOrderByDateTimeDesc(Garden garden);
 
 }
