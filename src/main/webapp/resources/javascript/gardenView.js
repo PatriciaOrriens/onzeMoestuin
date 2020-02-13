@@ -16,7 +16,7 @@ $(document).ready(function() {
 });
 
 
-$('.plantSpan').on('click', function(e) {
+$("body").on("click", ".plantStartBtn", function(e) {
     console.log("lol");
 //    var plant = {
 //            plantId: $(this).attr('data-newPlantId'),
