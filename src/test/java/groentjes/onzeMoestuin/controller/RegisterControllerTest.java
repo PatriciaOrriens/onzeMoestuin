@@ -3,7 +3,7 @@ package groentjes.onzeMoestuin.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
-import groentjes.onzeMoestuin.repository.RoleRepository;
+//import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.assertj.core.api.Assertions;
@@ -51,9 +51,9 @@ class RegisterControllerTest {
     @MockBean
     private UserRepository userRepository;
 
-    @MockBean
+    /*@MockBean
     private RoleRepository roleRepository;
-
+*/
     @MockBean
     private GardenUserDetailsService gardenUserDetailsService;
 

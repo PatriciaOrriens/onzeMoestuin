@@ -45,8 +45,8 @@ class TaskPlantControllerTest {
     @MockBean
     private GardenUserDetailsService gardenUserDetailsService;
 
-    @MockBean
-    private RoleRepository roleRepository;
+//
+
 
     @MockBean
     private PlantRepository plantRepository;
