@@ -1,6 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -31,8 +33,12 @@ class UserControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final String ADMINNAME = "admin";
-    private static final String ADMINPASSWORD = "admin";
+    @Autowired
+    private RoleRepository roleRepository;
+
+    private static final String ADMINNAME = "administrator";
+    private static final String ADMINPASSWORD = "adminpassword";
+    private static final String ROLE = "ROLE_ADMIN";
     private static final String NAME = "testgebruiker1";
     private static final String PASSWORD = "testwachtwoord1";
     private static final String EMAIL = "testgebruiker1@test.nl";
@@ -43,12 +49,26 @@ class UserControllerWebDriverTest {
         this.driver = new ChromeDriver();
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
+        Optional<User> adminUser = userRepository.findByUsername(ADMINNAME);
+        adminUser.ifPresent(user -> userRepository.delete(user));
+
+        User admin = new User();
+        admin.setUsername(ADMINNAME);
+        admin.setPassword(passwordEncoder.encode(PASSWORD));
+
+        Role role = new Role();
+        role.setRoleName(ROLE);
+        admin.getRole().add(role);
+
+        userRepository.save(admin);
     }
 
     @AfterEach
     public void tearDown() {
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
+        Optional<User> adminUser = userRepository.findByUsername(ADMINNAME);
+        adminUser.ifPresent(user -> userRepository.delete(user));
         this.driver.quit();
         this.driver = null;
     }
@@ -60,6 +80,7 @@ class UserControllerWebDriverTest {
 
         // Activate
         loginAsAdministrator();
+        driver.findElement(By.name("admindashboard")).click();
         this.driver.get(expectedUrl);
 
         // Assert
@@ -118,11 +139,15 @@ class UserControllerWebDriverTest {
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
     }
 
-    private void loginAsAdministrator() {
+    private void loginAsAdministrator() throws InterruptedException {
         this.driver.get("http://localhost:8080/login");
+        Thread.sleep(500);
         driver.findElement(By.name("username")).sendKeys(ADMINNAME);
+        Thread.sleep(500);
         driver.findElement(By.name("password")).sendKeys(ADMINPASSWORD);
+        Thread.sleep(500);
         driver.findElement(By.name("inlogbutton")).submit();
+        Thread.sleep(500);
     }
 
     private void createUser() {

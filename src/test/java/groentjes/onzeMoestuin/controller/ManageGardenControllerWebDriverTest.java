@@ -4,6 +4,7 @@ import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -37,6 +38,9 @@ public class ManageGardenControllerWebDriverTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     private static final Integer ONE = 1;
     private static final String NAME = "testgebruiker1";
@@ -74,6 +78,8 @@ public class ManageGardenControllerWebDriverTest {
         optionalUser.ifPresent(user -> userRepository.delete(user));
         Optional<User> secondOptionalUser = userRepository.findByUsername(SECONDNAME);
         secondOptionalUser.ifPresent(user -> userRepository.delete(user));
+        Optional<Role> optionalRole = roleRepository.findByRoleName(ROLE);
+        optionalRole.ifPresent(role -> roleRepository.delete(role));
     }
 
     @Test
