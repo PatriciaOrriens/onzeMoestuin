@@ -27,7 +27,7 @@ $("body").on("click", ".plantStartBtn", function(e) {
     var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
     "\"><div class=\"grid-stack-item-content\"><section class=\"vertical-align-grid-icon\" id=\"" + plant.plantId + "\">" +
      "<img src=\"/plant/" + plant.plantId + "/image\", name=\"image\" height=\"50%\" id=" + plant.plantId + "\"/>" +
-     "<br />" + $(this).text() + "</div></div>");
+     "<br />" + $(this).attr('data-plantName') + "</div></div>");
 
     var grid = $('.grid-stack').data('gridstack');
     var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
@@ -161,9 +161,11 @@ function ajaxStartPlant(plant) {
        dataType: 'json',
        url: "/api/plant/start",
        data: JSON.stringify(plant),
-       success: function(result) {
-
+       success: function(response) {
             ajaxGetUnstartedPlants();
+       },
+       error: function() {
+          console.log("Error");
        }
    });
 }
@@ -178,6 +180,7 @@ function movePlant(plant) {
            success :function(result) {
 
            }
+
    });
 }
 

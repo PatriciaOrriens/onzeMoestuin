@@ -210,7 +210,7 @@
                         <div id="collapse-{{plantId}}" class="collapse" data-parent="#accordion">
                             <div class="card-body">
                                 <p>{{plantInformation.plantName}} kan het best worden ingezaaid tussen {{plantInformation.sowingStart}} en {{plantInformation.sowingEnd}}.</p>
-                                <input type="button" value="Nu inzaaien" class="btn btn-success plantStartBtn" data-newPlantId="{{plantId}}"/>
+                                <input type="button" value="Nu inzaaien" class="btn btn-success plantStartBtn" data-newPlantId="{{plantId}}" data-plantName="{{plantInformation.plantName}}"/>
                             </div>
                         </div>
                     </div>

@@ -44,7 +44,7 @@ public class AjaxRestController {
             Garden garden = searchedGarden.get();
             return new ResponseEntity<>(plantRepository.findAllByGardenAndStartDateIsNull(garden), HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/plant/resize")
@@ -70,7 +70,7 @@ public class AjaxRestController {
     }
 
     @PostMapping("/plant/start")
-    public void startPlant(@RequestBody String json) throws JsonProcessingException {
+    public ResponseEntity<Plant> startPlant(@RequestBody String json) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Plant plantStart = mapper.readValue(json, Plant.class);
 
@@ -80,6 +80,6 @@ public class AjaxRestController {
         plant.setxCoordinate(plantStart.getxCoordinate());
         plant.setyCoordinate(plantStart.getyCoordinate());
         plant.setStartDate(new Date());
-        plantRepository.save(plant);
+        return new ResponseEntity<>(plantRepository.save(plant), HttpStatus.CREATED);
     }
 }
