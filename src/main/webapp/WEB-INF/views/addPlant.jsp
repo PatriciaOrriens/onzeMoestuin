@@ -5,6 +5,8 @@
       <div class="container">
           <h1 class="display-3">Plant toevoegen aan ${garden.gardenName}</h1>
             <br/>
+
+          <%-- search function for plants --%>
           <h5>Filter tabel</h5>
           <p>Zoek naar planten in de tabel:</p>
           <input id="input" type="text" placeholder="Zoek...">
@@ -13,23 +15,25 @@
               <table class="table table-striped" id="tablePlants">
                   <thead>
                   <tr>
-                      <th>Plant in tuin</th>
+                      <th></th>
                       <th>Nederlandse naam</th>
                       <th>Latijnse naam</th>
                       <th>Zaaitijd</th>
                       <th>Planttijd</th>
                       <th>Meer informatie</th>
+                      <th>Planten in tuin</th>
                   </tr>
                   </thead>
                   <tbody id="plantsTable">
                   <c:forEach items="${allPlantInformation}" var="plantInfo">
                   <tr>
-                      <td><a class="btn btn-success" href="#addPlantModal_${plantInfo.plantInfoId}" data-toggle="modal"><i class='fas fa-seedling'></i>&#43;</a></td>
+<%--                      hier moet nog het plaatje komen--%>
                       <td><c:out value="${plantInfo.plantName}" /></td>
                       <td><c:out value="${plantInfo.latinName}" /></td>
                       <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
                       <td><c:out value="${plantInfo.plantingStart}" /> t/m <c:out value="${plantInfo.plantingEnd}" /></td>
-                      <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" class="btn btn-secondary">Meer informatie</a></td>
+                      <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" class="btn btn-light">Meer informatie</a></td>
+                      <td><a class="btn btn-success" href="#addPlantModal_${plantInfo.plantInfoId}" data-toggle="modal"><i class='fas fa-seedling'></i>&#43;</a></td>
                   </tr>
 
                       <!-- Modal -->
