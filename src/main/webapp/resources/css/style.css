@@ -32,6 +32,11 @@ color: red;
 text-align: center;
 }
 
+.image-addPlants {
+    height: 500px;
+    width: 300px;
+}
+
 .msg-header {
     width: 300px;
 }
