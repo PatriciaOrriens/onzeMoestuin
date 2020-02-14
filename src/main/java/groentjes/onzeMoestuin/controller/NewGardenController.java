@@ -49,6 +49,7 @@ public class NewGardenController {
     @Autowired
     private TaskGardenRepository taskGardenRepository;
 
+//    GetMapping for the overview page of one garden (showGarden.jsp) with its plants, messages and tasks
     @GetMapping("/garden/{gardenId}")
     protected String showGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
 
@@ -65,6 +66,7 @@ public class NewGardenController {
         return "redirect:/";
     }
 
+//    Get- and PostMapping for creating a new garden.
     @GetMapping("/garden/add")
     protected String showGardenForm(Model model) {
 
@@ -128,6 +130,7 @@ public class NewGardenController {
         return notCompletedTasks;
     }
 
+//    This method is used in the GetMapping to show messages connected to one garden
     private void addMessagesToGardenView(Optional<Garden> garden, User user, Model model) {
         // load messages that are connected to this garden
         List<Message> messages = messageRepository.findAllByGardenOrderByDateTimeDesc(garden.get());
