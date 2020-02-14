@@ -20,7 +20,8 @@
 
 <%--    cards for each garden with info and redirect to gardens     --%>
     <c:forEach var="garden" items="${allYourGardens}">
-    <div class="card">
+    <div class="card" style="width:400px">
+        <img class="card-img-top" src="../resources/img/gardenPicture.jpg" alt="garden image">
         <div class="card-body">
             <h4 class="card-title"><c:out value="${garden.gardenName}"/></h4>
 
@@ -29,8 +30,8 @@
                 <c:forEach items="${garden.gardenMembers}" var="member">
                     <li><c:out value="${member.username}" /></li>
                 </c:forEach>
-                    <li><a href="/garden/${garden.gardenId}/invite" class="btn btn-success">
-                        <i class="fa fa-user-plus"></i> Lid toevoegen</a></li>
+                    <li><a href="/garden/${garden.gardenId}/invite" class="btn btn-outline-success">
+                        <i class="fa fa-user-plus"></i> Nieuw lid</a></li>
             </ul>
             </p>
             <br/>
@@ -66,7 +67,7 @@
                     </div>
                 </div>
             </div>
-
+            <br/>
         </c:forEach>
 
     <br/>
