@@ -36,16 +36,6 @@ public class Message {
 
     private LocalDateTime dateTime;
 
-    // reply to another message
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "replyToMessage")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Message> replies = new HashSet<>();
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "replyToMessage", referencedColumnName = "messageId")
-    private Message replyToMessage;
-
-
     public Message() {
     }
 
@@ -107,22 +97,5 @@ public class Message {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-
-    public Set<Message> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(Set<Message> replies) {
-        this.replies = replies;
-    }
-
-    public Message getReplyToMessage() {
-        return replyToMessage;
-    }
-
-    public void setReplyToMessage(Message replyToMessage) {
-        this.replyToMessage = replyToMessage;
-    }
-
 
 }

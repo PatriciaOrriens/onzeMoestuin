@@ -74,7 +74,6 @@ public class TaskDescriptionController {
     }
 
     // admin deletes a task from task list
-    //TODO Ask user for confirmation
     @GetMapping("/task/delete/{taskId}")
     @Secured("ROLE_ADMIN")
     public String deleteTaskDescription(@ModelAttribute("taskId") Integer taskId) {

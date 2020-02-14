@@ -32,6 +32,11 @@ color: red;
 text-align: center;
 }
 
+.image-addPlants {
+    height: 500px;
+    width: 300px;
+}
+
 .msg-header {
     width: 300px;
 }
@@ -67,7 +72,6 @@ text-align: center;
     color: white;
     padding: 3px;
     text-align: center;
-
 }
 
 .vertical-align-grid-icon {
@@ -76,7 +80,6 @@ text-align: center;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-
 }
 
 .vertical-align-grid-icon img {
