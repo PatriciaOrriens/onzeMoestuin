@@ -15,6 +15,7 @@
     <%--overview of all available plants--%>
     <table class="table table-striped" id="tablePlants">
         <h4>Overzicht van beschikbare planten</h4>
+        <p>Zoek hier een nieuwe plant uit voor je moestuin. In het tuinoverzicht kun je deze vervolgens planten.</p>
         <thead>
         <tr>
             <th>Nederlandse naam</th>

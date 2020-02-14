@@ -69,7 +69,8 @@
 
     <!-- Handlebars template for planned plants -->
     <script id="plannedPlantsTemplate" type="text/x-handlebars-template">
-        <h2>Geplande, doch ongeplante planten</h2>
+        <br/>
+        <h5>Deze planten staan klaar om te planten in je moestuin</h5>
         <div id="accordion" class="newPlantContainer">
             {{#each this}}
             <div class="card">
