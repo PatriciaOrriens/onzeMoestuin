@@ -4,6 +4,8 @@
 
 <c:import url="partials/header.jsp" />
 
+
+
 <c:import url="partials/garden2d.jsp" />
 
 <br/><br/>

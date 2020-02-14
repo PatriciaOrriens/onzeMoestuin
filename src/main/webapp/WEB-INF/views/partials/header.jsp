@@ -10,5 +10,6 @@
     <c:import url="partials/script.jsp" />
 </head>
 <body>
+    <c:import url="partials/banner.jsp" />
     <c:import url="partials/devnav.jsp" />
    <!-- <div class="container"> -->

@@ -10,6 +10,15 @@
   padding: 75px;
 }
 
+.topborder {
+    background: url("../img/border_vegetables.jpg");
+    background-size: cover;
+    height: 200px;
+    padding: 70px 0;
+    text-align: center;
+    color: white;
+}
+
 .completedGreenTaskButton {
   background-color: white;
   color: green;
