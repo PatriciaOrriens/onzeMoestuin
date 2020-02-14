@@ -20,7 +20,7 @@
 
 <%--    cards for each garden with info and redirect to gardens     --%>
     <c:forEach var="garden" items="${allYourGardens}">
-    <div class="card" style="width:400px">
+    <div class="card">
         <img class="card-img-top" src="../resources/img/gardenPicture.jpg" alt="garden image">
         <div class="card-body">
             <h4 class="card-title"><c:out value="${garden.gardenName}"/></h4>
@@ -41,12 +41,10 @@
             ><i class='far fa-edit'></i></a>
             <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen"
                    data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
-
-
-    </div>
+        </div>
     </div>
 
-            <!-- Modal -->
+            <!-- Modal to ask confirmation before delete of garden  -->
             <div class="modal fade" id="removeGardenModal_${garden.gardenId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

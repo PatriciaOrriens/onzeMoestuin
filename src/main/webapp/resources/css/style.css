@@ -19,6 +19,10 @@
     color: white;
 }
 
+.card {
+    width: 400px;
+}
+
 .completedGreenTaskButton {
   background-color: white;
   color: green;
