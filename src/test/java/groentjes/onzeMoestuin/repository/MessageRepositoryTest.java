@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -74,8 +76,10 @@ public class MessageRepositoryTest {
         entityManager.persist(message1);
         entityManager.persist(message2);
         entityManager.persist(message3);
-        Iterable<Message> messages = messageRepository.findAll();
 
-        assertThat(messages).hasSize(3).contains(message1, message2, message3);
+        // test getting first page of all 3 messages
+        PageRequest page = PageRequest.of(0, 3, Sort.by("dateTime").descending());
+        Iterable<Message> pageOfThree = messageRepository.findAllByGarden(garden, page);
+        assertThat(pageOfThree).hasSize(3).contains(message1, message2, message3);
     }
 }
