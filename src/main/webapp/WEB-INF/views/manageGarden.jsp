@@ -2,8 +2,10 @@
 
 <c:import url="partials/header.jsp" />
 <div class="container">
-    <h1 class="display-3">Tuin Overzicht</h1>
+    <h1 class="display-3">Jouw moestuin</h1>
+    <br/>
 
+<%--    invitations for garden can pop up at the top    --%>
     <c:if test="${!empty invitations}">
         <c:forEach var="invitation" items="${invitations}">
             <div class="alert alert-warning" role="alert">
@@ -12,10 +14,12 @@
                 <a href="/garden/${invitation.garden.gardenId}/acceptInvitation">Accepteer</a> /
                 <a href="/garden/${invitation.garden.gardenId}/refuseInvitation">Weiger</a>
             </div>
+    <br/>
         </c:forEach>
     </c:if>
 
     <table class="table table-striped">
+        <h2>Overzicht van jouw moestuinen</h2>
         <tr>
             <th>Tuin</th>
             <th>Tuin aanpassen</th>
