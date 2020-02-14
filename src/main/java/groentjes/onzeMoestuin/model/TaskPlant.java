@@ -1,5 +1,7 @@
 package groentjes.onzeMoestuin.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.Date;
  * The Taskplant class concerns tasks to be performed for specific plants
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskPlantId")
 public class TaskPlant extends Task  {
 
     private final static long HOURS_IN_DAY = 24;

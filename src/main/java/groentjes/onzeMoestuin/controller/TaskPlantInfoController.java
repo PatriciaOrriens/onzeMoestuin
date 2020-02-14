@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Patricia Orriens-Spuij, Wim Kruizinga, Eric van Dalen
+ * @author Patricia Orriens-Spuij and Wim Kruizinga
  * Controller for tasks for certain plantinformation (views for administrator)
  */
 @Controller
@@ -35,6 +35,7 @@ public class TaskPlantInfoController {
     @GetMapping("plantinfo/{plantInfoId}/task/add")
     @Secured("ROLE_ADMIN")
     public String addTaskPlantInfo(@PathVariable("plantInfoId") Integer plantInfoId, Model model) {
+
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
         List<TaskDescription> allTaskDescriptions = taskDescriptionRepository.findAll();
 
@@ -51,7 +52,7 @@ public class TaskPlantInfoController {
     @PostMapping("/plantinfo/{plantInfoId}/task/add")
     @Secured("ROLE_ADMIN")
     public String saveTaskPlantInfo (@RequestParam("taskId") Integer taskId,
-                                        @ModelAttribute("taskPlantInfo") TaskPlantInfo taskPlantInfo, BindingResult result,
+                                        @ModelAttribute("taskPlantInfo") TaskPlantInfo taskPlantInfo,
                                         @PathVariable("plantInfoId") final Integer plantInfoId) {
 
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
@@ -110,8 +111,8 @@ public class TaskPlantInfoController {
 
     @GetMapping("/plantinfo/task/delete/{taskPlantInfoId}")
     @Secured("ROLE_ADMIN")
-    public String deleteTaskPlantInfo(@ModelAttribute("taskPlantInfoId") Integer taskPlantInfoId,
-                                      BindingResult result) {
+    public String deleteTaskPlantInfo(@ModelAttribute("taskPlantInfoId") Integer taskPlantInfoId) {
+
         Optional<TaskPlantInfo> taskPlantInfo = taskPlantInfoRepository.findById(taskPlantInfoId);
         taskPlantInfo.ifPresent(information -> taskPlantInfoRepository.delete(information));
         return "redirect:/adminManagePlantInformation";

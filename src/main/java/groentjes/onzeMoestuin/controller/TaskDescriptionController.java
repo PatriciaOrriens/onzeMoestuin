@@ -27,17 +27,18 @@ public class TaskDescriptionController {
     // admin gets list of all task names and loads form for adding new task
     @GetMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
-    public String manageTasks(Model model) {
+    public String manageTaskDescriptions(Model model) {
         model.addAttribute("allTasks", taskDescriptionRepository.findAll());
         TaskDescription newTaskDescription = new TaskDescription();
         model.addAttribute("newTask", newTaskDescription);
         return "adminManageTasks";
     }
 
-    // admin creates new (generic) tasks
+    // admin creates new task descriptions
     @PostMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
-    public String saveNewTask(@ModelAttribute() TaskDescription taskDescription, BindingResult result) {
+    public String saveNewTaskDescription(@ModelAttribute("newTask") TaskDescription taskDescription,
+                                         BindingResult result) {
         if (result.hasErrors()){
             return "adminManageTasks";
         } else {
@@ -46,10 +47,10 @@ public class TaskDescriptionController {
         }
     }
 
-    // admin wishes to change a (generic) task
+    // admin wishes to change a task description
     @GetMapping("/task/update/{taskId}")
     @Secured("ROLE_ADMIN")
-    protected String showUpdateTask(@PathVariable("taskId") final Integer taskId, Model model){
+    protected String showTaskDescriptionForUpdate(@PathVariable("taskId") final Integer taskId, Model model){
         Optional<TaskDescription> foundTask = taskDescriptionRepository.findById(taskId);
         if (foundTask.isPresent()) {
             model.addAttribute("task", foundTask.get());
@@ -60,9 +61,9 @@ public class TaskDescriptionController {
 
     @PostMapping("/task/update/{taskId}")
     @Secured("ROLE_ADMIN")
-    protected String updatePlantInfo(@PathVariable("taskId") final Integer taskId,
-                                     @ModelAttribute("task") TaskDescription taskDescription,
-                                     BindingResult result) {
+    protected String updateTaskDescription(@PathVariable("taskId") final Integer taskId,
+                                           @ModelAttribute("task") TaskDescription taskDescription,
+                                           BindingResult result) {
         if (result.hasErrors()){
             return "redirect:/task/update";
         } else {
@@ -73,10 +74,9 @@ public class TaskDescriptionController {
     }
 
     // admin deletes a task from task list
-    //TODO Ask user for confirmation
     @GetMapping("/task/delete/{taskId}")
     @Secured("ROLE_ADMIN")
-    public String deleteTask(@ModelAttribute("taskId") Integer taskId, BindingResult result) {
+    public String deleteTaskDescription(@ModelAttribute("taskId") Integer taskId) {
         Optional<TaskDescription> task = taskDescriptionRepository.findById(taskId);
         task.ifPresent(information -> taskDescriptionRepository.delete(information));
         return "redirect:/adminManageTasks";

@@ -10,6 +10,19 @@
   padding: 75px;
 }
 
+.banner {
+    background: url("../img/border_vegetables.jpg");
+    background-size: cover;
+    height: 200px;
+    padding: 70px 0;
+    text-align: center;
+    color: white;
+}
+
+.card {
+    width: 400px;
+}
+
 .completedGreenTaskButton {
   background-color: white;
   color: green;
@@ -27,11 +40,14 @@
 color: red;
 }
 
-
-
 .centeredRedText {
 color: red;
 text-align: center;
+}
+
+.image-addPlants {
+    height: 500px;
+    width: 300px;
 }
 
 .msg-header {
@@ -54,4 +70,53 @@ text-align: center;
 .ajax-link:hover {
     text-decoration: underline;
 }
+
+
+.grid-stack {
+    margin: 5px;
+    background-color: rgba(84, 57, 38, 1);
+}
+
+.grid-stack-item {
+}
+
+.grid-stack-item-content {
+    background-color: green;
+    color: white;
+    padding: 3px;
+    text-align: center;
+}
+
+.vertical-align-grid-icon {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.vertical-align-grid-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-fit: contain;
+}
+
+#plannedPlants {
+    display: none;
+}
+
+.newPlantContainer {
+}
+
+.newPlantContainer img {
+  max-height: 50px;
+  max-width: 50px;
+  object-fit: cover;
+}
+
+
+
+
+
 

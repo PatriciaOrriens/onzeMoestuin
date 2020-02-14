@@ -34,6 +34,7 @@ public class MessagesRestController {
     @Autowired
     private GardenRepository gardenRepository;
 
+
     @GetMapping("/garden/{id}/messages/{page}")
     public ResponseEntity<List<Message>> recentMessages(@PathVariable("id") Integer gardenId,
                                         @PathVariable("page") Integer pageNumber) {
@@ -49,6 +50,7 @@ public class MessagesRestController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+
     @PostMapping(value = "/garden/{id}/messages/checkNew", consumes = "application/json")
     public ResponseEntity<Boolean> checkNewMessages(@RequestBody Message message,
                                                     @PathVariable("id") Integer gardenId) throws JsonProcessingException {
@@ -63,7 +65,6 @@ public class MessagesRestController {
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
-
 
 
     @PostMapping(value = "/garden/{id}/messages/add", consumes = "application/json")
@@ -83,7 +84,7 @@ public class MessagesRestController {
             messageRepository.save(newMessage);
             return new ResponseEntity<Object>(newMessage, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }

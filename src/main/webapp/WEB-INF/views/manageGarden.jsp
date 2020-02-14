@@ -2,8 +2,10 @@
 
 <c:import url="partials/header.jsp" />
 <div class="container">
-    <h1 class="display-3">Tuin Overzicht</h1>
+    <h1 class="display-3">Tuinoverzicht</h1>
+    <br/>
 
+<%--    invitations for garden can pop up at the top    --%>
     <c:if test="${!empty invitations}">
         <c:forEach var="invitation" items="${invitations}">
             <div class="alert alert-warning" role="alert">
@@ -12,28 +14,37 @@
                 <a href="/garden/${invitation.garden.gardenId}/acceptInvitation">Accepteer</a> /
                 <a href="/garden/${invitation.garden.gardenId}/refuseInvitation">Weiger</a>
             </div>
+    <br/>
         </c:forEach>
     </c:if>
 
-    <table class="table table-striped">
-        <tr>
-            <th>Tuin</th>
-            <th>Tuin aanpassen</th>
-            <th>Tuin verwijderen</th>
-       </tr>
-        <c:forEach var="garden" items="${allYourGardens}">
-           <tr>
-                <td><a href="garden/${garden.gardenId}">
-                        <c:out value="${garden.gardenName}"/></a>
-                </td>
-                <td><a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
-                                    ><i class='far fa-edit'></i></a></td>
-                <td><a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen"
-                            data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
+<%--    cards for each garden with info and redirect to gardens     --%>
+    <c:forEach var="garden" items="${allYourGardens}">
+    <div class="card">
+        <img class="card-img-top" src="../resources/img/gardenPicture.jpg" alt="garden image">
+        <div class="card-body">
+            <h4 class="card-title"><c:out value="${garden.gardenName}"/></h4>
 
-                </td>
-            </tr>
-            <!-- Modal -->
+            <p class="card-text">Leden van deze tuin:
+            <ul>
+                <c:forEach items="${garden.gardenMembers}" var="member">
+                    <li><c:out value="${member.username}" /></li>
+                </c:forEach>
+                    <li><a href="/garden/${garden.gardenId}/invite" class="btn btn-outline-success">
+                        <i class="fa fa-user-plus"></i> Nieuw lid</a></li>
+            </ul>
+            </p>
+            <br/>
+
+            <a href="garden/${garden.gardenId}" class="btn btn-success">Bezoek tuin</a>
+            <a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
+            ><i class='far fa-edit'></i></a>
+            <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen"
+                   data-toggle="modal"><i class='fas fa-trash-alt'></i></a>
+        </div>
+    </div>
+
+            <!-- Modal to ask confirmation before delete of garden  -->
             <div class="modal fade" id="removeGardenModal_${garden.gardenId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -54,8 +65,10 @@
                     </div>
                 </div>
             </div>
+            <br/>
         </c:forEach>
-    </table>
+
+    <br/>
     <a href="/garden/add" class="btn btn-success">Tuin toevoegen</a>
     <br/>
     <br/>

@@ -1,11 +1,14 @@
 package groentjes.onzeMoestuin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties({"tasks"})
 public class PlantInformation {
 
     @Id

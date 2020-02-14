@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
@@ -33,6 +34,7 @@ public class User implements UserDetails {
     private String email;
 
     private String firstName;
+
     private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -73,6 +75,7 @@ public class User implements UserDetails {
     public Integer getUserId() {
         return userId;
     }
+
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
