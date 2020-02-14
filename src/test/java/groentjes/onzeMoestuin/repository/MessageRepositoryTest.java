@@ -6,7 +6,6 @@ import groentjes.onzeMoestuin.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
@@ -30,11 +29,10 @@ public class MessageRepositoryTest {
     @Autowired
     private MessageRepository messageRepository;
 
-    @Mock
     private Garden garden;
-
-    @Mock
     private User user;
+
+    LocalDateTime time;
 
     @Before
     public void setup() {
@@ -48,6 +46,8 @@ public class MessageRepositoryTest {
         garden.setWidth(1);
         entityManager.persist(user);
         entityManager.persist(garden);
+
+        time = LocalDateTime.now();
     }
 
 
@@ -60,14 +60,22 @@ public class MessageRepositoryTest {
 
     @Test
     public void should_save_a_message() {
-        Message message = new Message();
-        message.setMessageBody("test message");
-        message.setGarden(garden);
-        message.setSender(user);
-        message.setDateTime(LocalDateTime.now());
+        Message message = new Message(user, garden, "test message", time);
         Message savedMessage = messageRepository.save(message);
         assertThat(savedMessage).hasFieldOrPropertyWithValue("messageBody", "test message");
     }
 
 
+    @Test
+    public void should_get_messages_by_garden() {
+        Message message1 = new Message(user, garden, "test message 1", time);
+        Message message2 = new Message(user, garden, "test message 2", time);
+        Message message3 = new Message(user, garden, "test message 3", time);
+        entityManager.persist(message1);
+        entityManager.persist(message2);
+        entityManager.persist(message3);
+        Iterable<Message> messages = messageRepository.findAll();
+
+        assertThat(messages).hasSize(3).contains(message1, message2, message3);
+    }
 }
