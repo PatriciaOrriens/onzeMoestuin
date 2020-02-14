@@ -25,6 +25,10 @@ import freemarker.template.Configuration;
 
 import javax.mail.internet.MimeMessage;
 
+/**
+ * @author Wim Kruizinga
+ * Controller for sending invitation mails
+ */
 @Controller
 public class MailController {
 
