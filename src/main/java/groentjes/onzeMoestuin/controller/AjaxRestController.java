@@ -17,6 +17,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Wim Kruizinga
+ * REST controller for plants in garden
+ */
 @RestController
 @RequestMapping(path = "/api", produces = "application/json")
 public class AjaxRestController {
@@ -43,6 +47,7 @@ public class AjaxRestController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+
     @GetMapping("/garden/{id}/getPlannedPlants")
     public ResponseEntity<List<Plant>> getPlannedPlants(@PathVariable("id") Integer gardenId) {
         Optional<Garden> searchedGarden = gardenRepository.findById(gardenId);
@@ -53,6 +58,7 @@ public class AjaxRestController {
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
+
 
     @PostMapping("/plant/resize")
     public void resizePlant(@RequestBody String json) throws JsonProcessingException {
@@ -65,6 +71,7 @@ public class AjaxRestController {
         plantRepository.save(plant);
     }
 
+
     @PostMapping("/plant/move")
     public void movePlant(@RequestBody String json) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -75,6 +82,7 @@ public class AjaxRestController {
         plant.setyCoordinate(updatedPlant.getyCoordinate());
         plantRepository.save(plant);
     }
+
 
     @PostMapping("/plant/start")
     public ResponseEntity<Plant> startPlant(@RequestBody String json) throws JsonProcessingException {
@@ -92,6 +100,7 @@ public class AjaxRestController {
     }
 
 
+    // Method to generate initial tasks for plant when it is put into garden
     private void generatePlantTasks(Plant plant) {
         ArrayList<TaskPlantInfo> taskPlantInfos = taskPlantInfoRepository.findAllByPlantInformation(plant.getPlantInformation());
         for (TaskPlantInfo task : taskPlantInfos) {

@@ -2,7 +2,9 @@
 
 <c:import url="partials/header.jsp" />
 <div class="container">
-<h2>Taken</h2>
-<c:import url="partials/showTask.jsp" />
+
+
+    <h2>Taken</h2>
+<c:import url="partials/showAllTasks.jsp" />
 </div>
 <c:import url="partials/footer.jsp" />

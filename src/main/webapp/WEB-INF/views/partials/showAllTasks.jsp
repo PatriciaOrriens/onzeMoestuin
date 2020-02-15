@@ -1,12 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-    <!-- Modal to show User details-->
-                <div id="userModal" class="modal fade" role="dialog">
-                  <div class="modal-dialog modal-lg">
-                     <div id="userContainer"></div>
-                 </div>
-                </div>
-
 
      <table class="table table-striped">
         <tr>
@@ -51,6 +44,13 @@
      </table>
 
      <a href="/garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
+
+    <!-- Modal to show User details-->
+    <div id="userModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div id="userContainer"></div>
+        </div>
+    </div>
 
      <!-- Handlebars template for User modal -->
       <script id="userTemplate" type="text/x-handlebars-template">

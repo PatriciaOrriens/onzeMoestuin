@@ -60,6 +60,14 @@ class CustomErrorControllerTest {
 
     @Test
     @WithMockUser(roles = "USER")
+    public void testHandleErrorForErrorStatusCode405() throws Exception {
+        final ResultActions result405 = mockMvc.perform(get("/error")
+                .requestAttr(RequestDispatcher.ERROR_STATUS_CODE, 405))
+                .andExpect(forwardedUrl("/WEB-INF/views/405error.jsp"));
+    }
+
+    @Test
+    @WithMockUser(roles = "USER")
     public void testHandleErrorForErrorStatusCode500() throws Exception {
         final ResultActions result500 = mockMvc.perform(get("/error")
                 .requestAttr(RequestDispatcher.ERROR_STATUS_CODE, 500))

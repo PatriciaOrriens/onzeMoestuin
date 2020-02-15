@@ -1,7 +1,5 @@
 package groentjes.onzeMoestuin.controller;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.Message;
@@ -14,49 +12,28 @@ import net.sf.cglib.core.Local;
 import org.apache.catalina.core.ApplicationContext;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-
 import org.mockito.junit.MockitoJUnitRunner;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Wim Kruizinga
@@ -88,9 +65,6 @@ public class MessageRestControllerTest {
 
     private LocalDateTime time;
 
-    // ?
-    private JacksonTester<ArrayList<Message>> jsonMessage;
-
     @Before
     public void setup() {
         JacksonTester.initFields(this, new ObjectMapper());
@@ -100,8 +74,8 @@ public class MessageRestControllerTest {
         time = LocalDateTime.now();
         mockUser = new User();
         mockUser.setUsername("testuser");
-
     }
+
 
     @Test
     public void canGetMessagesByGardenWhenExists() throws Exception {
@@ -126,6 +100,5 @@ public class MessageRestControllerTest {
                 " {\"messageId\": 2, \"sender\": { \"username\": \"testuser\" }, \"messageBody\": \"Test message 2\" }]";
 
         JSONAssert.assertEquals(expected, response.getContentAsString(), JSONCompareMode.LENIENT);
-
     }
 }
