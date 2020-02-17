@@ -5,6 +5,7 @@ import groentjes.onzeMoestuin.repository.PlantInformationRepository;
 import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 //import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+import groentjes.onzeMoestuin.service.AuthenticationService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -43,9 +47,6 @@ class PlantInformationControllerTest {
 
     @MockBean
     private RoleRepository roleRepository;
-
-//    @MockBean
-//    private GardenUserDetailsService gardenUserDetailsService;
 
     @MockBean
     private PlantInformationRepository plantInformationRepository;
@@ -80,7 +81,10 @@ class PlantInformationControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void testSaveNewPlantInfoWithRoleAdminstrator() throws Exception {
+        
         performMockMvc();
+
+        //use MockMultipartFile ?
 
         ArgumentCaptor<PlantInformation> formObjectArgument = forClass(PlantInformation.class);
         verify(plantInformationRepository, times(1)).save(formObjectArgument.capture());
