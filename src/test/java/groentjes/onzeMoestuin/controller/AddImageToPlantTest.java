@@ -70,6 +70,10 @@ public class AddImageToPlantTest {
         User registeredUser = new User();
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
+
+        //check if image is already there
+        //add role
+
         userRepository.save(registeredUser);
     }
 
@@ -82,6 +86,9 @@ public class AddImageToPlantTest {
         garden1.ifPresent(garden -> gardenRepository.delete(garden));
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
+
+        //remove role
+        //remove image
     }
 
     //actual test
