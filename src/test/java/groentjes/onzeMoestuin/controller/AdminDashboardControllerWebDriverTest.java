@@ -1,5 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.Role;
+import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.Optional;
 
 /**
  * @author Eric van Dalen
@@ -27,21 +32,44 @@ public class AdminDashboardControllerWebDriverTest {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final String NAME = "abc";
-    private static final String PASSWORD = "abc";
+    private static final String NAME = "administrator";
+    private static final String ROLE = "ROLE_ADMIN";
+    private static final String PASSWORD = "adminpassword";
 
     @BeforeEach
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
+
+        Optional<User> optionalUser = userRepository.findByUsername(NAME);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+
+        User registeredUser = new User();
+        registeredUser.setUsername(NAME);
+        registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
+
+        Role role = new Role();
+        role.setRoleName(ROLE);
+        registeredUser.getRole().add(role);
+
+        userRepository.save(registeredUser);
     }
 
     @AfterEach
     public void tearDown() {
         this.driver.quit();
         this.driver = null;
+
+        Optional<User> optionalUser = userRepository.findByUsername(NAME);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+
+        Optional<Role> optionalRole = roleRepository.findByRoleName(ROLE);
+        optionalRole.ifPresent(role -> roleRepository.delete(role));
     }
 
     @Test
