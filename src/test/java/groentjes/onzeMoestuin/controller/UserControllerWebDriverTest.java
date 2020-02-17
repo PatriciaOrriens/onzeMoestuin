@@ -54,7 +54,7 @@ class UserControllerWebDriverTest {
 
         User admin = new User();
         admin.setUsername(ADMINNAME);
-        admin.setPassword(passwordEncoder.encode(PASSWORD));
+        admin.setPassword(passwordEncoder.encode(ADMINPASSWORD));
 
         Role role = new Role();
         role.setRoleName(ROLE);
