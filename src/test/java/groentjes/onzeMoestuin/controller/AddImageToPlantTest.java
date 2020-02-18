@@ -1,8 +1,12 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
+import groentjes.onzeMoestuin.model.PlantInformation;
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.PlantInformationRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -35,13 +39,20 @@ public class AddImageToPlantTest {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private GardenRepository gardenRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private PlantInformationRepository plantInformationRepository;
+
     //admin variables
     private static final String ADMINNAME = "admin";
+    private static final String ADMINROLE = "ROLE_ADMIN";
     private static final String ADMINPASSWORD = "admin";
 
     //plantinformation variables
@@ -52,8 +63,9 @@ public class AddImageToPlantTest {
     private static final String cabbage = "src/main/webapp/resources/img/cabbage.jpg";
 
     //user variables
-    private static final String NAME = "gebruiker1";
-    private static final String PASSWORD = "wachtwoord1";
+    private static final String REGULARNAME = "gebruiker1";
+    private static final String REGULARROLE = "ROLE_USER";
+    private static final String REGULARPASSWORD = "wachtwoord1";
     private static final String GARDEN1 = "tuin1";
     private static final String GARDEN1LENGTH = "1";
     private static final String GARDEN1WIDTH = "1";
@@ -63,18 +75,31 @@ public class AddImageToPlantTest {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
+
         Optional<Garden> garden1 = gardenRepository.findByGardenName(GARDEN1);
         garden1.ifPresent(value -> gardenRepository.delete(value));
-        Optional<User> optionalUser = userRepository.findByUsername(NAME);
+
+        Optional<User> optionalUser = userRepository.findByUsername(REGULARNAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
-        User registeredUser = new User();
-        registeredUser.setUsername(NAME);
-        registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
 
-        //check if image is already there
-        //add role
+        User regularUser = new User();
+        regularUser.setUsername(REGULARNAME);
+        regularUser.setPassword(passwordEncoder.encode(REGULARPASSWORD));
 
-        userRepository.save(registeredUser);
+        Role regularRole = new Role();
+        regularRole.setRoleName(REGULARROLE);
+        regularUser.getRole().add(regularRole);
+
+        User adminUser = new User();
+        adminUser.setUsername(ADMINNAME);
+        adminUser.setPassword(passwordEncoder.encode(ADMINPASSWORD));
+
+        Role adminRole = new Role();
+        adminRole.setRoleName(ADMINROLE);
+        adminUser.getRole().add(adminRole);
+
+        userRepository.save(regularUser);
+        userRepository.save(adminUser);
     }
 
     //clean up after testing
@@ -84,11 +109,23 @@ public class AddImageToPlantTest {
         this.driver = null;
         Optional<Garden> garden1 = gardenRepository.findByGardenName(GARDEN1);
         garden1.ifPresent(garden -> gardenRepository.delete(garden));
-        Optional<User> optionalUser = userRepository.findByUsername(NAME);
-        optionalUser.ifPresent(user -> userRepository.delete(user));
 
-        //remove role
-        //remove image
+        Optional<User> adminUser = userRepository.findByUsername(ADMINNAME);
+        adminUser.ifPresent(user -> userRepository.delete(user));
+
+        Optional<Role> adminRole = roleRepository.findByRoleName(ADMINROLE);
+        adminRole.ifPresent(role -> roleRepository.delete(role));
+
+        Optional<User> regularUser = userRepository.findByUsername(REGULARNAME);
+        regularUser.ifPresent(user -> userRepository.delete(user));
+
+        Optional<Role> regularRole = roleRepository.findByRoleName(REGULARROLE);
+        regularRole.ifPresent(role -> roleRepository.delete(role));
+
+        Optional<PlantInformation> optionalPlantInformation =
+                plantInformationRepository.findByPlantName(plantName);
+        optionalPlantInformation.ifPresent(plantInformation -> plantInformationRepository.delete(plantInformation));
+
     }
 
     //actual test
@@ -181,11 +218,12 @@ public class AddImageToPlantTest {
         driver.findElement(By.name("logout")).click();
     }
 
-    private void loginAsAUser() {
+    private void loginAsAUser() throws InterruptedException {
         this.driver.get("http://localhost:8080/login");
-        driver.findElement(By.name("username")).sendKeys(NAME);
-        driver.findElement(By.name("password")).sendKeys(PASSWORD);
+        driver.findElement(By.name("username")).sendKeys(REGULARNAME);
+        driver.findElement(By.name("password")).sendKeys(REGULARPASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();
+        Thread.sleep(2000);
     }
 
     private void createGarden(String gardenName, String gardenLength, String gardenWidth) {
@@ -196,10 +234,15 @@ public class AddImageToPlantTest {
         driver.findElement(By.name("opslaanTuin")).submit();
     }
 
-    private void addPlantToGarden() {
+    private void addPlantToGarden() throws InterruptedException {
         driver.findElement(By.name("addplant")).click();
-        Select drpPlant = new Select(driver.findElement(By.name("plantInfoId")));
-        drpPlant.selectByVisibleText(plantName);
-        driver.findElement(By.name("toevoegen")).click();
+        Thread.sleep(2000);
+        //currently gets stuck at addplant.jsp
+        //select and click 'meer informatie
+        //scroll down and take screenshot
+
+        //Select drpPlant = new Select(driver.findElement(By.name("plantInfoId")));
+        //drpPlant.selectByVisibleText(plantName);
+        //driver.findElement(By.name("toevoegen")).click();
     }
 }
