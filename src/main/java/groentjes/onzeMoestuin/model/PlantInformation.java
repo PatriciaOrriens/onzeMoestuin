@@ -31,7 +31,6 @@ public class PlantInformation {
     private String imageName;
 
     @Lob
-
     private byte[] image;
 
     @OneToMany(
