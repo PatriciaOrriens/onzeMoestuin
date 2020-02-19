@@ -26,7 +26,7 @@ import java.util.Optional;
 @WebAppConfiguration
 public class AdminDashboardControllerWebDriverTest {
 
-    User admin = new User();
+    private User admin = new User();
 
     private WebDriver driver;
 
