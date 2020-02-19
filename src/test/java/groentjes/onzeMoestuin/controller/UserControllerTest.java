@@ -2,11 +2,8 @@ package groentjes.onzeMoestuin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import groentjes.onzeMoestuin.model.User;
-/*import groentjes.onzeMoestuin.repository.RoleRepository;*/
-import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
-//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,9 +48,6 @@ class UserControllerTest {
 
     @MockBean
     private UserRepository userRepository;
-
-//    @MockBean
-//    private GardenUserDetailsService gardenUserDetailsService;
 
     @MockBean
     private RoleRepository roleRepository;
@@ -103,9 +97,9 @@ class UserControllerTest {
         Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
 
         mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
-                .flashAttr("user", new User()).with(csrf())).andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/manageUsers"))
+                .param("username" , USERNAME).param("roleName", ROLE).param("email", EMAIL)
+                .param("password", PASSWORD).flashAttr("user", new User()).with(csrf()))
+                .andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/manageUsers"))
                 .andExpect(redirectedUrl("/manageUsers"));
 
         ArgumentCaptor<User> formObjectArgument = forClass(User.class);

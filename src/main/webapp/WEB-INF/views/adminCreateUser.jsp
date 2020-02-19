@@ -3,6 +3,7 @@
 
 <c:import url="partials/header.jsp" />
 <script src="../resources/javascript/adminCreateUser.js"></script>
+<script src="../resources/javascript/createUser.js"></script>
 
     <div class="container">
        <h1 class="display-3">Gebruiker toevoegen</h1>
