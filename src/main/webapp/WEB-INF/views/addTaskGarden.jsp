@@ -16,7 +16,6 @@
                 </span>
             </p>
 
-
             <label for="dueDate">Vervaldatum (dd-mm-jjjj):</label>
             <form:input name="dueDate" path="dueDate" class="form-control" />
             <p id="dateLengthError" class="centeredRedText">
@@ -24,7 +23,6 @@
                     ${requestScope['org.springframework.validation.BindingResult.taskGarden'].hasFieldErrors('dueDate') ? requestScope['org.springframework.validation.BindingResult.taskGarden'].getFieldError('dueDate').defaultMessage : ''}
                 </span></p>
             <p id="dateStructureError" class="centeredRedText"></p>
-            <p class="redText">${remark}</p>
         </div>
         <form:button type="submit" name="storeTaskGarden" class="btn btn-success">Opslaan</form:button>
 	</form:form>

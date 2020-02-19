@@ -6,14 +6,12 @@ import groentjes.onzeMoestuin.repository.TaskGardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
@@ -25,9 +23,6 @@ import java.util.Optional;
  */
 @Controller
 public class TaskGardenController {
-
-    private static final String DATE_ERROR = "Vervaldatum moet het patroon dd-mm-jjjj hebben";
-    private static final String EMPTY = "";
 
     @Autowired
     private GardenRepository gardenRepository;
@@ -57,17 +52,11 @@ public class TaskGardenController {
 
     @PostMapping("/garden/{gardenId}/addTaskGarden")
     protected String storeTaskGarden(@PathVariable("gardenId") final Integer gardenId,
-                                     @Valid TaskGarden taskGarden, Errors error,
-                                     @ModelAttribute("remark") String remark,
-                                     Model model) {
+                                     @Valid TaskGarden taskGarden, Errors error) {
 
         User user = getUser();
 
-        model.addAttribute("remark", EMPTY);
-        if(error.hasErrors()) {
-            return "addTaskGarden";
-        } else if (!taskGarden.isDateString(taskGarden.getDueDate())) {
-            model.addAttribute("remark", DATE_ERROR);
+        if(error.hasErrors() || !taskGarden.isDateString(taskGarden.getDueDate())) {
             return "addTaskGarden";
         }
         return storeTaskGardenAndReturn(gardenId, user, taskGarden);
