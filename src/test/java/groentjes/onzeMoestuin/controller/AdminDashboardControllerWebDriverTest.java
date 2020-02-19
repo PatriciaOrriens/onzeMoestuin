@@ -1,6 +1,9 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.Role;
+import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.UserRepository;
+import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.Optional;
+
 /**
  * @author Eric van Dalen
  * Test class for webdriver test of the administrator dashboard
@@ -20,6 +25,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @SpringBootTest
 @WebAppConfiguration
 public class AdminDashboardControllerWebDriverTest {
+
+    User admin = new User();
 
     private WebDriver driver;
 
@@ -29,19 +36,36 @@ public class AdminDashboardControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final String NAME = "abc";
-    private static final String PASSWORD = "abc";
+    private static final String NAME = "administrator";
+    private static final String PASSWORD = "adminpassword";
+    private static final String EMAIL = "testgebruiker1@test.nl";
+    private static final String ROLE = "ROLE_ADMIN";
 
     @BeforeEach
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
+        Optional<User> optionalUser = userRepository.findByUsername(NAME);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+        optionalUser = userRepository.findByEmail(EMAIL);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+        admin.setUsername(NAME);
+        admin.setPassword(passwordEncoder.encode(PASSWORD));
+        admin.setEmail(EMAIL);
+        Role role = new Role();
+        role.setRoleName(ROLE);
+        admin.getRole().add(role);
+        userRepository.save(admin);
     }
 
     @AfterEach
     public void tearDown() {
         this.driver.quit();
         this.driver = null;
+        Optional<User> optionalUser = userRepository.findByUsername(NAME);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+        optionalUser = userRepository.findByEmail(EMAIL);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
     }
 
     @Test
