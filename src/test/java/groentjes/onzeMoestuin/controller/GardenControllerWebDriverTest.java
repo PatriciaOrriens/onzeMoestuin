@@ -69,8 +69,7 @@ public class GardenControllerWebDriverTest {
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
 
-        Role role = new Role();
-        role.setRoleName(ROLE);
+        Role role = roleRepository.findByRoleName(ROLE).get();
         registeredUser.getRole().add(role);
 
         userRepository.save(registeredUser);
@@ -86,8 +85,6 @@ public class GardenControllerWebDriverTest {
         garden2.ifPresent(garden -> gardenRepository.delete(garden));
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
-        Optional<Role> optionalRole = roleRepository.findByRoleName(ROLE);
-        optionalRole.ifPresent(role -> roleRepository.delete(role));
     }
 
     @Test

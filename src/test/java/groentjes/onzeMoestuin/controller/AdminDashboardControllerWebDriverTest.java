@@ -2,6 +2,7 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
@@ -36,6 +37,9 @@ public class AdminDashboardControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     private static final String NAME = "administrator";
     private static final String PASSWORD = "adminpassword";
     private static final String EMAIL = "testgebruiker1@test.nl";
@@ -52,8 +56,7 @@ public class AdminDashboardControllerWebDriverTest {
         admin.setUsername(NAME);
         admin.setPassword(passwordEncoder.encode(PASSWORD));
         admin.setEmail(EMAIL);
-        Role role = new Role();
-        role.setRoleName(ROLE);
+        Role role = roleRepository.findByRoleName(ROLE).get();
         admin.getRole().add(role);
         userRepository.save(admin);
     }

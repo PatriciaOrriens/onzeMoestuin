@@ -55,8 +55,7 @@ class UserControllerWebDriverTest {
         optionalUser.ifPresent(user -> userRepository.delete(user));
         admin.setUsername(ADMIN_NAME);
         admin.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));
-        Role role = new Role();
-        role.setRoleName(ROLE);
+        Role role = roleRepository.findByRoleName(ROLE).get();
         admin.getRole().add(role);
         userRepository.save(admin);
     }
