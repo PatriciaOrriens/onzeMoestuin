@@ -13,7 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import groentjes.onzeMoestuin.model.Role;
+import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -24,6 +24,7 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    private static final int PRESELECTED_ID = 1;
     private static final int START_REPLACE = 30;
     private static final int END_REPLACE = 35;
     private static final  String REPLACE = " en ";
@@ -61,15 +62,15 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     protected String showNewUserForm(Model model){
         model.addAttribute("user", new User());
+        model.addAttribute("selectedRole", roleRepository.findById(PRESELECTED_ID).get());
+        model.addAttribute("allRoles", roleRepository.findAll());
         return "adminCreateUser";
     }
 
     @PostMapping("/user/new")
     @Secured("ROLE_ADMIN")
-    protected String saveOrUpdateUser(@Valid User user, Role role,
-                                      Errors errors,
-                                      @ModelAttribute("remark") String remark,
-                                      Model model, BindingResult bindingResult){
+    protected String saveOrUpdateUser(@Valid User user, Errors errors, @ModelAttribute("remark") String remark,
+                                      @RequestParam("roleId") Integer roleId, Model model){
 
         boolean isResultError = errors.hasErrors();
         boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
@@ -78,9 +79,8 @@ public class UserController {
             checkForInvalidInput(model, user, isResultError);
             return "adminCreateUser";
         } else {
-            model.addAttribute(role.getRoleName());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.getRole().add(role);
+            (roleRepository.findById(roleId)).ifPresent(role -> user.getRole().add(role));
             userRepository.save(user);
             return "redirect:/manageUsers";
         }
@@ -95,6 +95,8 @@ public class UserController {
         } else if (userRepository.findByEmail(user.getEmail()).isPresent())  {
             model.addAttribute("remark", ERROR_EMAIL_STRING);
         }
+        model.addAttribute("selectedRole", roleRepository.findById(PRESELECTED_ID).get());
+        model.addAttribute("allRoles", roleRepository.findAll());
     }
 
     private void checkEmailInput(Model model, User user) {

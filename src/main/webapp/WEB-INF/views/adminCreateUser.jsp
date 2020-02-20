@@ -2,7 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:import url="partials/header.jsp" />
-<script src="../resources/javascript/adminCreateUser.js"></script>
 <script src="../resources/javascript/createUser.js"></script>
 
     <div class="container">
@@ -17,7 +16,12 @@
                 </p>
 
                 <label>Rol:</label>
-                <form:select path="${roleName}" name="roleName" type="text" value="${roleName}" class="form-control" id="rights"></form:select>
+                <form:select path="${roleId}" name="roleId" class="form-control">
+                    <option value="${selectedRole.roleId}" selected>${selectedRole.roleName}</option>
+                    <c:forEach items="${allRoles}" var="role">
+                    <option value="${role.roleId}">${role.roleName}</option>
+                    </c:forEach>
+                </form:select>
                 </br>
 
                 <label for="email">E-mailadres:</label>
