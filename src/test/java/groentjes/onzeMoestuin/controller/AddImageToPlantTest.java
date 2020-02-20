@@ -119,9 +119,6 @@ public class AddImageToPlantTest {
         Optional<User> regularUser = userRepository.findByUsername(REGULARNAME);
         regularUser.ifPresent(user -> userRepository.delete(user));
 
-        Optional<Role> regularRole = roleRepository.findByRoleName(REGULARROLE);
-        regularRole.ifPresent(role -> roleRepository.delete(role));
-
         Optional<PlantInformation> optionalPlantInformation =
                 plantInformationRepository.findByPlantName(plantName);
         optionalPlantInformation.ifPresent(plantInformation -> plantInformationRepository.delete(plantInformation));
@@ -130,7 +127,7 @@ public class AddImageToPlantTest {
 
     //actual test
     @Test
-    void testImageSize() throws Exception {
+    void testImageEquivalence() throws Exception {
         // Arrange
         BufferedImage cabbage = ImageIO.read(new File(AddImageToPlantTest.cabbage));
 
@@ -139,8 +136,7 @@ public class AddImageToPlantTest {
         administratorAddPlant();
         loginAsAUser();
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        addPlantToGarden();
-        driver.findElement(By.name("plantlink")).click();
+        clickMoreInformation();
         WebElement myWebElement = driver.findElement(By.name("image"));
         driver.manage().window().maximize();
 
@@ -205,7 +201,6 @@ public class AddImageToPlantTest {
         driver.findElement(By.name("harvestingEnd"));
         Select drpHarvestingEnd = new Select( driver.findElement(By.name("harvestingEnd")));
         drpHarvestingEnd.selectByVisibleText("juni");
-
         driver.findElement(By.name("growTime")).sendKeys(growtime);
 
         //upload tomato image
@@ -223,7 +218,6 @@ public class AddImageToPlantTest {
         driver.findElement(By.name("username")).sendKeys(REGULARNAME);
         driver.findElement(By.name("password")).sendKeys(REGULARPASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();
-        Thread.sleep(2000);
     }
 
     private void createGarden(String gardenName, String gardenLength, String gardenWidth) {
@@ -234,15 +228,8 @@ public class AddImageToPlantTest {
         driver.findElement(By.name("opslaanTuin")).submit();
     }
 
-    private void addPlantToGarden() throws InterruptedException {
+    private void clickMoreInformation() throws InterruptedException {
         driver.findElement(By.name("addplant")).click();
-        Thread.sleep(2000);
-        //currently gets stuck at addplant.jsp
-        //select and click 'meer informatie
-        //scroll down and take screenshot
-
-        //Select drpPlant = new Select(driver.findElement(By.name("plantInfoId")));
-        //drpPlant.selectByVisibleText(plantName);
-        //driver.findElement(By.name("toevoegen")).click();
+        driver.findElement(By.name("moreinformation")).click();
     }
 }
