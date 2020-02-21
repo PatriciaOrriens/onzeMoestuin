@@ -94,9 +94,9 @@ public class GardenControllerWebDriverTest {
 
         // Activate
         loginAsAUser();
-        Thread.sleep(2000);
+        Thread.sleep(THOUSAND);
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        Thread.sleep(2000);
+        Thread.sleep(THOUSAND);
         driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("logout")).click();
