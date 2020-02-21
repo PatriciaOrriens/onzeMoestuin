@@ -1,7 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.repository.*;
-//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = NewGardenController.class)
 public class NewGardenControllerTest {
+
+    private static final int ONE = 1;
+    private Garden garden;
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,14 +46,18 @@ public class NewGardenControllerTest {
     @MockBean
     private RoleRepository roleRepository;
 
-//    @MockBean
-//    GardenUserDetailsService gardenUserDetailsService;
+    @BeforeEach
+    void setUp() {
+        garden = new Garden();
+        garden.setGardenId(ONE);
+    }
 
+    //solution can be potentially found here:
+    // https://stackoverflow.com/questions/15203485/spring-test-security-how-to-mock-authentication
     @Test
     @WithMockUser(roles = "USER")
     void testNewGardenPage() throws Exception {
         final ResultActions result = mockMvc.perform(get("/garden/add"))
-
-                .andExpect(forwardedUrl("/WEB-INF/views/newGarden.jsp"));
+                .andExpect(redirectedUrl("/garden/" + garden.getGardenId()));
     }
 }
