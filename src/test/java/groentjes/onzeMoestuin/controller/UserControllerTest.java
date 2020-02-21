@@ -159,20 +159,20 @@ class UserControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
     }
 
-//    @Test
-//    @WithMockUser(roles = "ADMIN")
-//    void testSaveOrUpdateUserWithInvalidUserNameByAdminstrator() throws Exception {
-//
-//        Mockito.when((userRepository.findByUsername(INVALID_USERNAME))).thenReturn(Optional.empty());
-//        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
-//
-//        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                .param("username", INVALID_USERNAME).param("roleName", ROLE).param("email", EMAIL).param("password",
-//                PASSWORD)
-//                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
-//                .andExpect(view().name("adminCreateUser"))
-//                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
-//    }
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testSaveOrUpdateUserWithInvalidUserNameByAdminstrator() throws Exception {
+
+        Mockito.when((userRepository.findByUsername(INVALID_USERNAME))).thenReturn(Optional.empty());
+        Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
+
+        mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username", INVALID_USERNAME).param("roleName", ROLE).param("email", EMAIL).param("password",
+                PASSWORD)
+                .flashAttr("user", new User()).with(csrf())).andExpect(status().isOk())
+                .andExpect(view().name("adminCreateUser"))
+                .andExpect(forwardedUrl("/WEB-INF/views/adminCreateUser.jsp"));
+    }
 
     @Test
     @WithMockUser(roles = "USER")

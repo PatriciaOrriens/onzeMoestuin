@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -45,26 +46,41 @@ class TaskPlantControllerTest {
 //    @MockBean
 //    private GardenUserDetailsService gardenUserDetailsService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
     @MockBean
-    private PlantRepository plantRepository;
+    private GardenInvitationRepository gardenInvitationRepository;
 
     @MockBean
     private GardenRepository gardenRepository;
 
     @MockBean
-    private TaskPlantRepository taskPlantRepository;
+    private MessageRepository messageRepository;
+
+    @MockBean
+    private PlantInformationRepository plantInformationRepository;
+
+    @MockBean
+    private PlantRepository plantRepository;
+
+    @MockBean
+    private RoleRepository roleRepository;
+
+    @MockBean
+    private TaskDescriptionRepository taskDescriptionRepository;
 
     @MockBean
     private TaskGardenRepository taskGardenRepository;
 
     @MockBean
+    private TaskPlantInfoRepository taskPlantInfoRepository;
+
+    @MockBean
+    private TaskPlantRepository taskPlantRepository;
+
+    @MockBean
     private TaskRepository taskRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
