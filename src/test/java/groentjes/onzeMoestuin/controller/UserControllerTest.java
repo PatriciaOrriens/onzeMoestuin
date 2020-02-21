@@ -53,7 +53,7 @@ class UserControllerTest {
     private UserRepository userRepository;
 
 //    @MockBean
-//    private GardenUserDetailsService gardenUserDetailsService;
+//    private AuthenticationService authenticationService;
 
     @MockBean
     private RoleRepository roleRepository;
@@ -103,7 +103,8 @@ class UserControllerTest {
         Mockito.when((userRepository.findByEmail(EMAIL))).thenReturn(Optional.empty());
 
         mockMvc.perform(post("/user/new").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username" , USERNAME).param("email", EMAIL).param("password", PASSWORD)
+                .param("username" , USERNAME).param("roleName" , ROLE).param("email", EMAIL).param("password",
+                        PASSWORD)
                 .flashAttr("user", new User()).with(csrf())).andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/manageUsers"))
                 .andExpect(redirectedUrl("/manageUsers"));
