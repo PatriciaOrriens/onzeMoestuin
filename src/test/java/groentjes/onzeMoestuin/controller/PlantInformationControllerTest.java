@@ -2,6 +2,7 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.PlantInformation;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
+import groentjes.onzeMoestuin.repository.PlantRepository;
 import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 //import groentjes.onzeMoestuin.service.GardenUserDetailsService;
@@ -50,6 +51,9 @@ class PlantInformationControllerTest {
 
     @MockBean
     private PlantInformationRepository plantInformationRepository;
+
+    @MockBean
+    private PlantRepository plantRepository;
 
     private String plantName = "plantnaam";
     private String latinName = "Latijnse plantnaam";
