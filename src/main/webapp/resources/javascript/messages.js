@@ -58,9 +58,14 @@ $(document).ready(function() {
 
 
     function ajaxPostMessage() {
-        newMessage = { messageBody: document.getElementById("messageText").value }
 
-       $.ajax({
+        if ($("#messageText").val() < 1) {
+             $("#message-error > p").html("Voer eerst een bericht in");
+             $("#message-error").fadeIn("slow");
+        } else {
+        newMessage = { messageBody: $("#messageText").val() }
+
+        $.ajax({
            type: "POST",
            contentType: 'application/json; charset=utf-8',
            dataType: 'json',
@@ -76,8 +81,9 @@ $(document).ready(function() {
                 $("#message-error > p").html("<strong>Sorry!</strong> Fout bij het plaatsen van je bericht");
                 $("#message-error").fadeIn("slow");
            }
-       });
-    }
+         });
+      }
+   }
 
 
     msgNextBtn.addEventListener("click", function() {
