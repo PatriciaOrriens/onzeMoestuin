@@ -51,9 +51,9 @@ public class AddImageToPlantTest {
     private PlantInformationRepository plantInformationRepository;
 
     //admin variables
-    private static final String ADMINNAME = "admin";
+    private static final String ADMINNAME = "administrator";
     private static final String ADMINROLE = "ROLE_ADMIN";
-    private static final String ADMINPASSWORD = "admin";
+    private static final String ADMINPASSWORD = "administrator";
 
     //plantinformation variables
     private static final String plantName = "tomaat";
@@ -86,16 +86,14 @@ public class AddImageToPlantTest {
         regularUser.setUsername(REGULARNAME);
         regularUser.setPassword(passwordEncoder.encode(REGULARPASSWORD));
 
-        Role regularRole = new Role();
-        regularRole.setRoleName(REGULARROLE);
+        Role regularRole = roleRepository.findByRoleName(REGULARROLE).get();
         regularUser.getRole().add(regularRole);
 
         User adminUser = new User();
         adminUser.setUsername(ADMINNAME);
         adminUser.setPassword(passwordEncoder.encode(ADMINPASSWORD));
 
-        Role adminRole = new Role();
-        adminRole.setRoleName(ADMINROLE);
+        Role adminRole = roleRepository.findByRoleName(ADMINROLE).get();
         adminUser.getRole().add(adminRole);
 
         userRepository.save(regularUser);
