@@ -118,14 +118,16 @@ public class PlantController {
     }
 
     @GetMapping("/plant/delete/{plantId}")
-    public String deletePlant(@PathVariable("plantId") Integer plantId) {
+    public String harvestPlant(@PathVariable("plantId") Integer plantId) {
 
-        Optional<Plant> plant = plantRepository.findById(plantId);
+        Optional<Plant> searchedPlant = plantRepository.findById(plantId);
 
-        if (plant.isPresent()) {
-            Integer gardenId = plant.get().getGarden().getGardenId();
-            plantRepository.delete(plant.get());
-            return "redirect:/garden/" + gardenId;
+        if (searchedPlant.isPresent()) {
+            Plant plant = searchedPlant.get();
+            plant.setHarvestDate(new Date());
+            plantRepository.save(plant);
+
+            return "redirect:/garden/" + plant.getGarden().getGardenId();
         }
         return "redirect:/";
     }
