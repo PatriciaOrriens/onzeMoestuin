@@ -10,7 +10,7 @@ $(function () {
 
 $(document).ready(function() {
     var page = 0;
-    var latestMessageTimeStamp = null;
+    var latestMessageTimeStamp = new Date(0).toISOString();
     ajaxGetMessages();
 
 
@@ -35,6 +35,9 @@ $(document).ready(function() {
                     $("#new-messages-alert").hide();
                 }
            },
+           error: function(e) {
+                console.log(e);
+           }
        });
     }
 
@@ -46,14 +49,14 @@ $(document).ready(function() {
             url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/" + page,
             dataType: 'json',
             success: function(response) {
-                // If messages are loaded for the first time, set imitial timestamp
-                if (latestMessageTimeStamp === null) {
+                // If messages are loaded for the first time, set initial timestamp
+                if (latestMessageTimeStamp === new Date(0).toISOString() && response.length > 0) {
                     latestMessageTimeStamp = response[0].dateTime;
+                    messageHTML(response);
+                    page++;
                 }
                 $("#message-error").hide();
                 $("#new-messages-alert").hide();
-                messageHTML(response);
-                page++;
             },
            error: function() {
                 $("#message-error > p").html("<strong>Sorry!</strong> Berichten konden niet worden opgehaald.");
@@ -99,7 +102,7 @@ $(document).ready(function() {
     getNewMessages.addEventListener("click", function() {
         $("#message-container").empty();
             page = 0;
-            latestMessageTimeStamp = null;
+            latestMessageTimeStamp = new Date(0).toISOString();
             ajaxGetMessages();
     });
 
