@@ -24,6 +24,7 @@ public class Garden {
 
     @NotNull
     @Min(value = 1, message = "Geef een heel getal in meters op (minimaal 1)")
+    @Max(value = 12, message = "De tuin kan maximaal 12 meter lang zijn")
     private Integer length;
 
     @NotNull
