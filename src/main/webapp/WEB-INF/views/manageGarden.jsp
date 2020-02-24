@@ -19,6 +19,7 @@
     </c:if>
 
 <%--    cards for each garden with info and redirect to gardens     --%>
+    <div class="card-columns">
     <c:forEach var="garden" items="${allYourGardens}">
     <div class="card">
         <img class="card-img-top" src="../resources/img/gardenPicture.jpg" alt="garden image">
@@ -36,7 +37,7 @@
             </p>
             <br/>
 
-            <a href="garden/${garden.gardenId}" class="btn btn-success">Bezoek tuin</a>
+            <a href="garden/${garden.gardenId}" class="btn btn-success stretched-link">Bezoek tuin</a>
             <a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
             ><i class='far fa-edit'></i></a>
             <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen"
@@ -67,6 +68,7 @@
             </div>
             <br/>
         </c:forEach>
+    </div>
 
     <br/>
     <a href="/garden/add" class="btn btn-success">Tuin toevoegen</a>
