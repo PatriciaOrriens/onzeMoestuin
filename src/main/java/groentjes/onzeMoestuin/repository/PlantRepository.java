@@ -16,6 +16,8 @@ public interface PlantRepository extends JpaRepository<Plant, Integer> {
 
     ArrayList<Plant> findAllByGardenAndStartDateIsNull(Garden garden);
 
+    ArrayList<Plant> findAllByGardenAndStartDateIsNotNullAndHarvestDateIsNull(Garden garden);
+
 
 
 

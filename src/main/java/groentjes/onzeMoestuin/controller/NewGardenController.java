@@ -90,7 +90,7 @@ public class NewGardenController {
 
     // retrieve the first five tasks, which has to be done for one garden, for the view
     private void addAttributesToShowGardenView(Garden garden, Model model) {
-        ArrayList<Plant> plants = plantRepository.findAllByGardenAndStartDateIsNotNull(garden);
+        ArrayList<Plant> plants = plantRepository.findAllByGardenAndStartDateIsNotNullAndHarvestDateIsNull(garden);
         ArrayList<Plant> unstartedPlants = plantRepository.findAllByGardenAndStartDateIsNull(garden);
         ArrayList<Task> notCompletedTasks = getListOfNotCompletedTasks(plants, garden);
         ArrayList<Task> tasksToBeShown = new ArrayList<>();
