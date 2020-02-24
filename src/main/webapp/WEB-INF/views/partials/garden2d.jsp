@@ -33,8 +33,8 @@
 </div>
 
     <!-- Modal to show Plant details-->
-    <div id="plantModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
+    <div id="plantModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
             <div id="plantContainer"></div>
         </div>
     </div>
@@ -42,27 +42,34 @@
     <!-- Handlebars template for Plant modal -->
     <script id="plantTemplate" type="text/x-handlebars-template">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header plant-modal-header">
                 <h4 class="modal-title">{{plantInformation.plantName}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>{{plantInformation.plantName}}</p>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <p>{{plantInformation.plantName}}</p>
 
-                {{#if startDate}}
-                <p>Gestart op {{startDate}}</p>
-                {{else}}
-                <p>Nog niet gestart</p>
-                {{/if}}
+                        {{#if startDate}}
+                        <p>Gestart op {{startDate}}</p>
+                        {{else}}
+                        <p>Nog niet gestart</p>
+                        {{/if}}
 
-                {{#if harvestDate}}
-                <p>Al geoogst</p>
-                {{else}}
-                <p>Nog niet geoogst</p>
-                {{/if}}
+                        {{#if harvestDate}}
+                        <p>Al geoogst</p>
+                        {{else}}
+                        <p>Nog niet geoogst</p>
+                        {{/if}}
+                    </div>
+                    <div class="col-sm-3 plant-modal-image">
+                        <img src="/plant/{{plantId}}/image">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Sluit</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Sluit</button>
             </div>
         </div>
     </script>

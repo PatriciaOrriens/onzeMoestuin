@@ -115,6 +115,14 @@ text-align: center;
   object-fit: cover;
 }
 
+.plant-modal-header {
+}
+
+.plant-modal-image img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
 
 
 
