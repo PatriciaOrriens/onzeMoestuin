@@ -72,16 +72,12 @@
 
             <div class="container">
                 <div class="alert alert-success" id="harvestDiv">
-                    <div class="col-sm-9">
                     Wil je deze plant oogsten en verwijderen uit je tuin?
-                    </div>
-                    <div class="col-sm-3 my-auto">
-                        <a class="btn btn-success" href="/plant/delete/{{plantId}}">Nu oogsten</a>
-                    </div>
+                    <a class="btn btn-success harvestButton" href="/plant/delete/{{plantId}}">Nu oogsten</a>
                 </div>
             </div>
-            <div class="modal-footer">
 
+            <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="harvestBtn">Oogsten</button>
                 <button type="button" class="btn btn-success" data-dismiss="modal">Sluit</button>
             </div>

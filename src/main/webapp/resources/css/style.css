@@ -69,6 +69,11 @@ text-align: center;
 
 #harvestDiv {
     display: none;
+    padding: 20px;
+}
+
+.harvestButton {
+    float: right;
 }
 
 .ajax-link:hover {
