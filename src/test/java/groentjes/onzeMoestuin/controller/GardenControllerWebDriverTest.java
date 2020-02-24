@@ -107,30 +107,6 @@ public class GardenControllerWebDriverTest {
                 () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN2).isPresent()));
     }
 
-    @Test
-    void testRemoveGarden() throws Exception {
-        // Arrange
-
-        // Arrange code replaced with assertTrue/assertFalse statement in Assert
-
-        // Activate
-        loginAsAUser();
-        createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        driver.findElement(By.name("returntooverview")).click();
-        createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
-        driver.findElement(By.name("returntooverview")).click();
-        driver.findElement(By.name("verwijderen")).click();
-        Thread.sleep(THOUSAND);
-        driver.findElement(By.name("modal-verwijderen")).click();
-        Thread.sleep(THOUSAND);
-        driver.findElement(By.name("logout")).click();
-
-        // Assert
-        Assertions.assertAll("test whether garden1 was successfully removed",
-                () -> assertFalse(gardenRepository.findByGardenName(GARDEN1).isPresent()),
-                () -> assertTrue(gardenRepository.findByGardenName(GARDEN2).isPresent()));
-    }
-
     private void loginAsAUser() {
         this.driver.get("http://localhost:8080/login");
         driver.findElement(By.name("username")).sendKeys(NAME);
