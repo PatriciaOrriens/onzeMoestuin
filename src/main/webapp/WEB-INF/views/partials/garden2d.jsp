@@ -75,7 +75,7 @@
                     <div class="col-sm-9">
                     Wil je deze plant oogsten en verwijderen uit je tuin?
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 my-auto">
                         <a class="btn btn-success" href="/plant/delete/{{plantId}}">Nu oogsten</a>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <button type="button" class="btn btn-success" data-dismiss="modal">Sluit</button>
             </div>
 
-
+        </div>
     </script>
 
     <!-- Handlebars template for planned plants -->
