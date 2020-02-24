@@ -117,15 +117,17 @@ public class PlantController {
         return "redirect:/";
     }
 
-    @GetMapping("/plant/delete/{plant.plantId}")
-    public String deletePlant(@ModelAttribute("plant.plantId") Integer plantId,
-                              BindingResult result) {
+    @GetMapping("/plant/delete/{plantId}")
+    public String deletePlant(@PathVariable("plantId") Integer plantId) {
 
         Optional<Plant> plant = plantRepository.findById(plantId);
+
         if (plant.isPresent()) {
-                plantRepository.delete(plant.get());
+            Integer gardenId = plant.get().getGarden().getGardenId();
+            plantRepository.delete(plant.get());
+            return "redirect:/garden/" + gardenId;
         }
-        return "redirect:/userManageGardens";
+        return "redirect:/";
     }
 
     private User getUser() {

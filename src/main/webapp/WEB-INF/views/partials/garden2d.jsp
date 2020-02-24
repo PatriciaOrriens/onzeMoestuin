@@ -49,29 +49,41 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-9">
-                        <p>{{plantInformation.plantName}}</p>
-
-                        {{#if startDate}}
-                        <p>Gestart op {{startDate}}</p>
-                        {{else}}
-                        <p>Nog niet gestart</p>
-                        {{/if}}
-
-                        {{#if harvestDate}}
-                        <p>Al geoogst</p>
-                        {{else}}
-                        <p>Nog niet geoogst</p>
-                        {{/if}}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>{{startDate}}</td>
+                            </tr>
+                            <tr>
+                                <td>Verwachte oogsttijd</td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="col-sm-3 plant-modal-image">
                         <img src="/plant/{{plantId}}/image">
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <h5>Taken</h5>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="container">
+                <div class="alert alert-success" id="harvestDiv">
+                    Wil je deze plant oogsten en verwijderen uit je tuin? <a class="btn btn-success"
+                        href="/plant/delete/{{plantId}}">Nu oogsten</a>
+                </div>
             </div>
             <div class="modal-footer">
+
+                <button type="button" class="btn btn-success" id="harvestBtn">Oogsten</button>
                 <button type="button" class="btn btn-success" data-dismiss="modal">Sluit</button>
             </div>
+
         </div>
+
     </script>
 
     <!-- Handlebars template for planned plants -->

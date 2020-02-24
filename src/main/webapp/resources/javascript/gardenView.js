@@ -182,6 +182,7 @@ function movePlant(plant) {
    });
 }
 
+
 //TODO refactor into reusable function
 // Handlebars generating html for planned plants {}
 function plannedPlantsHTML(plantData) {
@@ -208,4 +209,8 @@ function plantHTML(plantData) {
     // add html to DOM
     var plantContainer = document.getElementById("plantContainer");
     plantContainer.innerHTML = ourGeneratedHTML;
+
+    harvestBtn.addEventListener("click", function() {
+        $("#harvestDiv").slideToggle();
+    });
 }

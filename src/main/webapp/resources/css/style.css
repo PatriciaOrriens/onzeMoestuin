@@ -67,6 +67,10 @@ text-align: center;
     display: none;
 }
 
+#harvestDiv {
+    display: none;
+}
+
 .ajax-link:hover {
     text-decoration: underline;
 }
