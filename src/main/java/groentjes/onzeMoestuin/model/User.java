@@ -1,13 +1,8 @@
 package groentjes.onzeMoestuin.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
@@ -16,7 +11,7 @@ import java.util.*;
  */
 @Entity (name = "User")
 @JsonIgnoreProperties({"joinedGardens", "password", "authorities"})
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,33 +50,6 @@ public class User implements UserDetails {
     public User() {
     }
 
-    @Override
-    public Collection<GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return authorities;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
     public Integer getUserId() {
         return userId;
     }
@@ -90,16 +58,39 @@ public class User implements UserDetails {
         this.userId = userId;
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
+
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return false;
+//    }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Override
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
+
     public String getPassword() {
         return password;
     }
