@@ -14,8 +14,8 @@ $(document).ready(function() {
     ajaxGetMessages();
 
 
-    // Re-check for new messages every 5 seconds
-    setInterval(checkForMessages, 5000);
+    // Re-check for new messages every 10 seconds
+    setInterval(checkForMessages, 10000);
 
     function checkForMessages() {
         $.ajax({
