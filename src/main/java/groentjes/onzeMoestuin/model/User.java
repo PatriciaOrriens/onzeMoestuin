@@ -10,7 +10,7 @@ import java.util.*;
  * @author Wim Kruizinga and Gjalt Wybenga
  */
 @Entity (name = "User")
-@JsonIgnoreProperties({"joinedGardens", "password", "authorities"})
+@JsonIgnoreProperties({"joinedGardens", "password", "role"})
 public class User {
 
     @Id
