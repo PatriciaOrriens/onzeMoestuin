@@ -25,6 +25,8 @@ import java.util.Optional;
 @WebAppConfiguration
 class UserControllerWebDriverTest {
 
+    private User admin = new User();
+
     private WebDriver driver;
 
     @Autowired
@@ -36,8 +38,8 @@ class UserControllerWebDriverTest {
     @Autowired
     private RoleRepository roleRepository;
 
-    private static final String ADMINNAME = "administrator";
-    private static final String ADMINPASSWORD = "adminpassword";
+    private static final String ADMIN_NAME = "administrator";
+    private static final String ADMIN_PASSWORD = "adminpassword";
     private static final String ROLE = "ROLE_ADMIN";
     private static final String NAME = "testgebruiker1";
     private static final String PASSWORD = "testwachtwoord1";
@@ -49,17 +51,12 @@ class UserControllerWebDriverTest {
         this.driver = new ChromeDriver();
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
-        Optional<User> adminUser = userRepository.findByUsername(ADMINNAME);
-        adminUser.ifPresent(user -> userRepository.delete(user));
-
-        User admin = new User();
-        admin.setUsername(ADMINNAME);
-        admin.setPassword(passwordEncoder.encode(ADMINPASSWORD));
-
-        Role role = new Role();
-        role.setRoleName(ROLE);
+        optionalUser = userRepository.findByUsername(ADMIN_NAME);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+        admin.setUsername(ADMIN_NAME);
+        admin.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));
+        Role role = roleRepository.findByRoleName(ROLE).get();
         admin.getRole().add(role);
-
         userRepository.save(admin);
     }
 
@@ -67,7 +64,7 @@ class UserControllerWebDriverTest {
     public void tearDown() {
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
-        Optional<User> adminUser = userRepository.findByUsername(ADMINNAME);
+        Optional<User> adminUser = userRepository.findByUsername(ADMIN_NAME);
         adminUser.ifPresent(user -> userRepository.delete(user));
         this.driver.quit();
         this.driver = null;
@@ -80,7 +77,6 @@ class UserControllerWebDriverTest {
 
         // Activate
         loginAsAdministrator();
-        driver.findElement(By.name("admindashboard")).click();
         this.driver.get(expectedUrl);
 
         // Assert
@@ -139,15 +135,11 @@ class UserControllerWebDriverTest {
         Assertions.assertEquals(expectedUrl, driver.getCurrentUrl());
     }
 
-    private void loginAsAdministrator() throws InterruptedException {
+    private void loginAsAdministrator() {
         this.driver.get("http://localhost:8080/login");
-        Thread.sleep(500);
-        driver.findElement(By.name("username")).sendKeys(ADMINNAME);
-        Thread.sleep(500);
-        driver.findElement(By.name("password")).sendKeys(ADMINPASSWORD);
-        Thread.sleep(500);
+        driver.findElement(By.name("username")).sendKeys(ADMIN_NAME);
+        driver.findElement(By.name("password")).sendKeys(ADMIN_PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();
-        Thread.sleep(500);
     }
 
     private void createUser() {

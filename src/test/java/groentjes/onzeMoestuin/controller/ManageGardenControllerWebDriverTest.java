@@ -42,7 +42,7 @@ public class ManageGardenControllerWebDriverTest {
     @Autowired
     private RoleRepository roleRepository;
 
-    private static final Integer ONE = 1;
+    private static final Integer THREE = 3;
     private static final String NAME = "testgebruiker1";
     private static final String ROLE = "ROLE_USER";
     private static final String PASSWORD = "testwachtwoord1";
@@ -62,8 +62,8 @@ public class ManageGardenControllerWebDriverTest {
         gardenToBeDeleted.setGardenName(NAMEGARDEN);
         gardenToBeDeleted.setUser(owner);
         gardenToBeDeleted.addGardenMember(owner);
-        gardenToBeDeleted.setLength(ONE);
-        gardenToBeDeleted.setWidth(ONE);
+        gardenToBeDeleted.setLength(THREE);
+        gardenToBeDeleted.setWidth(THREE);
         gardenRepository.save(gardenToBeDeleted);
         saveUser(SECONDNAME, SECONDPASSWORD);
     }
@@ -78,8 +78,6 @@ public class ManageGardenControllerWebDriverTest {
         optionalUser.ifPresent(user -> userRepository.delete(user));
         Optional<User> secondOptionalUser = userRepository.findByUsername(SECONDNAME);
         secondOptionalUser.ifPresent(user -> userRepository.delete(user));
-        Optional<Role> optionalRole = roleRepository.findByRoleName(ROLE);
-        optionalRole.ifPresent(role -> roleRepository.delete(role));
     }
 
     @Test
@@ -124,8 +122,7 @@ public class ManageGardenControllerWebDriverTest {
         registeredUser.setUsername(name);
         registeredUser.setPassword(passwordEncoder.encode(password));
 
-        Role role = new Role();
-        role.setRoleName(ROLE);
+        Role role = roleRepository.findByRoleName(ROLE).get();
         registeredUser.getRole().add(role);
 
         userRepository.save(registeredUser);

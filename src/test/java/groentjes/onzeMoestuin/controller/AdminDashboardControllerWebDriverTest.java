@@ -4,6 +4,7 @@ import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
+import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,50 +27,48 @@ import java.util.Optional;
 @WebAppConfiguration
 public class AdminDashboardControllerWebDriverTest {
 
+    private User admin = new User();
+
     private WebDriver driver;
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     private static final String NAME = "administrator";
-    private static final String ROLE = "ROLE_ADMIN";
     private static final String PASSWORD = "adminpassword";
+    private static final String EMAIL = "testgebruiker1@test.nl";
+    private static final String ROLE = "ROLE_ADMIN";
 
     @BeforeEach
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
-
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
-
-        User registeredUser = new User();
-        registeredUser.setUsername(NAME);
-        registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
-
-        Role role = new Role();
-        role.setRoleName(ROLE);
-        registeredUser.getRole().add(role);
-
-        userRepository.save(registeredUser);
+        optionalUser = userRepository.findByEmail(EMAIL);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+        admin.setUsername(NAME);
+        admin.setPassword(passwordEncoder.encode(PASSWORD));
+        admin.setEmail(EMAIL);
+        Role role = roleRepository.findByRoleName(ROLE).get();
+        admin.getRole().add(role);
+        userRepository.save(admin);
     }
 
     @AfterEach
     public void tearDown() {
         this.driver.quit();
         this.driver = null;
-
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
-
-        Optional<Role> optionalRole = roleRepository.findByRoleName(ROLE);
-        optionalRole.ifPresent(role -> roleRepository.delete(role));
+        optionalUser = userRepository.findByEmail(EMAIL);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
     }
 
     @Test

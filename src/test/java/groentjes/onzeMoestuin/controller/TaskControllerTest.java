@@ -1,6 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.controller.TaskController;
 import groentjes.onzeMoestuin.model.Garden;
+import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.*;
 //import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +12,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -62,6 +66,8 @@ class TaskControllerTest {
     void testFindAllTasks() throws Exception {
         String gardenId = firstGarden.getGardenId().toString();
         Mockito.when((gardenRepository.findById(FIRST_GARDEN_ID))).thenReturn(Optional.empty());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Mockito.when(userRepository.findByUsername(authentication.getName())).thenReturn(Optional.of(new User()));
 
         final ResultActions result = mockMvc.perform(get("/userTaskOverview/" + gardenId)
                 .sessionAttr("gardenId", gardenId)).andExpect(status().is3xxRedirection())

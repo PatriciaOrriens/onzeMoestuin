@@ -3,7 +3,10 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,9 @@ import java.util.Optional;
 public class TaskController {
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private GardenRepository gardenRepository;
 
     @Autowired
@@ -32,9 +38,9 @@ public class TaskController {
     private TaskGardenRepository taskGardenRepository;
 
     @GetMapping("/userTaskOverview/{gardenId}")
-    public String findAllTasks(Model model, @PathVariable("gardenId") final Integer gardenId,
-                          @AuthenticationPrincipal User user) {
+    public String findAllTasks(Model model, @PathVariable("gardenId") final Integer gardenId) {
 
+        User user = getUser();
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if (garden.get().isGardenMember(user)) {
@@ -58,5 +64,12 @@ public class TaskController {
         Collections.sort(tasks);
         model.addAttribute("tasks", tasks);
         model.addAttribute("garden", garden);
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName)
+                .orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

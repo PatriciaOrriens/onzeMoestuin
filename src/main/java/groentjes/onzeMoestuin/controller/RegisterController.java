@@ -30,6 +30,7 @@ public class RegisterController {
 
     private static final int START_REPLACE = 30;
     private static final int END_REPLACE = 35;
+    private static final String ROLE_USER = "ROLE_USER";
     private static final  String REPLACE = " en ";
     private static final String ERROR_USERNAME_STRING = "Kies een andere gebruikersnaam";
     private static final String ERROR_EMAIL_STRING = "Kies een ander E-mailadres";
@@ -56,9 +57,7 @@ public class RegisterController {
     }
 
     @PostMapping("/registerUser")
-    public String saveNewUser(@Valid User user, Role role, Errors errors,
-                              Model model,
-                              @ModelAttribute("remark") String remark,
+    public String saveNewUser(@Valid User user, Errors errors, Model model, @ModelAttribute("remark") String remark,
                               @RequestParam(name ="token") Optional<String> token) {
 
         boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
@@ -69,9 +68,8 @@ public class RegisterController {
             checkForInvalidInput(model, user);
             return "register";
         } else {
-            role.setRoleName("ROLE_USER");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.getRole().add(role);
+            (roleRepository.findByRoleName(ROLE_USER)).ifPresent(role -> user.getRole().add(role));
             userRepository.save(user);
             checkIfInvitationIsPresent(token, user);
             return "redirect:/login";

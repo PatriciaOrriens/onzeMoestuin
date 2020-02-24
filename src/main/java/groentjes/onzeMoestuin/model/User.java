@@ -39,7 +39,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.ALL,
+                    CascadeType.DETACH,
                     CascadeType.MERGE
             })
     @JoinTable(name = "user_role",

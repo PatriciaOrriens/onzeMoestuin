@@ -4,15 +4,12 @@ import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
@@ -70,12 +67,8 @@ public class NewGardenController {
     @GetMapping("/garden/add")
     protected String showGardenForm(Model model) {
 
-        User user = getUser();
-
         Garden garden = new Garden();
-        garden.setUser(user);
         model.addAttribute("garden", garden);
-
         return "newGarden";
     }
 
@@ -87,9 +80,9 @@ public class NewGardenController {
         } else {
             // Retrieve complete User object from database to be able to add member to garden
             User user = getUser();
-
+            garden.setUser(user);
             garden.addGardenMember(user);
-            garden = gardenRepository.save(garden);
+            gardenRepository.save(garden);
 
             return "redirect:/garden/" + garden.getGardenId();
         }

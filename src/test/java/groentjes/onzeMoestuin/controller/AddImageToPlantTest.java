@@ -113,9 +113,6 @@ public class AddImageToPlantTest {
         Optional<User> adminUser = userRepository.findByUsername(ADMINNAME);
         adminUser.ifPresent(user -> userRepository.delete(user));
 
-        Optional<Role> adminRole = roleRepository.findByRoleName(ADMINROLE);
-        adminRole.ifPresent(role -> roleRepository.delete(role));
-
         Optional<User> regularUser = userRepository.findByUsername(REGULARNAME);
         regularUser.ifPresent(user -> userRepository.delete(user));
 

@@ -69,8 +69,7 @@ public class GardenControllerWebDriverTest {
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
 
-        Role role = new Role();
-        role.setRoleName(ROLE);
+        Role role = roleRepository.findByRoleName(ROLE).get();
         registeredUser.getRole().add(role);
 
         userRepository.save(registeredUser);
@@ -86,8 +85,6 @@ public class GardenControllerWebDriverTest {
         garden2.ifPresent(garden -> gardenRepository.delete(garden));
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
-        Optional<Role> optionalRole = roleRepository.findByRoleName(ROLE);
-        optionalRole.ifPresent(role -> roleRepository.delete(role));
     }
 
     @Test
@@ -97,9 +94,9 @@ public class GardenControllerWebDriverTest {
 
         // Activate
         loginAsAUser();
-        Thread.sleep(2000);
+        Thread.sleep(THOUSAND);
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        Thread.sleep(2000);
+        Thread.sleep(THOUSAND);
         driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("logout")).click();
