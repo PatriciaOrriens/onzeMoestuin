@@ -4,7 +4,6 @@ import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -39,8 +38,8 @@ public class TaskPlantController {
     @GetMapping("/user/task/completed/{taskId}")
     public String processCompletedTaskPlant(@PathVariable("taskId") final Integer taskId) {
 
-            User user = getUser();
-            Optional<Task> task = taskRepository.findById(taskId);
+        User user = getUser();
+        Optional<Task> task = taskRepository.findById(taskId);
         if (task.isPresent()) {
             if (task.get() instanceof TaskPlant) {
                 TaskPlant taskPlant = (TaskPlant) task.get();
@@ -103,6 +102,7 @@ public class TaskPlantController {
     private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
+        return userRepository.findByUsername(currentPrincipalName)
+                .orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }
