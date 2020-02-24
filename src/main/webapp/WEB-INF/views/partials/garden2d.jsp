@@ -49,6 +49,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-9">
+
                         <table class="table table-striped">
                             <tr>
                                 <td>In je tuin sinds</td>

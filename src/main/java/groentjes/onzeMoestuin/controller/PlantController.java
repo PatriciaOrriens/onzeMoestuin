@@ -45,12 +45,6 @@ public class PlantController {
     @Autowired
     private PlantInformationRepository plantInformationRepository;
 
-    @Autowired
-    private TaskPlantRepository taskPlantRepository;
-
-    @Autowired
-    private TaskPlantInfoRepository taskPlantInfoRepository;
-
     @GetMapping("/garden/{gardenId}/addPlant")
     public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
 
@@ -126,11 +120,11 @@ public class PlantController {
             Plant plant = searchedPlant.get();
             plant.setHarvestDate(new Date());
             plantRepository.save(plant);
-
             return "redirect:/garden/" + plant.getGarden().getGardenId();
         }
         return "redirect:/";
     }
+
 
     private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
