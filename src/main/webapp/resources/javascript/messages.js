@@ -17,41 +17,17 @@ $(document).ready(function() {
     // Re-check for new messages every 5 seconds
     setInterval(checkForMessages, 5000);
 
-//    // Check for new messages {}
-//    function checkForMessages() {
-//        var newMessage = {};
-//        newMessage['dateTime'] = latestMessageTimeStamp;
-//
-//       $.ajax({
-//           type: "POST",
-//           contentType: 'application/json; charset=utf-8',
-//           dataType: 'json',
-//           url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/checkNew",
-//           data: JSON.stringify(newMessage),
-//           success: function(response) {
-//                if (response == true) {
-//                    $("#new-messages-alert").fadeIn("slow");
-//                } else {
-//                    $("#new-messages-alert").hide();
-//                }
-//           },
-//           error: function(e) {
-//                console.log(e);
-//           }
-//       });
-//    }
-
     function checkForMessages() {
         $.ajax({
             type: "GET",
             url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/latest",
             dataType: 'json',
             success: function(response) {
-//                console.log(response.dateTime);
+
                 if (response.dateTime > latestMessageTimeStamp) {
-                    console.log("nieuwer bericht");
+                    $("#new-messages-alert").fadeIn("slow");
                 } else {
-                    console.log("geen nieuwer bericht");
+                    $("#new-messages-alert").hide();
                 }
             }
          });

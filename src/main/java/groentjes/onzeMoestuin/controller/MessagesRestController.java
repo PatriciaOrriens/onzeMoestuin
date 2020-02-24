@@ -57,7 +57,7 @@ public class MessagesRestController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/garden/{id}/messages/latest")
+    @GetMapping(value = "/garden/{id}/messages/latest", produces = "application/json")
     public ResponseEntity<Message> getLatestMessage(@PathVariable("id") Integer gardenId) {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
@@ -68,24 +68,8 @@ public class MessagesRestController {
                 return new ResponseEntity<>(latestMessage.get(), HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
-
-
-//    @PostMapping(value = "/garden/{id}/messages/checkNew", consumes = "application/json")
-//    public ResponseEntity<Boolean> checkNewMessages(@RequestBody Message message,
-//                                                    @PathVariable("id") Integer gardenId) throws JsonProcessingException {
-//
-//        Optional<Garden> garden = gardenRepository.findById(gardenId);
-//        if (garden.isPresent()) {
-//            Optional<Message> latestMessage = messageRepository.findFirstByGardenOrderByDateTimeDesc(garden.get());
-//            if (latestMessage.isPresent()) {
-//                Boolean ifNewMessages = message.getDateTime().isBefore(latestMessage.get().getDateTime());
-//                return new ResponseEntity<>(ifNewMessages, HttpStatus.OK);
-//            }
-//        }
-//        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//    }
 
 
     @PostMapping(value = "/garden/{id}/messages/add", consumes = "application/json")
