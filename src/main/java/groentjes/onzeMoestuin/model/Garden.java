@@ -1,6 +1,7 @@
 package groentjes.onzeMoestuin.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +28,7 @@ public class Garden {
 
     @NotNull
     @Min(value = 1, message = "Geef een heel getal in meters op (minimaal 1)")
+    @Max(value = 12, message = "De tuin kan maximaal 12 meter breed zijn")
     private Integer width;
 
     @OneToOne
