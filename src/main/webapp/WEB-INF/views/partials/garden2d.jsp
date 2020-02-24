@@ -51,10 +51,16 @@
                     <div class="col-sm-9">
                         <table class="table table-striped">
                             <tr>
+                                <td>In je tuin sinds</td>
                                 <td>{{startDate}}</td>
                             </tr>
                             <tr>
-                                <td>Verwachte oogsttijd</td>
+                                <td>Indicatie voor de groeitijd:</td>
+                                <td>{{plantInformation.growTime}} dagen</td>
+                            </tr>
+                            <tr>
+                                <td>Oogsttijd:</td>
+                                <td>{{plantInformation.harvestingStart}} t/m {{plantInformation.harvestingEnd}}</td>
                             </tr>
                         </table>
                     </div>
@@ -62,18 +68,16 @@
                         <img src="/plant/{{plantId}}/image">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <h5>Taken</h5>
-
                     </div>
-                </div>
 
-            </div>
             <div class="container">
                 <div class="alert alert-success" id="harvestDiv">
-                    Wil je deze plant oogsten en verwijderen uit je tuin? <a class="btn btn-success"
-                        href="/plant/delete/{{plantId}}">Nu oogsten</a>
+                    <div class="col-sm-9">
+                    Wil je deze plant oogsten en verwijderen uit je tuin?
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="btn btn-success" href="/plant/delete/{{plantId}}">Nu oogsten</a>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -82,7 +86,6 @@
                 <button type="button" class="btn btn-success" data-dismiss="modal">Sluit</button>
             </div>
 
-        </div>
 
     </script>
 

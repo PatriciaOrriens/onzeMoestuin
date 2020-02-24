@@ -37,7 +37,7 @@
             </p>
             <br/>
 
-            <a href="garden/${garden.gardenId}" class="btn btn-success stretched-link">Bezoek tuin</a>
+            <a href="garden/${garden.gardenId}" class="btn btn-success">Bezoek tuin</a>
             <a class="btn btn-success" href="garden/update/<c:out value="${garden.gardenId}" />"
             ><i class='far fa-edit'></i></a>
             <a class="btn btn-warning" href="#removeGardenModal_${garden.gardenId}" name="verwijderen"
