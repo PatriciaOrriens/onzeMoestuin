@@ -30,6 +30,10 @@ public class Task implements Comparable<Task> {
     private final static  String DATE_MATCH = "\\d{2}-\\d{2}-\\d{4}";
     private final static int DAYS_IN_FEBRUARY = 28;
     private final static int DAYS_IN_FEBRUARY_IN_LEAP_YEAR = 29;
+    private final static int ZERO = 0;
+    private final static int FOUR = 4;
+    private final static int HUNDRED = 100;
+    private final static int FOURHUNDRED = 400;
     private final static int DAYS_IN_SHORT_MONTH = 30;
     private final static int DAYS_IN_LARGE_MONTH = 31;
 
@@ -102,7 +106,7 @@ public class Task implements Comparable<Task> {
     }
 
     private int giveDaysInFebruaryForGivenYear(int year) {
-        if ( ((year % 4 == 0) && !(year % 100 == 0)) || (year % 400 == 0) ) {
+        if ( ((year % FOUR == ZERO) && !(year % HUNDRED == ZERO)) || (year % FOURHUNDRED == ZERO) ) {
             return DAYS_IN_FEBRUARY_IN_LEAP_YEAR;
         }
         return DAYS_IN_FEBRUARY;
