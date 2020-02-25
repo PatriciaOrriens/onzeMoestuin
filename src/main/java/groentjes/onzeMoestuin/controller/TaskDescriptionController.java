@@ -50,8 +50,8 @@ public class TaskDescriptionController {
     // admin wishes to change a task description
     @GetMapping("/task/update/{taskId}")
     @Secured("ROLE_ADMIN")
-    protected String showTaskDescriptionForUpdate(@PathVariable("taskId") final Integer taskId, Model model){
-        Optional<TaskDescription> foundTask = taskDescriptionRepository.findById(taskId);
+    protected String showTaskDescriptionForUpdate(@PathVariable("taskId") Integer taskDescriptionId, Model model){
+        Optional<TaskDescription> foundTask = taskDescriptionRepository.findById(taskDescriptionId);
         if (foundTask.isPresent()) {
             model.addAttribute("task", foundTask.get());
             return "adminChangeTask";
@@ -61,7 +61,7 @@ public class TaskDescriptionController {
 
     @PostMapping("/task/update/{taskId}")
     @Secured("ROLE_ADMIN")
-    protected String updateTaskDescription(@PathVariable("taskId") final Integer taskId,
+    protected String updateTaskDescription(@PathVariable("taskId") Integer taskId,
                                            @ModelAttribute("task") TaskDescription taskDescription,
                                            BindingResult result) {
         if (result.hasErrors()){
@@ -76,7 +76,7 @@ public class TaskDescriptionController {
     // admin deletes a task from task list
     @GetMapping("/task/delete/{taskId}")
     @Secured("ROLE_ADMIN")
-    public String deleteTaskDescription(@ModelAttribute("taskId") Integer taskId) {
+    public String deleteTaskDescription(@PathVariable("taskId") Integer taskId) {
         Optional<TaskDescription> task = taskDescriptionRepository.findById(taskId);
         task.ifPresent(information -> taskDescriptionRepository.delete(information));
         return "redirect:/adminManageTasks";
