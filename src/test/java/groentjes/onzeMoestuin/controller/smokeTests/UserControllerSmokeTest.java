@@ -1,6 +1,5 @@
 package groentjes.onzeMoestuin.controller.smokeTests;
 
-import groentjes.onzeMoestuin.controller.MessagesRestController;
 import groentjes.onzeMoestuin.controller.UserController;
 import org.junit.Assert;
 import org.junit.Test;

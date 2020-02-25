@@ -1,6 +1,5 @@
 package groentjes.onzeMoestuin.controller;
 
-
 import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 //import groentjes.onzeMoestuin.service.GardenUserDetailsService;
@@ -33,9 +32,6 @@ public class AdminDashboardControllerTest {
 
     @MockBean
     private RoleRepository roleRepository;
-
-//    @MockBean
-//    GardenUserDetailsService gardenUserDetailsService;
 
     @Test
     @WithMockUser(roles = "ADMIN")

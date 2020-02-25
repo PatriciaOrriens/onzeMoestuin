@@ -35,9 +35,6 @@ class CustomErrorControllerTest {
     @MockBean
     private GardenRepository gardenRepository;
 
-//    @MockBean
-//    GardenUserDetailsService gardenUserDetailsService;
-
     @MockBean
     private RoleRepository roleRepository;
 

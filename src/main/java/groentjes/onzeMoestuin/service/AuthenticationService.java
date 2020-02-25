@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
-/*
+/**
  * @author Gjalt Wybenga
  * this service is automatically detected upon OnzeMoestuin start up
  */

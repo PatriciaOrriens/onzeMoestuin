@@ -1,6 +1,5 @@
 package groentjes.onzeMoestuin.controller;
 
-//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import groentjes.onzeMoestuin.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,9 +28,6 @@ class LoginControllerTest {
 
     @MockBean
     private RoleRepository roleRepository;
-
-//    @MockBean
-//    GardenUserDetailsService gardenUserDetailsService;
 
     @Test
     void testLogin() throws Exception {

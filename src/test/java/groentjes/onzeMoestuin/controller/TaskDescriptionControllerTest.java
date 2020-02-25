@@ -1,6 +1,5 @@
 package groentjes.onzeMoestuin.controller;
 
-
 import groentjes.onzeMoestuin.model.TaskDescription;
 import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.TaskDescriptionRepository;
@@ -45,9 +44,6 @@ public class TaskDescriptionControllerTest {
 
     @MockBean
     private RoleRepository roleRepository;
-
-//    @MockBean
-//    private GardenUserDetailsService gardenUserDetailsService;
 
     @MockBean
     private TaskDescriptionRepository taskDescriptionRepository;
