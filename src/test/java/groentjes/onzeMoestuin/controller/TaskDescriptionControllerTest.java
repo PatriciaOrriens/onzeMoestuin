@@ -44,12 +44,6 @@ public class TaskDescriptionControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private RoleRepository roleRepository;
-
-//    @MockBean
-//    private GardenUserDetailsService gardenUserDetailsService;
-
-    @MockBean
     private TaskDescriptionRepository taskDescriptionRepository;
 
     @BeforeEach

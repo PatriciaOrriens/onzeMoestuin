@@ -37,12 +37,12 @@ public class TaskDescriptionController {
     // admin creates new task descriptions
     @PostMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
-    public String saveNewTaskDescription(@ModelAttribute("newTask") TaskDescription taskDescription,
+    public String saveNewTaskDescription(@ModelAttribute("newTask") TaskDescription newTaskDescription,
                                          BindingResult result) {
         if (result.hasErrors()){
             return "adminManageTasks";
         } else {
-            taskDescriptionRepository.save(taskDescription);
+            taskDescriptionRepository.save(newTaskDescription);
             return "redirect:/adminManageTasks";
         }
     }
@@ -65,7 +65,7 @@ public class TaskDescriptionController {
                                            @ModelAttribute("task") TaskDescription taskDescription,
                                            BindingResult result) {
         if (result.hasErrors()){
-            return "redirect:/task/update";
+            return "error";
         } else {
             taskDescription.setTaskDescriptionId(taskId);
             taskDescriptionRepository.save(taskDescription);
