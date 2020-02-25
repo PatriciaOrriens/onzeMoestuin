@@ -8,6 +8,7 @@ import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
+import groentjes.onzeMoestuin.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -31,9 +32,12 @@ import javax.mail.internet.MimeMessage;
  */
 @Controller
 public class MailController {
+//
+//    @Autowired
+//    private JavaMailSender sender;
 
     @Autowired
-    private JavaMailSender sender;
+    private EmailService emailService;
 
     @Autowired
     private Configuration freemarkerConfig;
@@ -69,7 +73,7 @@ public class MailController {
                     "garden", newInvitation.getGarden(),
                     "sender", invitingUser
             )));
-            sendMail(invitationMail);
+            emailService.sendMail(invitationMail);
             gardenInvitationRepository.save(newInvitation);
         } catch (Exception ex) {
             return "redirect:/";
@@ -77,15 +81,7 @@ public class MailController {
         return "redirect:/garden/" + gardenId;
     }
 
-    private void sendMail(Mail mail) throws Exception {
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setTo(mail.getRecipient());
-        helper.setSubject(mail.getSubject());
-        helper.setText(mail.getMessage(), true);
-        sender.send(message);
-    }
 
     private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
