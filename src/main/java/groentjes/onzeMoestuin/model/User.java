@@ -50,6 +50,12 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password, String email) {
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setEmail(email);
+    }
+
     public Integer getUserId() {
         return userId;
     }
