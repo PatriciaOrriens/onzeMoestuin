@@ -23,6 +23,7 @@
                     ${requestScope['org.springframework.validation.BindingResult.taskGarden'].hasFieldErrors('dueDate') ? requestScope['org.springframework.validation.BindingResult.taskGarden'].getFieldError('dueDate').defaultMessage : ''}
                 </span></p>
             <p id="dateStructureError" class="centeredRedText"></p>
+            <p class="centeredRedText">${remark}</p>
         </div>
         <form:button type="submit" name="storeTaskGarden" class="btn btn-success">Opslaan</form:button>
 	</form:form>
