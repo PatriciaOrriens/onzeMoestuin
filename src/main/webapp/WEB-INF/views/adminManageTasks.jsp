@@ -30,9 +30,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                            <div class="modal-body">
-                                <p>Weet je zeker dat je de ${taskDescription.taskName} taak wilt verwijderen?</p>
-                            </div>
+                        <div class="modal-body">
+                            <p>Weet je zeker dat je de ${taskDescription.taskName} taak wilt verwijderen?</p>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
                             <a type="button" class="btn btn-secondary" href="/task/delete/<c:out value="${taskDescription.taskDescriptionId}" />" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
@@ -45,23 +45,27 @@
     </table>
     <br/>
     <br/>
-    </div>
+</div>
+
 
 <div class="container">
-    <h1 class="display-5">Voeg nieuwe taak toe</h1>
+    <div class="row">
+        <div class="col-5">
+            <h3 class="display-5">Voeg nieuwe taak toe</h3>
 
-    <form:form method="post" modelAttribute="taskDescription">
-        <div class="form-group">
-            <label>Naam van taak: </label>
-            <form:input path="taskName" class="form-control" type="text" value="${taskDescription.taskName}" required="required" />
-            <p class="centeredRedText">
-                    ${requestScope['org.springframework.validation.BindingResult.taskDescription'].hasFieldErrors('taskName') ? requestScope['org.springframework.validation.BindingResult.taskDescription'].getFieldError('taskName').defaultMessage : ''}
-            </p>
-            <br/>
-            <form:button type="submit" class="btn btn-success" name="opslaanTaakOmschrijving">Toevoegen</form:button>
-            </div>
-        <br/>
-    </form:form>
+            <form:form method="post" modelAttribute="taskDescription">
+                <div class="form-group">
+                    <label>Naam van taak: </label>
+                    <form:input path="taskName" class="form-control" type="text" value="${taskDescription.taskName}" required="required" />
+                    <p class="redText">
+                            ${requestScope['org.springframework.validation.BindingResult.taskDescription'].hasFieldErrors('taskName') ? requestScope['org.springframework.validation.BindingResult.taskDescription'].getFieldError('taskName').defaultMessage : ''}
+                    </p>
+                    <form:button type="submit" class="btn btn-success" name="opslaanTaakOmschrijving">Toevoegen</form:button>
+                </div>
+                <br/>
+            </form:form>
+        </div>
+    </div>
 
     <a class="btn btn-success" href="/adminDashboard">Terug</a>
 </div>
