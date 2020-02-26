@@ -7,11 +7,14 @@
     <div class="container">
         <h1 class="display-3">Pas taak aan</h1>
             <div class="form">
-                <form:form action="/task/update/${taskId}" modelAttribute="task">
+                <form:form method="post" modelAttribute="taskDescription">
                     <form:input path="taskDescriptionId" type="hidden"/>
                     <br/>
                     <label>Naam van taak: </label>
-                    <form:input path="taskName" type="text" value="${task.taskName}" class="taskName"/>
+                    <form:input path="taskName" type="text" value="${taskDescription.taskName}" class="taskName"/>
+                    <p class="centeredRedText">
+                        ${requestScope['org.springframework.validation.BindingResult.taskDescription'].hasFieldErrors('taskName') ? requestScope['org.springframework.validation.BindingResult.taskDescription'].getFieldError('taskName').defaultMessage : ''}
+                    </p>
                     <br/>
                     <br/>
 

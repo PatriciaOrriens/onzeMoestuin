@@ -6,18 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.validation.Valid;
 import java.util.Optional;
 
 /**
- * @author Patricia Orriens-Spuij
+ * @author Patricia Orriens-Spuij and Eric van Dalen
  * Controller for generic tasks (for administrator)
  */
 @Controller
@@ -31,20 +28,21 @@ public class TaskDescriptionController {
     @Secured("ROLE_ADMIN")
     public String manageTaskDescriptions(Model model) {
         model.addAttribute("allTasks", taskDescriptionRepository.findAll());
-        TaskDescription newTaskDescription = new TaskDescription();
-        model.addAttribute("newTask", newTaskDescription);
+        TaskDescription taskDescription = new TaskDescription();
+        model.addAttribute("taskDescription", taskDescription);
         return "adminManageTasks";
     }
 
     // admin creates new task descriptions
     @PostMapping("/adminManageTasks")
     @Secured("ROLE_ADMIN")
-    public String saveNewTaskDescription(@Valid TaskDescription newTask, Errors errors) {
+    public String saveNewTaskDescription(@Valid TaskDescription taskDescription, Errors errors, Model model) {
 
         if (errors.hasErrors()){
+            model.addAttribute("allTasks", taskDescriptionRepository.findAll());
             return "adminManageTasks";
         } else {
-            taskDescriptionRepository.save(newTask);
+            taskDescriptionRepository.save(taskDescription);
             return "redirect:/adminManageTasks";
         }
     }
@@ -55,7 +53,7 @@ public class TaskDescriptionController {
     protected String showTaskDescriptionForUpdate(@PathVariable("taskId") Integer taskDescriptionId, Model model){
         Optional<TaskDescription> foundTask = taskDescriptionRepository.findById(taskDescriptionId);
         if (foundTask.isPresent()) {
-            model.addAttribute("task", foundTask.get());
+            model.addAttribute("taskDescription", foundTask.get());
             return "adminChangeTask";
         }
         return "redirect:/adminManageTasks";
@@ -64,10 +62,10 @@ public class TaskDescriptionController {
     @PostMapping("/task/update/{taskId}")
     @Secured("ROLE_ADMIN")
     protected String updateTaskDescription(@PathVariable("taskId") Integer taskId,
-                                           @ModelAttribute("task") TaskDescription taskDescription,
-                                           BindingResult result) {
-        if (result.hasErrors()){
-            return "error";
+                                           @Valid TaskDescription taskDescription, Errors errors) {
+
+        if (errors.hasErrors()){
+            return "adminChangeTask";
         } else {
             taskDescription.setTaskDescriptionId(taskId);
             taskDescriptionRepository.save(taskDescription);

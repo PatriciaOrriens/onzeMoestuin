@@ -12,16 +12,16 @@
             <th>Wijzig taak</th>
             <th>Verwijder taak</th>
         </tr>
-        <c:forEach items="${allTasks}" var="task">
+        <c:forEach items="${allTasks}" var="taskDescription">
             <tr>
-                <td><c:out value="${task.taskName}" /></td>
-                <td><a class="btn btn-success" href="/task/update/<c:out value="${task.taskDescriptionId}" />">
+                <td><c:out value="${taskDescription.taskName}" /></td>
+                <td><a class="btn btn-success" href="/task/update/<c:out value="${taskDescription.taskDescriptionId}" />">
                     <i class='far fa-edit'></i></a></td>
-                <td><a class="btn btn-warning" href="#removeTaskModal_${task.taskDescriptionId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a></td>
+                <td><a class="btn btn-warning" href="#removeTaskModal_${taskDescription.taskDescriptionId}" data-toggle="modal"><i class='fas fa-trash-alt'></i></a></td>
             </tr>
 
             <!-- Modal -->
-            <div class="modal fade" id="removeTaskModal_${task.taskDescriptionId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="removeTaskModal_${taskDescription.taskDescriptionId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -31,11 +31,11 @@
                             </button>
                         </div>
                             <div class="modal-body">
-                                <p>Weet je zeker dat je de ${task.taskName} taak wilt verwijderen?</p>
+                                <p>Weet je zeker dat je de ${taskDescription.taskName} taak wilt verwijderen?</p>
                             </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                            <a type="button" class="btn btn-secondary" href="/task/delete/<c:out value="${task.taskDescriptionId}" />" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
+                            <a type="button" class="btn btn-secondary" href="/task/delete/<c:out value="${taskDescription.taskDescriptionId}" />" name="modal-verwijderen" title="Delete"><i class="fa fa-trash-o"></i>Verwijderen</a>
                         </div>
                     </div>
                 </div>
@@ -50,12 +50,12 @@
 <div class="container">
     <h1 class="display-5">Voeg nieuwe taak toe</h1>
 
-    <form:form method="post" modelAttribute="newTask">
+    <form:form method="post" modelAttribute="taskDescription">
         <div class="form-group">
             <label>Naam van taak: </label>
-            <form:input path="taskName" class="form-control" type="text" value="${newTask.taskName}" required="required" />
+            <form:input path="taskName" class="form-control" type="text" value="${taskDescription.taskName}" required="required" />
             <p class="centeredRedText">
-                    ${requestScope['org.springframework.validation.BindingResult.newTask'].hasFieldErrors('taskName') ? requestScope['org.springframework.validation.BindingResult.newTask'].getFieldError('taskName').defaultMessage : ''}
+                    ${requestScope['org.springframework.validation.BindingResult.taskDescription'].hasFieldErrors('taskName') ? requestScope['org.springframework.validation.BindingResult.taskDescription'].getFieldError('taskName').defaultMessage : ''}
             </p>
             <br/>
             <form:button type="submit" class="btn btn-success" name="opslaanTaakOmschrijving">Toevoegen</form:button>
