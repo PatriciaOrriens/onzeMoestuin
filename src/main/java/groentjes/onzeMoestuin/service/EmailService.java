@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
 
+/**
+ * @author Wim Kruizinga
+ * Email sender service
+ */
 @Service
 public class EmailService {
 

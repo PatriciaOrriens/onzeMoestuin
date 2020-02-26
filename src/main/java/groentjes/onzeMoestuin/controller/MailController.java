@@ -10,21 +10,16 @@ import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import groentjes.onzeMoestuin.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import freemarker.template.Configuration;
 
-import javax.mail.internet.MimeMessage;
 
 /**
  * @author Wim Kruizinga
@@ -32,9 +27,6 @@ import javax.mail.internet.MimeMessage;
  */
 @Controller
 public class MailController {
-//
-//    @Autowired
-//    private JavaMailSender sender;
 
     @Autowired
     private EmailService emailService;
@@ -80,7 +72,6 @@ public class MailController {
         }
         return "redirect:/garden/" + gardenId;
     }
-
 
 
     private User getUser() {
