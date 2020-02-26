@@ -7,7 +7,7 @@
         <div class="col-8">
             <h2 id="messageToggle"><i class="fa fa-comments"></i> Berichten</h2>
         </div>
-        <div class="col-4">
+        <div class="col-4" align="right">
             <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
         </div>
     </div>
