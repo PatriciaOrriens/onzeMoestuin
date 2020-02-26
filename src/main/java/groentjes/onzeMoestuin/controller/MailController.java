@@ -2,6 +2,7 @@ package groentjes.onzeMoestuin.controller;
 
 import com.google.common.collect.ImmutableMap;
 import freemarker.template.Template;
+import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.GardenInvitation;
 import groentjes.onzeMoestuin.model.Mail;
 import groentjes.onzeMoestuin.model.User;
@@ -48,26 +49,33 @@ public class MailController {
     protected String sendEmailInvite(@PathVariable("gardenId") Integer gardenId,
                                      @ModelAttribute("invitationMail") Mail invitationMail) {
 
-        User user = getUser();
+        User currentUser = getUser();
+        Garden garden = gardenRepository.findById(gardenId).get();
 
-        try {
-            GardenInvitation newInvitation = new GardenInvitation();
-            // Set fields
-            newInvitation.setGarden(gardenRepository.findById(gardenId).get());
-            newInvitation.setEmailAddress(invitationMail.getRecipient());
-            newInvitation.setUser(user);
+        // Check if current user is member of garden
+        if (garden.isGardenMember(currentUser)) {
+            try {
+                GardenInvitation newInvitation = new GardenInvitation();
+                // Set invitation fields
+                newInvitation.setGarden(garden);
+                newInvitation.setEmailAddress(invitationMail.getRecipient());
+                newInvitation.setUser(currentUser);
 
-            Template t = freemarkerConfig.getTemplate("gardenInvitation.ftl");
-            invitationMail.setMessage(FreeMarkerTemplateUtils.processTemplateIntoString(t, ImmutableMap.of(
-                    "body", invitationMail.getBody(),
-                    "invitation", newInvitation,
-                    "garden", newInvitation.getGarden(),
-                    "sender", user
-            )));
-            emailService.sendMail(invitationMail);
-            gardenInvitationRepository.save(newInvitation);
-        } catch (Exception ex) {
-            return "redirect:/";
+                // parse email template
+                Template t = freemarkerConfig.getTemplate("gardenInvitation.ftl");
+                invitationMail.setMessage(FreeMarkerTemplateUtils.processTemplateIntoString(t, ImmutableMap.of(
+                        "body", invitationMail.getBody(),
+                        "invitation", newInvitation,
+                        "garden", garden,
+                        "sender", currentUser
+                )));
+
+                // Send mail & save invitation
+                emailService.sendMail(invitationMail);
+                gardenInvitationRepository.save(newInvitation);
+            } catch (Exception ex) {
+                return "redirect:/";
+            }
         }
         return "redirect:/garden/" + gardenId;
     }
