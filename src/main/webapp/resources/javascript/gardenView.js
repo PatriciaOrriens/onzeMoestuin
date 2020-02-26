@@ -113,8 +113,12 @@ function ajaxGetPlant(plantId) {
         url: "../api/getPlant/" + plantId,
         dataType: 'json',
         success: function(response) {
-            plantHTML(response);
-            $('#plantModal').modal('show')
+            parsePlantHTML(response, "plantTemplate", "plantContainer");
+            $('#plantModal').modal('show');
+            // Add event listener to harvest button in modal
+            harvestBtn.addEventListener("click", function() {
+                $("#harvestDiv").slideToggle();
+            });
         },
         error: function(xhr, status, error) {
              var errorMessage = xhr.status + ": " + xhr.statusText;
@@ -135,8 +139,7 @@ function ajaxGetUnstartedPlants() {
             if (response.length > 0) {
                 // View HTML container that displays planned plants
                 $("#plannedPlants").show();
-                plannedPlantsHTML(response);
-
+                parsePlantHTML(response, "plannedPlantsTemplate", "plannedPlants-container");
             } else {
                 $("#plannedPlants").hide();
             }
@@ -196,35 +199,14 @@ function movePlant(plant) {
    });
 }
 
-
-//TODO refactor into reusable function
-// Handlebars generating html for planned plants {}
-function plannedPlantsHTML(plantData) {
-        // load Handlebars template from id in html file {}
-        var rawTemplate = document.getElementById("plannedPlantsTemplate").innerHTML;
-        // create dynamic template function
-        var compiledTemplate = Handlebars.compile(rawTemplate);
-        // populate template with JSON data, generate string of HTML
-        var ourGeneratedHTML = compiledTemplate(plantData);
-        // add html to DOM
-        var messageContainer = document.getElementById("plannedPlants-container");
-        messageContainer.innerHTML = ourGeneratedHTML;
-}
-
-
-// Handlebars generating HTML {}
-function plantHTML(plantData) {
+function parsePlantHTML(plantData, template, container) {
     // load Handlebars template from id in html file {}
-    var rawTemplate = document.getElementById("plantTemplate").innerHTML;
+    var rawTemplate = document.getElementById(template).innerHTML;
     // create dynamic template function
     var compiledTemplate = Handlebars.compile(rawTemplate);
     // populate template with JSON data, generate string of HTML
     var ourGeneratedHTML = compiledTemplate(plantData);
     // add html to DOM
-    var plantContainer = document.getElementById("plantContainer");
+    var plantContainer = document.getElementById(container);
     plantContainer.innerHTML = ourGeneratedHTML;
-
-    harvestBtn.addEventListener("click", function() {
-        $("#harvestDiv").slideToggle();
-    });
 }
