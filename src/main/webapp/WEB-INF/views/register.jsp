@@ -8,9 +8,9 @@
         <h1 class="display-3">Registreren</h1>
 
         <c:if test="${not empty invitation}">
-            <div class="alert alert-primary" role="alert">
+            <p><div class="alert alert-success" role="alert">
             Je bent door <strong>${invitation.user.firstName}</strong> uitgenodigd om lid te worden van zijn of haar tuin <strong>${invitation.garden.gardenName}</strong>. Registreer je eerst om dit te kunnen doen.
-            </div>
+            </div></p>
         </c:if>
 
        <form:form name="userForm" method="post" modelAttribute="user" onsubmit="return validateForm()">
