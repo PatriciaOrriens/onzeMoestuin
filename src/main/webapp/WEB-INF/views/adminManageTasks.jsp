@@ -50,12 +50,15 @@
 <div class="container">
     <h1 class="display-5">Voeg nieuwe taak toe</h1>
 
-    <form:form modelAttribute="newTask">
+    <form:form method="post" modelAttribute="newTask">
         <div class="form-group">
             <label>Naam van taak: </label>
-            <form:input path="taskName" type="text" />
+            <form:input path="taskName" class="form-control" type="text" value="${newTask.taskName}" required="required" />
+            <p class="centeredRedText">
+                    ${requestScope['org.springframework.validation.BindingResult.newTask'].hasFieldErrors('taskName') ? requestScope['org.springframework.validation.BindingResult.newTask'].getFieldError('taskName').defaultMessage : ''}
+            </p>
             <br/>
-            <input class="btn btn-success" type="submit" value="Toevoegen"/>
+            <form:button type="submit" class="btn btn-success" name="opslaanTaakOmschrijving">Toevoegen</form:button>
             </div>
         <br/>
     </form:form>
