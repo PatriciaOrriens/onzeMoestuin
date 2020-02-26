@@ -1,6 +1,7 @@
 package groentjes.onzeMoestuin.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  * @author Patricia Orriens-Spuij and Eric van Dalen
@@ -14,6 +15,7 @@ public class TaskDescription {
     private Integer taskDescriptionId;
 
     @Column(unique = true)
+    @Size(min = 3, message = "Voer een geldige naam van een taak in.")
     private String taskName;
 
     // getters and setters
