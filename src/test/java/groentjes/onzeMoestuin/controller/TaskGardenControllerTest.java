@@ -68,7 +68,7 @@ class TaskGardenControllerTest {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Mockito.when(userRepository.findByUsername(authentication.getName())).thenReturn(Optional.of(new User()));
 
-            final ResultActions result = mockMvc.perform(get("/garden/" +gardenId + "/addTaskGarden")
+            final ResultActions result = mockMvc.perform(get("/garden/" + gardenId + "/addTaskGarden")
                     .sessionAttr("taskGarden", taskGarden)).andExpect(status().is3xxRedirection())
                     .andExpect(redirectedUrl("/"));
     }

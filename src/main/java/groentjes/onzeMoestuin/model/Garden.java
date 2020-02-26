@@ -49,6 +49,12 @@ public class Garden {
     public Garden() {
     }
 
+    public Garden(String gardenName, Integer length, Integer width) {
+        this.setGardenName(gardenName);
+        this.setLength(length);
+        this.setWidth(width);
+    }
+
     public boolean isGardenMember(User user) {
         Set<User> users = this.getGardenMembers();
         for (User gardenUser : users) {

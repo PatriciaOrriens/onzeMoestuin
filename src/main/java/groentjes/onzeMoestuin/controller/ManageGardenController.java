@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,12 +82,11 @@ public class ManageGardenController {
 
 
     @PostMapping("/garden/update/{gardenId}")
-    protected String updateGarden(@ModelAttribute("garden") Garden garden, BindingResult result) {
+    protected String updateGarden(@Valid Garden garden, Errors errors) {
 
         User user = getUser();
-
-        if (result.hasErrors()) {
-            return "redirect:/garden/update";
+        if (errors.hasErrors()) {
+            return "userChangeGarden";
         } else {
             User owner = userRepository.getOne(user.getUserId());
             garden.addGardenMember(owner);
