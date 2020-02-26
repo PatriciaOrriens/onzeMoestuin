@@ -103,7 +103,6 @@ function loadGrid() {
 }
 
 
-
 // AJAX functions
 
 // Get plant details when clicked {}
@@ -185,6 +184,7 @@ function ajaxStartPlant(plant) {
    });
 }
 
+
 function movePlant(plant) {
    $.ajax({
        type: "POST",
@@ -198,6 +198,7 @@ function movePlant(plant) {
         }
    });
 }
+
 
 function parsePlantHTML(plantData, template, container) {
     // load Handlebars template from id in html file {}
