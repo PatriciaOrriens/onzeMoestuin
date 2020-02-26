@@ -74,6 +74,8 @@ $(document).ready(function() {
            url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/add",
            data: JSON.stringify(newMessage),
            success: function(response) {
+                // Clear text field
+                $("#messageText").val("");
                 latestMessageTimeStamp = response.dateTime;
                 $("#message-error").hide();
                 newMessageHTML(response);
