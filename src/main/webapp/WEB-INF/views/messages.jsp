@@ -32,7 +32,6 @@
 </div>
 
 
-
 <!-- Import Handlebars templates -->
 <c:import url="partials/templates/newMessageTemplate.jsp" />
 <c:import url="partials/templates/messageTemplate.jsp" />

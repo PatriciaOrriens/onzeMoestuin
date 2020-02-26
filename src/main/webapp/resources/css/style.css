@@ -55,8 +55,15 @@ text-align: center;
 }
 
 .new-message {
-    background-color: rgba(51, 170, 51, .5);
     display: none;
+}
+
+.message {
+    background-color: #ececec;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+
 }
 
 #message-error {
