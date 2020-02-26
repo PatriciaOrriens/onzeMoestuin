@@ -52,18 +52,17 @@ public class MailController {
 
         try {
             GardenInvitation newInvitation = new GardenInvitation();
-            User invitingUser = userRepository.findById(user.getUserId()).get();
             // Set fields
             newInvitation.setGarden(gardenRepository.findById(gardenId).get());
             newInvitation.setEmailAddress(invitationMail.getRecipient());
-            newInvitation.setUser(invitingUser);
+            newInvitation.setUser(user);
 
             Template t = freemarkerConfig.getTemplate("gardenInvitation.ftl");
             invitationMail.setMessage(FreeMarkerTemplateUtils.processTemplateIntoString(t, ImmutableMap.of(
                     "body", invitationMail.getBody(),
                     "invitation", newInvitation,
                     "garden", newInvitation.getGarden(),
-                    "sender", invitingUser
+                    "sender", user
             )));
             emailService.sendMail(invitationMail);
             gardenInvitationRepository.save(newInvitation);

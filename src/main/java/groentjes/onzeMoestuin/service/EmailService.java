@@ -27,5 +27,4 @@ public class EmailService {
         helper.setText(mail.getMessage(), true);
         sender.send(message);
     }
-
 }
