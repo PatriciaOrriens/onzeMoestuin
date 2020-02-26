@@ -56,7 +56,6 @@ public class TaskDescriptionControllerTest {
     void setUp() {
         taskDescription = new TaskDescription();
         taskDescription.setTaskDescriptionId(ONE);
-        //taskDescription.setTaskName(TASKNAME);
     }
 
     @Test
