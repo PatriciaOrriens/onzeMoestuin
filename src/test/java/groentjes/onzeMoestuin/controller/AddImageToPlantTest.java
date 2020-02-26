@@ -56,7 +56,7 @@ public class AddImageToPlantTest {
     private static final String ADMINPASSWORD = "administrator";
 
     //plantinformation variables
-    private static final String plantName = "tomaat";
+    private static final String plantName = "testtomaat";
     private static final String latinName = "tomatum";
     private static final String plantingDistance = "1";
     private static final String growtime = "1";
