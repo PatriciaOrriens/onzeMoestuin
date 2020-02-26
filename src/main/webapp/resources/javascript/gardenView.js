@@ -37,7 +37,7 @@ $("body").on("click", ".plantStartBtn", function(e) {
     var node = newWidget.data('_gridstack_node');
     Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
 
-    // Refresh
+    // Add to grid & refresh
     $.when(ajaxStartPlant(plant)).then(ajaxGetUnstartedPlants());
     loadGrid();
 });
@@ -116,9 +116,10 @@ function ajaxGetPlant(plantId) {
             plantHTML(response);
             $('#plantModal').modal('show')
         },
-//        error: function(e) {
-//            console.log("ERROR: ", e);
-//        }
+        error: function(xhr, status, error) {
+             var errorMessage = xhr.status + ": " + xhr.statusText;
+             alert("Error: " + errorMessage);
+        }
     });
 }
 
@@ -140,9 +141,10 @@ function ajaxGetUnstartedPlants() {
                 $("#plannedPlants").hide();
             }
         },
-       error: function() {
-
-       }
+        error: function(xhr, status, error) {
+             var errorMessage = xhr.status + ": " + xhr.statusText;
+             alert("Error: " + errorMessage);
+        }
     });
 }
 
@@ -154,8 +156,9 @@ function resizePlant(plant) {
        dataType: 'json',
        url: "/api/plant/resize",
        data: JSON.stringify(plant),
-       success: function(result) {
-
+       error: function(xhr, status, error) {
+            var errorMessage = xhr.status + ": " + xhr.statusText;
+            alert("Error: " + errorMessage);
        }
    });
 }
@@ -172,23 +175,24 @@ function ajaxStartPlant(plant) {
        success: function(response) {
             ajaxGetUnstartedPlants();
        },
-       error: function() {
-          console.log("Error");
+       error: function(xhr, status, error) {
+          var errorMessage = xhr.status + ": " + xhr.statusText;
+          alert("Error: " + errorMessage);
        }
    });
 }
 
 function movePlant(plant) {
-       $.ajax({
-           type: "POST",
-           contentType: 'application/json; charset=utf-8',
-           dataType: 'json',
-           url: "/api/plant/move",
-           data: JSON.stringify(plant),
-           success :function(result) {
-
-           }
-
+   $.ajax({
+       type: "POST",
+       contentType: 'application/json; charset=utf-8',
+       dataType: 'json',
+       url: "/api/plant/move",
+       data: JSON.stringify(plant),
+        error: function(xhr, status, error) {
+             var errorMessage = xhr.status + ": " + xhr.statusText;
+             alert("Error: " + errorMessage);
+        }
    });
 }
 

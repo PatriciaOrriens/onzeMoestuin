@@ -61,26 +61,26 @@ public class AjaxRestController {
 
 
     @PostMapping("/plant/resize")
-    public void resizePlant(@RequestBody String json) throws JsonProcessingException {
+    public ResponseEntity<Plant> resizePlant(@RequestBody String json) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Plant updatedPlant = mapper.readValue(json, Plant.class);
 
         Plant plant = plantRepository.getOne(updatedPlant.getPlantId());
         plant.setWidth(updatedPlant.getWidth());
         plant.setHeight(updatedPlant.getHeight());
-        plantRepository.save(plant);
+        return new ResponseEntity<>(plantRepository.save(plant), HttpStatus.OK);
     }
 
 
     @PostMapping("/plant/move")
-    public void movePlant(@RequestBody String json) throws JsonProcessingException {
+    public ResponseEntity<Plant> movePlant(@RequestBody String json) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Plant updatedPlant = mapper.readValue(json, Plant.class);
 
         Plant plant = plantRepository.getOne(updatedPlant.getPlantId());
         plant.setxCoordinate(updatedPlant.getxCoordinate());
         plant.setyCoordinate(updatedPlant.getyCoordinate());
-        plantRepository.save(plant);
+        return new ResponseEntity<>(plantRepository.save(plant), HttpStatus.OK);
     }
 
 
