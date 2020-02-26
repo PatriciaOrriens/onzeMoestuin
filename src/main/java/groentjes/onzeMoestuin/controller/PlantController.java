@@ -90,7 +90,6 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
-
         // mapping activated after click on button in addPlant.
     @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
     public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,

@@ -20,7 +20,12 @@
                         <td>${task.taskPlantInfoId}</td>
                         <td>${task.taskDescription.taskName}</td>
                         <td>${task.daysAfterStart}</td>
-                        <td>${task.repetitiveTask}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test = "${task.repetitiveTask}">ja</c:when>
+                                <c:when test = "${!task.repetitiveTask}">nee</c:when>
+                            </c:choose>
+                        </td>
                         <td><a class="btn btn-success" href="/plantinfo/${plantInfoId}/task/update/<c:out
                         value="${task.taskPlantInfoId}" />"
                             ><i class='far fa-edit'></i></a></td>

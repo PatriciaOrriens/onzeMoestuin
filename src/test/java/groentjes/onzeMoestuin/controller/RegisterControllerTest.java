@@ -55,9 +55,6 @@ class RegisterControllerTest {
     @MockBean
     private RoleRepository roleRepository;
 
-//    @MockBean
-//    private GardenUserDetailsService gardenUserDetailsService;
-
     @MockBean
     private GardenInvitationRepository gardenInvitationRepository;
 

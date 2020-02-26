@@ -24,6 +24,9 @@ import java.util.Optional;
 @Controller
 public class TaskGardenController {
 
+    private static final String DATE_ERROR = "Ongeldige vervaldatum";
+    private static final String EMPTY = "";
+
     @Autowired
     private GardenRepository gardenRepository;
 
@@ -52,11 +55,14 @@ public class TaskGardenController {
 
     @PostMapping("/garden/{gardenId}/addTaskGarden")
     protected String storeTaskGarden(@PathVariable("gardenId") final Integer gardenId,
-                                     @Valid TaskGarden taskGarden, Errors error) {
+                                     @Valid TaskGarden taskGarden, Errors error, Model model) {
 
         User user = getUser();
-
-        if(error.hasErrors() || !taskGarden.isDateString(taskGarden.getDueDate())) {
+        model.addAttribute("remark", EMPTY);
+        if(error.hasErrors())   {
+            return "addTaskGarden";
+        } else if (!taskGarden.isDateString(taskGarden.getDueDate())) {
+            model.addAttribute("remark", DATE_ERROR);
             return "addTaskGarden";
         }
         return storeTaskGardenAndReturn(gardenId, user, taskGarden);

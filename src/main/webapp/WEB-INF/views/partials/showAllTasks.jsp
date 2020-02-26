@@ -8,7 +8,7 @@
             <th>Vervaldatum</th>
             <th>Uitvoerdatum</th>
             <th>Uitgevoerd door</th>
-            <th></th>
+            <th>Afvinken</th>
         </tr>
         <c:forEach items="${tasks}" var="task">
             <tr>
@@ -33,10 +33,9 @@
                 </td>
                 <td><c:out value="${task.completedDate}"/></td>
                 <td><a onclick = "ajaxGetUser(${task.user.userId})" /><c:out value="${task.user.username}"/></a></td>
-                <td align="right">
+                <td>
                     <c:if test="${empty task.user}">
-                        <a class="completedGreenTaskButton"
-                            href="/user/task/completed/<c:out value="${task.taskId}" />">Afvinken</a>
+                        <a class="btn btn-success" href="/user/task/completed/<c:out value="${task.taskId}" />"><i class="fa fa-check"></i></a>
                     </c:if>
                 </td>
             </tr>

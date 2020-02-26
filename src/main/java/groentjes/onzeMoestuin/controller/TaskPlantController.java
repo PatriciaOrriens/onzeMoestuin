@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.Date;
 import java.util.Optional;
 
@@ -43,8 +42,7 @@ public class TaskPlantController {
         if (task.isPresent()) {
             if (task.get() instanceof TaskPlant) {
                 TaskPlant taskPlant = (TaskPlant) task.get();
-                Plant plant = taskPlant.getPlant();
-                completeDataTaskPlant(taskPlant, plant, user);
+                completeDataTaskPlant(taskPlant, user);
             } else if (task.get() instanceof TaskGarden) {
                 completeDataTaskGarden((TaskGarden) task.get(), user);
             }
@@ -77,7 +75,7 @@ public class TaskPlantController {
 
     // store the date that the plant task is performed and the person who did it, if task is not yet performed,
     // and check if it is a repetitive task.
-    private void completeDataTaskPlant(TaskPlant taskPlant, Plant plant, User user) {
+    private void completeDataTaskPlant(TaskPlant taskPlant, User user) {
 
         TaskPlantInfo taskPlantInfo = taskPlant.getTaskPlantInfo();
         if (taskPlant.getCompletedDate() == null && taskPlant.getUser() == null) {
@@ -85,6 +83,7 @@ public class TaskPlantController {
             taskPlant.setUser(user);
             taskPlantRepository.save(taskPlant);
             if(taskPlant.getTaskPlantInfo().isRepetitiveTask()) {
+                Plant plant = taskPlant.getPlant();
                 createAndSaveNewTaskPlant(plant, taskPlantInfo);
             }
         }

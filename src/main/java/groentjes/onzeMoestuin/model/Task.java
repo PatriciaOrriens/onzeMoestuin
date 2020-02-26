@@ -29,6 +29,11 @@ public class Task implements Comparable<Task> {
     private final static int NUMBER_OF_MONTHS = 12;
     private final static  String DATE_MATCH = "\\d{2}-\\d{2}-\\d{4}";
     private final static int DAYS_IN_FEBRUARY = 28;
+    private final static int DAYS_IN_FEBRUARY_IN_LEAP_YEAR = 29;
+    private final static int ZERO = 0;
+    private final static int FOUR = 4;
+    private final static int HUNDRED = 100;
+    private final static int FOURHUNDRED = 400;
     private final static int DAYS_IN_SHORT_MONTH = 30;
     private final static int DAYS_IN_LARGE_MONTH = 31;
 
@@ -73,25 +78,25 @@ public class Task implements Comparable<Task> {
         } else {
             String[] dateSplit = dateString.split("-");
             try {
-                parseInt(dateSplit[YEAR_INDEX]);
-                return isDayAndMonthCorrect(parseInt(dateSplit[DAY_INDEX]), parseInt(dateSplit[MONTH_INDEX]));
+                return isDayAndMonthCorrect(parseInt(dateSplit[DAY_INDEX]), parseInt(dateSplit[MONTH_INDEX])
+                        ,parseInt(dateSplit[YEAR_INDEX]));
             } catch (Exception exception) {
                 return false;
             }
         }
     }
 
-    private boolean isDayAndMonthCorrect(int day, int  month) {
+    private boolean isDayAndMonthCorrect(int day, int  month, int year) {
         if ((month > START_INDEX && month <= NUMBER_OF_MONTHS) && day > START_INDEX) {
-            int numberOfDaysInMonth = giveDaysInMonth(month);
+            int numberOfDaysInMonth = giveDaysInMonth(month, year);
             return day <= numberOfDaysInMonth;
         }
         return false;
     }
 
-    private int giveDaysInMonth(int month) {
+    private int giveDaysInMonth(int month, int year) {
         switch(month) {
-            case INDEX_FEBRUARY: return DAYS_IN_FEBRUARY;
+            case INDEX_FEBRUARY: return giveDaysInFebruaryForGivenYear(year);
             case INDEX_APRIL:
             case INDEX_JUNE:
             case INDEX_SEPTEMBER:
@@ -100,6 +105,12 @@ public class Task implements Comparable<Task> {
         }
     }
 
+    private int giveDaysInFebruaryForGivenYear(int year) {
+        if ( ((year % FOUR == ZERO) && !(year % HUNDRED == ZERO)) || (year % FOURHUNDRED == ZERO) ) {
+            return DAYS_IN_FEBRUARY_IN_LEAP_YEAR;
+        }
+        return DAYS_IN_FEBRUARY;
+    }
 
     public Integer getTaskId() {
         return taskId;

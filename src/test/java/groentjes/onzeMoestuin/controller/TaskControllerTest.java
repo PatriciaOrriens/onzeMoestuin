@@ -1,10 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.controller.TaskController;
 import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.*;
-//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,9 +34,6 @@ class TaskControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-//    @MockBean
-//    GardenUserDetailsService gardenUserDetailsService;
 
     @MockBean
     private UserRepository userRepository;
