@@ -7,20 +7,24 @@ $(function () {
     });
 });
 
-// Set size of GiridStack elements
+
+// Load GridStack & get plants
 $(document).ready(function() {
     loadGrid();
     ajaxGetUnstartedPlants();
 });
 
 
+// Add plant to garden grid
 $("body").on("click", ".plantStartBtn", function(e) {
+    // Set default values
     var plant = {
         plantId: $(this).attr('data-newPlantId'),
         width: 1,
         height: 1
     };
 
+    // Generate element HTML
     //TODO use templating to improve maintainability
     var el = $.parseHTML("<div class=\"gid-stack-item\" data-gs-locked=\"yes\" data-plantId=\"" + plant.plantId +
     "\"><div class=\"grid-stack-item-content\"><section class=\"vertical-align-grid-icon\" id=\"" + plant.plantId + "\">" +
@@ -28,20 +32,22 @@ $("body").on("click", ".plantStartBtn", function(e) {
      "<br />" + $(this).attr('data-plantName') + "</div></div>");
 
     var grid = $('.grid-stack').data('gridstack');
+    // Define new widget, set location values to null to make GridStack automatically find a free spot
     var newWidget = grid.addWidget(el, null, null, plant.width, plant.height, true);
     var node = newWidget.data('_gridstack_node');
     Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
 
+    // Refresh
     $.when(ajaxStartPlant(plant)).then(ajaxGetUnstartedPlants());
     loadGrid();
 });
+
 
 // Load GridStack script
 function loadGrid() {
 
     var options = {
         acceptWidgets: '.newWidget',
-        // Cell/element size
         cellHeight: 'auto',
         itemClass: 'grid-stack-item',
         cellHeightUnit:'px',
@@ -54,12 +60,13 @@ function loadGrid() {
     $('.grid-stack').data('gridstack').setColumn(columns);
 
 
-    // Trigger event when clicked on grid element or child
+    // Open plant details modal on click
     $('.grid-stack-item').on('click', function(e) {
         if (e.target.id) {
             ajaxGetPlant(e.target.id);
         }
     });
+
 
     // Get new height & width on resize {}
     $('.grid-stack').on('gsresizestop', function(event, elem) {
@@ -75,11 +82,12 @@ function loadGrid() {
     $('.grid-stack').on('dragstart', function(event, ui) {
         var grid = this;
         var element = event.target;
+        // Prevent opening modal when dragging
         $(element).removeClass('onclick');
     });
 
 
-    // Get new x/y coordinate on moving
+    // Get new x/y coordinate on dragging
     $('.grid-stack').on('dragstop', function(event, ui) {
           var grid = this;
           var elem = $(event.target);
@@ -96,7 +104,7 @@ function loadGrid() {
 
 
 
-// AJAX code
+// AJAX functions
 
 // Get plant details when clicked {}
 function ajaxGetPlant(plantId) {
@@ -152,6 +160,8 @@ function resizePlant(plant) {
    });
 }
 
+
+// Update plant when added to garden grid
 function ajaxStartPlant(plant) {
    return $.ajax({
        type: "POST",
