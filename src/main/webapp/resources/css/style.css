@@ -82,11 +82,18 @@ text-align: center;
 
 
 .grid-stack {
-    margin: 5px;
-    background-color: rgba(84, 57, 38, 1);
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
 .grid-stack-item {
+}
+
+#garden-grid {
+    background-color: rgba(80, 53, 35, 1);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 .grid-stack-item-content {
@@ -94,6 +101,7 @@ text-align: center;
     color: white;
     padding: 3px;
     text-align: center;
+    border-radius: 8px;
 }
 
 .vertical-align-grid-icon {
