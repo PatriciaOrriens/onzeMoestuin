@@ -33,6 +33,7 @@ $(document).ready(function() {
          });
     }
 
+
     // Get next messages for garden {}
     function ajaxGetMessages() {
         $.ajax({
@@ -105,11 +106,6 @@ $(document).ready(function() {
             page = 0;
             latestMessageTimeStamp = new Date(0).toISOString();
             ajaxGetMessages();
-    });
-
-
-    $("#messageToggle").on('click', function() {
-        $("#messageDiv").slideToggle();
     });
 
 
