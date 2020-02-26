@@ -43,6 +43,8 @@ $(document).ready(function() {
                 // If messages are loaded for the first time, set initial timestamp
                 if (latestMessageTimeStamp === new Date(0).toISOString() && response.length > 0) {
                     latestMessageTimeStamp = response[0].dateTime;
+                }
+                if (response.length > 0) {
                     messageHTML(response);
                     page++;
                 }
