@@ -2,28 +2,29 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-11">
+        <div class="col-sm-10">
             <h1 class="display-3">${garden.gardenName}</h1>
         </div>
-        <div class="col-sm-1 my-auto">
-            <a href="garden/${garden.gardenId}/addPlant" class="btn btn-success"><i name="addplant" class='fas fa-seedling'></i>&#43;</a>
+        <div class="col-sm-2 my-auto" align="right">
+            <a href="garden/${garden.gardenId}/addPlant" class="btn btn-success"><h3><i name="addplant" class='fas fa-seedling'></i>&#43;</h3></a>
         </div>
     </div>
 
+    <div id="garden-grid">
+        <div id="grid-container" class="grid-stack" data-gs-column="${garden.width}" data-gs-length="${garden.length}" data-gs-max-row="${garden.length}">
 
-    <div id="grid-container" class="grid-stack" data-gs-column="${garden.width}" data-gs-length="${garden.length}" data-gs-max-row="${garden.length}">
-
-        <c:forEach items="${plants}" var="plant">
-            <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes" data-plantId="${plant.plantId}">
-                <div class="grid-stack-item-content">
-                    <section class="vertical-align-grid-icon" id="${plant.plantId}">
-                        <img src="/plant/${plant.plantId}/image", name="image" height="50%" id="${plant.plantId}"/>
-                        <br />
-                            ${plant.plantInformation.plantName}
-                    </section>
+            <c:forEach items="${plants}" var="plant">
+                <div class="grid-stack-item" data-gs-x="${plant.xCoordinate}" data-gs-y="${plant.yCoordinate}" data-gs-width="${plant.width}" data-gs-height="${plant.height}" data-gs-locked="yes" data-plantId="${plant.plantId}">
+                    <div class="grid-stack-item-content">
+                        <section class="vertical-align-grid-icon" id="${plant.plantId}">
+                            <img src="/plant/${plant.plantId}/image", name="image" height="50%" id="${plant.plantId}"/>
+                            <br />
+                                ${plant.plantInformation.plantName}
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </div>
     </div>
 
     <!-- Container for plants not yet placed in grid -->

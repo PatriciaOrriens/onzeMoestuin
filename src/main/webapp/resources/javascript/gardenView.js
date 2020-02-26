@@ -49,8 +49,11 @@ function loadGrid() {
     var options = {
         acceptWidgets: '.newWidget',
         cellHeight: 'auto',
-        itemClass: 'grid-stack-item',
         cellHeightUnit:'px',
+        itemClass: 'grid-stack-item',
+        animate: true,
+        resizable: { handles: 'e, se, s, sw, w' },
+        float: false,
     };
 
     $('.grid-stack').gridstack(options);
@@ -99,7 +102,6 @@ function loadGrid() {
           }
           movePlant(plant);
     });
-
 }
 
 
