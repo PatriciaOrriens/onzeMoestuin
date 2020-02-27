@@ -3,13 +3,15 @@ package groentjes.onzeMoestuin.controller;
 import groentjes.onzeMoestuin.model.*;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.TaskGardenRepository;
+import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
@@ -22,7 +24,7 @@ import java.util.Optional;
 @Controller
 public class TaskGardenController {
 
-    private static final String DATE_ERROR = "Vervaldatum moet het patroon dd-mm-jjjj hebben";
+    private static final String DATE_ERROR = "Ongeldige vervaldatum";
     private static final String EMPTY = "";
 
     @Autowired
@@ -31,15 +33,19 @@ public class TaskGardenController {
     @Autowired
     private TaskGardenRepository taskGardenRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/garden/{gardenId}/addTaskGarden")
-    protected String addTaskGarden(Model model, @PathVariable("gardenId") final Integer gardenId,
-                                   @AuthenticationPrincipal User user) {
+    protected String addTaskGarden(Model model, @PathVariable("gardenId") final Integer gardenId) {
+
+        User user = getUser();
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
         if (garden.isPresent()) {
             if(garden.get().isGardenMember(user)) {
                 TaskGardenBuilder taskGardenBuilder = new TaskGardenBuilder();
-                taskGardenBuilder.createNewTaskGarden();;
+                taskGardenBuilder.createNewTaskGarden();
                 model.addAttribute("taskGarden", taskGardenBuilder.getTaskGarden());
                 return "addTaskGarden";
             }
@@ -49,12 +55,11 @@ public class TaskGardenController {
 
     @PostMapping("/garden/{gardenId}/addTaskGarden")
     protected String storeTaskGarden(@PathVariable("gardenId") final Integer gardenId,
-                                     @Valid TaskGarden taskGarden, Errors error,
-                                     @AuthenticationPrincipal User user, @ModelAttribute("remark") String remark,
-                                     Model model) {
+                                     @Valid TaskGarden taskGarden, Errors error, Model model) {
 
+        User user = getUser();
         model.addAttribute("remark", EMPTY);
-        if(error.hasErrors()) {
+        if(error.hasErrors())   {
             return "addTaskGarden";
         } else if (!taskGarden.isDateString(taskGarden.getDueDate())) {
             model.addAttribute("remark", DATE_ERROR);
@@ -76,5 +81,11 @@ public class TaskGardenController {
             }
         }
         return "redirect:/";
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

@@ -1,6 +1,7 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -12,7 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    private static final int PRESELECTED_ID = 1;
     private static final int START_REPLACE = 30;
     private static final int END_REPLACE = 35;
     private static final  String REPLACE = " en ";
@@ -35,6 +37,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/manageUsers")
     @Secured("ROLE_ADMIN")
@@ -57,13 +62,15 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     protected String showNewUserForm(Model model){
         model.addAttribute("user", new User());
+        model.addAttribute("selectedRole", roleRepository.findById(PRESELECTED_ID).get());
+        model.addAttribute("allRoles", roleRepository.findAll());
         return "adminCreateUser";
     }
 
     @PostMapping("/user/new")
     @Secured("ROLE_ADMIN")
     protected String saveOrUpdateUser(@Valid User user, Errors errors, @ModelAttribute("remark") String remark,
-                                      Model model){
+                                      @RequestParam("roleId") Integer roleId, Model model){
 
         boolean isResultError = errors.hasErrors();
         boolean isExistingName = userRepository.findByUsername(user.getUsername()).isPresent();
@@ -73,6 +80,7 @@ public class UserController {
             return "adminCreateUser";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            (roleRepository.findById(roleId)).ifPresent(role -> user.getRole().add(role));
             userRepository.save(user);
             return "redirect:/manageUsers";
         }
@@ -87,6 +95,8 @@ public class UserController {
         } else if (userRepository.findByEmail(user.getEmail()).isPresent())  {
             model.addAttribute("remark", ERROR_EMAIL_STRING);
         }
+        model.addAttribute("selectedRole", roleRepository.findById(PRESELECTED_ID).get());
+        model.addAttribute("allRoles", roleRepository.findAll());
     }
 
     private void checkEmailInput(Model model, User user) {

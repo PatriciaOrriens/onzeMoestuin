@@ -7,13 +7,17 @@ import groentjes.onzeMoestuin.model.Message;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.MessageRepository;
+import groentjes.onzeMoestuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -34,6 +38,9 @@ public class MessagesRestController {
     @Autowired
     private GardenRepository gardenRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     @GetMapping("/garden/{id}/messages/{page}")
     public ResponseEntity<List<Message>> recentMessages(@PathVariable("id") Integer gardenId,
@@ -50,28 +57,27 @@ public class MessagesRestController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-
-    @PostMapping(value = "/garden/{id}/messages/checkNew", consumes = "application/json")
-    public ResponseEntity<Boolean> checkNewMessages(@RequestBody Message message,
-                                                    @PathVariable("id") Integer gardenId) throws JsonProcessingException {
+    @GetMapping(value = "/garden/{id}/messages/latest", produces = "application/json")
+    public ResponseEntity<Message> getLatestMessage(@PathVariable("id") Integer gardenId) {
 
         Optional<Garden> garden = gardenRepository.findById(gardenId);
+
         if (garden.isPresent()) {
             Optional<Message> latestMessage = messageRepository.findFirstByGardenOrderByDateTimeDesc(garden.get());
             if (latestMessage.isPresent()) {
-                Boolean ifNewMessages = message.getDateTime().isBefore(latestMessage.get().getDateTime());
-                return new ResponseEntity<>(ifNewMessages, HttpStatus.OK);
+                return new ResponseEntity<>(latestMessage.get(), HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 
     @PostMapping(value = "/garden/{id}/messages/add", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED) // return http status 201
     public ResponseEntity<Object> postMessage(@RequestBody String json,
-                                              @PathVariable("id") Integer gardenId,
-                                              @AuthenticationPrincipal User user) throws JsonProcessingException {
+                                              @PathVariable("id") Integer gardenId) throws JsonProcessingException {
+
+        User user = getUser();
 
         ObjectMapper mapper = new ObjectMapper();
         Message newMessage = mapper.readValue(json, Message.class);
@@ -86,5 +92,11 @@ public class MessagesRestController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+    }
+
+    private User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return userRepository.findByUsername(currentPrincipalName).orElseThrow(() -> new UsernameNotFoundException(currentPrincipalName));
     }
 }

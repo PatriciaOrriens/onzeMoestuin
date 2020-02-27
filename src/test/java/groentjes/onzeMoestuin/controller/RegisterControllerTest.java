@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenInvitationRepository;
 //import groentjes.onzeMoestuin.repository.RoleRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
-import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,11 +52,8 @@ class RegisterControllerTest {
     @MockBean
     private UserRepository userRepository;
 
-    /*@MockBean
-    private RoleRepository roleRepository;
-*/
     @MockBean
-    private GardenUserDetailsService gardenUserDetailsService;
+    private RoleRepository roleRepository;
 
     @MockBean
     private GardenInvitationRepository gardenInvitationRepository;

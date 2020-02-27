@@ -1,8 +1,10 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -36,16 +38,20 @@ public class GardenControllerWebDriverTest {
     private GardenRepository gardenRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     private static final String NAME = "gebruiker1";
+    private static final String ROLE = "ROLE_USER";
     private static final String PASSWORD = "wachtwoord1";
-    private static final String GARDEN1 = "tuin1";
-    private static final String GARDEN1LENGTH = "1";
-    private static final String GARDEN1WIDTH = "1";
-    private static final String GARDEN2 = "tuin2";
-    private static final String GARDEN2LENGTH = "2";
-    private static final String GARDEN2WIDTH = "2";
+    private static final String GARDEN1 = "tuin5";
+    private static final String GARDEN1LENGTH = "5";
+    private static final String GARDEN1WIDTH = "5";
+    private static final String GARDEN2 = "tuin6";
+    private static final String GARDEN2LENGTH = "6";
+    private static final String GARDEN2WIDTH = "6";
     private static final int THOUSAND = 1000;
 
     @BeforeEach
@@ -58,9 +64,14 @@ public class GardenControllerWebDriverTest {
         garden2.ifPresent(value -> gardenRepository.delete(value));
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
+
         User registeredUser = new User();
         registeredUser.setUsername(NAME);
         registeredUser.setPassword(passwordEncoder.encode(PASSWORD));
+
+        Role role = roleRepository.findByRoleName(ROLE).get();
+        registeredUser.getRole().add(role);
+
         userRepository.save(registeredUser);
     }
 
@@ -83,7 +94,9 @@ public class GardenControllerWebDriverTest {
 
         // Activate
         loginAsAUser();
+        Thread.sleep(THOUSAND);
         createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
+        Thread.sleep(THOUSAND);
         driver.findElement(By.name("returntooverview")).click();
         createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
         driver.findElement(By.name("logout")).click();
@@ -92,30 +105,6 @@ public class GardenControllerWebDriverTest {
         Assertions.assertAll("test whether both gardens were successfully created",
                 () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN1).isPresent()),
                 () -> assertEquals(expectedFound, gardenRepository.findByGardenName(GARDEN2).isPresent()));
-    }
-
-    @Test
-    void testRemoveGarden() throws Exception {
-        // Arrange
-
-        // Arrange code replaced with assertTrue/assertFalse statement in Assert
-
-        // Activate
-        loginAsAUser();
-        createGarden(GARDEN1, GARDEN1LENGTH, GARDEN1WIDTH);
-        driver.findElement(By.name("returntooverview")).click();
-        createGarden(GARDEN2, GARDEN2LENGTH, GARDEN2WIDTH);
-        driver.findElement(By.name("returntooverview")).click();
-        driver.findElement(By.name("verwijderen")).click();
-        Thread.sleep(THOUSAND);
-        driver.findElement(By.name("modal-verwijderen")).click();
-        Thread.sleep(THOUSAND);
-        driver.findElement(By.name("logout")).click();
-
-        // Assert
-        Assertions.assertAll("test whether garden1 was successfully removed",
-                () -> assertFalse(gardenRepository.findByGardenName(GARDEN1).isPresent()),
-                () -> assertTrue(gardenRepository.findByGardenName(GARDEN2).isPresent()));
     }
 
     private void loginAsAUser() {

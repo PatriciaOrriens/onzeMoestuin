@@ -47,11 +47,10 @@ public class GardenInvitationController {
                                           @PathVariable("gardenId") Integer gardenId) {
 
         User user = getUser();
-
-        GardenInvitation newInvitation = new GardenInvitation();
         User invitingUser = userRepository.findById(user.getUserId()).get();
 
-        // Set fields
+        GardenInvitation newInvitation = new GardenInvitation();
+        // Set invitation fields
         newInvitation.setInvitedUser(newMember);
         newInvitation.setGarden(gardenRepository.findById(gardenId).get());
         newInvitation.setUser(invitingUser);

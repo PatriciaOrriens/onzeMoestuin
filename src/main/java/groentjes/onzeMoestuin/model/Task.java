@@ -2,12 +2,10 @@ package groentjes.onzeMoestuin.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import static java.lang.Integer.parseInt;
 
 /**
@@ -18,12 +16,24 @@ import static java.lang.Integer.parseInt;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Task implements Comparable<Task> {
 
-    private final static int YEAR_INDEX = 2;
-    private final static int MONTH_INDEX = 1;
+    private final static int START_INDEX = 0;
     private final static int DAY_INDEX = 0;
+    private final static int MONTH_INDEX = 1;
+    private final static int YEAR_INDEX = 2;
+    private final static int INDEX_FEBRUARY = 2;
+    private final static int INDEX_APRIL = 4;
+    private final static int INDEX_JUNE = 6;
+    private final static int INDEX_SEPTEMBER = 9;
+    private final static int INDEX_NOVEMBER = 11;
     private final static int DATE_STRING_LENGTH = 10;
+    private final static int NUMBER_OF_MONTHS = 12;
     private final static  String DATE_MATCH = "\\d{2}-\\d{2}-\\d{4}";
     private final static int DAYS_IN_FEBRUARY = 28;
+    private final static int DAYS_IN_FEBRUARY_IN_LEAP_YEAR = 29;
+    private final static int ZERO = 0;
+    private final static int FOUR = 4;
+    private final static int HUNDRED = 100;
+    private final static int FOURHUNDRED = 400;
     private final static int DAYS_IN_SHORT_MONTH = 30;
     private final static int DAYS_IN_LARGE_MONTH = 31;
 
@@ -31,7 +41,7 @@ public class Task implements Comparable<Task> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taskId;
 
-    @Size(min = 10, max=10, message = "Vervaldatum moet het patroon dd-mm-jjjj hebben")
+    @Pattern(regexp = DATE_MATCH, message = "Vervaldatum moet het patroon dd-mm-jjjj hebben")
     private String dueDate;
 
     private String completedDate;
@@ -40,7 +50,6 @@ public class Task implements Comparable<Task> {
     @JoinColumn(name = "completedByUserId", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
-
 
     @Override
     public int compareTo(Task otherTask) {
@@ -69,33 +78,39 @@ public class Task implements Comparable<Task> {
         } else {
             String[] dateSplit = dateString.split("-");
             try {
-                parseInt(dateSplit[2]);
-                return isDayAndMonthCorrect(parseInt(dateSplit[0]), parseInt(dateSplit[1]));
+                return isDayAndMonthCorrect(parseInt(dateSplit[DAY_INDEX]), parseInt(dateSplit[MONTH_INDEX])
+                        ,parseInt(dateSplit[YEAR_INDEX]));
             } catch (Exception exception) {
                 return false;
             }
         }
     }
 
-    private boolean isDayAndMonthCorrect(int day, int  month) {
-        if ((month > 0 && month <= 12) && day > 0) {
-            int numberOfDaysInMonth = giveDaysInMonth(month);
+    private boolean isDayAndMonthCorrect(int day, int  month, int year) {
+        if ((month > START_INDEX && month <= NUMBER_OF_MONTHS) && day > START_INDEX) {
+            int numberOfDaysInMonth = giveDaysInMonth(month, year);
             return day <= numberOfDaysInMonth;
         }
         return false;
     }
 
-    private int giveDaysInMonth(int month) {
+    private int giveDaysInMonth(int month, int year) {
         switch(month) {
-            case 2: return DAYS_IN_FEBRUARY;
-            case 4:
-            case 6:
-            case 9:
-            case 11: return DAYS_IN_SHORT_MONTH;
+            case INDEX_FEBRUARY: return giveDaysInFebruaryForGivenYear(year);
+            case INDEX_APRIL:
+            case INDEX_JUNE:
+            case INDEX_SEPTEMBER:
+            case INDEX_NOVEMBER: return DAYS_IN_SHORT_MONTH;
             default: return DAYS_IN_LARGE_MONTH;
         }
     }
 
+    private int giveDaysInFebruaryForGivenYear(int year) {
+        if ( ((year % FOUR == ZERO) && !(year % HUNDRED == ZERO)) || (year % FOURHUNDRED == ZERO) ) {
+            return DAYS_IN_FEBRUARY_IN_LEAP_YEAR;
+        }
+        return DAYS_IN_FEBRUARY;
+    }
 
     public Integer getTaskId() {
         return taskId;

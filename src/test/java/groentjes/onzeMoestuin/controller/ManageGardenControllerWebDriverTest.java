@@ -1,8 +1,10 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.Garden;
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -37,8 +39,12 @@ public class ManageGardenControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final Integer ONE = 1;
+    @Autowired
+    private RoleRepository roleRepository;
+
+    private static final Integer THREE = 3;
     private static final String NAME = "testgebruiker1";
+    private static final String ROLE = "ROLE_USER";
     private static final String PASSWORD = "testwachtwoord1";
     private static final String SECONDNAME = "testgebruiker2";
     private static final String SECONDPASSWORD = "testwachtwoord2";
@@ -56,8 +62,8 @@ public class ManageGardenControllerWebDriverTest {
         gardenToBeDeleted.setGardenName(NAMEGARDEN);
         gardenToBeDeleted.setUser(owner);
         gardenToBeDeleted.addGardenMember(owner);
-        gardenToBeDeleted.setLength(ONE);
-        gardenToBeDeleted.setWidth(ONE);
+        gardenToBeDeleted.setLength(THREE);
+        gardenToBeDeleted.setWidth(THREE);
         gardenRepository.save(gardenToBeDeleted);
         saveUser(SECONDNAME, SECONDPASSWORD);
     }
@@ -115,6 +121,10 @@ public class ManageGardenControllerWebDriverTest {
         User registeredUser = new User();
         registeredUser.setUsername(name);
         registeredUser.setPassword(passwordEncoder.encode(password));
+
+        Role role = roleRepository.findByRoleName(ROLE).get();
+        registeredUser.getRole().add(role);
+
         userRepository.save(registeredUser);
         return registeredUser;
     }
@@ -125,4 +135,6 @@ public class ManageGardenControllerWebDriverTest {
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.name("inlogbutton")).submit();
     }
+
+
 }

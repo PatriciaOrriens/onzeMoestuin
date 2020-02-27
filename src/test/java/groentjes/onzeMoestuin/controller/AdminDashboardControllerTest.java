@@ -1,8 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
-
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
-import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class AdminDashboardControllerTest {
     private UserRepository userRepository;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
+    private RoleRepository roleRepository;
 
     @Test
     @WithMockUser(roles = "ADMIN")

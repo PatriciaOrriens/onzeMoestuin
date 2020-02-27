@@ -1,6 +1,6 @@
 package groentjes.onzeMoestuin.controller;
 
-import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ class LoginControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
+    private RoleRepository roleRepository;
 
     @Test
     void testLogin() throws Exception {

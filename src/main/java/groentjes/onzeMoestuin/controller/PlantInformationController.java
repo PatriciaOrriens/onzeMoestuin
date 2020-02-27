@@ -2,17 +2,20 @@ package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.model.PlantInformation;
 import groentjes.onzeMoestuin.repository.PlantInformationRepository;
+import groentjes.onzeMoestuin.repository.PlantRepository;
+import groentjes.onzeMoestuin.repository.UserRepository;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 
 /**
@@ -25,12 +28,29 @@ public class PlantInformationController {
     @Autowired
     private PlantInformationRepository plantInformationRepository;
 
+    @Autowired
+    private PlantRepository plantRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     // View Plant information for user
     @GetMapping("/plantinformationoverview/{plantInfoId}")
     protected String showPlants(@PathVariable("plantInfoId") Integer plantInfoId, Model model){
+
         Optional<PlantInformation> foundPlantInformation = plantInformationRepository.findById(plantInfoId);
         foundPlantInformation.ifPresent(plantInformation -> model.addAttribute("plantinformation", plantInformation));
         return "plantInformationOverview";
+    }
+
+    @GetMapping(value = "/plantinformationoverview/{plantInfoId}/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@PathVariable("plantInfoId") Integer plantInfoId) throws IOException {
+
+        Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
+
+        InputStream input = new ByteArrayInputStream(plantInformation.get().getImage());
+        System.out.println(input);
+        return IOUtils.toByteArray(input);
     }
 
     /**
@@ -123,4 +143,6 @@ public class PlantInformationController {
             return "redirect:/adminManagePlantInformation";
         }
     }
+
+
 }

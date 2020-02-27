@@ -10,32 +10,27 @@ $(function () {
 
 $(document).ready(function() {
     var page = 0;
-    var latestMessageTimeStamp = null;
+    var latestMessageTimeStamp = new Date(0).toISOString();
     ajaxGetMessages();
 
 
-    // Re-check for new messages every 5 seconds
-    setInterval(checkForMessages, 5000);
+    // Re-check for new messages every 10 seconds
+    setInterval(checkForMessages, 10000);
 
-    // Check for new messages {}
     function checkForMessages() {
-        var newMessage = {};
-        newMessage['dateTime'] = latestMessageTimeStamp;
+        $.ajax({
+            type: "GET",
+            url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/latest",
+            dataType: 'json',
+            success: function(response) {
 
-       $.ajax({
-           type: "POST",
-           contentType: 'application/json; charset=utf-8',
-           dataType: 'json',
-           url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/checkNew",
-           data: JSON.stringify(newMessage),
-           success: function(response) {
-                if (response == true) {
+                if (response.dateTime > latestMessageTimeStamp) {
                     $("#new-messages-alert").fadeIn("slow");
                 } else {
                     $("#new-messages-alert").hide();
                 }
-           },
-       });
+            }
+         });
     }
 
 
@@ -46,14 +41,16 @@ $(document).ready(function() {
             url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/" + page,
             dataType: 'json',
             success: function(response) {
-                // If messages are loaded for the first time, set imitial timestamp
-                if (latestMessageTimeStamp === null) {
+                // If messages are loaded for the first time, set initial timestamp
+                if (latestMessageTimeStamp === new Date(0).toISOString() && response.length > 0) {
                     latestMessageTimeStamp = response[0].dateTime;
+                }
+                if (response.length > 0) {
+                    messageHTML(response);
+                    page++;
                 }
                 $("#message-error").hide();
                 $("#new-messages-alert").hide();
-                messageHTML(response);
-                page++;
             },
            error: function() {
                 $("#message-error > p").html("<strong>Sorry!</strong> Berichten konden niet worden opgehaald.");
@@ -64,15 +61,22 @@ $(document).ready(function() {
 
 
     function ajaxPostMessage() {
-        newMessage = { messageBody: document.getElementById("messageText").value }
 
-       $.ajax({
+        if ($("#messageText").val() < 1) {
+             $("#message-error > p").html("Voer eerst een bericht in");
+             $("#message-error").fadeIn("slow");
+        } else {
+        newMessage = { messageBody: $("#messageText").val() }
+
+        $.ajax({
            type: "POST",
            contentType: 'application/json; charset=utf-8',
            dataType: 'json',
            url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/add",
            data: JSON.stringify(newMessage),
            success: function(response) {
+                // Clear text field
+                $("#messageText").val("");
                 latestMessageTimeStamp = response.dateTime;
                 $("#message-error").hide();
                 newMessageHTML(response);
@@ -82,8 +86,9 @@ $(document).ready(function() {
                 $("#message-error > p").html("<strong>Sorry!</strong> Fout bij het plaatsen van je bericht");
                 $("#message-error").fadeIn("slow");
            }
-       });
-    }
+         });
+      }
+   }
 
 
     msgNextBtn.addEventListener("click", function() {
@@ -96,16 +101,13 @@ $(document).ready(function() {
     });
 
 
+
+
     getNewMessages.addEventListener("click", function() {
         $("#message-container").empty();
             page = 0;
-            latestMessageTimeStamp = null;
+            latestMessageTimeStamp = new Date(0).toISOString();
             ajaxGetMessages();
-    });
-
-
-    $("#messageToggle").on('click', function() {
-        $("#messageDiv").slideToggle();
     });
 
 

@@ -15,6 +15,15 @@
                     ${requestScope['org.springframework.validation.BindingResult.user'].hasFieldErrors('username') ? requestScope['org.springframework.validation.BindingResult.user'].getFieldError('username').defaultMessage : ''}
                 </p>
 
+                <label>Rol:</label>
+                <form:select path="${roleId}" name="roleId" class="form-control">
+                    <option value="${selectedRole.roleId}" selected>${selectedRole.roleName}</option>
+                    <c:forEach items="${allRoles}" var="role">
+                    <option value="${role.roleId}">${role.roleName}</option>
+                    </c:forEach>
+                </form:select>
+                </br>
+
                 <label for="email">E-mailadres:</label>
                 <form:input name="email" path="email" type="text" class="form-control" />
                 <p id="emailLengthError" class="centeredRedText"> </p>

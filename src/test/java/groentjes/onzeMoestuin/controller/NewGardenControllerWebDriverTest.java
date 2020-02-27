@@ -97,5 +97,4 @@ public class NewGardenControllerWebDriverTest {
         driver.findElement(By.name("length")).sendKeys(LENGTH);
         driver.findElement(By.name("width")).sendKeys(WIDTH);
     }
-
 }

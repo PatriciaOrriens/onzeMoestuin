@@ -45,12 +45,6 @@ public class PlantController {
     @Autowired
     private PlantInformationRepository plantInformationRepository;
 
-    @Autowired
-    private TaskPlantRepository taskPlantRepository;
-
-    @Autowired
-    private TaskPlantInfoRepository taskPlantInfoRepository;
-
     @GetMapping("/garden/{gardenId}/addPlant")
     public String getAddPlantForm(Model model, @PathVariable("gardenId") final Integer gardenId) {
 
@@ -96,7 +90,6 @@ public class PlantController {
         return IOUtils.toByteArray(input);
     }
 
-
         // mapping activated after click on button in addPlant.
     @GetMapping("/garden/{gardenId}/addPlant/{plantInfoId}")
     public String addPlantToGarden(@PathVariable("gardenId") final Integer gardenId,
@@ -117,16 +110,20 @@ public class PlantController {
         return "redirect:/";
     }
 
-    @GetMapping("/plant/delete/{plant.plantId}")
-    public String deletePlant(@ModelAttribute("plant.plantId") Integer plantId,
-                              BindingResult result) {
+    @GetMapping("/plant/delete/{plantId}")
+    public String harvestPlant(@PathVariable("plantId") Integer plantId) {
 
-        Optional<Plant> plant = plantRepository.findById(plantId);
-        if (plant.isPresent()) {
-                plantRepository.delete(plant.get());
+        Optional<Plant> searchedPlant = plantRepository.findById(plantId);
+
+        if (searchedPlant.isPresent()) {
+            Plant plant = searchedPlant.get();
+            plant.setHarvestDate(new Date());
+            plantRepository.save(plant);
+            return "redirect:/garden/" + plant.getGarden().getGardenId();
         }
-        return "redirect:/userManageGardens";
+        return "redirect:/";
     }
+
 
     private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

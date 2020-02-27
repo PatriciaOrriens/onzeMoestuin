@@ -17,6 +17,8 @@
             <tr><td>Oogsttijd (eerste maand)</td><td>${plantinformation.harvestingStart}</td></tr>
             <tr><td>Oogsttijd (laatste maand)</td><td>${plantinformation.harvestingEnd}</td></tr>
             <tr><td>Groeitijd in dagen</td><td>${plantinformation.growTime}</td></tr>
+            <tr><td>Bestandsnaam</td><td>${plantinformation.imageName}</td></tr>
+            <tr><td>Plaatje</td><td><img src="/plantinformationoverview/${plantinformation.plantInfoId}/image", name="image"/></td></tr>
         </table>
 
 

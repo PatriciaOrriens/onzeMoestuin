@@ -6,6 +6,10 @@ import groentjes.onzeMoestuin.model.Message;
 import groentjes.onzeMoestuin.model.User;
 import groentjes.onzeMoestuin.repository.GardenRepository;
 import groentjes.onzeMoestuin.repository.MessageRepository;
+import groentjes.onzeMoestuin.repository.RoleRepository;
+//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+import net.sf.cglib.core.Local;
+import org.apache.catalina.core.ApplicationContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,6 +59,9 @@ public class MessageRestControllerTest {
 
     @Mock
     private Garden mockGarden;
+
+    @MockBean
+    private RoleRepository roleRepository;
 
     private LocalDateTime time;
 

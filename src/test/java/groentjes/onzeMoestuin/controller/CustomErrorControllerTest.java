@@ -1,7 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
 import groentjes.onzeMoestuin.repository.GardenRepository;
-import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+//import groentjes.onzeMoestuin.service.GardenUserDetailsService;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,8 +36,7 @@ class CustomErrorControllerTest {
     private GardenRepository gardenRepository;
 
     @MockBean
-    GardenUserDetailsService gardenUserDetailsService;
-
+    private RoleRepository roleRepository;
 
     @Test
     @WithMockUser(roles = "USER")

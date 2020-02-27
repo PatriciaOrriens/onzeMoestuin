@@ -19,6 +19,7 @@
     </c:if>
 
 <%--    cards for each garden with info and redirect to gardens     --%>
+    <div class="card-columns">
     <c:forEach var="garden" items="${allYourGardens}">
     <div class="card">
         <img class="card-img-top" src="../resources/img/gardenPicture.jpg" alt="garden image">
@@ -67,6 +68,7 @@
             </div>
             <br/>
         </c:forEach>
+    </div>
 
     <br/>
     <a href="/garden/add" class="btn btn-success">Tuin toevoegen</a>

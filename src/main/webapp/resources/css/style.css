@@ -2,7 +2,7 @@
   background: url("../img/vegetables.jpg");
   background-size: cover;
   color: rgba(255, 255, 255);
-  height:1000px;
+  height: 1200px;
 }
 
 .inner {
@@ -51,12 +51,19 @@ text-align: center;
 }
 
 .msg-header {
-    width: 300px;
+    width: 150px;
 }
 
 .new-message {
-    background-color: rgba(51, 170, 51, .5);
     display: none;
+}
+
+.message {
+    background-color: #ececec;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+
 }
 
 #message-error {
@@ -65,19 +72,36 @@ text-align: center;
 
 #new-messages-alert {
     display: none;
+    text-align: center;
+}
+
+#harvestDiv {
+    display: none;
+    padding: 20px;
+}
+
+.harvestButton {
+    float: right;
 }
 
 .ajax-link:hover {
-    text-decoration: underline;
+    cursor: pointer;
 }
 
 
 .grid-stack {
-    margin: 5px;
-    background-color: rgba(84, 57, 38, 1);
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
 .grid-stack-item {
+}
+
+#garden-grid {
+    background-color: rgba(80, 53, 35, 1);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 .grid-stack-item-content {
@@ -85,6 +109,7 @@ text-align: center;
     color: white;
     padding: 3px;
     text-align: center;
+    border-radius: 8px;
 }
 
 .vertical-align-grid-icon {
@@ -112,6 +137,14 @@ text-align: center;
 .newPlantContainer img {
   max-height: 50px;
   max-width: 50px;
+  object-fit: cover;
+}
+
+.plant-modal-header {
+}
+
+.plant-modal-image img {
+  max-width: 100%;
   object-fit: cover;
 }
 

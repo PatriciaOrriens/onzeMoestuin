@@ -1,6 +1,8 @@
 package groentjes.onzeMoestuin.controller;
 
+import groentjes.onzeMoestuin.model.Role;
 import groentjes.onzeMoestuin.model.User;
+import groentjes.onzeMoestuin.repository.RoleRepository;
 import groentjes.onzeMoestuin.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +25,8 @@ import java.util.Optional;
 @WebAppConfiguration
 class UserControllerWebDriverTest {
 
+    private User admin = new User();
+
     private WebDriver driver;
 
     @Autowired
@@ -31,8 +35,12 @@ class UserControllerWebDriverTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final String ADMINNAME = "admin";
-    private static final String ADMINPASSWORD = "admin";
+    @Autowired
+    private RoleRepository roleRepository;
+
+    private static final String ADMIN_NAME = "administrator";
+    private static final String ADMIN_PASSWORD = "adminpassword";
+    private static final String ROLE = "ROLE_ADMIN";
     private static final String NAME = "testgebruiker1";
     private static final String PASSWORD = "testwachtwoord1";
     private static final String EMAIL = "testgebruiker1@test.nl";
@@ -43,12 +51,21 @@ class UserControllerWebDriverTest {
         this.driver = new ChromeDriver();
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
+        optionalUser = userRepository.findByUsername(ADMIN_NAME);
+        optionalUser.ifPresent(user -> userRepository.delete(user));
+        admin.setUsername(ADMIN_NAME);
+        admin.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));
+        Role role = roleRepository.findByRoleName(ROLE).get();
+        admin.getRole().add(role);
+        userRepository.save(admin);
     }
 
     @AfterEach
     public void tearDown() {
         Optional<User> optionalUser = userRepository.findByUsername(NAME);
         optionalUser.ifPresent(user -> userRepository.delete(user));
+        Optional<User> adminUser = userRepository.findByUsername(ADMIN_NAME);
+        adminUser.ifPresent(user -> userRepository.delete(user));
         this.driver.quit();
         this.driver = null;
     }
@@ -120,8 +137,8 @@ class UserControllerWebDriverTest {
 
     private void loginAsAdministrator() {
         this.driver.get("http://localhost:8080/login");
-        driver.findElement(By.name("username")).sendKeys(ADMINNAME);
-        driver.findElement(By.name("password")).sendKeys(ADMINPASSWORD);
+        driver.findElement(By.name("username")).sendKeys(ADMIN_NAME);
+        driver.findElement(By.name("password")).sendKeys(ADMIN_PASSWORD);
         driver.findElement(By.name("inlogbutton")).submit();
     }
 

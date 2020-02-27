@@ -12,9 +12,11 @@ import java.util.ArrayList;
 public interface PlantRepository extends JpaRepository<Plant, Integer> {
     ArrayList<Plant> findAllByGarden(Garden garden);
 
-    ArrayList<Plant> findAllByGardenAndStartDateIsNotNull(Garden garden);
-
     ArrayList<Plant> findAllByGardenAndStartDateIsNull(Garden garden);
+
+    ArrayList<Plant> findAllByGardenAndStartDateIsNotNullAndHarvestDateIsNull(Garden garden);
+
+
 
 
 }
