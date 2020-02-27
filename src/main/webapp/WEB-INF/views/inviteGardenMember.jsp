@@ -3,7 +3,7 @@
 
 <c:import url="partials/header.jsp" />
   <div class="container">
-    <h1 class="display-3">Iemand uitnodigen voor '${garden.gardenName}'</h1>
+    <h1 class="display-3">Iemand uitnodigen voor ${garden.gardenName}</h1>
 
     <p>Voer het e-mailadres van de gebruiker in om deze uit te nodigen.</p>
 
