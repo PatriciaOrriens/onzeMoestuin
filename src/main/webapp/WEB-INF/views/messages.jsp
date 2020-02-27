@@ -7,7 +7,7 @@
         <div class="col-8">
             <h2 id="messageToggle"><i class="fa fa-comments"></i> Berichten</h2>
         </div>
-        <div class="col-4">
+        <div class="col-4" align="right">
             <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#newMessageForm">Nieuw bericht</button>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <!-- AJAX error -->
     <div class="alert alert-danger" id="message-error"><p></p></div>
     <div class="alert alert-info" id="new-messages-alert">
-        <p>Er zijn nieuwe berichten! <span class="ajax-link" id="getNewMessages">Verversen</span></p>
+        Er zijn nieuwe berichten! <span class="ajax-link" id="getNewMessages"><strong>Verversen</strong></span>
     </div>
 
         <div id="message-container"></div>
@@ -31,25 +31,10 @@
         </div>
 </div>
 
-<script id="messageTemplate" type="text/x-handlebars-template">
-    <table class="table table-striped">
-    {{#each this}}
-        <tr>
-            <td class="msg-header"><h5>{{sender.username}}</h5><small>{{formattedDateTime}}</small> </td>
-            <td class="msg-body">{{messageBody}}</td>
-        </tr>
-    {{/each}}
-    </table>
-</script>
 
-<script id="newMessageTemplate" type="text/x-handlebars-template">
-    <table class="table table-striped new-message">
-        <tr>
-            <td class="msg-header"><h5>{{sender.username}}</h5><small>{{formattedDateTime}}</small> </td>
-            <td class="msg-body">{{messageBody}}</td>
-        </tr>
-    </table>
-</script>
+<!-- Import Handlebars templates -->
+<c:import url="partials/templates/newMessageTemplate.jsp" />
+<c:import url="partials/templates/messageTemplate.jsp" />
 
 <script src="../resources/javascript/messages.js"></script>
 

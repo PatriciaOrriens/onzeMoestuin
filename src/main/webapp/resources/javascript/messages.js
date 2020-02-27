@@ -33,6 +33,7 @@ $(document).ready(function() {
          });
     }
 
+
     // Get next messages for garden {}
     function ajaxGetMessages() {
         $.ajax({
@@ -74,6 +75,8 @@ $(document).ready(function() {
            url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/messages/add",
            data: JSON.stringify(newMessage),
            success: function(response) {
+                // Clear text field
+                $("#messageText").val("");
                 latestMessageTimeStamp = response.dateTime;
                 $("#message-error").hide();
                 newMessageHTML(response);
@@ -98,16 +101,13 @@ $(document).ready(function() {
     });
 
 
+
+
     getNewMessages.addEventListener("click", function() {
         $("#message-container").empty();
             page = 0;
             latestMessageTimeStamp = new Date(0).toISOString();
             ajaxGetMessages();
-    });
-
-
-    $("#messageToggle").on('click', function() {
-        $("#messageDiv").slideToggle();
     });
 
 
