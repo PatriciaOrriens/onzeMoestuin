@@ -101,6 +101,8 @@ $(document).ready(function() {
     });
 
 
+
+
     getNewMessages.addEventListener("click", function() {
         $("#message-container").empty();
             page = 0;
