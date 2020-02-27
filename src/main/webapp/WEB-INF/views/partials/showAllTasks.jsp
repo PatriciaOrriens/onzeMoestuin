@@ -42,7 +42,6 @@
         </c:forEach>
      </table>
 
-     <a href="/garden/${garden.gardenId}/addTaskGarden" name="goToAddTaskGarden" class="btn btn-success">Tuintaak toevoegen</a>
 
     <!-- Modal to show User details-->
     <div id="userModal" class="modal fade" role="dialog">
