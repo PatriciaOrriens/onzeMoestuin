@@ -11,7 +11,7 @@ $(function () {
 // Load GridStack & get plants
 $(document).ready(function() {
     loadGrid();
-    ajaxGetUnstartedPlants();
+    ajaxGetPlannedPlants();
 });
 
 
@@ -38,7 +38,7 @@ $("body").on("click", ".plantStartBtn", function(e) {
     Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
 
     // Add to grid & refresh
-    $.when(ajaxStartPlant(plant)).then(ajaxGetUnstartedPlants());
+    $.when(ajaxStartPlant(plant)).then(ajaxGetPlannedPlants());
     loadGrid();
 });
 
@@ -130,7 +130,7 @@ function ajaxGetPlant(plantId) {
 
 
 // Get plants added but not yet placed on grid
-function ajaxGetUnstartedPlants() {
+function ajaxGetPlannedPlants() {
     return $.ajax({
         type: "GET",
         url: "../api/garden/" + $(gardenId).attr("data-gardenId") + "/getPlannedPlants",
@@ -177,7 +177,7 @@ function ajaxStartPlant(plant) {
        url: "/api/plant/start",
        data: JSON.stringify(plant),
        success: function(response) {
-            ajaxGetUnstartedPlants();
+            ajaxGetPlannedPlants();
        },
        error: function(xhr, status, error) {
           var errorMessage = xhr.status + ": " + xhr.statusText;
