@@ -37,8 +37,9 @@ $("body").on("click", ".plantStartBtn", function(e) {
     var node = newWidget.data('_gridstack_node');
     Object.assign(plant, {xCoordinate: node.x, yCoordinate: node.y});
 
-    // Add to grid & refresh
+    // Add to grid
     $.when(ajaxStartPlant(plant)).then(ajaxGetPlannedPlants());
+    // Grid has to be refreshed after adding plant to enable event listening for newly added plant
     loadGrid();
 });
 
