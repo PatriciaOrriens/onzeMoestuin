@@ -35,7 +35,7 @@
                 <td><c:out value="${plantInfo.sowingStart}"/> t/m <c:out value="${plantInfo.sowingEnd}" /></td>
                 <td><c:out value="${plantInfo.plantingStart}" /> t/m <c:out value="${plantInfo.plantingEnd}" /></td>
                 <td><a href="/plantinformationoverview/${plantInfo.plantInfoId}" name="moreinformation"
-                       class="btn btn-light">Meer informatie</a></td>
+                       class="btn btn-outline-success">Meer informatie</a></td>
                 <td><a class="btn btn-success" href="#addPlantModal_${plantInfo.plantInfoId}" data-toggle="modal">
                     <i class='fas fa-seedling'></i>&#43;</a></td>
             </tr>

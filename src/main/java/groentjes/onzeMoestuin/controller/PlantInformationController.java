@@ -49,7 +49,7 @@ public class PlantInformationController {
         Optional<PlantInformation> plantInformation = plantInformationRepository.findById(plantInfoId);
 
         InputStream input = new ByteArrayInputStream(plantInformation.get().getImage());
-        System.out.println(input);
+
         return IOUtils.toByteArray(input);
     }
 
