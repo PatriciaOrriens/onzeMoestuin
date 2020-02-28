@@ -4,10 +4,7 @@ import groentjes.onzeMoestuin.model.Garden;
 import groentjes.onzeMoestuin.model.Plant;
 import groentjes.onzeMoestuin.model.PlantInformation;
 import groentjes.onzeMoestuin.model.User;
-import groentjes.onzeMoestuin.repository.GardenRepository;
-import groentjes.onzeMoestuin.repository.PlantInformationRepository;
-import groentjes.onzeMoestuin.repository.PlantRepository;
-import groentjes.onzeMoestuin.repository.UserRepository;
+import groentjes.onzeMoestuin.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,6 +64,9 @@ class PlantControllerTest {
 
     @MockBean
     private PlantInformationRepository plantInformationRepository;
+
+    @MockBean
+    private TaskPlantRepository taskPlantRepository;
 
     @Autowired
     private MockMvc mockMvc;
