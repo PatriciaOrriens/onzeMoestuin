@@ -5,6 +5,7 @@ import groentjes.onzeMoestuin.model.TaskPlant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
 /**
@@ -17,4 +18,6 @@ public interface TaskPlantRepository extends JpaRepository<TaskPlant, Integer> {
     @Query("SELECT tp FROM TaskPlant tp WHERE tp.completedDate is null AND tp.plant=?1")
     ArrayList<TaskPlant> findNotCompletedTaskPlant(Plant plant);
 
+    @Transactional
+    Long deleteByPlant(Plant plant);
 }

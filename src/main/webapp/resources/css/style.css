@@ -148,6 +148,15 @@ text-align: center;
   object-fit: cover;
 }
 
+.footer {
+    margin-top: 30px;
+    padding: 10px;
+    height: 200px;
+    text-align: center;
+    border-top: 1px #ececec solid;
+    color: #cccccc;
+}
+
 
 
 

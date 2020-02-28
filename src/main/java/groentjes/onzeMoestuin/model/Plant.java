@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * @author Patricia Orriens-Spuij and Eric van Dalen
+ * @author Patricia Orriens-Spuij, Wim Kruizinga and Eric van Dalen
  * The Plant class concerns a plant placed in the garden of a user(users).
  */
 @Entity
