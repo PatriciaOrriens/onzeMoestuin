@@ -43,6 +43,9 @@ public class PlantController {
     private GardenRepository gardenRepository;
 
     @Autowired
+    private TaskPlantRepository taskPlantRepository;
+
+    @Autowired
     private PlantInformationRepository plantInformationRepository;
 
     @GetMapping("/garden/{gardenId}/addPlant")
@@ -119,6 +122,8 @@ public class PlantController {
             Plant plant = searchedPlant.get();
             plant.setHarvestDate(new Date());
             plantRepository.save(plant);
+            // Delete tasks of harvested plant
+            taskPlantRepository.deleteByPlant(plant);
             return "redirect:/garden/" + plant.getGarden().getGardenId();
         }
         return "redirect:/";
